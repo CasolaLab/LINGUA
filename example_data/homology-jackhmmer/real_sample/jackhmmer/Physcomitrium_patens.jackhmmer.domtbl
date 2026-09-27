@@ -1,0 +1,29 @@
+#                                                                                         --- full sequence --- -------------- this domain -------------   hmm coord   ali coord   env coord
+# target name                     accession   tlen query name           accession   qlen   E-value  score  bias   #  of  c-Evalue  i-Evalue  score  bias  from    to  from    to  from    to  acc description of target
+#             ------------------- ---------- ----- -------------------- ---------- ----- --------- ------ ----- --- --- --------- --------- ------ ----- ----- ----- ----- ----- ----- ----- ---- ---------------------
+g14747.t1__Blasia_pusilla         -            683 XP_024396482.1       -            318  3.8e-192  641.3  44.1   1   3   8.6e-61   4.2e-58  200.8   9.4    17   228    13   225     1   234 0.82 -
+g14747.t1__Blasia_pusilla         -            683 XP_024396482.1       -            318  3.8e-192  641.3  44.1   2   3   1.1e-61   5.4e-59  203.8   9.6    34   204   227   397   217   409 0.89 -
+g14747.t1__Blasia_pusilla         -            683 XP_024396482.1       -            318  3.8e-192  641.3  44.1   3   3     1e-75   5.1e-73  249.9  10.0    24   312   406   680   399   683 0.87 -
+jg24165.t1__Fossombronia_cristula -            696 XP_024396482.1       -            318  1.1e-188  629.9  35.8   1   3     5e-60   2.5e-57  198.3   6.5    23   228    25   240     1   243 0.76 -
+jg24165.t1__Fossombronia_cristula -            696 XP_024396482.1       -            318  1.1e-188  629.9  35.8   2   3   2.1e-63     1e-60  209.4   4.5    20   217   229   425   224   436 0.87 -
+jg24165.t1__Fossombronia_cristula -            696 XP_024396482.1       -            318  1.1e-188  629.9  35.8   3   3   4.2e-72   2.1e-69  238.0  10.6    28   311   425   692   417   696 0.89 -
+jg2379.t1__Bazzania_tridens       -            740 XP_024396482.1       -            318  3.9e-180  601.8  31.9   1   3   1.5e-56   7.2e-54  186.9   2.8    33   227    34   282     1   285 0.77 -
+jg2379.t1__Bazzania_tridens       -            740 XP_024396482.1       -            318  3.9e-180  601.8  31.9   2   3     3e-59   1.5e-56  195.8   5.9    12   201   264   452   256   475 0.87 -
+KAH8975845.1__Sphagnum_fallax     -            336 XP_024397620.1       -            107   6.6e-66  222.6   0.0   1   2     7e-36   3.3e-32  114.2   0.0     7    94   135   221   130   232 0.93 hypothetical protein BDL97_01G180600 [Sphagnum fallax]
+KAH8975845.1__Sphagnum_fallax     -            336 XP_024397620.1       -            107   6.6e-66  222.6   0.0   2   2   2.8e-33   1.3e-29  105.8   0.0     9    95   249   336   242   336 0.92 hypothetical protein BDL97_01G180600 [Sphagnum fallax]
+g40562.t1__Sphagnum_palustre      -            338 XP_024397620.1       -            107     7e-66  222.5   0.0   1   2   7.1e-36   3.4e-32  114.2   0.0     7    94   137   223   132   234 0.93 -
+g40562.t1__Sphagnum_palustre      -            338 XP_024397620.1       -            107     7e-66  222.5   0.0   2   2   2.8e-33   1.3e-29  105.8   0.0     9    95   251   338   244   338 0.92 -
+KAG0567940.1__Ceratodon_purpureus -            346 XP_024397620.1       -            107   2.4e-63  214.4   0.1   1   2   5.3e-35   2.5e-31  111.4   0.0     7    93   134   219   127   228 0.93 hypothetical protein KC19_7G173500 [Ceratodon purpureus]
+KAG0567940.1__Ceratodon_purpureus -            346 XP_024397620.1       -            107   2.4e-63  214.4   0.1   2   2   1.5e-31     7e-28  100.3   0.0    14    95   261   343   250   346 0.90 hypothetical protein KC19_7G173500 [Ceratodon purpureus]
+g38744.t1__Sphagnum_palustre      -            336 XP_024397620.1       -            107   6.8e-63  212.9   0.0   1   3       6.4     3e+04   -1.5   0.1    18    56    23    62    11    68 0.62 -
+g38744.t1__Sphagnum_palustre      -            336 XP_024397620.1       -            107   6.8e-63  212.9   0.0   2   3   3.9e-33   1.9e-29  105.4   0.0    11    94   136   218   125   228 0.92 -
+#
+# Program:         jackhmmer
+# Version:         3.4 (Aug 2023)
+# Pipeline mode:   SEARCH
+# Query file:      query.faa
+# Target file:     db/mosses.faa
+# Option settings: jackhmmer -N 3 -o /dev/null --domtblout raw5.domtbl --noali -E 1e-3 --incE 1e-3 --cpu 2 query.faa db/mosses.faa 
+# Current dir:     /work
+# Date:            Sat Sep 26 12:22:18 2026
+# [ok]

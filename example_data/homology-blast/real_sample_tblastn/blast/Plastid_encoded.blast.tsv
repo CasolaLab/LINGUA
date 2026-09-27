@@ -1,0 +1,17 @@
+# TBLASTN 2.17.0+
+# Query: NP_904194.1 ribulose-1,5-bisphosphate carboxylase/oxygenase large subunit (chloroplast) [Physcomitrella patens]
+# Database: /path/to/db/marchantia_cp
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length
+# 1 hits found
+NP_904194.1	NC_001319.1__Marchantia_paleacea	93.474	475	31	0	1	475	56355	57779	0.0	1111	475	121024
+# TBLASTN 2.17.0+
+# Query: NP_904193.1 acetyl-CoA carboxylase beta subunit (chloroplast) [Physcomitrella patens]
+# Database: /path/to/db/marchantia_cp
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length
+# 1 hits found
+NP_904193.1	NC_001319.1__Marchantia_paleacea	85.256	312	46	0	1	312	58074	59009	0.0	643	312	121024
+# TBLASTN 2.17.0+
+# Query: NP_904188.1 hypothetical protein PhpapaCp025 (chloroplast) [Physcomitrella patens]
+# Database: /path/to/db/marchantia_cp
+# 0 hits found
+# BLAST processed 3 queries
