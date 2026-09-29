@@ -108,6 +108,11 @@ excluded from the summaries in step 8.
   CDD, InterProScan and transposable-element screens. It is applied after classification,
   in step 7, as in the published run. Each locus is classified independently, so the
   timing of this removal does not change any per-locus result.
+- `summary_synteny_tree_AncSeq.py` now restricts the ancestral-sequence synteny node to
+  ancestors of the focal species. The published run, commit `f2e5a02`, took the oldest
+  syntenic ancestor anywhere in the alignment, which placed 41 of 45,017 loci on a node
+  off their own lineage (none in *A. thaliana*). To reproduce the published tables
+  exactly, check out that commit.
 - The BLAST+ version used for the published run was not recorded. A rerun with BLAST+ 2.16.0
   reproduced it exactly (see Validation).
 

@@ -580,7 +580,11 @@ def main() -> int:
                 node_flags = gene_ancseq_pass[geneID]
 
                 oldest_node = f"{focal}-specific"
+                # Only ancestors of the focal species can be its oldest syntenic node.
+                lineage = set(ancestors_young_to_old)
                 for nlab in sorted(all_anc_nodes, key=lambda x: int(x[1:])):  # N0 oldest -> N21 youngest
+                    if nlab not in lineage:
+                        continue
                     if node_flags.get(nlab, 0) > 0:
                         oldest_node = nlab
                         break
