@@ -1,7 +1,49 @@
 # Workflows
 
 Every module runs on its own. You can run them all on the same input and merge the results, or chain them so each one searches only
-what the previous one passed. Both end with `combine`. In the examples `T` stands for the entry script:
+what the previous one passed. Both end with `combine`.
+
+```mermaid
+flowchart TD
+    CAND(["Candidate genes
+per-species protein FASTA, from Stage 2"])
+
+    CAND --> DI & DC & HB & HJ
+
+    subgraph SEARCH[" Four independent search modules "]
+        direction LR
+        DI["domain-interpro
+InterProScan"]
+        DC["domain-cdd
+RPS-BLAST vs CDD"]
+        HB["homology-blast
+BLAST+"]
+        HJ["homology-jackhmmer
+HMMER"]
+    end
+
+    MDB["make-db
+build a tagged FASTA"] -.->|your database| HB
+    MDB -.->|your database| HJ
+    DBR[["db-report (optional)
+check its coverage"]] -.->|checks| MDB
+
+    DI & DC & HB & HJ --> CMB["combine"]
+    CMB --> VERDICT["gene_matrix.tsv
+PASS / REMOVED / INCOMPLETE"]
+    VERDICT --> PASS(["passed_all_ids.tsv
+passed_all/*.faa"])
+
+    PASS -.->|optional| MB["make-bed"]
+    GFF["your GFF3 annotation"] -.->|optional| MB
+    MB --> BED(["BED of CDS coordinates"])
+
+    PASS --> NEXT(["next stage, outside this tool
+e.g. synteny / alignment"])
+    BED --> NEXT
+```
+
+In the examples below, `T` stands for the entry script:
 
 ```bash
 T="bash scripts/homolog_exclusion_pipeline.sh"

@@ -29,6 +29,53 @@ Four search modules, each runnable on its own, plus tools to build databases and
 Run them all on the same genes and merge, or chain them so each searches only what the previous one passed (`--sequential` does
 this across several databases in one command). See `docs/workflows.md`.
 
+## How it fits together
+
+```mermaid
+flowchart TD
+    CAND(["Candidate genes
+per-species protein FASTA, from Stage 2"])
+
+    CAND --> DI & DC & HB & HJ
+
+    subgraph SEARCH[" Four independent search modules "]
+        direction LR
+        DI["domain-interpro
+InterProScan"]
+        DC["domain-cdd
+RPS-BLAST vs CDD"]
+        HB["homology-blast
+BLAST+"]
+        HJ["homology-jackhmmer
+HMMER"]
+    end
+
+    MDB["make-db
+build a tagged FASTA"] -.->|your database| HB
+    MDB -.->|your database| HJ
+    DBR[["db-report (optional)
+check its coverage"]] -.->|checks| MDB
+
+    DI & DC & HB & HJ --> CMB["combine"]
+    CMB --> VERDICT["gene_matrix.tsv
+PASS / REMOVED / INCOMPLETE"]
+    VERDICT --> PASS(["passed_all_ids.tsv
+passed_all/*.faa"])
+
+    PASS -.->|optional| MB["make-bed"]
+    GFF["your GFF3 annotation"] -.->|optional| MB
+    MB --> BED(["BED of CDS coordinates"])
+
+    PASS --> NEXT(["next stage, outside this tool
+e.g. synteny / alignment"])
+    BED --> NEXT
+```
+
+Each search module runs on its own, all at once against the same genes, or chained so each one only searches what the
+previous one passed (`docs/workflows.md`). `make-db` and `db-report` are only for `homology-blast`/`homology-jackhmmer`,
+which need a database; the domain modules don't. `make-bed` is general purpose and optional: it works from any GFF3 and
+any gene/protein ID list, not only `combine`'s output.
+
 ## Quick start
 
 ```bash
@@ -82,6 +129,8 @@ and has not been tested, and `REVIEW.md` lists what is still open.
 
 Developed by Adekola Owoyemi in the Protein Evolution Lab (Casola Lab), Texas A&M University, as part of dissertation work on the
 identification and evolutionary analysis of de novo genes. MIT license (`LICENSE`). To cite: `CITATION.cff` and `docs/citing.md`.
+
+Development was assisted by Claude (Anthropic).
 
 > DRAFT: this wording copies Stages 1 and 2 and awaits the authors' confirmation.
 
