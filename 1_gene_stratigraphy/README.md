@@ -37,14 +37,14 @@ flowchart TD
 
 ## Role in LINGUA
 
-This is Stage 2 of the LINGUA comparative genomics framework:
+This is Stage 1 of the LINGUA comparative genomics framework:
 
-1. Dataset curation (Stage 1 — protein preprocessing and isoform selection)
+1. Dataset curation (Stage 0 — protein preprocessing and isoform selection)
 2. **Gene stratigraphy (this repository)** — orthology-based classification of genes by phylogenetic depth, producing candidate lineage-specific genes
 3. Homolog exclusion (removal of false positives from the candidate list)
 4. Synteny validation (genome alignment-based validation)
 
-The candidate list this stage produces is deliberately over-inclusive rather than under-inclusive — Stage 3 and Stage 4 exist specifically to filter it further. Nothing coming out of this stage should be treated as a confirmed lineage-specific or de novo gene on its own.
+The candidate list this stage produces is deliberately over-inclusive rather than under-inclusive — Stage 2 and Stage 3 exist specifically to filter it further. Nothing coming out of this stage should be treated as a confirmed lineage-specific or de novo gene on its own.
 
 ## Requirements
 

@@ -11,20 +11,20 @@ It was developed for, and used in,
 
 ## Stages
 
-LINGUA runs in four stages. Each folder is self-contained, with its own README, scripts and
-example or reference data, and the output of each stage is the input of the next.
+LINGUA runs in five stages, numbered 0 to 4. Stage 0 is a preparatory step that standardizes
+the input proteomes. Each folder is self-contained, with its own README, scripts and example or
+reference data, and the output of each stage is the input of the next.
 
 | Stage | Folder | What it does | Main output |
 |---|---|---|---|
-| 1 | [`1_protein_preprocessing/`](1_protein_preprocessing/) | Protein quality control and longest-isoform selection from per-species GFF and protein FASTA files | One standardized, non-redundant proteome per species |
-| 2 | [`2_gene_stratigraphy/`](2_gene_stratigraphy/) | Places every gene on the species tree from OrthoFinder hierarchical orthogroups and extracts candidate lineage-specific genes | Candidate de novo gene (cDNG) sequences per species |
+| 0 | [`0_protein_preprocessing/`](0_protein_preprocessing/) | Protein quality control and longest-isoform selection from per-species GFF and protein FASTA files | One standardized, non-redundant proteome per species |
+| 1 | [`1_gene_stratigraphy/`](1_gene_stratigraphy/) | Places every gene on the species tree from OrthoFinder hierarchical orthogroups and extracts candidate lineage-specific genes | Candidate de novo gene (cDNG) sequences per species |
+| 2 | [`2_homolog_exclusion/`](2_homolog_exclusion/) | Removes candidates with a known protein domain (InterProScan, RPS-BLAST against CDD) or a homolog outside the clade (BLAST+, jackhmmer), including organelle-derived copies | Candidates with no evidence of homology outside the clade |
 | 3 | [`3_alignment_extraction/`](3_alignment_extraction/) | Extracts each candidate locus from the Progressive Cactus HAL alignment with mafExtractor, removes alignment and extraction artifacts, stitches exons and tabulates start, stop and frameshift changes per species | Per-species, exon-stitched alignments with indel and stop-codon tables |
 | 4 | [`4_enablers/`](4_enablers/) | Scores intact ORFs, synteny and disablers on every species and reconstructed ancestral node, places enablers and classifies DNGs and PDNGs | Per-species node summaries and family-wide DNG and PDNG catalogs |
 
-Between stages 2 and 3, candidates were filtered by homology searches against broad protein
-databases, an organelle screen, RPS-BLAST against CDD, InterProScan and a BLASTp screen
-against transposable-element proteins, as described in the paper. The loci removed by the
-domain and transposable-element screens are listed in `4_enablers/data/lsgs_to_remove.txt`.
+In the published run, the loci removed by the domain and transposable-element screens are listed
+in `4_enablers/data/lsgs_to_remove.txt`.
 
 ## Reproducing the published analysis
 
@@ -41,10 +41,11 @@ change to synteny-node assignment.
 
 ## Authors
 
-Stages 1 and 2, Adekola O. Owoyemi. Stage 3, Sierra C. Sanders. Stage 4, the Casola Lab.
-Stages 1 to 3 were developed in separate repositories
+Stages 0 to 2, Adekola O. Owoyemi. Stage 3, Sierra C. Sanders. Stage 4, the Casola Lab.
+Stages 0 to 3 were developed in separate repositories
 ([protein-preprocessing-isoform-pipeline](https://github.com/Ludtson/protein-preprocessing-isoform-pipeline),
 [gene-stratigraphy-pipeline](https://github.com/Ludtson/gene-stratigraphy-pipeline),
+[homolog-exclusion-pipeline](https://github.com/Ludtson/homolog-exclusion-pipeline),
 [progressive-cactus-gene-analysis-pipeline](https://github.com/sierras64/progressive-cactus-gene-analysis-pipeline))
 and were merged here with their full commit history.
 

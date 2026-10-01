@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# homolog_exclusion_pipeline.sh - entry point for LINGUA Stage 3 (homolog exclusion).
+# homolog_exclusion_pipeline.sh - entry point for LINGUA Stage 2 (homolog exclusion).
 # A thin dispatcher: it picks a module and passes the remaining arguments to it.
 # All real work is done by the Python scripts in bin/ (Python 3.11+, standard library only).
 

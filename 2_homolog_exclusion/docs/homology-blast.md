@@ -36,7 +36,7 @@ could belong in the tree.** If it does, every gene "has a homolog" (itself, or i
 
 As a safeguard, and to catch mistakes, the module checks each hit's species:
 
-- **Every database sequence ID should carry its species after `__`**, as Stage 1 writes with `--add-species`:
+- **Every database sequence ID should carry its species after `__`**, as Stage 0 writes with `--add-species`:
   `g13875.t1__Marchantia_paleacea`. Bare IDs like `g13875.t1` repeat across species, so without the tag there is no way
   to know where a hit came from. (For databases like UniProt, use a taxon map instead: `species_source=map` and
   `taxon_map=file`, two columns, accession then species.)

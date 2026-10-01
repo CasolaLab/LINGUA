@@ -383,7 +383,7 @@ def check_inventory(inv, db, label, cfg, matcher):
             if cfg["ignore_in_phylogeny"]:
                 h.warn("%s: none of the %d sequence IDs in this database carries a '__Species_Name' tag, so no hit can be "
                        "recognised as coming from an analysis species and all such hits will be COUNTED. Tag the IDs "
-                       "(make-db, or Stage 1 --add-species), or use species_source=map, or set ignore_in_phylogeny=no."
+                       "(make-db, or Stage 0 --add-species), or use species_source=map, or set ignore_in_phylogeny=no."
                        % (label, inv["ids"]))
         elif inv["tagged"] < inv["ids"]:
             h.warn("%s: %d of %d sequence IDs carry no species tag; hits to them are counted as hits of unknown species."

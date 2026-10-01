@@ -100,7 +100,7 @@ flowchart TD
 
 ## Role in the LINGUA framework
 
-This repository is Stage 1 (Dataset Curation and Preprocessing) of the LINGUA comparative genomics pipeline:
+This repository is Stage 0 (Dataset Curation and Preprocessing) of the LINGUA comparative genomics pipeline:
 
 1. Dataset curation (this repository)
 2. Orthology analysis (gene clustering across species)
@@ -243,7 +243,7 @@ Pipeline output directories follow a numbered convention reflecting the order of
 
 ## Scope
 
-Stage 1: dataset curation and proteome standardization.
+Stage 0: dataset curation and proteome standardization.
 
 Planned extensions:
 

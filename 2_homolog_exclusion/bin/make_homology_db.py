@@ -3,7 +3,7 @@
 make_homology_db.py - build the species-tagged FASTA that homology-blast and homology-jackhmmer use as a database.
 
 Input: a folder of per-species protein FASTA files (or single files). Output: one FASTA in which every ID is
-<ID>__<Species_Name> (IDs that already carry a tag, as Stage 1 --add-species writes, keep it), plus a species table
+<ID>__<Species_Name> (IDs that already carry a tag, as Stage 0 --add-species writes, keep it), plus a species table
 (<output>.species.tsv). Analysis species can be left out. Nothing is downloaded or installed; no BLAST index is made
 here (homology-blast builds and caches its own).
 """
@@ -111,7 +111,7 @@ def main(argv=None):
     ap.add_argument("--exclude-species", nargs="+", metavar="NAME", help="leave out these species")
     ap.add_argument("--match-level", default="species", choices=h.MATCH_LEVELS,
                     help="how species are compared for exclusion (default species: subspecies count as the same)")
-    ap.add_argument("--species-map", help="two columns (species name, file basename), a header row, tab- or comma-separated: the same map Stage 1 writes; applies to the database files and to --exclude-inputs")
+    ap.add_argument("--species-map", help="two columns (species name, file basename), a header row, tab- or comma-separated: the same map Stage 0 writes; applies to the database files and to --exclude-inputs")
     ap.add_argument("--force", action="store_true", help="overwrite an existing output")
     ap.add_argument("--quiet", action="store_true")
     a = ap.parse_args(argv)

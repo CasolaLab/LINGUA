@@ -14,7 +14,7 @@ your use case.
 
 What you'd like to see added or changed. If it affects the output format
 (`C_LSG_Iso.tsv`, `global_summary.csv`, per-species files), say so
-explicitly, since Stage 3/4 of LINGUA consume this stage's output.
+explicitly, since Stage 2/3 of LINGUA consume this stage's output.
 
 **Alternatives considered**
 

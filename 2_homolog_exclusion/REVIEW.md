@@ -51,7 +51,7 @@ You do not need to read the code if these promises are what you want and the che
 | A setting changed from its default is recorded and warned about | `non_default recorded`, `start_module non_default` |
 | Duplicate or empty gene IDs stop the run | `duplicate ids rejected` |
 | Two input files for the same species stop the run | `species clash rejected` |
-| A gene ID matches whether or not it carries the Stage 1 `__Species_Name` suffix | `split_id ...`, `load ids canonical` |
+| A gene ID matches whether or not it carries the Stage 0 `__Species_Name` suffix | `split_id ...`, `load ids canonical` |
 | Survivors are written with their original headers, and only genes that pass | `passed fasta keeps original header, only passers` |
 | When several statuses apply to one gene, the strictest wins (`HIT` beats `SPURIOUS`, and so on) | `classify`, `passes` |
 | A stopped run can be resumed without redoing finished chunks | `resume skips done, retries failed` |

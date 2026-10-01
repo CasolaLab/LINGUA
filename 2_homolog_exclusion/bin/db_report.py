@@ -348,7 +348,7 @@ def main(argv=None):
     tx.add_argument("--tiers", metavar="FILE", help="your own table: species<TAB>tier (no taxonomy needed; overrides it)")
     tx.add_argument("--expected-tiers", metavar="A,B,C", help="with --tiers: the tiers you expect, so empty ones are reported")
     tx.add_argument("--taxid-map", metavar="FILE", help="species<TAB>taxid, to fix names the taxonomy cannot match")
-    tx.add_argument("--species-map", metavar="FILE", help="for --clade-inputs: two columns (species name, file basename), a header row, tab- or comma-separated: the same map Stage 1 writes")
+    tx.add_argument("--species-map", metavar="FILE", help="for --clade-inputs: two columns (species name, file basename), a header row, tab- or comma-separated: the same map Stage 0 writes")
     tx.add_argument("--ranks", default=DEFAULT_RANKS,
                     help="ranks that form the tiers, comma-separated, or 'all' (default %s)" % DEFAULT_RANKS)
     th = ap.add_argument_group("what counts as a warning (heuristics, adjustable)")

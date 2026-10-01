@@ -1,4 +1,4 @@
-# DRAFT: copies the Stage 1 and Stage 2 CITATION.cff; the authors confirm the wording. repository-code and date-released are
+# DRAFT: copies the Stage 0 and Stage 1 CITATION.cff; the authors confirm the wording. repository-code and date-released are
 # to be set when the repository is created and a release is made.
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
@@ -7,7 +7,7 @@ abstract: >-
   A pipeline that removes candidate lineage-specific genes showing evidence of a
   known protein domain (InterProScan, RPS-BLAST against CDD) or a homolog outside
   the analysed clade (BLAST+, jackhmmer), and merges the results into a per-gene
-  verdict. Stage 3 of the LINGUA comparative genomics framework, developed as part
+  verdict. Stage 2 of the LINGUA comparative genomics framework, developed as part
   of dissertation work on the identification and evolutionary analysis of de novo
   genes (DNGs).
 authors:

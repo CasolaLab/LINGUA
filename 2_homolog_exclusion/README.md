@@ -1,6 +1,6 @@
 # Homolog Exclusion Pipeline
 
-Stage 3 of the LINGUA comparative genomics framework. It takes candidate lineage-specific genes (from Stage 2) and removes those
+Stage 2 of the LINGUA comparative genomics framework. It takes candidate lineage-specific genes (from Stage 1) and removes those
 that show evidence of not being specific to your lineage: a known protein domain, or a homolog in species outside your clade. The
 genes that remain have no such evidence in the searches you ran.
 
@@ -34,7 +34,7 @@ this across several databases in one command). See `docs/workflows.md`.
 ```mermaid
 flowchart TD
     CAND(["Candidate genes
-per-species protein FASTA, from Stage 2"])
+per-species protein FASTA, from Stage 1"])
 
     CAND --> DI & DC & HB & HJ
 
@@ -132,6 +132,6 @@ identification and evolutionary analysis of de novo genes. MIT license (`LICENSE
 
 Development was assisted by Claude (Anthropic).
 
-> DRAFT: this wording copies Stages 1 and 2 and awaits the authors' confirmation.
+> DRAFT: this wording copies Stages 0 and 1 and awaits the authors' confirmation.
 
-Stage 1: `protein-preprocessing-isoform-pipeline`. Stage 2: `gene-stratigraphy-pipeline`.
+Stage 0: `protein-preprocessing-isoform-pipeline`. Stage 1: `gene-stratigraphy-pipeline`.

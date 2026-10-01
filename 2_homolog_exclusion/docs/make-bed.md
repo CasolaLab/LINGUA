@@ -24,7 +24,7 @@ bash scripts/homolog_exclusion_pipeline.sh make-bed --ids-dir ids/ --gff-dir gff
 guessed (the first column whose name contains "gene", "protein", "transcript" or "id") unless you give `--id-column`.
 
 In batch mode the species name is the ID file's own name, with underscores read as spaces (`Arabidopsis_thaliana.tsv`
-→ `Arabidopsis thaliana`), matching the `Species` column Stage 2 already writes. Pairing an ID file to the right GFF
+→ `Arabidopsis thaliana`), matching the `Species` column Stage 1 already writes. Pairing an ID file to the right GFF
 file works two ways:
 
 - **`--species-map FILE`** (recommended): `species name<TAB>GFF file basename`, the same two-column format used

@@ -1,6 +1,6 @@
 # Interpreting the results
 
-What the tool concludes, and what it cannot conclude. Stage 3 asks one question of each candidate gene: **is there evidence that
+What the tool concludes, and what it cannot conclude. Stage 2 asks one question of each candidate gene: **is there evidence that
 this gene is not really specific to your lineage?** A gene that has evidence against it is removed; a gene without such evidence
 passes. Passing is the absence of evidence in the searches you ran, never proof.
 
@@ -71,7 +71,7 @@ and why not. Before trusting a removal that matters, look at the hit itself:
 
 ## What the tool does not do
 
-It does not decide that a gene is a de novo gene. Passing Stage 3 means that no evidence of a homolog or a known domain was found
+It does not decide that a gene is a de novo gene. Passing Stage 2 means that no evidence of a homolog or a known domain was found
 by these searches in these databases; other analyses are needed for the rest. Report the databases, the tiers they cover, the tools' versions and the settings
 you used (`run.json` records them) so that a reader can judge how much a pass is worth.
 

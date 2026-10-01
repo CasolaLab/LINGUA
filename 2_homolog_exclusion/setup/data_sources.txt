@@ -52,7 +52,7 @@ NCBI taxonomy dump (optional)                                                   
 Proteomes for your homology databases (you choose these; the repository does not)
   Sources people commonly use: NCBI (RefSeq / GenBank genomes), Ensembl and Ensembl Genomes (Plants, Fungi, Metazoa, Protists,
   Bacteria), UniProt Reference Proteomes, Phytozome, and genome portals for individual species. Whatever you use:
-    - keep one protein per gene (usually the longest isoform; Stage 1 of LINGUA does this);
+    - keep one protein per gene (usually the longest isoform; Stage 0 of LINGUA does this);
     - tag each ID with its species (make-db does it);
     - see docs/databases.md, "Designing a database for your clade", and the caveat there that public databases are uneven.
   Nothing in this repository fetches proteomes.

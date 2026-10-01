@@ -10,10 +10,10 @@ The full references are here; the note does not repeat them.
 
 ## This pipeline
 
-Owoyemi A, Casola Lab (Protein Evolution Lab, Texas A&M University). *homolog-exclusion-pipeline*: Stage 3 of the LINGUA
+Owoyemi A, Casola Lab (Protein Evolution Lab, Texas A&M University). *homolog-exclusion-pipeline*: Stage 2 of the LINGUA
 comparative genomics framework. Version 0.1.0. See `CITATION.cff`. *(A DOI will be added when a release is archived.)*
 
-Stage 1 (`protein-preprocessing-isoform-pipeline`) and Stage 2 (`gene-stratigraphy-pipeline`) of LINGUA produce this pipeline's input
+Stage 0 (`protein-preprocessing-isoform-pipeline`) and Stage 1 (`gene-stratigraphy-pipeline`) of LINGUA produce this pipeline's input
 and have their own citations.
 
 ## What to cite for what you ran
@@ -25,7 +25,7 @@ and have their own citations.
 | `homology-blast` | BLAST+ (Camacho et al. 2009) |
 | `homology-jackhmmer` | HMMER (Eddy 2011) and the jackhmmer iteration procedure (Johnson et al. 2010) |
 | `db-report` | NCBI Taxonomy (Schoch et al. 2020) |
-| your candidate genes | OrthoFinder (Emms & Kelly 2019), if that is how Stage 2 grouped them |
+| your candidate genes | OrthoFinder (Emms & Kelly 2019), if that is how Stage 1 grouped them |
 
 ## References
 

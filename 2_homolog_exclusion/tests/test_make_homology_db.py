@@ -4,7 +4,7 @@ Small hand-made FASTA files; the expected answers were worked out by hand.
   Physcomitrium_patens.faa   2 sequences (one ends in '*'): the analysis species
   Ceratodon_purpureus.faa    2 sequences
   Marchantia_polymorpha_subsp._ruderalis.faa  1 sequence (a subspecies of the analysis species below in test 3)
-  Blasia_pusilla.faa         1 sequence whose ID already carries __Blasia_pusilla (Stage 1 tag)
+  Blasia_pusilla.faa         1 sequence whose ID already carries __Blasia_pusilla (Stage 0 tag)
 """
 import os
 import subprocess

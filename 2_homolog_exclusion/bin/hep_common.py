@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-hep_common.py - shared helpers for homolog-exclusion-pipeline (LINGUA Stage 3).
+hep_common.py - shared helpers for homolog-exclusion-pipeline (LINGUA Stage 2).
 
 Python 3.11+, standard library only. Imported by the module scripts in this folder
 (domain_interpro.py, domain_cdd.py, homology_blastp.py, homology_jackhmmer.py, combine.py).
@@ -236,7 +236,7 @@ def write_fasta_record(fh, header, seq, width=60):
 def split_id(token):
     """
     Split a FASTA ID token into (gene_id, species_suffix_or_None).
-    Stage 1 --add-species appends '__<Species_Name>'; the suffix is split at the LAST '__'.
+    Stage 0 --add-species appends '__<Species_Name>'; the suffix is split at the LAST '__'.
     """
     if "__" in token:
         gene, _, sp = token.rpartition("__")
@@ -383,7 +383,7 @@ class TaxonMatcher(object):
 
 def load_species_map(path):
     """
-    Read a species map like Stage 1's: two columns (species name, file basename), header row,
+    Read a species map like Stage 0's: two columns (species name, file basename), header row,
     tab- or comma-separated. Returns {file_basename: species_name}.
     """
     if not os.path.isfile(path):
@@ -901,7 +901,7 @@ def build_parser(module, description, defaults_dir=None, extra=None):
     p.add_argument("--set", action="append", default=[], metavar="KEY=VALUE",
                    help="override any setting; repeatable")
     p.add_argument("--species-map", default=None,
-                   help="two-column file (species name, file basename) as in Stage 1")
+                   help="two-column file (species name, file basename) as in Stage 0")
     p.add_argument("--resume", action="store_true",
                    help="continue an interrupted run in an existing output folder, skipping chunks that finished")
     p.add_argument("--force", action="store_true",

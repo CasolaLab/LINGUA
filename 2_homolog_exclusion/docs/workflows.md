@@ -6,7 +6,7 @@ what the previous one passed. Both end with `combine`.
 ```mermaid
 flowchart TD
     CAND(["Candidate genes
-per-species protein FASTA, from Stage 2"])
+per-species protein FASTA, from Stage 1"])
 
     CAND --> DI & DC & HB & HJ
 
@@ -49,7 +49,7 @@ In the examples below, `T` stands for the entry script:
 T="bash scripts/homolog_exclusion_pipeline.sh"
 ```
 
-Your input is a folder with one protein FASTA per species (the candidate genes from Stage 2), for example `candidates/`. The species
+Your input is a folder with one protein FASTA per species (the candidate genes from Stage 1), for example `candidates/`. The species
 is the file name without its extension and without `_final`; `--species-map` gives full names.
 
 ## Species names and the species map
@@ -57,7 +57,7 @@ is the file name without its extension and without `_final`; `--species-map` giv
 The modules exempt hits to your own analysis species, so they need to know their names. By default a species is the input file name
 without its extension and without `_final`. If your files are named by code (for example `Athaliana.faa`), or you want full names
 (`Arabidopsis thaliana`) so that subspecies and strains match correctly, give `--species-map FILE`: two columns, **species name**
-then **file name without its extension** (keep `_final` if the file has it), a header row, tab- or comma-separated, as Stage 1 writes:
+then **file name without its extension** (keep `_final` if the file has it), a header row, tab- or comma-separated, as Stage 0 writes:
 
 ```
 Species	Basename

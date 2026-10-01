@@ -13,9 +13,10 @@ the branch immediately ancestral to the ORF, and a PDNG otherwise.
 ## Inputs from the earlier stages
 
 This stage starts from the stage 3 results, packed as one archive per species
-(`../3_alignment_extraction/`), the candidate proteins from stage 2
-(`../2_gene_stratigraphy/`), and the list in `data/lsgs_to_remove.txt` of loci removed by
-the CDD, InterProScan and transposable-element screens, which step 7 applies.
+(`../3_alignment_extraction/`), the candidate proteins from stage 1
+(`../1_gene_stratigraphy/`) screened in stage 2 (`../2_homolog_exclusion/`), and the list in
+`data/lsgs_to_remove.txt` of loci removed by the CDD, InterProScan and transposable-element
+screens, which step 7 applies.
 
 ## Requirements
 

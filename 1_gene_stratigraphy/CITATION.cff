@@ -5,7 +5,7 @@ abstract: >-
   A pipeline for stratifying genes by phylogenetic depth of origin from
   OrthoFinder's Hierarchical Orthogroups output, producing candidate
   lineage-specific genes cross-checked against OrthoFinder's flat
-  Orthogroups and pairwise Orthologues outputs. Stage 2 of the LINGUA
+  Orthogroups and pairwise Orthologues outputs. Stage 1 of the LINGUA
   comparative genomics framework, developed as part of dissertation work
   on the identification and evolutionary analysis of de novo genes (DNGs).
 authors:

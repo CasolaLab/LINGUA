@@ -312,7 +312,7 @@ def process_one(species, id_path, gff_path, out_bed, id_column):
 def match_files(ids_dir, gff_dir, gff_map=None):
     """
     Pair each ID-list file with a GFF file. The species name is the ID file's own stem with underscores turned back
-    into spaces (matching the 'Species' column Stage 2 already writes, e.g. 'Arabidopsis_thaliana.tsv' ->
+    into spaces (matching the 'Species' column Stage 1 already writes, e.g. 'Arabidopsis_thaliana.tsv' ->
     'Arabidopsis thaliana').
 
     `gff_map` (from h.load_species_map: {gff_basename: species_name}, i.e. a species-map file naming the GFF files)

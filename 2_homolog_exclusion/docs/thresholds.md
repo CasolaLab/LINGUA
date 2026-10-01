@@ -12,7 +12,7 @@ stated, taken from the documentation named. Nothing here has been tuned on a ben
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `species_strip_suffixes` | `_final` | removed from the end of an input file's name to get the species (Stage 1 writes `<species>_final.faa`); `--species-map` overrides |
+| `species_strip_suffixes` | `_final` | removed from the end of an input file's name to get the species (Stage 0 writes `<species>_final.faa`); `--species-map` overrides |
 
 ## domain-interpro
 

@@ -5,7 +5,7 @@ their names, number or order. This page is about the technical form; which speci
 
 ## The one thing to make: a species-tagged FASTA
 
-One protein FASTA per database, in which every ID is `<ID>__<Species_Name>` (Stage 1 `--add-species` writes this form).
+One protein FASTA per database, in which every ID is `<ID>__<Species_Name>` (Stage 0 `--add-species` writes this form).
 The species tag is how the tool knows where a hit came from (so it can leave out hits from your analysis species).
 
 ```bash
@@ -81,7 +81,7 @@ gene that has a homolog there is not lineage-specific, so it is removed.
    far tiers, is a reasonable starting point. (Any numbers here are proposals that have not been tested; the checks below are how
    you find out whether yours is enough.)
 3. **Quality: one protein per gene, reasonably complete proteomes, and no analysis species or close relatives inside.** Use one
-   (usually the longest) isoform per gene, as the Stage 1 preprocessing does; leave out fragmentary or badly annotated proteomes
+   (usually the longest) isoform per gene, as the Stage 0 preprocessing does; leave out fragmentary or badly annotated proteomes
    and ones likely to be contaminated. Leave out every species of your analysis and every relative that could belong in your
    tree: this is what `make-db --exclude-inputs` is for, and each search run warns by name when an analysis species is found
    inside a database.

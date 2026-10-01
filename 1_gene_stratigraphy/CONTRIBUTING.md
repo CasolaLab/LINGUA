@@ -2,8 +2,8 @@
 
 This project is maintained by the Casola Lab (Ecology & Conservation Biology
 Program, Texas A&M University) as part of the LINGUA comparative genomics
-framework. It is Stage 2 (gene stratigraphy) — see the README for how it
-relates to Stage 1 (protein preprocessing) and Stages 3–4 (homolog exclusion,
+framework. It is Stage 1 (gene stratigraphy) — see the README for how it
+relates to Stage 0 (protein preprocessing) and Stages 2–3 (homolog exclusion,
 synteny validation).
 
 ## Getting set up

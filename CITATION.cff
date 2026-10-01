@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use LINGUA, please cite the software and the paper below."
 title: "LINGUA: LINeage-specific Gene Uniform Annotator"
 abstract: >-
-  A four-stage pipeline that identifies candidate de novo genes across a clade,
+  A five-stage pipeline that identifies candidate de novo genes across a clade,
   extracts their syntenic regions from a reference-free Progressive Cactus
   whole-genome alignment, and places enabler mutations on the phylogeny to
   classify each locus as a de novo gene (DNG) or a putative de novo gene (PDNG).
