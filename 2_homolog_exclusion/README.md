@@ -130,8 +130,4 @@ and has not been tested, and `REVIEW.md` lists what is still open.
 Developed by Adekola Owoyemi in the Protein Evolution Lab (Casola Lab), Texas A&M University, as part of dissertation work on the
 identification and evolutionary analysis of de novo genes. MIT license (`LICENSE`). To cite: `CITATION.cff` and `docs/citing.md`.
 
-Development was assisted by Claude (Anthropic).
-
-> DRAFT: this wording copies Stages 0 and 1 and awaits the authors' confirmation.
-
 Stage 0: `protein-preprocessing-isoform-pipeline`. Stage 1: `gene-stratigraphy-pipeline`.
