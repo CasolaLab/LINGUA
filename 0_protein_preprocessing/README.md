@@ -35,6 +35,8 @@ These outputs are intended for orthology inference (e.g., OrthoFinder), other co
 
 ### Full LINGUA workflow
 
+The current LINGUA stages are listed in the top-level `README.md`; the diagram below gives the overall logic.
+
 ```mermaid
 %%{init: {"flowchart": {"nodeSpacing": 60, "rankSpacing": 100, "padding": 15}, "themeVariables": {"fontSize": "18px"}}}%%
 flowchart LR
@@ -54,7 +56,7 @@ flowchart LR
     A --> B --> C --> D
 ```
 
-### Step 1: dataset curation and preprocessing
+### Stage 0: dataset curation and preprocessing
 
 Species selection and BUSCO-based completeness assessment (shown greyed out below) happen upstream, before files reach this pipeline — see "Input expectations" above. This repository starts from already-selected annotation and protein FASTA files.
 
@@ -72,7 +74,7 @@ flowchart TD
     D["2. Proteome Cleanup<br/>'Quasi'-Proteins:<br/>noM, &lt;30aa, internal stops"]
     E[("Clean Proteomes<br/>~798K protein sequences")]
     F["3. Isoform Selection<br/>1 protein/gene<br/>clean-up IDs, re-validate BUSCO"]
-    G[["Standardized Longest Isoforms<br/>Ready for LINGUA Step 2"]]
+    G[["Standardized Longest Isoforms<br/>Ready for LINGUA Stage 1"]]
 
     C -.-> D
     D --> E
@@ -100,12 +102,13 @@ flowchart TD
 
 ## Role in the LINGUA framework
 
-This repository is Stage 0 (Dataset Curation and Preprocessing) of the LINGUA comparative genomics pipeline:
+This folder is Stage 0 (dataset curation and preprocessing) of the LINGUA comparative genomics pipeline, a preparatory step before the four main stages:
 
-1. Dataset curation (this repository)
-2. Orthology analysis (gene clustering across species)
-3. Homolog exclusion (removal of false positives)
-4. Synteny validation (genome alignment-based validation)
+0. Protein preprocessing (this folder)
+1. Gene stratigraphy (`1_gene_stratigraphy/`)
+2. Homolog exclusion (`2_homolog_exclusion/`)
+3. Alignment extraction from the Progressive Cactus whole-genome alignment (`3_alignment_extraction/`)
+4. Enabler detection and DNG/PDNG classification (`4_enablers/`)
 
 This module is standalone and can be used independently of the rest of the LINGUA framework.
 
@@ -123,8 +126,8 @@ Tested on Linux and WSL, which is where the pipeline is intended to run (includi
 ## Getting the pipeline
 
 ```bash
-git clone https://github.com/Ludtson/protein-preprocessing-isoform-pipeline.git
-cd protein-preprocessing-isoform-pipeline
+git clone https://github.com/CasolaLab/LINGUA.git
+cd LINGUA/0_protein_preprocessing
 ```
 
 ## Quick start

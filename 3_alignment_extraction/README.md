@@ -1,5 +1,10 @@
 # Progressive Cactus Gene Analysis Pipeline
 
+This folder is Stage 3 of LINGUA (see the top-level `README.md`). It takes the candidate de novo genes that pass
+Stage 2 (`../2_homolog_exclusion/`), extracts their orthologous regions from the Progressive Cactus whole-genome
+alignment in every species and in the ancestral genomes that Progressive Cactus reconstructs at internal nodes, and
+writes the per-species alignments and indel and stop-codon tables that Stage 4 (`../4_enablers/`) reads.
+
 Extends Progressive Cactus's HAL alignments into gene- and exon-level comparative
 analysis — extraction, multi-exon stitching, frame validation, and codon-level
 detection of start/stop loss and frameshift indels across species. Built and
@@ -73,6 +78,23 @@ lives in [`docs/progressive_cactus_gene_analysis_pipeline_README.txt`](docs/prog
 `clean_nucleotide_fasta_headers.py` is a required pre-processing step for the
 reference nucleotide FASTA before running step 9 (see that step's README).
 
+## Requirements
+
+- HAL tools, as bundled with Progressive Cactus (`hal2maf`), to convert the HAL alignment to MAF
+- mafTools (`mafExtractor`)
+- samtools
+- GNU parallel
+- Python 3 with Biopython and pandas
+
+## Running
+
+Each step is a separate script run in order; arguments for each are given in its README in `docs/`. For example,
+step 1 is
+
+```
+bash scripts/step1_mafextractor.sh <species_name> <reference_species_coordinates_file> <maf_file> <output_dir>
+```
+
 ## Development and test case
 
 The pipeline was built and validated using 21 species from the Brassicaceae
@@ -80,7 +102,6 @@ plant family plus 2 outgroups, chosen specifically to stress-test the pipeline
 against known genomic hurdles in plants (fast divergence, poor synteny) as it
 was assembled.
 
-## Status
+## Credits
 
-Actively maintained, and expected to keep evolving as new tools and genomic
-data become available.
+Developed by Sierra C. Sanders in the Casola Lab, Texas A&M University. MIT license (`../LICENSE`).

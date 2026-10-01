@@ -34,7 +34,7 @@ conda activate lingua
 
 ```
 WORKDIR/
-  _all_species_data/                   LINGUA result archives, one .zip per species
+  _all_species_data/                   Stage 3 result archives, one .zip per species
   clsgs_45k_1line/                     cDNG proteins, one single-line FASTA per species
   coordinates_alignments_all_species/  MAF block coordinates per species (step 9 only)
 ```
@@ -57,7 +57,7 @@ Set `PYTHON`, `TBLASTN` and `MAKEBLASTDB` to use specific executables.
 
 | Step | Script | What it does | Main output |
 |---|---|---|---|
-| 1 | `unzip_and_move_LINGUA_results.py` | Unpacks the LINGUA archives and sorts alignments, indel tables and stop-codon tables into separate folders | `brassicaceae_23species_LINGUA_results/`, `indels_dir/`, `stops_dir/` |
+| 1 | `unzip_and_move_LINGUA_results.py` | Unpacks the Stage 3 archives and sorts alignments, indel tables and stop-codon tables into separate folders | `brassicaceae_23species_LINGUA_results/`, `indels_dir/`, `stops_dir/` |
 | 2 | `remove_gaps_batch_recursive.py` | Removes alignment gaps from every per-species and per-node sequence of each exon-stitched locus | `brassicaceae_23species_LINGUA_nogaps/` |
 | 3 | `rename_file_getIDs.py` | Renames the candidate protein files and tabulates gene IDs by species | `45k_renamed/`, `brassicaceae_geneIDs_species_names.tsv` |
 | 4 | `blast_prts-vs-nogaps_AncSeq_v2.py` | tBLASTn of each candidate protein against the gap-free sequence of every species and ancestral node in its alignment, scoring ORF presence and the oldest node with an intact ORF | `cdngs_tblastn_results/*_cdngs_tblastn_<n>{,_summary,_AncSeq}.tsv` |
@@ -85,7 +85,7 @@ excluded from the summaries in step 8.
 
 ## Notes on reproducing the published analysis
 
-- Disablers enter step 6 exactly as tabulated by LINGUA, with no filter on their position
+- Disablers enter step 6 exactly as tabulated in Stage 3, with no filter on their position
   along the alignment.
 - The default synteny threshold of `summary_synteny_tree_AncSeq.py` is 40%, the value used
   in the paper, and `run_pipeline.sh` also passes it explicitly.
@@ -103,7 +103,7 @@ excluded from the summaries in step 8.
 
 ## Validation
 
-The complete pipeline was rerun on *Arabidopsis thaliana* (1,078 candidates) from the LINGUA
+The complete pipeline was rerun on *Arabidopsis thaliana* (1,078 candidates) from the Stage 3
 archive. Every intermediate and final table was byte-identical to the published run, the
 only exception being the per-HSP tBLASTn table, which holds the same rows in a different
 order. The final classification, 281 DNGs and 627 PDNGs among 908 loci, matches

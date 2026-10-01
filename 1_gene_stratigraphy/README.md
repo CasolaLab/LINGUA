@@ -8,7 +8,7 @@ This is not an orthology inference tool. OrthoFinder does that. This tool consum
 
 ```mermaid
 flowchart TD
-    A[("~798k Longest Isoforms<br/>Longest Isoforms from Step 1")]
+    A[("~798k Longest Isoforms<br/>Longest Isoforms from Stage 0")]
     B["Orthology Analysis<br/>All-vs-All Clustering &amp; Tree Inference<br/>OrthoFinder (DIAMOND)"]
     C["Orthologous Groups (HOGs)<br/>&amp; Node-Labeled Species Tree"]
     D["Unclustered Genes"]
@@ -39,10 +39,11 @@ flowchart TD
 
 This is Stage 1 of the LINGUA comparative genomics framework:
 
-1. Dataset curation (Stage 0 — protein preprocessing and isoform selection)
-2. **Gene stratigraphy (this repository)** — orthology-based classification of genes by phylogenetic depth, producing candidate lineage-specific genes
-3. Homolog exclusion (removal of false positives from the candidate list)
-4. Synteny validation (genome alignment-based validation)
+0. Protein preprocessing (`0_protein_preprocessing/`)
+1. **Gene stratigraphy (this folder)**, orthology-based classification of genes by phylogenetic depth, producing candidate lineage-specific genes
+2. Homolog exclusion (`2_homolog_exclusion/`)
+3. Alignment extraction from the Progressive Cactus whole-genome alignment (`3_alignment_extraction/`)
+4. Enabler detection and DNG/PDNG classification (`4_enablers/`)
 
 The candidate list this stage produces is deliberately over-inclusive rather than under-inclusive — Stage 2 and Stage 3 exist specifically to filter it further. Nothing coming out of this stage should be treated as a confirmed lineage-specific or de novo gene on its own.
 
@@ -75,8 +76,8 @@ Confirm it's on `PATH`: `orthofinder -h`. See OrthoFinder's own [installation tu
 ## Getting the pipeline
 
 ```bash
-git clone https://github.com/Ludtson/gene-stratigraphy-pipeline.git
-cd gene-stratigraphy-pipeline
+git clone https://github.com/CasolaLab/LINGUA.git
+cd LINGUA/1_gene_stratigraphy
 ```
 
 ## Two separate stages: generation and classification
@@ -106,7 +107,7 @@ python bin/OrthoFinderDataProcessor.py output_dir \
   --prt_dir step2_output/protein
 ```
 
-**`--prt_dir` must point at `step2_output/protein` (the copy `run_orthofinder.sh` made), not Step 1's own output directory.** Unclustered-gene detection looks up each species' protein FASTA by the exact species name OrthoFinder used internally (e.g. `C_cavernarum.faa`) directly under `--prt_dir` — no suffix handling, no species-map fallback for this lookup. `run_orthofinder.sh`'s `protein/` subdirectory always has that clean name already, because that's the same copy it fed to OrthoFinder (stripping Step 1's fixed `<species>_final.faa` naming convention when no map file is given — see `run_orthofinder.sh -h`). Step 1's raw output directory generally won't match, and a mismatch fails silently: a logged warning per species, not a crash, but unclustered genes for that species go undetected.
+**`--prt_dir` must point at `step2_output/protein` (the copy `run_orthofinder.sh` made), not Stage 0's own output directory.** Unclustered-gene detection looks up each species' protein FASTA by the exact species name OrthoFinder used internally (e.g. `C_cavernarum.faa`) directly under `--prt_dir` — no suffix handling, no species-map fallback for this lookup. `run_orthofinder.sh`'s `protein/` subdirectory always has that clean name already, because that's the same copy it fed to OrthoFinder (stripping Stage 0's fixed `<species>_final.faa` naming convention when no map file is given — see `run_orthofinder.sh -h`). Stage 0's raw output directory generally won't match, and a mismatch fails silently: a logged warning per species, not a crash, but unclustered genes for that species go undetected.
 
 Key options:
 
