@@ -42,6 +42,12 @@ change to synteny-node assignment.
 - Proteomes and OrthoFinder results, https://doi.org/10.5281/zenodo.22926478
 - De novo gene catalog and gap-free alignments, https://doi.org/10.5281/zenodo.22926717
 
+## Related tools
+
+The paper also used two tools by A. O. Owoyemi that are maintained separately, IGOR, which extracts
+intergenic ORFs (https://github.com/Ludtson/IGOR), and SeqMetrics, which computes sequence features
+(https://github.com/Ludtson/SeqMetrics). Both are archived at https://doi.org/10.5281/zenodo.23089299.
+
 ## Authors
 
 Stages 0 to 2, Adekola O. Owoyemi. Stage 3, Sierra C. Sanders. Stage 4, the Casola Lab.
