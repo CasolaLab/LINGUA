@@ -1,0 +1,12 @@
+# Files belonging to a different, unrelated project sharing this workspace
+Equus_caballus.bed
+batch_coordinate_breakup_results/
+Bed_to_text_results/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
