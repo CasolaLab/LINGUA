@@ -1,0 +1,11 @@
+species	gene_id	target	target_species	source	evalue	bitscore	qcov	tcov	pident	counts_as_hit	note
+Physcomitrium_patens	XP_024393712.1	KAG0569424.1__Ceratodon_purpureus	Ceratodon_purpureus	chain_jack	6.1e-110	372.5	37.9	57.6	NA	no	query coverage 37.9% below 50%
+Physcomitrium_patens	XP_024393712.1	KAG0570301.1__Ceratodon_purpureus	Ceratodon_purpureus	chain_jack	4.5e-157	528.6	42.2	44.4	NA	no	query coverage 42.2% below 50%
+Physcomitrium_patens	XP_024393712.1	KAG0587597.1__Ceratodon_purpureus	Ceratodon_purpureus	chain_jack	4.2e-150	505.5	47.5	70.2	NA	no	query coverage 47.5% below 50%
+Physcomitrium_patens	XP_024393712.1	KAH8941733.1__Sphagnum_fallax	Sphagnum_fallax	chain_jack	4.1e-24	88.3	10.7	23.1	NA	no	query coverage 10.7% below 50%
+Physcomitrium_patens	XP_024393712.1	KAH8944295.1__Sphagnum_fallax	Sphagnum_fallax	chain_jack	2e-21	79.4	6.7	12.5	NA	no	query coverage 6.7% below 50%
+Physcomitrium_patens	XP_073395527.1	KAG0560506.1__Ceratodon_purpureus	Ceratodon_purpureus	chain_jack	1e-22	84.0	63.6	22.9	NA	yes	NA
+Physcomitrium_patens	XP_073395527.1	KAG0560513.1__Ceratodon_purpureus	Ceratodon_purpureus	chain_jack	1e-22	84.0	63.6	22.9	NA	yes	NA
+Physcomitrium_patens	XP_073395527.1	KAG0576303.1__Ceratodon_purpureus	Ceratodon_purpureus	chain_jack	7.9e-32	113.4	60.3	11.0	NA	yes	NA
+Physcomitrium_patens	XP_073395527.1	KAG0584792.1__Ceratodon_purpureus	Ceratodon_purpureus	chain_jack	5.8e-26	94.5	62.8	15.7	NA	yes	NA
+Physcomitrium_patens	XP_073395527.1	KAG0585696.1__Ceratodon_purpureus	Ceratodon_purpureus	chain_jack	4.9e-13	52.8	43.0	11.0	NA	no	query coverage 43.0% below 50%

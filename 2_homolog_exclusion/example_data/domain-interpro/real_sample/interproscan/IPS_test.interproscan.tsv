@@ -1,0 +1,78 @@
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	ProSiteProfiles	PS50270	Nerve growth factor family profile.	142	256	55.149357	T	26-09-2026	-	-	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	Coils	Coil	Coil	45	65	-	T	26-09-2026	-	-	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	ProSitePatterns	PS00248	Nerve growth factor family signature.	204	217	-	T	26-09-2026	IPR019846	Nerve growth factor conserved site	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	PRINTS	PR01914	Neurotrophin-3 signature	36	47	2.0E-26	T	26-09-2026	IPR015578	Neurotrophin-3	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	PRINTS	PR01914	Neurotrophin-3 signature	50	59	2.0E-26	T	26-09-2026	IPR015578	Neurotrophin-3	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	PRINTS	PR01914	Neurotrophin-3 signature	9	26	2.0E-26	T	26-09-2026	IPR015578	Neurotrophin-3	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	PRINTS	PR01914	Neurotrophin-3 signature	81	95	2.0E-26	T	26-09-2026	IPR015578	Neurotrophin-3	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	PIRSF	PIRSF001789	NGFB	1	256	5.8E-105	T	26-09-2026	IPR020408	Nerve growth factor-like	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	PRINTS	PR00268	Nerve growth factor signature	186	196	1.5E-28	T	26-09-2026	IPR002072	Nerve growth factor-related	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	PRINTS	PR00268	Nerve growth factor signature	147	159	1.5E-28	T	26-09-2026	IPR002072	Nerve growth factor-related	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	PRINTS	PR00268	Nerve growth factor signature	204	230	1.5E-28	T	26-09-2026	IPR002072	Nerve growth factor-related	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	PRINTS	PR00268	Nerve growth factor signature	237	249	1.5E-28	T	26-09-2026	IPR002072	Nerve growth factor-related	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	SMART	SM00140	NGF_2	144	249	2.6E-86	T	26-09-2026	IPR002072	Nerve growth factor-related	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	Pfam	PF19338	Neutrophin-3 N-terminus	20	133	8.1E-53	T	26-09-2026	IPR045815	Neutrophin-3, N-terminal	-	-
+UPI0004FABBC5	92e4b89dd86f8ab828f57121f6d7d460	257	Pfam	PF00243	Nerve growth factor family	148	256	5.5E-48	T	26-09-2026	IPR002072	Nerve growth factor-related	-	-
+UPI0010EB9177	f1f6c0f82668b5315244caa65040cad9	243	AntiFam	ANF00057	Translation of E. coli type CRISPR repeat	6	101	2.6E-30	T	26-09-2026	-	-	-	-
+UPI0010EB9177	f1f6c0f82668b5315244caa65040cad9	243	AntiFam	ANF00057	Translation of E. coli type CRISPR repeat	174	243	2.8E-23	T	26-09-2026	-	-	-	-
+UPI0010EB9177	f1f6c0f82668b5315244caa65040cad9	243	AntiFam	ANF00057	Translation of E. coli type CRISPR repeat	70	162	3.1E-31	T	26-09-2026	-	-	-	-
+UPI0010EB9177	f1f6c0f82668b5315244caa65040cad9	243	MobiDBLite	mobidb-lite	consensus disorder prediction	16	47	-	T	26-09-2026	-	-	-	-
+UPI0010EB9177	f1f6c0f82668b5315244caa65040cad9	243	MobiDBLite	mobidb-lite	consensus disorder prediction	115	142	-	T	26-09-2026	-	-	-	-
+UPI0010EB9177	f1f6c0f82668b5315244caa65040cad9	243	MobiDBLite	mobidb-lite	consensus disorder prediction	117	130	-	T	26-09-2026	-	-	-	-
+UPI0010EB9177	f1f6c0f82668b5315244caa65040cad9	243	AntiFam	ANF00006	Translation of CRISPR region	52	101	3.6E-17	T	26-09-2026	-	-	-	-
+UPI0010EB9177	f1f6c0f82668b5315244caa65040cad9	243	AntiFam	ANF00006	Translation of CRISPR region	174	223	5.6E-15	T	26-09-2026	-	-	-	-
+UPI0010EB9177	f1f6c0f82668b5315244caa65040cad9	243	AntiFam	ANF00006	Translation of CRISPR region	113	162	4.9E-15	T	26-09-2026	-	-	-	-
+UPI0010EB9177	f1f6c0f82668b5315244caa65040cad9	243	AntiFam	ANF00006	Translation of CRISPR region	10	40	1.1E-9	T	26-09-2026	-	-	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	PIRSF	PIRSF001220	L-ASNase_gatD	48	365	8.0E-92	T	26-09-2026	IPR006034	Asparaginase/glutaminase-like	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	Coils	Coil	Coil	27	47	-	T	26-09-2026	-	-	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	Pfam	PF00710	Asparaginase, N-terminal	51	243	1.6E-61	T	26-09-2026	IPR027474	L-asparaginase, N-terminal	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	CDD	cd08964	L-asparaginase_II	50	364	2.22692E-153	T	26-09-2026	IPR004550	L-asparaginase, type II	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	SMART	SM00870	Asparaginase_2	51	364	2.8E-134	T	26-09-2026	IPR006034	Asparaginase/glutaminase-like	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	Pfam	PF17763	Glutaminase/Asparaginase C-terminal domain	264	367	9.6E-26	T	26-09-2026	IPR040919	Asparaginase/glutaminase, C-terminal	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	SFLD	SFLDS00057	Glutaminase/Asparaginase	46	367	0.0	T	26-09-2026	-	-	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	ProSitePatterns	PS00917	Asparaginase / glutaminase active site signature 2.	133	143	-	T	26-09-2026	IPR027475	Asparaginase/glutaminase, active site 2	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	ProSiteProfiles	PS51732	Asparaginase / glutaminase domain profile.	50	370	87.664803	T	26-09-2026	IPR006034	Asparaginase/glutaminase-like	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	PIRSF	PIRSF500176	L_ASNase	50	367	1.3E-78	T	26-09-2026	-	-	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	PRINTS	PR00139	Asparaginase/glutaminase family signature	52	63	9.4E-23	T	26-09-2026	IPR006034	Asparaginase/glutaminase-like	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	PRINTS	PR00139	Asparaginase/glutaminase family signature	311	329	9.4E-23	T	26-09-2026	IPR006034	Asparaginase/glutaminase-like	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	PRINTS	PR00139	Asparaginase/glutaminase family signature	132	150	9.4E-23	T	26-09-2026	IPR006034	Asparaginase/glutaminase-like	-	-
+UPI0002E0D40B	f91cb3cf61f2d7c7f5aaf6ea04e07868	370	ProSitePatterns	PS00144	Asparaginase / glutaminase active site signature 1.	54	62	-	T	26-09-2026	IPR020827	Asparaginase/glutaminase, active site 1	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1218	1227	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	609	705	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1034	1045	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	622	632	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	655	675	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	792	820	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1330	1345	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1448	1482	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1078	1094	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	874	893	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1506	1522	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1425	1440	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	696	705	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1533	1552	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1234	1293	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	948	1566	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1496	1505	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	808	820	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1101	1156	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1352	1364	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	1162	1195	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	MobiDBLite	mobidb-lite	consensus disorder prediction	963	974	-	T	26-09-2026	-	-	-	-
+UPI0000167F57	5f052143dad9be4819a7e9c14e53611d	1581	Pfam	PF10744	Mediator of RNA polymerase II transcription subunit 1	60	426	5.5E-50	T	26-09-2026	IPR019680	Mediator complex, subunit Med1	-	-
+O31533	01fc3e45dc1becaa05a6f90addf31888	231	Pfam	PF04239	YetF C-terminal domain	82	214	3.8E-36	T	26-09-2026	IPR007353	YetF, C-terminal domain	-	-
+O31533	01fc3e45dc1becaa05a6f90addf31888	231	Pfam	PF20730	YetF N-terminal transmembrane domain	4	79	1.5E-19	T	26-09-2026	IPR048454	YetF-like, N-terminal transmembrane domain	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	ProSitePatterns	PS00674	AAA-protein family signature.	864	882	-	T	26-09-2026	IPR003960	ATPase, AAA-type, conserved site	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	CDD	cd19501	RecA-like_FtsH	228	398	1.76796E-114	T	26-09-2026	-	-	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	Pfam	PF17862	AAA+ lid domain	422	465	4.4E-13	T	26-09-2026	IPR041569	AAA ATPase, AAA+ lid domain	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	Pfam	PF17862	AAA+ lid domain	916	959	4.4E-13	T	26-09-2026	IPR041569	AAA ATPase, AAA+ lid domain	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	Hamap	MF_01458	ATP-dependent zinc metalloprotease FtsH [ftsH].	658	1179	32.021942	T	26-09-2026	IPR005936	ATP-dependent zinc metalloprotease, FtsH	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	ProSitePatterns	PS00674	AAA-protein family signature.	370	388	-	T	26-09-2026	IPR003960	ATPase, AAA-type, conserved site	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	CDD	cd19501	RecA-like_FtsH	741	892	1.32119E-96	T	26-09-2026	-	-	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	SMART	SM00382	AAA_5	776	896	2.5E-15	T	26-09-2026	IPR003593	AAA+ ATPase domain	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	SMART	SM00382	AAA_5	263	402	4.3E-23	T	26-09-2026	IPR003593	AAA+ ATPase domain	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	Pfam	PF00004	ATPase family associated with various cellular activities (AAA)	267	399	6.1E-41	T	26-09-2026	IPR003959	ATPase, AAA-type, core	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	Pfam	PF00004	ATPase family associated with various cellular activities (AAA)	780	893	1.6E-26	T	26-09-2026	IPR003959	ATPase, AAA-type, core	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	Pfam	PF01434	Peptidase family M41	481	673	3.2E-68	T	26-09-2026	IPR000642	Peptidase M41	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	Pfam	PF01434	Peptidase family M41	975	1167	3.2E-68	T	26-09-2026	IPR000642	Peptidase M41	-	-
+UPI00043D6473	31a57ad53f7438a75c8ae2a0a0f6ca90	1179	Hamap	MF_01458	ATP-dependent zinc metalloprotease FtsH [ftsH].	9	693	36.366299	T	26-09-2026	IPR005936	ATP-dependent zinc metalloprotease, FtsH	-	-

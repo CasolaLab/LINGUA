@@ -1,0 +1,939 @@
+species	gene_id	target	target_species	source	evalue	bitscore	qcov	tcov	pident	counts_as_hit	note
+Physcomitrium_patens	NP_001365527.1	KAG0558901.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.1e-108	361.5	99.4	99.4	NA	yes	NA
+Physcomitrium_patens	NP_001365527.1	KAG0561500.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-107	360.7	98.8	98.8	NA	yes	NA
+Physcomitrium_patens	NP_001365527.1	KAG0567870.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.1e-108	361.5	99.4	99.4	NA	yes	NA
+Physcomitrium_patens	NP_001365527.1	KAH8948494.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.1e-106	357.6	98.8	98.8	NA	yes	NA
+Physcomitrium_patens	NP_001365527.1	KAH8965564.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.1e-106	357.6	98.8	98.8	NA	yes	NA
+Physcomitrium_patens	NP_001365541.1	KAG0565511.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.5e-93	312.2	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	NP_001365541.1	KAG0566087.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-39	138.2	69.7	60.5	NA	yes	NA
+Physcomitrium_patens	NP_001365541.1	KAG0571908.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6e-92	309.0	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	NP_001365541.1	KAG0572063.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.5e-93	312.2	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	NP_001365541.1	KAG0574650.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.9e-26	95.4	37.5	93.4	NA	no	query coverage 37.5% below 50%
+Physcomitrium_patens	XP_024356589.1	KAG0553486.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-18	70.1	93.8	80.5	NA	yes	NA
+Physcomitrium_patens	XP_024356589.1	KAG0554980.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.8e-28	100.1	93.8	95.7	NA	yes	NA
+Physcomitrium_patens	XP_024356589.1	KAG0554985.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.8e-28	100.1	93.8	95.7	NA	yes	NA
+Physcomitrium_patens	XP_024356589.1	KAG0557331.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.6e-28	100.0	98.2	91.8	NA	yes	NA
+Physcomitrium_patens	XP_024356589.1	KAG0557332.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-20	76.7	85.8	91.6	NA	yes	NA
+Physcomitrium_patens	XP_024357008.1	KAG0504202.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-18	71.5	29.6	26.0	NA	no	query coverage 29.6% below 50%
+Physcomitrium_patens	XP_024357008.1	KAG0504220.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-35	125.9	46.4	61.0	NA	no	query coverage 46.4% below 50%
+Physcomitrium_patens	XP_024357008.1	KAG0504243.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-12	50.1	22.9	16.7	NA	no	query coverage 22.9% below 50%
+Physcomitrium_patens	XP_024357008.1	KAG0504286.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-15	60.1	21.9	5.5	NA	no	query coverage 21.9% below 50%
+Physcomitrium_patens	XP_024357008.1	KAG0504312.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-41	146.2	46.4	61.9	NA	no	query coverage 46.4% below 50%
+Physcomitrium_patens	XP_024357135.1	KAG0555340.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-52	179.8	97.7	93.5	NA	yes	NA
+Physcomitrium_patens	XP_024357135.1	KAG0571625.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.4e-37	129.8	73.4	74.6	NA	yes	NA
+Physcomitrium_patens	XP_024357135.1	KAH8947842.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.4e-59	201.3	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024357135.1	KAH8950184.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.3e-44	154.5	82.8	91.4	NA	yes	NA
+Physcomitrium_patens	XP_024357135.1	KAH8964857.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	6.4e-44	152.2	82.0	91.3	NA	yes	NA
+Physcomitrium_patens	XP_024357533.1	KAG0555173.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1484.1	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024357533.1	KAG0559486.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.7e-14	54.7	6.3	7.4	NA	no	query coverage 6.3% below 50%
+Physcomitrium_patens	XP_024357533.1	KAG0569864.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-20	76.4	7.0	21.8	NA	no	query coverage 7.0% below 50%
+Physcomitrium_patens	XP_024357533.1	KAG0570732.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.9e-08	34.4	4.9	16.2	NA	no	query coverage 4.9% below 50%
+Physcomitrium_patens	XP_024357533.1	KAG0575777.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-47	165.0	12.0	12.5	NA	no	query coverage 12.0% below 50%
+Physcomitrium_patens	XP_024357552.1	KAG0554195.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.3e-201	672.2	92.2	91.8	NA	yes	NA
+Physcomitrium_patens	XP_024357552.1	KAG0555958.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-196	657.4	89.2	79.2	NA	yes	NA
+Physcomitrium_patens	XP_024357552.1	KAG0556445.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5e-205	685.2	93.7	82.0	NA	yes	NA
+Physcomitrium_patens	XP_024357552.1	KAG0558809.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-209	700.4	93.5	93.0	NA	yes	NA
+Physcomitrium_patens	XP_024357552.1	KAG0561450.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.4e-46	161.0	37.1	53.3	NA	no	query coverage 37.1% below 50%
+Physcomitrium_patens	XP_024357608.1	KAG0553902.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-153	516.8	47.3	44.8	NA	no	query coverage 47.3% below 50%
+Physcomitrium_patens	XP_024357608.1	KAG0553908.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.8e-151	508.8	47.9	47.1	NA	no	query coverage 47.9% below 50%
+Physcomitrium_patens	XP_024357608.1	KAG0554018.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1436.2	99.9	99.9	NA	yes	NA
+Physcomitrium_patens	XP_024357608.1	KAG0554157.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.9e-14	55.2	7.8	22.7	NA	no	query coverage 7.8% below 50%
+Physcomitrium_patens	XP_024357608.1	KAG0554509.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-87	298.4	52.2	46.7	NA	yes	NA
+Physcomitrium_patens	XP_024357726.1	KAG0555241.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1141.4	89.5	91.9	NA	yes	NA
+Physcomitrium_patens	XP_024357726.1	KAG0562311.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1240.3	95.2	96.9	NA	yes	NA
+Physcomitrium_patens	XP_024357726.1	KAG0576508.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1231.4	92.7	92.3	NA	yes	NA
+Physcomitrium_patens	XP_024357726.1	KAG0589524.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8e-227	759.1	74.9	81.3	NA	yes	NA
+Physcomitrium_patens	XP_024357726.1	KAH8931776.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1086.2	88.0	95.4	NA	yes	NA
+Physcomitrium_patens	XP_024357747.1	KAG0582578.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-301	1003.8	98.8	98.8	NA	yes	NA
+Physcomitrium_patens	XP_024357747.1	KAH8938817.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.8e-300	1001.2	94.1	94.5	NA	yes	NA
+Physcomitrium_patens	XP_024357747.1	KAH8950449.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	9.2e-07	31.3	4.9	32.6	NA	no	query coverage 4.9% below 50%
+Physcomitrium_patens	XP_024357747.1	g11685.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	1.5e-299	998.2	94.1	94.5	NA	yes	NA
+Physcomitrium_patens	XP_024357747.1	g24698.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	1.4e-41	146.3	14.1	72.6	NA	no	query coverage 14.1% below 50%
+Physcomitrium_patens	XP_024358000.1	KAG0553369.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1240.2	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024358000.1	KAG0581972.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.6e-80	273.7	44.1	36.3	NA	no	query coverage 44.1% below 50%
+Physcomitrium_patens	XP_024358000.1	KAG0582217.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1042.3	95.1	99.4	NA	yes	NA
+Physcomitrium_patens	XP_024358000.1	KAG0582221.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1042.3	95.1	99.4	NA	yes	NA
+Physcomitrium_patens	XP_024358000.1	KAH8936892.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.8e-07	33.8	16.9	80.9	NA	no	query coverage 16.9% below 50%
+Physcomitrium_patens	XP_024358854.1	KAG0554412.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-180	605.2	92.7	96.2	NA	yes	NA
+Physcomitrium_patens	XP_024358854.1	KAG0558788.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.9e-195	652.5	93.6	96.7	NA	yes	NA
+Physcomitrium_patens	XP_024358854.1	KAG0560660.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.1e-27	97.7	27.4	61.5	NA	no	query coverage 27.4% below 50%
+Physcomitrium_patens	XP_024358854.1	KAG0560661.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.5e-126	425.7	55.6	93.0	NA	yes	NA
+Physcomitrium_patens	XP_024358854.1	KAG0565200.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-200	670.2	98.2	95.2	NA	yes	NA
+Physcomitrium_patens	XP_024358877.1	KAG0504418.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-52	182.0	93.3	88.4	NA	yes	NA
+Physcomitrium_patens	XP_024358877.1	KAG0504514.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-35	126.4	51.8	57.6	NA	yes	NA
+Physcomitrium_patens	XP_024358877.1	KAG0504569.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.3e-53	184.2	93.0	87.7	NA	yes	NA
+Physcomitrium_patens	XP_024358877.1	KAG0504609.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-19	73.8	64.4	34.1	NA	yes	NA
+Physcomitrium_patens	XP_024358877.1	KAG0504621.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-64	221.4	93.8	94.7	NA	yes	NA
+Physcomitrium_patens	XP_024359355.1	KAG0556723.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-292	974.7	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024359355.1	KAG0563024.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.5e-23	85.7	30.5	38.9	NA	no	query coverage 30.5% below 50%
+Physcomitrium_patens	XP_024359355.1	KAG0564630.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1043.5	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024359355.1	KAG0565832.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.9e-15	57.8	11.8	7.9	NA	no	query coverage 11.8% below 50%
+Physcomitrium_patens	XP_024359355.1	KAG0567773.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-23	86.6	16.2	53.6	NA	no	query coverage 16.2% below 50%
+Physcomitrium_patens	XP_024359623.1	KAG0555967.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-23	87.6	30.5	24.6	NA	no	query coverage 30.5% below 50%
+Physcomitrium_patens	XP_024359623.1	KAG0556702.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-131	442.4	100.0	99.2	NA	yes	NA
+Physcomitrium_patens	XP_024359623.1	KAG0559155.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-19	74.2	33.0	38.1	NA	no	query coverage 33.0% below 50%
+Physcomitrium_patens	XP_024359623.1	KAG0559371.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00032	24.2	14.4	4.6	NA	no	query coverage 14.4% below 50%
+Physcomitrium_patens	XP_024359623.1	KAG0561707.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.9e-30	108.3	35.7	29.8	NA	no	query coverage 35.7% below 50%
+Physcomitrium_patens	XP_024359934.1	KAG0555355.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-25	93.6	29.2	18.5	NA	no	query coverage 29.2% below 50%
+Physcomitrium_patens	XP_024359934.1	KAG0556991.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-120	405.9	93.6	99.7	NA	yes	NA
+Physcomitrium_patens	XP_024359934.1	KAG0565210.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-139	469.7	96.2	99.4	NA	yes	NA
+Physcomitrium_patens	XP_024359934.1	KAG0565211.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-145	488.4	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024359934.1	KAG0569138.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-28	103.3	45.7	40.3	NA	no	query coverage 45.7% below 50%
+Physcomitrium_patens	XP_024359957.1	KAG0564263.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-101	341.7	96.7	98.6	NA	yes	NA
+Physcomitrium_patens	XP_024359957.1	KAH8937738.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.2e-82	280.5	81.5	88.7	NA	yes	NA
+Physcomitrium_patens	XP_024359957.1	g1673.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	3.8e-80	272.3	86.3	89.9	NA	yes	NA
+Physcomitrium_patens	XP_024359957.1	g4972.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	1.2e-83	283.7	79.1	96.0	NA	yes	NA
+Physcomitrium_patens	XP_024359957.1	jg13838.t1__Bazzania_tridens	Bazzania_tridens	homology-jackhmmer	3.7e-78	265.8	85.3	84.0	NA	yes	NA
+Physcomitrium_patens	XP_024360330.1	KAG0553591.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-112	379.3	86.8	89.8	NA	yes	NA
+Physcomitrium_patens	XP_024360330.1	KAG0553973.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.2e-95	321.9	85.4	94.3	NA	yes	NA
+Physcomitrium_patens	XP_024360330.1	KAG0554299.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.1e-128	430.3	85.7	92.3	NA	yes	NA
+Physcomitrium_patens	XP_024360330.1	KAG0554400.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-119	401.5	85.7	92.8	NA	yes	NA
+Physcomitrium_patens	XP_024360330.1	KAG0554401.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-127	429.5	86.5	94.1	NA	yes	NA
+Physcomitrium_patens	XP_024360736.1	KAG0504243.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.7e-18	67.9	23.2	12.9	NA	no	query coverage 23.2% below 50%
+Physcomitrium_patens	XP_024360736.1	KAG0554129.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00058	22.5	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_024360736.1	KAG0554208.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-07	34.0	22.2	27.2	NA	no	query coverage 22.2% below 50%
+Physcomitrium_patens	XP_024360736.1	KAG0555013.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00045	22.9	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_024360736.1	KAG0555064.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.9e-06	29.7	20.4	21.5	NA	no	query coverage 20.4% below 50%
+Physcomitrium_patens	XP_024361348.1	KAG0557218.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1499.0	99.5	99.1	NA	yes	NA
+Physcomitrium_patens	XP_024361348.1	KAG0565518.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1527.4	100.0	99.9	NA	yes	NA
+Physcomitrium_patens	XP_024361348.1	KAH8936216.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1469.9	94.3	94.1	NA	yes	NA
+Physcomitrium_patens	XP_024361348.1	g11468.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	0.0	1304.9	92.8	89.1	NA	yes	NA
+Physcomitrium_patens	XP_024361348.1	g22443.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	3.1e-106	360.0	25.8	96.2	NA	no	query coverage 25.8% below 50%
+Physcomitrium_patens	XP_024361386.1	KAG0504614.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.9e-255	849.2	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024361386.1	KAG0553657.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.1e-08	35.8	12.3	12.3	NA	no	query coverage 12.3% below 50%
+Physcomitrium_patens	XP_024361386.1	KAG0553887.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.7e-77	262.6	54.5	19.3	NA	yes	NA
+Physcomitrium_patens	XP_024361386.1	KAG0553893.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.6e-77	263.3	54.5	19.4	NA	yes	NA
+Physcomitrium_patens	XP_024361386.1	KAG0553959.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.1e-93	315.9	57.4	36.2	NA	yes	NA
+Physcomitrium_patens	XP_024361707.1	KAG0580243.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-240	802.9	98.8	99.0	NA	yes	NA
+Physcomitrium_patens	XP_024361707.1	KAH8948672.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.2e-229	766.6	97.4	96.5	NA	yes	NA
+Physcomitrium_patens	XP_024361707.1	KAH8950394.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3.5e-220	735.4	97.4	96.0	NA	yes	NA
+Physcomitrium_patens	XP_024361707.1	KAH8965367.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	8.9e-233	777.0	98.4	96.6	NA	yes	NA
+Physcomitrium_patens	XP_024361707.1	g12219.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	7.6e-202	675.0	95.4	93.5	NA	yes	NA
+Physcomitrium_patens	XP_024361966.1	KAG0504123.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-62	216.0	41.0	40.8	NA	no	query coverage 41.0% below 50%
+Physcomitrium_patens	XP_024361966.1	KAG0504156.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-34	123.3	32.7	16.0	NA	no	query coverage 32.7% below 50%
+Physcomitrium_patens	XP_024361966.1	KAG0504407.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.8e-08	35.1	15.7	52.4	NA	no	query coverage 15.7% below 50%
+Physcomitrium_patens	XP_024361966.1	KAG0553635.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8e-98	331.8	67.1	43.7	NA	yes	NA
+Physcomitrium_patens	XP_024361966.1	KAG0553800.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.5e-85	289.7	64.1	41.8	NA	yes	NA
+Physcomitrium_patens	XP_024362154.1	KAG0558285.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-115	390.3	63.2	91.4	NA	yes	NA
+Physcomitrium_patens	XP_024362154.1	KAG0562310.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-26	96.6	27.8	16.6	NA	no	query coverage 27.8% below 50%
+Physcomitrium_patens	XP_024362154.1	KAG0571107.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.7e-171	573.2	94.8	82.6	NA	yes	NA
+Physcomitrium_patens	XP_024362154.1	KAG0576701.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-31	113.1	36.6	24.2	NA	no	query coverage 36.6% below 50%
+Physcomitrium_patens	XP_024362154.1	KAG0581799.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.5e-201	671.0	98.8	99.1	NA	yes	NA
+Physcomitrium_patens	XP_024362176.1	KAG0504581.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-05	27.8	17.1	15.7	NA	no	query coverage 17.1% below 50%
+Physcomitrium_patens	XP_024362176.1	KAG0553328.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-10	45.5	36.8	37.3	NA	no	query coverage 36.8% below 50%
+Physcomitrium_patens	XP_024362176.1	KAG0555411.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.7e-28	103.1	48.7	54.3	NA	no	query coverage 48.7% below 50%
+Physcomitrium_patens	XP_024362176.1	KAG0555412.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.7e-28	103.1	48.7	54.3	NA	no	query coverage 48.7% below 50%
+Physcomitrium_patens	XP_024362176.1	KAG0555413.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-85	291.9	92.4	72.0	NA	yes	NA
+Physcomitrium_patens	XP_024362270.1	KAG0563892.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-51	179.4	49.1	50.6	NA	no	query coverage 49.1% below 50%
+Physcomitrium_patens	XP_024362270.1	KAG0582131.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-260	868.5	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024362270.1	KAH8931788.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3.8e-75	257.4	58.9	62.3	NA	yes	NA
+Physcomitrium_patens	XP_024362270.1	KAH8935918.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	6.7e-55	190.6	51.8	49.7	NA	yes	NA
+Physcomitrium_patens	XP_024362270.1	KAH8962275.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.8e-241	806.2	95.8	81.7	NA	yes	NA
+Physcomitrium_patens	XP_024362524.1	KAG0553767.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.7e-118	394.8	97.0	70.7	NA	yes	NA
+Physcomitrium_patens	XP_024362524.1	KAH8946271.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.4e-98	331.7	94.4	97.7	NA	yes	NA
+Physcomitrium_patens	XP_024362524.1	KAH8946274.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.4e-119	399.5	94.4	68.1	NA	yes	NA
+Physcomitrium_patens	XP_024362524.1	KAH8952876.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3.2e-117	392.6	94.9	97.9	NA	yes	NA
+Physcomitrium_patens	XP_024362524.1	KAH8968781.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	5.4e-77	261.3	59.9	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024362563.1	KAG0504127.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-41	146.6	27.9	28.7	NA	no	query coverage 27.9% below 50%
+Physcomitrium_patens	XP_024362563.1	KAG0554654.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-32	116.7	23.8	21.8	NA	no	query coverage 23.8% below 50%
+Physcomitrium_patens	XP_024362563.1	KAG0554662.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-203	679.5	99.8	95.1	NA	yes	NA
+Physcomitrium_patens	XP_024362563.1	KAG0554780.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.4e-38	134.9	22.7	22.6	NA	no	query coverage 22.7% below 50%
+Physcomitrium_patens	XP_024362563.1	KAG0554781.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.7e-32	115.0	19.6	24.2	NA	no	query coverage 19.6% below 50%
+Physcomitrium_patens	XP_024362659.1	KAG0555034.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	2025.1	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024362659.1	KAG0556832.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1470.7	86.8	89.4	NA	yes	NA
+Physcomitrium_patens	XP_024362659.1	KAG0559836.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-46	161.6	17.7	39.6	NA	no	query coverage 17.7% below 50%
+Physcomitrium_patens	XP_024362659.1	KAG0566411.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.7e-55	190.4	20.2	47.5	NA	no	query coverage 20.2% below 50%
+Physcomitrium_patens	XP_024362659.1	KAG0574753.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1774.2	95.1	90.0	NA	yes	NA
+Physcomitrium_patens	XP_024362664.1	KAG0564856.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.6e-17	65.5	12.5	59.1	NA	no	query coverage 12.5% below 50%
+Physcomitrium_patens	XP_024362664.1	KAG0582466.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-163	547.1	99.7	95.9	NA	yes	NA
+Physcomitrium_patens	XP_024362664.1	KAH8946459.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	6.1e-163	545.2	97.4	76.8	NA	yes	NA
+Physcomitrium_patens	XP_024362664.1	KAH8957669.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.5e-163	547.2	97.7	79.5	NA	yes	NA
+Physcomitrium_patens	XP_024362664.1	KAH8965604.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	6e-20	75.5	26.0	53.2	NA	no	query coverage 26.0% below 50%
+Physcomitrium_patens	XP_024362986.1	KAG0504139.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.5e-72	246.4	70.6	91.1	NA	yes	NA
+Physcomitrium_patens	XP_024362986.1	KAG0504290.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-52	182.7	42.4	61.4	NA	no	query coverage 42.4% below 50%
+Physcomitrium_patens	XP_024362986.1	KAG0504302.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-40	143.3	33.7	89.0	NA	no	query coverage 33.7% below 50%
+Physcomitrium_patens	XP_024362986.1	KAG0554990.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.5e-65	223.9	34.7	82.9	NA	no	query coverage 34.7% below 50%
+Physcomitrium_patens	XP_024362986.1	KAG0557139.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-84	287.9	69.2	85.1	NA	yes	NA
+Physcomitrium_patens	XP_024363381.1	KAG0581774.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-186	623.9	89.6	89.5	NA	yes	NA
+Physcomitrium_patens	XP_024363381.1	KAH8972217.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	5.6e-181	605.2	87.8	83.2	NA	yes	NA
+Physcomitrium_patens	XP_024363381.1	g22499.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	5.4e-179	598.6	84.7	78.1	NA	yes	NA
+Physcomitrium_patens	XP_024363381.1	jg13550.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	1.8e-131	442.2	78.8	90.8	NA	yes	NA
+Physcomitrium_patens	XP_024363381.1	jg16133.t1__Bazzania_tridens	Bazzania_tridens	homology-jackhmmer	1.7e-163	547.6	79.3	70.9	NA	yes	NA
+Physcomitrium_patens	XP_024363526.1	KAG0570744.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-233	777.2	98.6	96.8	NA	yes	NA
+Physcomitrium_patens	XP_024363526.1	KAG0575645.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-58	201.5	44.6	27.1	NA	no	query coverage 44.6% below 50%
+Physcomitrium_patens	XP_024363526.1	KAH8937541.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	6.6e-234	780.1	99.1	94.9	NA	yes	NA
+Physcomitrium_patens	XP_024363526.1	KAH8954399.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.4e-57	199.0	45.0	28.7	NA	no	query coverage 45.0% below 50%
+Physcomitrium_patens	XP_024363526.1	g11813.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	3.1e-40	141.9	37.0	27.3	NA	no	query coverage 37.0% below 50%
+Physcomitrium_patens	XP_024363727.1	KAG0554070.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-212	708.2	98.1	94.3	NA	yes	NA
+Physcomitrium_patens	XP_024363727.1	KAG0584131.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-206	689.2	97.0	97.0	NA	yes	NA
+Physcomitrium_patens	XP_024363727.1	KAH8968704.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.7e-211	704.2	95.4	96.7	NA	yes	NA
+Physcomitrium_patens	XP_024363727.1	KAH8971252.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	7.5e-207	690.3	97.0	97.0	NA	yes	NA
+Physcomitrium_patens	XP_024363727.1	KAH8973743.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	9.2e-154	515.6	68.2	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024364035.1	KAG0555648.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.8e-86	290.0	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024364035.1	KAG0558997.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.8e-85	286.8	100.0	59.2	NA	yes	NA
+Physcomitrium_patens	XP_024364035.1	KAG0566518.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5e-86	289.2	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024364035.1	KAG0582166.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-86	289.3	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024364035.1	KAH8935556.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.1e-84	284.9	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024364108.1	KAG0554062.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4e-08	35.6	7.1	9.3	NA	no	query coverage 7.1% below 50%
+Physcomitrium_patens	XP_024364108.1	KAG0562899.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.9e-14	55.5	7.8	10.6	NA	no	query coverage 7.8% below 50%
+Physcomitrium_patens	XP_024364108.1	KAG0568825.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6e-127	427.4	60.6	70.1	NA	yes	NA
+Physcomitrium_patens	XP_024364108.1	KAG0582086.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.5e-244	813.9	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024364108.1	KAG0584125.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-05	27.5	7.5	7.6	NA	no	query coverage 7.5% below 50%
+Physcomitrium_patens	XP_024364383.1	KAG0553679.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-170	571.6	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024364383.1	KAG0556081.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-119	403.3	89.9	98.2	NA	yes	NA
+Physcomitrium_patens	XP_024364383.1	KAG0556725.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-34	123.6	47.5	54.8	NA	no	query coverage 47.5% below 50%
+Physcomitrium_patens	XP_024364383.1	KAG0585114.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-180	605.1	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024364383.1	KAH8938333.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	8.7e-137	460.9	84.2	90.4	NA	yes	NA
+Physcomitrium_patens	XP_024364915.1	KAG0504490.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.8e-140	470.3	85.3	81.7	NA	yes	NA
+Physcomitrium_patens	XP_024364915.1	KAG0553844.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-135	454.9	85.5	74.0	NA	yes	NA
+Physcomitrium_patens	XP_024364915.1	KAG0554879.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.2e-127	427.7	84.2	60.7	NA	yes	NA
+Physcomitrium_patens	XP_024364915.1	KAG0557630.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.8e-140	470.3	85.3	81.7	NA	yes	NA
+Physcomitrium_patens	XP_024364915.1	KAG0558453.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-208	697.7	99.4	98.9	NA	yes	NA
+Physcomitrium_patens	XP_024364977.1	KAG0504262.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-102	347.8	76.3	69.1	NA	yes	NA
+Physcomitrium_patens	XP_024364977.1	KAG0553665.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-12	48.8	19.3	41.3	NA	no	query coverage 19.3% below 50%
+Physcomitrium_patens	XP_024364977.1	KAG0555530.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.6e-119	402.3	75.1	76.3	NA	yes	NA
+Physcomitrium_patens	XP_024364977.1	KAG0555533.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.7e-126	423.9	75.7	97.3	NA	yes	NA
+Physcomitrium_patens	XP_024364977.1	KAG0556067.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.8e-74	252.3	74.9	85.6	NA	yes	NA
+Physcomitrium_patens	XP_024365210.1	KAG0504404.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-17	66.2	48.8	57.4	NA	no	query coverage 48.8% below 50%
+Physcomitrium_patens	XP_024365210.1	KAG0553729.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.6e-38	135.0	76.1	89.0	NA	yes	NA
+Physcomitrium_patens	XP_024365210.1	KAG0553732.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.7e-38	134.5	76.1	89.0	NA	yes	NA
+Physcomitrium_patens	XP_024365210.1	KAG0554010.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-85	289.6	98.6	94.1	NA	yes	NA
+Physcomitrium_patens	XP_024365210.1	KAG0554165.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.2e-82	277.8	99.1	52.4	NA	yes	NA
+Physcomitrium_patens	XP_024365615.1	KAG0504161.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-77	263.9	99.5	75.6	NA	yes	NA
+Physcomitrium_patens	XP_024365615.1	KAG0556607.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.8e-63	216.2	82.1	84.8	NA	yes	NA
+Physcomitrium_patens	XP_024365615.1	KAG0564892.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.8e-66	227.0	91.6	87.7	NA	yes	NA
+Physcomitrium_patens	XP_024365615.1	KAG0577769.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-77	263.1	99.5	70.3	NA	yes	NA
+Physcomitrium_patens	XP_024365615.1	KAG0577773.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-77	263.9	99.5	75.6	NA	yes	NA
+Physcomitrium_patens	XP_024365623.1	KAG0560292.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-74	254.6	78.6	66.9	NA	yes	NA
+Physcomitrium_patens	XP_024365623.1	KAG0564040.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.9e-116	390.2	79.2	99.6	NA	yes	NA
+Physcomitrium_patens	XP_024365623.1	KAG0564257.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.8e-65	223.9	76.7	95.2	NA	yes	NA
+Physcomitrium_patens	XP_024365623.1	KAG0566703.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.7e-73	249.2	79.6	97.0	NA	yes	NA
+Physcomitrium_patens	XP_024365623.1	KAG0566940.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.8e-72	246.2	76.4	96.0	NA	yes	NA
+Physcomitrium_patens	XP_024365739.1	KAG0576061.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1016.3	99.1	99.8	NA	yes	NA
+Physcomitrium_patens	XP_024365739.1	KAH8946294.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.7e-288	961.8	98.8	99.4	NA	yes	NA
+Physcomitrium_patens	XP_024365739.1	KAH8952844.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1e-276	922.9	99.1	99.1	NA	yes	NA
+Physcomitrium_patens	XP_024365739.1	g13743.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	1.2e-275	919.5	99.1	99.1	NA	yes	NA
+Physcomitrium_patens	XP_024365739.1	g16642.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	4.9e-259	864.6	92.6	99.7	NA	yes	NA
+Physcomitrium_patens	XP_024366413.1	KAG0504603.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.5e-259	863.0	98.1	97.6	NA	yes	NA
+Physcomitrium_patens	XP_024366413.1	KAG0504604.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.5e-259	863.0	98.1	97.6	NA	yes	NA
+Physcomitrium_patens	XP_024366413.1	KAG0504610.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.7e-253	844.9	98.3	98.0	NA	yes	NA
+Physcomitrium_patens	XP_024366413.1	KAG0556040.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-207	693.0	98.9	95.2	NA	yes	NA
+Physcomitrium_patens	XP_024366413.1	KAG0556073.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4e-195	652.9	98.9	97.8	NA	yes	NA
+Physcomitrium_patens	XP_024366567.1	KAG0556389.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.4e-22	81.7	31.8	29.0	NA	no	query coverage 31.8% below 50%
+Physcomitrium_patens	XP_024366567.1	KAG0556673.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-18	69.6	20.0	15.6	NA	no	query coverage 20.0% below 50%
+Physcomitrium_patens	XP_024366567.1	KAG0557655.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.2e-38	134.3	54.2	55.6	NA	yes	NA
+Physcomitrium_patens	XP_024366567.1	KAG0559441.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4e-47	164.8	66.0	54.0	NA	yes	NA
+Physcomitrium_patens	XP_024366567.1	KAG0560071.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-27	100.6	49.3	54.1	NA	no	query coverage 49.3% below 50%
+Physcomitrium_patens	XP_024367324.1	KAG0553324.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.3e-14	56.9	22.3	28.4	NA	no	query coverage 22.3% below 50%
+Physcomitrium_patens	XP_024367324.1	KAG0556436.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-13	53.8	15.4	14.9	NA	no	query coverage 15.4% below 50%
+Physcomitrium_patens	XP_024367324.1	KAG0556693.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.7e-08	36.9	10.0	19.6	NA	no	query coverage 10.0% below 50%
+Physcomitrium_patens	XP_024367324.1	KAG0557558.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.4e-24	88.2	15.4	18.3	NA	no	query coverage 15.4% below 50%
+Physcomitrium_patens	XP_024367324.1	KAG0557757.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.5e-07	33.2	11.7	24.8	NA	no	query coverage 11.7% below 50%
+Physcomitrium_patens	XP_024367422.1	KAG0574631.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-206	688.4	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024367422.1	KAH8952442.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.6e-199	665.4	94.9	98.6	NA	yes	NA
+Physcomitrium_patens	XP_024367422.1	g24241.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	8.1e-200	667.0	94.9	98.6	NA	yes	NA
+Physcomitrium_patens	XP_024367422.1	g34367.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	2.5e-199	665.4	94.9	98.6	NA	yes	NA
+Physcomitrium_patens	XP_024367422.1	g464.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	1e-182	610.7	97.1	97.6	NA	yes	NA
+Physcomitrium_patens	XP_024367793.1	KAG0574879.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1065.0	99.6	98.2	NA	yes	NA
+Physcomitrium_patens	XP_024367793.1	jg11199.t1__Bazzania_tridens	Bazzania_tridens	homology-jackhmmer	4.1e-109	369.7	58.9	20.9	NA	yes	NA
+Physcomitrium_patens	XP_024367793.1	jg19716.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	8.7e-97	329.0	33.5	69.5	NA	no	query coverage 33.5% below 50%
+Physcomitrium_patens	XP_024367793.1	jg24255.t1__Fossombronia_cristula	Fossombronia_cristula	homology-jackhmmer	1.4e-62	216.0	32.1	11.7	NA	no	query coverage 32.1% below 50%
+Physcomitrium_patens	XP_024367793.1	jg984.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	1.4e-97	331.6	33.5	83.3	NA	no	query coverage 33.5% below 50%
+Physcomitrium_patens	XP_024368078.1	KAG0557223.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.9e-125	419.8	99.6	98.1	NA	yes	NA
+Physcomitrium_patens	XP_024368078.1	KAG0562666.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-105	355.3	97.7	78.0	NA	yes	NA
+Physcomitrium_patens	XP_024368078.1	KAG0589060.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-127	427.5	99.6	99.6	NA	yes	NA
+Physcomitrium_patens	XP_024368078.1	KAG0591736.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-105	354.5	98.1	94.5	NA	yes	NA
+Physcomitrium_patens	XP_024368078.1	KAG0591740.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-101	343.1	97.7	91.8	NA	yes	NA
+Physcomitrium_patens	XP_024368164.1	KAG0562512.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.9e-139	467.0	72.8	77.2	NA	yes	NA
+Physcomitrium_patens	XP_024368164.1	KAG0564646.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.9e-60	206.2	65.9	71.1	NA	yes	NA
+Physcomitrium_patens	XP_024368164.1	KAG0569018.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-144	485.0	73.5	78.4	NA	yes	NA
+Physcomitrium_patens	XP_024368164.1	KAG0569237.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-164	551.3	99.7	99.2	NA	yes	NA
+Physcomitrium_patens	XP_024368164.1	KAG0570682.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-53	186.3	62.8	37.1	NA	yes	NA
+Physcomitrium_patens	XP_024368710.1	KAG0556828.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-65	226.0	66.9	86.7	NA	yes	NA
+Physcomitrium_patens	XP_024368710.1	KAG0558048.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-84	288.1	73.3	55.4	NA	yes	NA
+Physcomitrium_patens	XP_024368710.1	KAG0558904.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.4e-49	171.2	48.7	81.2	NA	no	query coverage 48.7% below 50%
+Physcomitrium_patens	XP_024368710.1	KAG0560555.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-190	638.5	99.8	99.8	NA	yes	NA
+Physcomitrium_patens	XP_024368710.1	KAG0560855.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-195	654.4	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024369066.1	KAG0554364.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.4e-56	193.6	55.7	29.0	NA	yes	NA
+Physcomitrium_patens	XP_024369066.1	KAG0558028.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6e-59	204.0	52.4	24.7	NA	yes	NA
+Physcomitrium_patens	XP_024369066.1	KAG0561342.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.3e-38	134.2	48.9	26.6	NA	no	query coverage 48.9% below 50%
+Physcomitrium_patens	XP_024369066.1	KAG0561973.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-54	189.6	54.5	26.9	NA	yes	NA
+Physcomitrium_patens	XP_024369066.1	KAG0563848.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-61	212.4	53.7	28.2	NA	yes	NA
+Physcomitrium_patens	XP_024369758.1	KAG0504357.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-48	168.4	40.3	71.2	NA	no	query coverage 40.3% below 50%
+Physcomitrium_patens	XP_024369758.1	KAG0554585.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-68	236.3	37.4	41.4	NA	no	query coverage 37.4% below 50%
+Physcomitrium_patens	XP_024369758.1	KAG0560833.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-88	301.0	29.6	42.9	NA	no	query coverage 29.6% below 50%
+Physcomitrium_patens	XP_024369758.1	KAG0561596.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-62	216.0	51.1	50.4	NA	yes	NA
+Physcomitrium_patens	XP_024369758.1	KAG0562470.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.8e-52	181.8	30.8	31.0	NA	no	query coverage 30.8% below 50%
+Physcomitrium_patens	XP_024370071.1	KAG0504131.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-21	78.5	30.0	73.4	NA	no	query coverage 30.0% below 50%
+Physcomitrium_patens	XP_024370071.1	KAG0504182.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-15	59.7	18.2	18.3	NA	no	query coverage 18.2% below 50%
+Physcomitrium_patens	XP_024370071.1	KAG0504220.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.6e-10	42.1	15.7	46.6	NA	no	query coverage 15.7% below 50%
+Physcomitrium_patens	XP_024370071.1	KAG0504243.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-23	86.4	14.2	20.2	NA	no	query coverage 14.2% below 50%
+Physcomitrium_patens	XP_024370071.1	KAG0504312.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.9e-13	51.3	17.2	52.4	NA	no	query coverage 17.2% below 50%
+Physcomitrium_patens	XP_024370153.1	KAG0553591.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.4e-105	354.4	91.0	88.1	NA	yes	NA
+Physcomitrium_patens	XP_024370153.1	KAG0553973.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-97	329.0	95.0	98.1	NA	yes	NA
+Physcomitrium_patens	XP_024370153.1	KAG0554299.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4e-131	440.2	97.5	98.2	NA	yes	NA
+Physcomitrium_patens	XP_024370153.1	KAG0554400.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-121	409.3	97.8	98.8	NA	yes	NA
+Physcomitrium_patens	XP_024370153.1	KAG0554401.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.8e-130	437.0	97.2	98.8	NA	yes	NA
+Physcomitrium_patens	XP_024371662.1	KAG0553829.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.8e-11	45.1	10.1	21.2	NA	no	query coverage 10.1% below 50%
+Physcomitrium_patens	XP_024371662.1	KAG0554912.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.5e-05	25.1	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_024371662.1	KAG0555862.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.3e-08	36.5	24.2	17.7	NA	no	query coverage 24.2% below 50%
+Physcomitrium_patens	XP_024371662.1	KAG0556133.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-06	31.0	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_024371662.1	KAG0559917.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.4e-12	47.9	20.4	23.2	NA	no	query coverage 20.4% below 50%
+Physcomitrium_patens	XP_024372292.1	KAG0553395.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-102	344.8	99.4	96.7	NA	yes	NA
+Physcomitrium_patens	XP_024372292.1	KAG0556704.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.8e-104	349.0	99.4	96.7	NA	yes	NA
+Physcomitrium_patens	XP_024372292.1	KAG0563568.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.8e-105	351.7	99.4	96.7	NA	yes	NA
+Physcomitrium_patens	XP_024372292.1	KAG0564967.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-103	347.6	99.4	96.7	NA	yes	NA
+Physcomitrium_patens	XP_024372292.1	KAG0564968.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-103	347.6	99.4	96.7	NA	yes	NA
+Physcomitrium_patens	XP_024372447.1	KAG0561121.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-268	895.8	96.5	97.6	NA	yes	NA
+Physcomitrium_patens	XP_024372447.1	KAG0575634.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.6e-200	669.8	85.0	89.8	NA	yes	NA
+Physcomitrium_patens	XP_024372447.1	KAG0583456.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-196	657.1	85.0	89.8	NA	yes	NA
+Physcomitrium_patens	XP_024372447.1	KAH8931353.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	5.3e-203	679.5	84.7	96.7	NA	yes	NA
+Physcomitrium_patens	XP_024372447.1	KAH8948953.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.2e-235	785.5	79.8	99.8	NA	yes	NA
+Physcomitrium_patens	XP_024372556.1	KAG0504230.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.6e-79	270.6	62.5	59.4	NA	yes	NA
+Physcomitrium_patens	XP_024372556.1	KAG0553831.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.8e-281	936.7	95.6	98.8	NA	yes	NA
+Physcomitrium_patens	XP_024372556.1	KAG0554096.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.6e-79	270.6	62.5	59.4	NA	yes	NA
+Physcomitrium_patens	XP_024372556.1	KAG0556561.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.8e-21	78.6	29.4	31.2	NA	no	query coverage 29.4% below 50%
+Physcomitrium_patens	XP_024372556.1	KAG0564376.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.8e-18	68.7	59.7	53.1	NA	yes	NA
+Physcomitrium_patens	XP_024372648.1	KAG0504440.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-15	59.4	10.4	2.0	NA	no	query coverage 10.4% below 50%
+Physcomitrium_patens	XP_024372648.1	KAG0553689.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8e-09	38.3	12.0	9.4	NA	no	query coverage 12.0% below 50%
+Physcomitrium_patens	XP_024372648.1	KAG0553790.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.5e-06	29.2	9.7	5.7	NA	no	query coverage 9.7% below 50%
+Physcomitrium_patens	XP_024372648.1	KAG0554410.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-22	82.0	22.0	17.3	NA	no	query coverage 22.0% below 50%
+Physcomitrium_patens	XP_024372648.1	KAG0554587.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00012	24.5	9.5	6.7	NA	no	query coverage 9.5% below 50%
+Physcomitrium_patens	XP_024372738.1	KAG0579586.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-93	315.5	98.4	99.4	NA	yes	NA
+Physcomitrium_patens	XP_024372738.1	KAG0583285.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.4e-28	100.7	45.9	29.3	NA	no	query coverage 45.9% below 50%
+Physcomitrium_patens	XP_024372738.1	KAH8941676.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.5e-85	288.2	89.2	88.1	NA	yes	NA
+Physcomitrium_patens	XP_024372738.1	KAH8945543.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.3e-35	124.5	49.2	27.9	NA	no	query coverage 49.2% below 50%
+Physcomitrium_patens	XP_024372738.1	g24106.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	3.1e-35	125.0	50.3	28.5	NA	yes	NA
+Physcomitrium_patens	XP_024372930.1	KAG0556157.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-213	713.2	78.0	94.9	NA	yes	NA
+Physcomitrium_patens	XP_024372930.1	KAG0557636.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8e-252	840.6	88.3	93.5	NA	yes	NA
+Physcomitrium_patens	XP_024372930.1	KAG0558082.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-220	736.7	79.6	96.0	NA	yes	NA
+Physcomitrium_patens	XP_024372930.1	KAG0558084.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-219	733.3	79.3	96.1	NA	yes	NA
+Physcomitrium_patens	XP_024372930.1	KAG0558155.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.1e-217	726.0	79.3	95.0	NA	yes	NA
+Physcomitrium_patens	XP_024372936.1	KAG0504133.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.2e-05	25.7	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_024372936.1	KAG0504390.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00028	23.9	43.5	57.9	NA	no	query coverage 43.5% below 50%
+Physcomitrium_patens	XP_024372936.1	KAG0504498.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-12	51.4	33.5	58.2	NA	no	query coverage 33.5% below 50%
+Physcomitrium_patens	XP_024372936.1	KAG0558037.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-15	59.7	48.8	66.7	NA	no	query coverage 48.8% below 50%
+Physcomitrium_patens	XP_024372936.1	KAG0559900.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00049	23.2	42.9	46.8	NA	no	query coverage 42.9% below 50%
+Physcomitrium_patens	XP_024372964.1	KAG0553895.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-273	914.4	60.6	62.9	NA	yes	NA
+Physcomitrium_patens	XP_024372964.1	KAG0554707.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-06	29.8	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_024372964.1	KAG0555734.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-08	36.7	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_024372964.1	KAG0558304.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-11	46.9	8.3	4.8	NA	no	query coverage 8.3% below 50%
+Physcomitrium_patens	XP_024372964.1	KAG0560602.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-15	60.5	6.3	10.3	NA	no	query coverage 6.3% below 50%
+Physcomitrium_patens	XP_024373004.1	KAG0561764.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-192	643.7	79.9	84.4	NA	yes	NA
+Physcomitrium_patens	XP_024373004.1	KAG0569787.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-190	638.2	79.1	89.3	NA	yes	NA
+Physcomitrium_patens	XP_024373004.1	KAG0578238.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-216	723.0	94.3	93.4	NA	yes	NA
+Physcomitrium_patens	XP_024373004.1	KAG0580222.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.8e-186	622.1	79.5	82.4	NA	yes	NA
+Physcomitrium_patens	XP_024373004.1	KAG0589847.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.1e-202	674.8	83.2	89.7	NA	yes	NA
+Physcomitrium_patens	XP_024373430.1	KAG0504466.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-21	79.6	38.0	42.8	NA	no	query coverage 38.0% below 50%
+Physcomitrium_patens	XP_024373430.1	KAG0554438.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.6e-06	28.6	32.1	75.8	NA	no	query coverage 32.1% below 50%
+Physcomitrium_patens	XP_024373430.1	KAG0555867.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-17	67.5	22.6	96.8	NA	no	query coverage 22.6% below 50%
+Physcomitrium_patens	XP_024373430.1	KAG0555971.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.5e-39	138.5	40.2	62.8	NA	no	query coverage 40.2% below 50%
+Physcomitrium_patens	XP_024373430.1	KAG0557736.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.6e-31	112.1	40.0	54.8	NA	no	query coverage 40.0% below 50%
+Physcomitrium_patens	XP_024373526.1	KAG0580898.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.3e-219	731.4	99.5	99.5	NA	yes	NA
+Physcomitrium_patens	XP_024373526.1	KAG0584651.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.5e-61	209.5	53.4	52.9	NA	yes	NA
+Physcomitrium_patens	XP_024373526.1	KAG0593230.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.7e-199	665.4	91.1	99.4	NA	yes	NA
+Physcomitrium_patens	XP_024373526.1	KAH8944859.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.7e-57	198.0	52.6	57.9	NA	yes	NA
+Physcomitrium_patens	XP_024373526.1	KAH8952017.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.5e-175	587.2	89.5	78.8	NA	yes	NA
+Physcomitrium_patens	XP_024373705.1	KAG0568046.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-07	34.8	17.0	10.0	NA	no	query coverage 17.0% below 50%
+Physcomitrium_patens	XP_024373705.1	KAG0568123.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.6e-12	49.3	21.4	16.2	NA	no	query coverage 21.4% below 50%
+Physcomitrium_patens	XP_024373705.1	KAG0568130.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-13	55.0	24.5	22.6	NA	no	query coverage 24.5% below 50%
+Physcomitrium_patens	XP_024373705.1	KAG0568263.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-51	179.5	37.7	40.7	NA	no	query coverage 37.7% below 50%
+Physcomitrium_patens	XP_024373705.1	KAG0568284.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-51	178.2	38.4	37.6	NA	no	query coverage 38.4% below 50%
+Physcomitrium_patens	XP_024374280.1	KAG0504202.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.6e-11	47.4	27.7	27.0	NA	no	query coverage 27.7% below 50%
+Physcomitrium_patens	XP_024374280.1	KAG0504220.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.6e-47	164.6	54.9	80.2	NA	yes	NA
+Physcomitrium_patens	XP_024374280.1	KAG0504243.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.2e-08	36.0	20.9	16.7	NA	no	query coverage 20.9% below 50%
+Physcomitrium_patens	XP_024374280.1	KAG0504312.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.7e-53	184.2	54.9	80.7	NA	yes	NA
+Physcomitrium_patens	XP_024374280.1	KAG0504476.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4e-53	185.3	54.9	80.7	NA	yes	NA
+Physcomitrium_patens	XP_024374675.1	KAG0504495.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1299.4	99.9	99.7	NA	yes	NA
+Physcomitrium_patens	XP_024374675.1	KAG0556137.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00022	23.4	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_024374675.1	KAG0560952.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8e-56	193.5	10.8	32.9	NA	no	query coverage 10.8% below 50%
+Physcomitrium_patens	XP_024374675.1	KAG0562180.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-86	295.4	36.4	62.2	NA	no	query coverage 36.4% below 50%
+Physcomitrium_patens	XP_024374675.1	KAG0562574.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.1e-12	48.4	8.8	19.2	NA	no	query coverage 8.8% below 50%
+Physcomitrium_patens	XP_024374767.1	KAG0553422.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-133	448.0	76.0	90.0	NA	yes	NA
+Physcomitrium_patens	XP_024374767.1	KAG0554462.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.2e-16	60.9	31.7	34.2	NA	no	query coverage 31.7% below 50%
+Physcomitrium_patens	XP_024374767.1	KAG0556291.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-14	55.8	11.9	36.2	NA	no	query coverage 11.9% below 50%
+Physcomitrium_patens	XP_024374767.1	KAG0557196.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.2e-52	179.5	72.4	65.3	NA	yes	NA
+Physcomitrium_patens	XP_024374767.1	KAG0559717.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.7e-17	65.8	21.4	13.3	NA	no	query coverage 21.4% below 50%
+Physcomitrium_patens	XP_024374842.1	KAG0577450.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	2088.2	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024374842.1	KAH8938777.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3.8e-34	121.5	7.6	44.0	NA	no	query coverage 7.6% below 50%
+Physcomitrium_patens	XP_024374842.1	KAH8968993.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1495.1	85.1	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024374842.1	KAH8972586.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	2012.4	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024374842.1	g13719.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	0.0	1273.9	73.6	99.9	NA	yes	NA
+Physcomitrium_patens	XP_024375006.1	KAG0563509.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1366.2	98.8	99.4	NA	yes	NA
+Physcomitrium_patens	XP_024375006.1	KAH8953504.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.00044	22.4	13.2	35.3	NA	no	query coverage 13.2% below 50%
+Physcomitrium_patens	XP_024375006.1	KAH8973688.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1087.9	88.3	98.8	NA	yes	NA
+Physcomitrium_patens	XP_024375006.1	g30566.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	0.0	1098.2	90.6	98.8	NA	yes	NA
+Physcomitrium_patens	XP_024375006.1	g7059.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	3.2e-243	813.3	68.0	89.0	NA	yes	NA
+Physcomitrium_patens	XP_024375040.1	KAG0554407.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-22	84.2	41.2	73.6	NA	no	query coverage 41.2% below 50%
+Physcomitrium_patens	XP_024375040.1	KAG0554487.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-10	42.8	37.1	18.1	NA	no	query coverage 37.1% below 50%
+Physcomitrium_patens	XP_024375040.1	KAG0555044.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.7e-36	128.5	59.1	78.1	NA	yes	NA
+Physcomitrium_patens	XP_024375040.1	KAG0555150.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00026	24.0	32.6	17.4	NA	no	query coverage 32.6% below 50%
+Physcomitrium_patens	XP_024375040.1	KAG0555654.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-08	37.6	19.6	4.8	NA	no	query coverage 19.6% below 50%
+Physcomitrium_patens	XP_024375080.1	KAG0577846.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9e-143	479.1	93.4	99.3	NA	yes	NA
+Physcomitrium_patens	XP_024375080.1	g958.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	1.9e-104	353.2	73.1	62.4	NA	yes	NA
+Physcomitrium_patens	XP_024375080.1	jg11136.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	3.4e-73	250.5	63.4	79.6	NA	yes	NA
+Physcomitrium_patens	XP_024375080.1	jg12860.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	4.8e-135	453.7	81.9	97.3	NA	yes	NA
+Physcomitrium_patens	XP_024375080.1	jg28043.t1__Fossombronia_cristula	Fossombronia_cristula	homology-jackhmmer	5.1e-93	315.6	62.8	97.3	NA	yes	NA
+Physcomitrium_patens	XP_024375095.1	KAG0504264.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.2e-134	449.7	55.0	85.3	NA	yes	NA
+Physcomitrium_patens	XP_024375095.1	KAG0576946.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-201	672.0	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024375095.1	KAH8951638.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.4e-161	541.2	74.1	73.9	NA	yes	NA
+Physcomitrium_patens	XP_024375095.1	KAH8958635.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	6.2e-110	371.4	57.0	97.7	NA	yes	NA
+Physcomitrium_patens	XP_024375095.1	g14228.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	7.8e-145	486.2	72.4	87.5	NA	yes	NA
+Physcomitrium_patens	XP_024376525.1	KAG0553729.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-12	49.5	34.5	90.1	NA	no	query coverage 34.5% below 50%
+Physcomitrium_patens	XP_024376525.1	KAG0553732.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.8e-12	48.3	34.5	90.1	NA	no	query coverage 34.5% below 50%
+Physcomitrium_patens	XP_024376525.1	KAG0553829.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-18	70.9	26.7	43.1	NA	no	query coverage 26.7% below 50%
+Physcomitrium_patens	XP_024376525.1	KAG0554010.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-18	69.9	33.9	72.9	NA	no	query coverage 33.9% below 50%
+Physcomitrium_patens	XP_024376525.1	KAG0554165.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.3e-17	65.6	33.9	40.8	NA	no	query coverage 33.9% below 50%
+Physcomitrium_patens	XP_024376530.1	KAG0504497.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.2e-19	70.1	4.8	29.5	NA	no	query coverage 4.8% below 50%
+Physcomitrium_patens	XP_024376530.1	KAG0504530.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00084	19.4	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_024376530.1	KAG0553404.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-181	608.9	15.7	50.7	NA	no	query coverage 15.7% below 50%
+Physcomitrium_patens	XP_024376530.1	KAG0553421.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-26	95.3	4.1	67.6	NA	no	query coverage 4.1% below 50%
+Physcomitrium_patens	XP_024376530.1	KAG0553662.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-11	43.4	4.2	42.0	NA	no	query coverage 4.2% below 50%
+Physcomitrium_patens	XP_024376629.1	KAG0577528.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.3e-262	872.8	90.4	65.6	NA	yes	NA
+Physcomitrium_patens	XP_024376629.1	KAG0580218.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-237	791.8	75.1	81.4	NA	yes	NA
+Physcomitrium_patens	XP_024376629.1	KAG0592023.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-234	782.9	76.9	88.5	NA	yes	NA
+Physcomitrium_patens	XP_024376629.1	KAG0592234.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-65	225.7	24.7	25.8	NA	no	query coverage 24.7% below 50%
+Physcomitrium_patens	XP_024376629.1	KAH8952106.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.7e-219	732.7	65.5	99.4	NA	yes	NA
+Physcomitrium_patens	XP_024376976.1	KAG0554440.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.1e-210	703.3	79.5	86.6	NA	yes	NA
+Physcomitrium_patens	XP_024376976.1	KAG0554548.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5e-245	818.9	90.9	72.5	NA	yes	NA
+Physcomitrium_patens	XP_024376976.1	KAG0555275.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-37	133.1	38.6	53.7	NA	no	query coverage 38.6% below 50%
+Physcomitrium_patens	XP_024376976.1	KAG0555714.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-08	37.6	16.9	44.8	NA	no	query coverage 16.9% below 50%
+Physcomitrium_patens	XP_024376976.1	KAG0556972.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-06	31.3	15.9	41.3	NA	no	query coverage 15.9% below 50%
+Physcomitrium_patens	XP_024377352.1	KAG0557520.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-63	217.9	96.6	96.2	NA	yes	NA
+Physcomitrium_patens	XP_024377352.1	KAG0559453.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-60	207.8	96.0	97.9	NA	yes	NA
+Physcomitrium_patens	XP_024377352.1	KAG0560470.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.7e-18	68.9	93.8	64.3	NA	yes	NA
+Physcomitrium_patens	XP_024377352.1	KAG0563223.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.8e-60	205.3	98.9	97.3	NA	yes	NA
+Physcomitrium_patens	XP_024377352.1	KAG0568704.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.8e-09	40.6	25.4	4.2	NA	no	query coverage 25.4% below 50%
+Physcomitrium_patens	XP_024377664.1	KAG0554249.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-26	97.9	39.3	45.9	NA	no	query coverage 39.3% below 50%
+Physcomitrium_patens	XP_024377664.1	KAG0559190.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-35	127.1	31.5	43.4	NA	no	query coverage 31.5% below 50%
+Physcomitrium_patens	XP_024377664.1	KAG0559344.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.9e-41	144.5	39.7	54.7	NA	no	query coverage 39.7% below 50%
+Physcomitrium_patens	XP_024377664.1	KAG0562189.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-18	71.1	17.0	28.0	NA	no	query coverage 17.0% below 50%
+Physcomitrium_patens	XP_024377664.1	KAG0562323.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-37	133.8	42.4	45.2	NA	no	query coverage 42.4% below 50%
+Physcomitrium_patens	XP_024377758.1	KAG0561764.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-182	609.9	91.0	83.3	NA	yes	NA
+Physcomitrium_patens	XP_024377758.1	KAG0569787.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.5e-201	671.6	94.9	93.1	NA	yes	NA
+Physcomitrium_patens	XP_024377758.1	KAG0578238.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.5e-185	619.2	91.0	76.2	NA	yes	NA
+Physcomitrium_patens	XP_024377758.1	KAG0580222.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-199	665.4	94.9	85.2	NA	yes	NA
+Physcomitrium_patens	XP_024377758.1	KAG0589847.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-182	609.1	91.2	85.2	NA	yes	NA
+Physcomitrium_patens	XP_024378054.1	KAG0553712.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.4e-49	170.4	36.8	60.5	NA	no	query coverage 36.8% below 50%
+Physcomitrium_patens	XP_024378054.1	KAG0574310.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-232	774.9	99.4	99.8	NA	yes	NA
+Physcomitrium_patens	XP_024378054.1	KAH8945855.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.5e-201	672.6	71.4	74.6	NA	yes	NA
+Physcomitrium_patens	XP_024378054.1	KAH8948110.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.1e-53	186.4	36.6	59.8	NA	no	query coverage 36.6% below 50%
+Physcomitrium_patens	XP_024378054.1	g36477.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	1.3e-52	182.8	34.2	92.3	NA	no	query coverage 34.2% below 50%
+Physcomitrium_patens	XP_024378422.1	KAG0554071.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.5e-38	133.6	66.9	92.1	NA	yes	NA
+Physcomitrium_patens	XP_024378422.1	KAG0554843.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-29	106.6	79.0	85.1	NA	yes	NA
+Physcomitrium_patens	XP_024378422.1	KAG0560727.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4e-49	170.3	83.4	66.2	NA	yes	NA
+Physcomitrium_patens	XP_024378422.1	KAG0561595.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-30	108.3	80.7	82.0	NA	yes	NA
+Physcomitrium_patens	XP_024378422.1	KAG0566405.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-27	98.9	80.7	71.6	NA	yes	NA
+Physcomitrium_patens	XP_024378842.1	KAG0553784.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-23	86.3	10.1	21.1	NA	no	query coverage 10.1% below 50%
+Physcomitrium_patens	XP_024378842.1	KAG0556295.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.4e-11	44.1	17.8	55.7	NA	no	query coverage 17.8% below 50%
+Physcomitrium_patens	XP_024378842.1	KAG0556311.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-29	106.8	20.3	55.2	NA	no	query coverage 20.3% below 50%
+Physcomitrium_patens	XP_024378842.1	KAG0556606.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-13	53.5	11.4	19.5	NA	no	query coverage 11.4% below 50%
+Physcomitrium_patens	XP_024378842.1	KAG0557968.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-29	106.6	14.9	85.8	NA	no	query coverage 14.9% below 50%
+Physcomitrium_patens	XP_024378960.1	KAG0504121.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.5e-97	329.2	55.4	50.1	NA	yes	NA
+Physcomitrium_patens	XP_024378960.1	KAG0504156.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-125	423.2	66.0	37.3	NA	yes	NA
+Physcomitrium_patens	XP_024378960.1	KAG0504167.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00056	22.5	15.2	61.1	NA	no	query coverage 15.2% below 50%
+Physcomitrium_patens	XP_024378960.1	KAG0504174.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00077	22.1	32.4	42.2	NA	no	query coverage 32.4% below 50%
+Physcomitrium_patens	XP_024378960.1	KAG0504180.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.7e-81	275.8	39.5	91.2	NA	no	query coverage 39.5% below 50%
+Physcomitrium_patens	XP_024379147.1	KAG0566602.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1388.6	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024379147.1	KAG0575645.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-97	331.3	29.9	35.2	NA	no	query coverage 29.9% below 50%
+Physcomitrium_patens	XP_024379147.1	KAH8940768.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1196.1	93.9	99.7	NA	yes	NA
+Physcomitrium_patens	XP_024379147.1	KAH8954399.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.5e-100	340.9	30.4	36.9	NA	no	query coverage 30.4% below 50%
+Physcomitrium_patens	XP_024379147.1	KAH8971659.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3.3e-16	62.7	8.6	66.0	NA	no	query coverage 8.6% below 50%
+Physcomitrium_patens	XP_024380164.1	KAG0559845.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-51	176.9	97.3	89.8	NA	yes	NA
+Physcomitrium_patens	XP_024380164.1	KAG0583614.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-58	198.8	99.1	99.1	NA	yes	NA
+Physcomitrium_patens	XP_024380164.1	KAH8942298.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3.7e-57	194.8	91.8	95.3	NA	yes	NA
+Physcomitrium_patens	XP_024380164.1	KAH8944688.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	5.2e-59	200.8	95.5	98.1	NA	yes	NA
+Physcomitrium_patens	XP_024380164.1	g35796.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	8.1e-58	196.9	94.5	80.0	NA	yes	NA
+Physcomitrium_patens	XP_024380223.1	KAG0504280.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.8e-14	56.0	29.7	50.7	NA	no	query coverage 29.7% below 50%
+Physcomitrium_patens	XP_024380223.1	KAG0504607.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.5e-31	111.9	27.9	31.9	NA	no	query coverage 27.9% below 50%
+Physcomitrium_patens	XP_024380223.1	KAG0553351.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-27	100.2	26.1	21.7	NA	no	query coverage 26.1% below 50%
+Physcomitrium_patens	XP_024380223.1	KAG0553588.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.6e-17	65.6	24.2	26.3	NA	no	query coverage 24.2% below 50%
+Physcomitrium_patens	XP_024380223.1	KAG0555180.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-06	29.8	35.5	72.7	NA	no	query coverage 35.5% below 50%
+Physcomitrium_patens	XP_024380988.1	KAG0559246.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1340.8	85.8	98.6	NA	yes	NA
+Physcomitrium_patens	XP_024380988.1	KAG0560162.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1884.4	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024380988.1	KAG0560384.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1351.1	85.8	98.4	NA	yes	NA
+Physcomitrium_patens	XP_024380988.1	KAG0567110.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-36	128.2	30.5	25.9	NA	no	query coverage 30.5% below 50%
+Physcomitrium_patens	XP_024380988.1	KAH8945994.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1315.8	85.6	96.6	NA	yes	NA
+Physcomitrium_patens	XP_024381159.1	KAG0555806.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-25	92.4	13.7	32.7	NA	no	query coverage 13.7% below 50%
+Physcomitrium_patens	XP_024381159.1	KAG0559753.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	2463.7	99.8	99.8	NA	yes	NA
+Physcomitrium_patens	XP_024381159.1	KAG0560981.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.8e-12	47.7	16.8	28.0	NA	no	query coverage 16.8% below 50%
+Physcomitrium_patens	XP_024381159.1	KAG0564446.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-125	423.4	28.4	43.1	NA	no	query coverage 28.4% below 50%
+Physcomitrium_patens	XP_024381159.1	KAG0564612.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-12	49.5	11.9	14.7	NA	no	query coverage 11.9% below 50%
+Physcomitrium_patens	XP_024381867.1	KAG0504171.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-60	207.7	98.0	91.8	NA	yes	NA
+Physcomitrium_patens	XP_024381867.1	KAG0504578.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-60	207.7	98.0	91.8	NA	yes	NA
+Physcomitrium_patens	XP_024381867.1	KAG0554558.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-84	286.2	99.0	98.5	NA	yes	NA
+Physcomitrium_patens	XP_024381867.1	KAG0559061.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6e-62	212.7	98.0	91.7	NA	yes	NA
+Physcomitrium_patens	XP_024381867.1	KAG0561498.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.1e-76	258.4	96.6	93.9	NA	yes	NA
+Physcomitrium_patens	XP_024382027.1	KAG0555658.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-113	382.9	68.2	93.0	NA	yes	NA
+Physcomitrium_patens	XP_024382027.1	KAG0556529.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-189	633.7	97.4	98.5	NA	yes	NA
+Physcomitrium_patens	XP_024382027.1	KAG0557876.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.8e-184	615.7	96.5	95.1	NA	yes	NA
+Physcomitrium_patens	XP_024382027.1	KAG0562146.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.2e-222	741.6	99.4	99.4	NA	yes	NA
+Physcomitrium_patens	XP_024382027.1	KAG0563501.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.6e-190	635.9	97.4	97.5	NA	yes	NA
+Physcomitrium_patens	XP_024382210.1	KAG0504418.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.3e-10	42.1	7.4	9.0	NA	no	query coverage 7.4% below 50%
+Physcomitrium_patens	XP_024382210.1	KAG0504497.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-35	125.6	32.1	20.4	NA	no	query coverage 32.1% below 50%
+Physcomitrium_patens	XP_024382210.1	KAG0504530.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.3e-19	73.0	32.5	17.5	NA	no	query coverage 32.5% below 50%
+Physcomitrium_patens	XP_024382210.1	KAG0504569.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.5e-11	44.5	7.4	9.0	NA	no	query coverage 7.4% below 50%
+Physcomitrium_patens	XP_024382210.1	KAG0504621.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.3e-11	44.9	11.5	16.8	NA	no	query coverage 11.5% below 50%
+Physcomitrium_patens	XP_024382276.1	KAG0554651.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.5e-138	462.2	93.5	82.1	NA	yes	NA
+Physcomitrium_patens	XP_024382276.1	g12441.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	3.8e-116	390.4	82.0	85.5	NA	yes	NA
+Physcomitrium_patens	XP_024382276.1	jg24958.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	2.7e-134	449.9	91.0	85.4	NA	yes	NA
+Physcomitrium_patens	XP_024382495.1	KAG0559655.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1368.9	97.4	96.0	NA	yes	NA
+Physcomitrium_patens	XP_024382495.1	KAG0588732.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.2e-159	534.6	40.2	50.3	NA	no	query coverage 40.2% below 50%
+Physcomitrium_patens	XP_024382495.1	KAG0590670.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-230	771.6	71.6	62.3	NA	yes	NA
+Physcomitrium_patens	XP_024382495.1	KAH8931856.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1e-224	752.5	73.9	57.0	NA	yes	NA
+Physcomitrium_patens	XP_024382495.1	KAH8943048.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1374.2	99.6	99.8	NA	yes	NA
+Physcomitrium_patens	XP_024383266.1	KAG0504159.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.5e-14	55.7	39.9	60.3	NA	no	query coverage 39.9% below 50%
+Physcomitrium_patens	XP_024383266.1	KAG0504344.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-07	35.0	10.8	19.2	NA	no	query coverage 10.8% below 50%
+Physcomitrium_patens	XP_024383266.1	KAG0504421.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.7e-06	28.9	10.0	16.3	NA	no	query coverage 10.0% below 50%
+Physcomitrium_patens	XP_024383266.1	KAG0504444.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.9e-172	576.2	74.7	93.0	NA	yes	NA
+Physcomitrium_patens	XP_024383266.1	KAG0553730.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.6e-09	39.2	19.0	27.8	NA	no	query coverage 19.0% below 50%
+Physcomitrium_patens	XP_024383325.1	KAG0559936.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-45	157.6	49.2	38.6	NA	no	query coverage 49.2% below 50%
+Physcomitrium_patens	XP_024383325.1	KAG0560666.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-52	180.8	60.3	52.4	NA	yes	NA
+Physcomitrium_patens	XP_024383325.1	KAG0565258.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-34	123.4	50.5	48.6	NA	yes	NA
+Physcomitrium_patens	XP_024383325.1	KAG0568950.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-136	458.5	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024383325.1	KAG0569828.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.1e-52	180.9	75.7	35.5	NA	yes	NA
+Physcomitrium_patens	XP_024383865.1	KAG0504509.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-29	105.5	44.1	81.0	NA	no	query coverage 44.1% below 50%
+Physcomitrium_patens	XP_024383865.1	KAG0553382.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.1e-54	186.7	85.9	76.7	NA	yes	NA
+Physcomitrium_patens	XP_024383865.1	KAG0558512.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-56	194.9	92.2	52.3	NA	yes	NA
+Physcomitrium_patens	XP_024383865.1	KAG0558696.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.7e-62	212.8	85.9	73.4	NA	yes	NA
+Physcomitrium_patens	XP_024383865.1	KAG0559196.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-105	355.1	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024383901.1	KAG0556142.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.3e-194	650.3	91.3	96.2	NA	yes	NA
+Physcomitrium_patens	XP_024383901.1	KAG0559750.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.1e-219	731.7	98.8	98.0	NA	yes	NA
+Physcomitrium_patens	XP_024383901.1	KAG0578379.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-107	363.9	53.3	61.6	NA	yes	NA
+Physcomitrium_patens	XP_024383901.1	KAH8931313.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	7.1e-209	698.2	95.7	95.3	NA	yes	NA
+Physcomitrium_patens	XP_024383901.1	KAH8937683.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	8.4e-191	638.5	87.4	86.9	NA	yes	NA
+Physcomitrium_patens	XP_024384237.1	KAG0504286.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	3708.6	99.9	99.9	NA	yes	NA
+Physcomitrium_patens	XP_024384237.1	KAG0555013.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5e-14	54.0	5.4	20.4	NA	no	query coverage 5.4% below 50%
+Physcomitrium_patens	XP_024384237.1	KAG0568739.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	3716.2	99.9	99.5	NA	yes	NA
+Physcomitrium_patens	XP_024384237.1	KAG0574198.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	3351.4	98.1	97.4	NA	yes	NA
+Physcomitrium_patens	XP_024384237.1	KAG0585852.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.4e-15	56.5	5.1	10.3	NA	no	query coverage 5.1% below 50%
+Physcomitrium_patens	XP_024385223.1	KAG0556017.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-10	42.3	30.7	22.2	NA	no	query coverage 30.7% below 50%
+Physcomitrium_patens	XP_024385223.1	KAG0556111.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-07	34.2	42.5	28.1	NA	no	query coverage 42.5% below 50%
+Physcomitrium_patens	XP_024385223.1	KAG0557220.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-42	148.4	47.4	28.7	NA	no	query coverage 47.4% below 50%
+Physcomitrium_patens	XP_024385223.1	KAG0558908.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.8e-05	25.4	31.3	23.9	NA	no	query coverage 31.3% below 50%
+Physcomitrium_patens	XP_024385223.1	KAG0559978.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.3e-08	35.1	38.9	29.7	NA	no	query coverage 38.9% below 50%
+Physcomitrium_patens	XP_024385467.1	KAG0504614.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.9e-95	322.7	47.5	60.1	NA	no	query coverage 47.5% below 50%
+Physcomitrium_patens	XP_024385467.1	KAG0553657.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-07	33.2	8.8	11.4	NA	no	query coverage 8.8% below 50%
+Physcomitrium_patens	XP_024385467.1	KAG0553887.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-81	277.9	48.6	21.7	NA	no	query coverage 48.6% below 50%
+Physcomitrium_patens	XP_024385467.1	KAG0553893.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-80	275.5	48.8	21.8	NA	no	query coverage 48.8% below 50%
+Physcomitrium_patens	XP_024385467.1	KAG0553959.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-88	300.7	43.6	34.4	NA	no	query coverage 43.6% below 50%
+Physcomitrium_patens	XP_024385810.1	KAG0504121.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.4e-81	276.5	75.3	48.0	NA	yes	NA
+Physcomitrium_patens	XP_024385810.1	KAG0504156.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.1e-97	327.7	83.2	33.0	NA	yes	NA
+Physcomitrium_patens	XP_024385810.1	KAG0504167.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-09	41.4	31.8	81.7	NA	no	query coverage 31.8% below 50%
+Physcomitrium_patens	XP_024385810.1	KAG0504174.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.3e-07	32.0	48.6	43.2	NA	no	query coverage 48.6% below 50%
+Physcomitrium_patens	XP_024385810.1	KAG0504180.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-62	214.6	52.3	87.2	NA	yes	NA
+Physcomitrium_patens	XP_024386158.1	KAG0560533.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-149	502.4	83.6	84.8	NA	yes	NA
+Physcomitrium_patens	XP_024386158.1	KAG0562325.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.8e-21	78.7	16.6	64.1	NA	no	query coverage 16.6% below 50%
+Physcomitrium_patens	XP_024386158.1	KAG0568924.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.8e-156	524.3	88.0	84.3	NA	yes	NA
+Physcomitrium_patens	XP_024386158.1	KAG0570934.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.4e-145	486.7	91.1	83.8	NA	yes	NA
+Physcomitrium_patens	XP_024386158.1	KAG0572076.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.6e-148	497.3	83.0	86.1	NA	yes	NA
+Physcomitrium_patens	XP_024389050.1	KAG0555545.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-114	387.1	78.3	85.0	NA	yes	NA
+Physcomitrium_patens	XP_024389050.1	KAG0557012.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.5e-113	382.1	78.2	87.0	NA	yes	NA
+Physcomitrium_patens	XP_024389050.1	KAG0557375.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.5e-154	517.7	75.9	91.0	NA	yes	NA
+Physcomitrium_patens	XP_024389050.1	KAG0557457.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-130	439.8	74.5	88.5	NA	yes	NA
+Physcomitrium_patens	XP_024389050.1	KAG0557962.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.1e-26	94.7	20.8	85.7	NA	no	query coverage 20.8% below 50%
+Physcomitrium_patens	XP_024389317.1	KAG0564458.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-78	268.0	33.6	47.4	NA	no	query coverage 33.6% below 50%
+Physcomitrium_patens	XP_024389317.1	KAG0569396.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.9e-205	685.3	97.3	94.8	NA	yes	NA
+Physcomitrium_patens	XP_024389317.1	KAG0569406.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-206	691.4	97.3	94.7	NA	yes	NA
+Physcomitrium_patens	XP_024389317.1	KAG0582942.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-79	270.4	32.1	39.4	NA	no	query coverage 32.1% below 50%
+Physcomitrium_patens	XP_024389317.1	KAG0584843.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-215	720.5	100.0	94.2	NA	yes	NA
+Physcomitrium_patens	XP_024389641.1	KAG0553344.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.6e-10	41.1	68.4	61.4	NA	yes	NA
+Physcomitrium_patens	XP_024389641.1	KAG0554462.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-07	33.5	73.3	66.3	NA	yes	NA
+Physcomitrium_patens	XP_024389641.1	KAG0554733.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9e-126	423.1	89.6	90.5	NA	yes	NA
+Physcomitrium_patens	XP_024389641.1	KAG0554822.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-05	27.2	72.5	72.2	NA	yes	NA
+Physcomitrium_patens	XP_024389641.1	KAG0557727.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0002	23.6	60.1	53.3	NA	yes	NA
+Physcomitrium_patens	XP_024390306.1	KAG0504297.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-18	70.0	33.3	15.9	NA	no	query coverage 33.3% below 50%
+Physcomitrium_patens	XP_024390306.1	KAG0553425.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.1e-46	160.4	72.3	67.8	NA	yes	NA
+Physcomitrium_patens	XP_024390306.1	KAG0553695.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-34	124.1	51.1	9.3	NA	yes	NA
+Physcomitrium_patens	XP_024390306.1	KAG0554750.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-23	87.2	34.8	24.9	NA	no	query coverage 34.8% below 50%
+Physcomitrium_patens	XP_024390306.1	KAG0556298.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-27	101.1	41.8	20.2	NA	no	query coverage 41.8% below 50%
+Physcomitrium_patens	XP_024390512.1	KAG0504404.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.7e-29	103.8	51.2	58.0	NA	yes	NA
+Physcomitrium_patens	XP_024390512.1	KAG0553729.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-50	173.3	78.7	90.1	NA	yes	NA
+Physcomitrium_patens	XP_024390512.1	KAG0553732.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.6e-50	172.6	78.7	90.1	NA	yes	NA
+Physcomitrium_patens	XP_024390512.1	KAG0553829.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00017	24.4	34.1	25.4	NA	no	query coverage 34.1% below 50%
+Physcomitrium_patens	XP_024390512.1	KAG0554010.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-73	250.3	97.6	95.5	NA	yes	NA
+Physcomitrium_patens	XP_024390517.1	KAG0504528.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.5e-16	63.2	67.1	47.9	NA	yes	NA
+Physcomitrium_patens	XP_024390517.1	KAG0553880.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-60	205.8	66.5	58.9	NA	yes	NA
+Physcomitrium_patens	XP_024390517.1	KAG0553881.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-70	240.4	73.1	76.1	NA	yes	NA
+Physcomitrium_patens	XP_024390517.1	KAG0554027.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.1e-21	78.9	79.6	10.5	NA	yes	NA
+Physcomitrium_patens	XP_024390517.1	KAG0554034.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6e-21	78.6	79.6	10.5	NA	yes	NA
+Physcomitrium_patens	XP_024390549.1	KAG0504121.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.3e-68	234.0	22.5	48.1	NA	no	query coverage 22.5% below 50%
+Physcomitrium_patens	XP_024390549.1	KAG0504156.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-81	278.6	25.6	34.2	NA	no	query coverage 25.6% below 50%
+Physcomitrium_patens	XP_024390549.1	KAG0504174.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.7e-06	28.3	14.9	43.4	NA	no	query coverage 14.9% below 50%
+Physcomitrium_patens	XP_024390549.1	KAG0504180.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-50	176.3	16.5	92.5	NA	no	query coverage 16.5% below 50%
+Physcomitrium_patens	XP_024390549.1	KAG0504202.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.2e-43	151.0	23.9	55.6	NA	no	query coverage 23.9% below 50%
+Physcomitrium_patens	XP_024390719.1	KAG0590757.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.7e-176	587.3	99.7	97.0	NA	yes	NA
+Physcomitrium_patens	XP_024390719.1	KAH8972542.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.6e-158	530.7	98.2	77.0	NA	yes	NA
+Physcomitrium_patens	XP_024390719.1	g12912.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	2.4e-151	507.1	97.0	97.5	NA	yes	NA
+Physcomitrium_patens	XP_024390719.1	g19247.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	1.3e-159	534.3	98.2	75.6	NA	yes	NA
+Physcomitrium_patens	XP_024390719.1	g6391.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	2.9e-159	533.1	98.2	74.5	NA	yes	NA
+Physcomitrium_patens	XP_024391020.1	KAG0553995.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.6e-50	174.0	45.1	40.6	NA	no	query coverage 45.1% below 50%
+Physcomitrium_patens	XP_024391020.1	KAG0554148.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.9e-42	147.0	38.9	33.5	NA	no	query coverage 38.9% below 50%
+Physcomitrium_patens	XP_024391020.1	KAG0554152.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-41	146.0	38.9	33.4	NA	no	query coverage 38.9% below 50%
+Physcomitrium_patens	XP_024391020.1	KAG0554895.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9e-63	215.9	53.9	46.6	NA	yes	NA
+Physcomitrium_patens	XP_024391020.1	KAG0554900.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-62	213.5	41.7	38.5	NA	no	query coverage 41.7% below 50%
+Physcomitrium_patens	XP_024391267.1	KAG0504620.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.5e-85	289.9	81.5	97.0	NA	yes	NA
+Physcomitrium_patens	XP_024391267.1	KAG0553449.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-45	159.3	59.4	59.1	NA	yes	NA
+Physcomitrium_patens	XP_024391267.1	KAG0554498.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-06	29.5	17.2	21.8	NA	no	query coverage 17.2% below 50%
+Physcomitrium_patens	XP_024391267.1	KAG0554909.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-81	278.3	72.2	97.6	NA	yes	NA
+Physcomitrium_patens	XP_024391267.1	KAG0555309.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.2e-36	128.3	36.2	72.5	NA	no	query coverage 36.2% below 50%
+Physcomitrium_patens	XP_024391308.1	KAG0556578.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.3e-111	374.8	77.8	75.6	NA	yes	NA
+Physcomitrium_patens	XP_024391308.1	KAG0557237.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-107	361.8	75.7	82.0	NA	yes	NA
+Physcomitrium_patens	XP_024391308.1	KAG0591711.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.9e-205	684.7	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024391308.1	KAG0591733.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.9e-205	684.7	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024391308.1	KAH8939914.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	5.2e-199	664.5	97.6	90.5	NA	yes	NA
+Physcomitrium_patens	XP_024391464.1	KAG0558096.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-40	141.4	45.6	39.6	NA	no	query coverage 45.6% below 50%
+Physcomitrium_patens	XP_024391464.1	KAG0570069.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.7e-06	29.1	31.3	28.1	NA	no	query coverage 31.3% below 50%
+Physcomitrium_patens	XP_024391464.1	KAG0578203.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-78	266.3	53.9	47.1	NA	yes	NA
+Physcomitrium_patens	XP_024391464.1	KAG0582993.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00011	24.8	46.9	42.0	NA	no	query coverage 46.9% below 50%
+Physcomitrium_patens	XP_024391464.1	KAG0584892.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-153	514.4	94.6	86.7	NA	yes	NA
+Physcomitrium_patens	XP_024391585.1	KAG0565976.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-68	232.4	99.2	99.2	NA	yes	NA
+Physcomitrium_patens	XP_024391585.1	KAH8969672.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.6e-55	190.5	95.3	94.9	NA	yes	NA
+Physcomitrium_patens	XP_024391585.1	g14601.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	1.6e-58	200.2	95.3	94.8	NA	yes	NA
+Physcomitrium_patens	XP_024391585.1	jg36688.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	1e-66	226.7	99.2	99.2	NA	yes	NA
+Physcomitrium_patens	XP_024391879.1	KAG0556454.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.9e-48	166.7	88.9	59.7	NA	yes	NA
+Physcomitrium_patens	XP_024391879.1	KAG0556503.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-32	116.7	63.9	44.9	NA	yes	NA
+Physcomitrium_patens	XP_024391879.1	KAG0558952.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00026	24.5	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_024391879.1	KAG0559980.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-54	187.8	92.8	80.4	NA	yes	NA
+Physcomitrium_patens	XP_024391879.1	KAG0561298.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-32	116.6	61.7	54.3	NA	yes	NA
+Physcomitrium_patens	XP_024392391.1	KAG0590521.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.7e-120	403.2	98.2	99.5	NA	yes	NA
+Physcomitrium_patens	XP_024392391.1	KAH8952131.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3.2e-36	128.3	41.8	78.6	NA	no	query coverage 41.8% below 50%
+Physcomitrium_patens	XP_024392391.1	KAH8959091.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4e-101	340.6	95.9	97.0	NA	yes	NA
+Physcomitrium_patens	XP_024392391.1	g29341.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	2.5e-100	338.0	95.5	96.5	NA	yes	NA
+Physcomitrium_patens	XP_024392391.1	g396.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	2.2e-90	305.4	90.9	86.2	NA	yes	NA
+Physcomitrium_patens	XP_024392690.1	KAG0564305.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4e-62	212.7	93.4	55.5	NA	yes	NA
+Physcomitrium_patens	XP_024392690.1	KAG0579839.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-95	320.1	98.5	98.5	NA	yes	NA
+Physcomitrium_patens	XP_024392690.1	KAG0584215.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-58	200.0	95.4	41.4	NA	yes	NA
+Physcomitrium_patens	XP_024392690.1	KAG0590468.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.8e-95	320.9	96.9	96.9	NA	yes	NA
+Physcomitrium_patens	XP_024392690.1	KAH8937758.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.6e-84	284.3	95.4	90.4	NA	yes	NA
+Physcomitrium_patens	XP_024392824.1	KAG0557873.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.2e-63	216.4	48.7	24.8	NA	no	query coverage 48.7% below 50%
+Physcomitrium_patens	XP_024392824.1	KAG0559729.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-68	235.8	54.4	28.5	NA	yes	NA
+Physcomitrium_patens	XP_024392824.1	KAG0561864.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-56	195.3	37.4	44.5	NA	no	query coverage 37.4% below 50%
+Physcomitrium_patens	XP_024392824.1	KAG0570443.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-63	218.7	42.5	22.9	NA	no	query coverage 42.5% below 50%
+Physcomitrium_patens	XP_024392824.1	KAG0572113.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-57	198.8	37.8	18.2	NA	no	query coverage 37.8% below 50%
+Physcomitrium_patens	XP_024393561.1	KAG0559716.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-161	539.9	100.0	99.7	NA	yes	NA
+Physcomitrium_patens	XP_024393561.1	KAG0569716.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.1e-162	542.2	99.3	96.7	NA	yes	NA
+Physcomitrium_patens	XP_024393561.1	KAG0569863.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-164	550.6	100.0	99.7	NA	yes	NA
+Physcomitrium_patens	XP_024393561.1	KAG0575629.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-165	552.3	100.0	99.3	NA	yes	NA
+Physcomitrium_patens	XP_024393561.1	KAH8932115.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	7.3e-22	81.8	33.2	69.7	NA	no	query coverage 33.2% below 50%
+Physcomitrium_patens	XP_024393615.1	KAG0585355.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-91	307.7	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024393615.1	KAH8934111.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.1e-90	303.4	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024393615.1	g2124.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	9.2e-89	299.0	98.7	86.7	NA	yes	NA
+Physcomitrium_patens	XP_024393615.1	g7091.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	1e-82	279.3	98.7	74.3	NA	yes	NA
+Physcomitrium_patens	XP_024393615.1	g7252.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	8.2e-89	299.1	98.7	87.2	NA	yes	NA
+Physcomitrium_patens	XP_024393669.1	KAG0504361.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-11	48.5	39.7	95.6	NA	no	query coverage 39.7% below 50%
+Physcomitrium_patens	XP_024393669.1	KAG0554410.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-23	87.8	42.9	16.7	NA	no	query coverage 42.9% below 50%
+Physcomitrium_patens	XP_024393669.1	KAG0554639.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-18	70.9	39.3	41.8	NA	no	query coverage 39.3% below 50%
+Physcomitrium_patens	XP_024393669.1	KAG0555465.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.4e-69	236.0	72.1	49.6	NA	yes	NA
+Physcomitrium_patens	XP_024393669.1	KAG0556187.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-77	263.0	62.1	45.8	NA	yes	NA
+Physcomitrium_patens	XP_024393678.1	KAG0504166.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-88	301.0	34.5	49.7	NA	no	query coverage 34.5% below 50%
+Physcomitrium_patens	XP_024393678.1	KAG0553640.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.7e-45	157.3	40.3	44.5	NA	no	query coverage 40.3% below 50%
+Physcomitrium_patens	XP_024393678.1	KAG0554128.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-164	553.6	61.2	90.6	NA	yes	NA
+Physcomitrium_patens	XP_024393678.1	KAG0554371.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-153	516.3	61.7	97.7	NA	yes	NA
+Physcomitrium_patens	XP_024393678.1	KAG0554543.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.7e-64	221.3	34.7	66.9	NA	no	query coverage 34.7% below 50%
+Physcomitrium_patens	XP_024393712.1	KAG0569424.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.1e-110	372.5	37.9	57.6	NA	no	query coverage 37.9% below 50%
+Physcomitrium_patens	XP_024393712.1	KAG0570301.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.5e-157	528.6	42.2	44.4	NA	no	query coverage 42.2% below 50%
+Physcomitrium_patens	XP_024393712.1	KAG0587597.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.2e-150	505.5	47.5	70.2	NA	no	query coverage 47.5% below 50%
+Physcomitrium_patens	XP_024393712.1	KAH8941733.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.1e-24	88.3	10.7	23.1	NA	no	query coverage 10.7% below 50%
+Physcomitrium_patens	XP_024393712.1	KAH8944295.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2e-21	79.4	6.7	12.5	NA	no	query coverage 6.7% below 50%
+Physcomitrium_patens	XP_024395486.1	KAG0569531.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1040.9	99.4	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024395486.1	KAG0569536.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1040.9	99.4	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024395486.1	g10039.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	5.9e-36	127.6	14.9	39.9	NA	no	query coverage 14.9% below 50%
+Physcomitrium_patens	XP_024395486.1	g10431.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	0.0	1011.0	99.4	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024395486.1	g16361.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	0.0	1029.1	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024395562.1	KAG0568276.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.5e-64	216.3	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024395562.1	KAG0569046.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.5e-64	216.3	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024395562.1	KAH8954301.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	5.2e-63	213.6	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024395562.1	KAH8962555.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	5.6e-64	216.7	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024395562.1	KAH8969646.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.4e-63	215.5	99.1	98.2	NA	yes	NA
+Physcomitrium_patens	XP_024395904.1	KAG0504622.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.6e-17	64.7	17.3	24.0	NA	no	query coverage 17.3% below 50%
+Physcomitrium_patens	XP_024395904.1	KAG0555312.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-70	240.6	41.3	46.0	NA	no	query coverage 41.3% below 50%
+Physcomitrium_patens	XP_024395904.1	KAG0567483.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-262	874.7	100.0	99.6	NA	yes	NA
+Physcomitrium_patens	XP_024395904.1	KAG0578155.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.3e-19	71.4	19.9	26.4	NA	no	query coverage 19.9% below 50%
+Physcomitrium_patens	XP_024395904.1	KAG0585076.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.8e-70	239.6	41.3	46.1	NA	no	query coverage 41.3% below 50%
+Physcomitrium_patens	XP_024395975.1	KAG0504497.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.2e-51	177.0	69.6	26.1	NA	yes	NA
+Physcomitrium_patens	XP_024395975.1	KAG0504530.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.8e-23	85.9	50.5	17.2	NA	yes	NA
+Physcomitrium_patens	XP_024395975.1	KAG0553404.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4e-37	131.4	77.8	28.0	NA	yes	NA
+Physcomitrium_patens	XP_024395975.1	KAG0553421.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.1e-57	196.5	40.1	74.7	NA	no	query coverage 40.1% below 50%
+Physcomitrium_patens	XP_024395975.1	KAG0553662.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.1e-36	127.5	48.6	75.3	NA	no	query coverage 48.6% below 50%
+Physcomitrium_patens	XP_024396042.1	KAG0558342.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-50	174.1	50.0	49.4	NA	yes	NA
+Physcomitrium_patens	XP_024396042.1	KAG0567120.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.1e-70	237.7	64.0	31.7	NA	yes	NA
+Physcomitrium_patens	XP_024396042.1	KAH8942945.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3e-64	219.4	65.2	32.1	NA	yes	NA
+Physcomitrium_patens	XP_024396042.1	g40702.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	8.9e-27	97.3	33.1	30.3	NA	no	query coverage 33.1% below 50%
+Physcomitrium_patens	XP_024396042.1	g8214.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	1.4e-60	207.4	66.9	32.7	NA	yes	NA
+Physcomitrium_patens	XP_024396437.1	KAG0504545.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.4e-165	553.2	77.3	74.9	NA	yes	NA
+Physcomitrium_patens	XP_024396437.1	KAG0557045.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.2e-162	542.6	78.5	82.1	NA	yes	NA
+Physcomitrium_patens	XP_024396437.1	KAG0565197.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.4e-165	553.2	77.3	74.9	NA	yes	NA
+Physcomitrium_patens	XP_024396437.1	KAG0576920.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-155	522.0	79.0	76.4	NA	yes	NA
+Physcomitrium_patens	XP_024396437.1	KAG0582678.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-160	538.6	92.1	87.0	NA	yes	NA
+Physcomitrium_patens	XP_024396482.1	KAG0504280.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-18	71.0	52.5	53.0	NA	yes	NA
+Physcomitrium_patens	XP_024396482.1	KAG0504607.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.9e-56	193.1	56.9	37.4	NA	yes	NA
+Physcomitrium_patens	XP_024396482.1	KAG0553351.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-38	136.1	46.2	22.6	NA	no	query coverage 46.2% below 50%
+Physcomitrium_patens	XP_024396482.1	KAG0553588.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-21	80.6	38.4	24.4	NA	no	query coverage 38.4% below 50%
+Physcomitrium_patens	XP_024396482.1	KAG0555180.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-12	51.0	39.9	45.0	NA	no	query coverage 39.9% below 50%
+Physcomitrium_patens	XP_024396540.1	KAG0559471.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.1e-42	147.8	28.1	17.6	NA	no	query coverage 28.1% below 50%
+Physcomitrium_patens	XP_024396540.1	KAG0559528.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-212	708.6	99.7	83.9	NA	yes	NA
+Physcomitrium_patens	XP_024396540.1	KAG0560860.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5e-31	112.1	24.9	18.9	NA	no	query coverage 24.9% below 50%
+Physcomitrium_patens	XP_024396540.1	KAG0561053.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-33	119.9	19.1	45.0	NA	no	query coverage 19.1% below 50%
+Physcomitrium_patens	XP_024396540.1	KAG0566138.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-203	679.3	99.7	99.7	NA	yes	NA
+Physcomitrium_patens	XP_024396557.1	KAG0554779.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-299	998.5	99.2	98.9	NA	yes	NA
+Physcomitrium_patens	XP_024396557.1	KAG0555573.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.6e-242	808.1	89.4	99.1	NA	yes	NA
+Physcomitrium_patens	XP_024396557.1	KAG0555575.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.6e-242	808.1	89.4	99.1	NA	yes	NA
+Physcomitrium_patens	XP_024396557.1	KAG0558423.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.6e-239	797.7	91.2	96.8	NA	yes	NA
+Physcomitrium_patens	XP_024396557.1	KAG0565350.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.3e-234	781.8	91.1	95.6	NA	yes	NA
+Physcomitrium_patens	XP_024396919.1	KAG0556772.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-168	564.5	83.1	86.1	NA	yes	NA
+Physcomitrium_patens	XP_024396919.1	KAG0566284.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-232	775.9	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024396919.1	KAH8940210.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3.1e-172	577.3	85.4	76.9	NA	yes	NA
+Physcomitrium_patens	XP_024396919.1	KAH8940582.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.7e-202	677.1	91.6	82.3	NA	yes	NA
+Physcomitrium_patens	XP_024396919.1	g10027.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	1.1e-182	611.8	82.7	84.3	NA	yes	NA
+Physcomitrium_patens	XP_024397444.1	KAG0554249.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-14	58.1	18.9	13.0	NA	no	query coverage 18.9% below 50%
+Physcomitrium_patens	XP_024397444.1	KAG0559190.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.9e-22	81.6	27.9	23.5	NA	no	query coverage 27.9% below 50%
+Physcomitrium_patens	XP_024397444.1	KAG0559344.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.5e-25	92.0	32.8	27.7	NA	no	query coverage 32.8% below 50%
+Physcomitrium_patens	XP_024397444.1	KAG0561921.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-72	248.9	58.4	78.9	NA	yes	NA
+Physcomitrium_patens	XP_024397444.1	KAG0562189.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.2e-20	75.1	27.3	28.3	NA	no	query coverage 27.3% below 50%
+Physcomitrium_patens	XP_024397544.1	KAG0558204.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-103	347.9	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024397544.1	KAG0567030.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-105	355.4	97.6	98.5	NA	yes	NA
+Physcomitrium_patens	XP_024397544.1	KAH8973586.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.8e-74	254.0	55.7	42.2	NA	yes	NA
+Physcomitrium_patens	XP_024397544.1	g11027.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	4.7e-72	246.0	66.5	45.5	NA	yes	NA
+Physcomitrium_patens	XP_024397544.1	g25929.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	2.1e-74	253.7	55.7	42.9	NA	yes	NA
+Physcomitrium_patens	XP_024397620.1	KAG0559990.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-47	163.1	93.5	69.0	NA	yes	NA
+Physcomitrium_patens	XP_024397620.1	KAG0559991.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.8e-48	164.6	93.5	76.9	NA	yes	NA
+Physcomitrium_patens	XP_024397620.1	KAG0566300.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-47	163.6	95.3	89.5	NA	yes	NA
+Physcomitrium_patens	XP_024397620.1	KAG0567456.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-22	82.2	67.3	5.5	NA	yes	NA
+Physcomitrium_patens	XP_024397620.1	KAG0567460.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-22	82.2	67.3	5.5	NA	yes	NA
+Physcomitrium_patens	XP_024397943.1	KAG0555800.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.3e-123	414.6	89.6	95.6	NA	yes	NA
+Physcomitrium_patens	XP_024397943.1	KAG0563025.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-117	396.2	76.1	83.4	NA	yes	NA
+Physcomitrium_patens	XP_024397943.1	KAG0577278.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-121	409.1	86.5	96.4	NA	yes	NA
+Physcomitrium_patens	XP_024397943.1	KAG0578008.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-145	488.3	97.7	87.1	NA	yes	NA
+Physcomitrium_patens	XP_024397943.1	KAH8938851.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.6e-120	405.5	76.9	78.0	NA	yes	NA
+Physcomitrium_patens	XP_024398425.1	KAG0555071.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.7e-112	379.5	68.0	49.2	NA	yes	NA
+Physcomitrium_patens	XP_024398425.1	KAG0559866.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.5e-112	377.9	68.0	52.1	NA	yes	NA
+Physcomitrium_patens	XP_024398425.1	KAG0565540.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-105	356.3	69.3	39.4	NA	yes	NA
+Physcomitrium_patens	XP_024398425.1	KAG0576086.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-206	690.8	95.2	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024398425.1	KAG0576312.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-111	376.1	68.0	51.6	NA	yes	NA
+Physcomitrium_patens	XP_024398761.1	KAG0569497.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-58	199.3	83.1	77.2	NA	yes	NA
+Physcomitrium_patens	XP_024398761.1	KAG0569498.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-58	199.3	83.1	77.2	NA	yes	NA
+Physcomitrium_patens	XP_024398761.1	KAG0575576.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-66	223.7	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024398761.1	KAH8938984.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	6.8e-35	123.2	55.9	35.9	NA	yes	NA
+Physcomitrium_patens	XP_024398761.1	KAH8961759.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.5e-59	202.7	83.1	77.2	NA	yes	NA
+Physcomitrium_patens	XP_024399064.1	KAG0553464.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-292	977.0	83.0	89.8	NA	yes	NA
+Physcomitrium_patens	XP_024399064.1	KAG0575621.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1470.1	88.9	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024399064.1	KAG0586245.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1253.2	84.7	91.3	NA	yes	NA
+Physcomitrium_patens	XP_024399064.1	KAH8941675.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.7e-17	66.4	5.0	100.0	NA	no	query coverage 5.0% below 50%
+Physcomitrium_patens	XP_024399064.1	KAH8950180.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.3e-231	774.7	61.1	82.5	NA	yes	NA
+Physcomitrium_patens	XP_024399153.1	KAG0504307.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.1e-93	316.2	71.5	38.3	NA	yes	NA
+Physcomitrium_patens	XP_024399153.1	KAG0504464.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.9e-81	276.2	65.0	90.9	NA	yes	NA
+Physcomitrium_patens	XP_024399153.1	KAG0557829.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.3e-85	290.7	69.4	66.3	NA	yes	NA
+Physcomitrium_patens	XP_024399153.1	KAG0558968.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.1e-93	316.2	71.5	38.3	NA	yes	NA
+Physcomitrium_patens	XP_024399153.1	KAG0563732.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.1e-12	49.6	9.6	30.1	NA	no	query coverage 9.6% below 50%
+Physcomitrium_patens	XP_024399414.1	KAG0553848.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-32	116.6	22.2	37.2	NA	no	query coverage 22.2% below 50%
+Physcomitrium_patens	XP_024399414.1	KAG0557726.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-57	198.1	28.9	55.7	NA	no	query coverage 28.9% below 50%
+Physcomitrium_patens	XP_024399414.1	KAG0558271.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-21	80.5	11.2	28.1	NA	no	query coverage 11.2% below 50%
+Physcomitrium_patens	XP_024399414.1	KAG0558283.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-21	80.5	11.2	28.1	NA	no	query coverage 11.2% below 50%
+Physcomitrium_patens	XP_024399414.1	KAG0560395.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00011	24.4	12.3	28.5	NA	no	query coverage 12.3% below 50%
+Physcomitrium_patens	XP_024399821.1	KAG0559716.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-164	548.7	99.7	99.3	NA	yes	NA
+Physcomitrium_patens	XP_024399821.1	KAG0569716.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.5e-162	542.2	99.7	96.0	NA	yes	NA
+Physcomitrium_patens	XP_024399821.1	KAG0569863.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.3e-168	563.6	99.7	99.3	NA	yes	NA
+Physcomitrium_patens	XP_024399821.1	KAG0575629.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-163	547.5	99.7	99.0	NA	yes	NA
+Physcomitrium_patens	XP_024399821.1	KAH8932115.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	9.8e-22	81.4	32.9	69.7	NA	no	query coverage 32.9% below 50%
+Physcomitrium_patens	XP_024400519.1	KAG0504205.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.1e-99	334.9	72.8	56.4	NA	yes	NA
+Physcomitrium_patens	XP_024400519.1	KAG0553735.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-82	280.0	70.3	57.1	NA	yes	NA
+Physcomitrium_patens	XP_024400519.1	KAG0557506.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.8e-200	667.3	97.2	96.0	NA	yes	NA
+Physcomitrium_patens	XP_024400519.1	KAG0557507.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6e-200	667.5	97.2	95.1	NA	yes	NA
+Physcomitrium_patens	XP_024400519.1	KAG0560175.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.3e-91	309.1	71.0	55.2	NA	yes	NA
+Physcomitrium_patens	XP_024401239.1	KAG0504280.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-08	38.3	19.7	26.7	NA	no	query coverage 19.7% below 50%
+Physcomitrium_patens	XP_024401239.1	KAG0554409.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-47	165.7	29.2	26.5	NA	no	query coverage 29.2% below 50%
+Physcomitrium_patens	XP_024401239.1	KAG0556643.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-46	162.7	42.2	41.7	NA	no	query coverage 42.2% below 50%
+Physcomitrium_patens	XP_024401239.1	KAG0558068.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-69	238.1	56.8	43.8	NA	yes	NA
+Physcomitrium_patens	XP_024401239.1	KAG0559104.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.2e-70	240.6	36.1	22.4	NA	no	query coverage 36.1% below 50%
+Physcomitrium_patens	XP_024401332.1	KAG0569163.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1550.8	99.7	99.9	NA	yes	NA
+Physcomitrium_patens	XP_024401332.1	KAG0569688.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1532.7	99.7	99.9	NA	yes	NA
+Physcomitrium_patens	XP_024401332.1	KAG0586417.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1537.9	99.7	99.6	NA	yes	NA
+Physcomitrium_patens	XP_024401332.1	KAH8960949.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1435.4	98.5	97.9	NA	yes	NA
+Physcomitrium_patens	XP_024401332.1	KAH8971438.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1527.6	99.7	99.9	NA	yes	NA
+Physcomitrium_patens	XP_024401603.1	KAG0569110.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-130	436.8	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024401603.1	KAH8949873.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2e-106	358.8	90.7	87.5	NA	yes	NA
+Physcomitrium_patens	XP_024401603.1	g166.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	4.9e-98	331.3	84.3	70.2	NA	yes	NA
+Physcomitrium_patens	XP_024401603.1	g437.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	5e-114	383.7	90.7	88.6	NA	yes	NA
+Physcomitrium_patens	XP_024401603.1	g7812.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	9.6e-114	382.7	90.7	88.6	NA	yes	NA
+Physcomitrium_patens	XP_024401642.1	KAG0570214.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.4e-64	217.3	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_024401642.1	KAG0592985.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-64	218.4	100.0	69.9	NA	yes	NA
+Physcomitrium_patens	XP_024401642.1	KAH8954030.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3.4e-63	215.0	98.4	96.0	NA	yes	NA
+Physcomitrium_patens	XP_024401642.1	g2454.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	2.6e-58	199.2	96.7	89.9	NA	yes	NA
+Physcomitrium_patens	XP_024401642.1	g3090.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	1.5e-62	212.9	96.7	62.0	NA	yes	NA
+Physcomitrium_patens	XP_024401689.1	KAG0553698.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-11	47.7	13.2	5.5	NA	no	query coverage 13.2% below 50%
+Physcomitrium_patens	XP_024401689.1	KAG0555749.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.6e-127	429.1	90.4	56.3	NA	yes	NA
+Physcomitrium_patens	XP_024401689.1	KAG0557347.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-177	595.1	92.3	90.9	NA	yes	NA
+Physcomitrium_patens	XP_024401689.1	KAG0557349.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.7e-177	594.1	92.3	90.9	NA	yes	NA
+Physcomitrium_patens	XP_024401689.1	KAG0557853.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.3e-05	26.8	10.0	75.3	NA	no	query coverage 10.0% below 50%
+Physcomitrium_patens	XP_024402218.1	KAG0555362.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.4e-05	25.5	26.4	38.8	NA	no	query coverage 26.4% below 50%
+Physcomitrium_patens	XP_024402218.1	KAG0556230.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.3e-07	31.5	44.9	54.0	NA	no	query coverage 44.9% below 50%
+Physcomitrium_patens	XP_024402218.1	KAG0556805.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-25	93.9	26.4	36.5	NA	no	query coverage 26.4% below 50%
+Physcomitrium_patens	XP_024402218.1	KAG0559298.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-187	627.4	92.9	96.5	NA	yes	NA
+Physcomitrium_patens	XP_024402218.1	KAG0560696.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.7e-06	29.3	29.1	37.1	NA	no	query coverage 29.1% below 50%
+Physcomitrium_patens	XP_024402308.1	KAG0555545.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.9e-114	386.2	81.4	68.9	NA	yes	NA
+Physcomitrium_patens	XP_024402308.1	KAG0557012.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-115	390.7	82.1	72.3	NA	yes	NA
+Physcomitrium_patens	XP_024402308.1	KAG0557375.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-187	628.6	89.6	96.7	NA	yes	NA
+Physcomitrium_patens	XP_024402308.1	KAG0557457.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-141	476.0	85.3	90.5	NA	yes	NA
+Physcomitrium_patens	XP_024402308.1	KAG0557962.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-35	126.1	23.8	82.7	NA	no	query coverage 23.8% below 50%
+Physcomitrium_patens	XP_024403105.1	KAG0553362.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.8e-22	81.6	48.4	52.2	NA	no	query coverage 48.4% below 50%
+Physcomitrium_patens	XP_024403105.1	KAG0555808.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.8e-229	765.5	100.0	99.1	NA	yes	NA
+Physcomitrium_patens	XP_024403105.1	KAG0557673.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-200	669.8	96.6	96.4	NA	yes	NA
+Physcomitrium_patens	XP_024403105.1	KAG0566483.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-221	739.7	97.9	93.3	NA	yes	NA
+Physcomitrium_patens	XP_024403105.1	KAG0567471.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-159	535.4	97.9	95.8	NA	yes	NA
+Physcomitrium_patens	XP_073385898.1	KAG0504123.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-78	267.9	44.8	44.6	NA	no	query coverage 44.8% below 50%
+Physcomitrium_patens	XP_073385898.1	KAG0504156.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.6e-23	85.0	19.7	9.8	NA	no	query coverage 19.7% below 50%
+Physcomitrium_patens	XP_073385898.1	KAG0504249.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.7e-05	27.4	28.2	11.1	NA	no	query coverage 28.2% below 50%
+Physcomitrium_patens	XP_073385898.1	KAG0504407.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.1e-11	45.8	17.4	57.8	NA	no	query coverage 17.4% below 50%
+Physcomitrium_patens	XP_073385898.1	KAG0553635.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-71	245.7	56.1	40.0	NA	yes	NA
+Physcomitrium_patens	XP_073386709.1	KAG0558343.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.9e-08	38.0	29.1	20.1	NA	no	query coverage 29.1% below 50%
+Physcomitrium_patens	XP_073386709.1	KAG0560927.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.3e-125	423.1	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_073386709.1	KAG0563150.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-36	130.1	36.8	70.0	NA	no	query coverage 36.8% below 50%
+Physcomitrium_patens	XP_073386709.1	KAG0567830.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.4e-21	79.1	53.7	76.3	NA	yes	NA
+Physcomitrium_patens	XP_073386709.1	KAG0588562.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-21	80.1	37.6	31.8	NA	no	query coverage 37.6% below 50%
+Physcomitrium_patens	XP_073386716.1	KAG0554014.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	8.2e-16	60.9	10.5	11.3	NA	no	query coverage 10.5% below 50%
+Physcomitrium_patens	XP_073386716.1	KAG0562819.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1459.2	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_073386716.1	KAG0572275.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.2e-16	61.9	10.5	10.8	NA	no	query coverage 10.5% below 50%
+Physcomitrium_patens	XP_073386716.1	KAG0572520.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-31	113.3	18.6	34.5	NA	no	query coverage 18.6% below 50%
+Physcomitrium_patens	XP_073386716.1	KAG0581377.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5e-52	180.6	25.9	26.7	NA	no	query coverage 25.9% below 50%
+Physcomitrium_patens	XP_073387132.1	KAG0554320.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.6e-26	96.0	38.4	47.9	NA	no	query coverage 38.4% below 50%
+Physcomitrium_patens	XP_073387132.1	KAG0583724.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-80	273.2	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_073387132.1	KAG0584388.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.8e-23	86.6	38.4	50.0	NA	no	query coverage 38.4% below 50%
+Physcomitrium_patens	XP_073387132.1	KAH8931482.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.6e-71	243.8	99.4	99.0	NA	yes	NA
+Physcomitrium_patens	XP_073387132.1	KAH8941549.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0002	25.2	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_073387418.1	KAG0553925.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-230	769.5	95.8	83.8	NA	yes	NA
+Physcomitrium_patens	XP_073387418.1	KAG0575403.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-251	838.7	98.8	95.9	NA	yes	NA
+Physcomitrium_patens	XP_073387418.1	KAH8950959.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	6.6e-230	767.0	90.2	84.8	NA	yes	NA
+Physcomitrium_patens	XP_073387418.1	KAH8961787.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.3e-242	808.9	94.6	64.9	NA	yes	NA
+Physcomitrium_patens	XP_073387418.1	KAH8965528.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.6e-230	767.5	91.8	89.5	NA	yes	NA
+Physcomitrium_patens	XP_073388290.1	KAG0504148.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.2e-06	30.1	15.3	27.1	NA	no	query coverage 15.3% below 50%
+Physcomitrium_patens	XP_073388290.1	KAG0504494.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-08	38.2	24.8	29.5	NA	no	query coverage 24.8% below 50%
+Physcomitrium_patens	XP_073388290.1	KAG0553370.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.2e-12	49.9	28.6	35.0	NA	no	query coverage 28.6% below 50%
+Physcomitrium_patens	XP_073388290.1	KAG0553450.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-18	69.6	24.3	28.5	NA	no	query coverage 24.3% below 50%
+Physcomitrium_patens	XP_073388290.1	KAG0553584.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00083	22.6	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_073388551.1	KAG0504127.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-51	177.5	97.1	34.0	NA	yes	NA
+Physcomitrium_patens	XP_073388551.1	KAG0564959.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.7e-55	188.4	97.9	27.9	NA	yes	NA
+Physcomitrium_patens	XP_073388551.1	KAG0566783.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-28	104.1	59.3	19.2	NA	yes	NA
+Physcomitrium_patens	XP_073388551.1	KAG0580590.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.5e-43	150.1	71.4	32.9	NA	yes	NA
+Physcomitrium_patens	XP_073388551.1	KAG0581093.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.8e-22	82.0	41.4	10.2	NA	no	query coverage 41.4% below 50%
+Physcomitrium_patens	XP_073389129.1	KAG0504233.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-19	72.7	5.6	45.5	NA	no	query coverage 5.6% below 50%
+Physcomitrium_patens	XP_073389129.1	KAG0504392.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.5e-23	84.5	12.2	39.8	NA	no	query coverage 12.2% below 50%
+Physcomitrium_patens	XP_073389129.1	KAG0553617.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-79	270.5	11.5	65.9	NA	no	query coverage 11.5% below 50%
+Physcomitrium_patens	XP_073389129.1	KAG0553646.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-69	238.4	9.3	69.1	NA	no	query coverage 9.3% below 50%
+Physcomitrium_patens	XP_073389129.1	KAG0553698.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.6e-36	127.0	10.2	10.0	NA	no	query coverage 10.2% below 50%
+Physcomitrium_patens	XP_073389632.1	KAG0578553.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-104	350.6	92.3	93.6	NA	yes	NA
+Physcomitrium_patens	XP_073389632.1	jg28265.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	1.3e-101	341.9	91.9	93.3	NA	yes	NA
+Physcomitrium_patens	XP_073389632.1	jg3815.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	1.9e-102	344.7	78.4	93.1	NA	yes	NA
+Physcomitrium_patens	XP_073389632.1	jg3816.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	7.9e-90	303.4	85.6	91.9	NA	yes	NA
+Physcomitrium_patens	XP_073389632.1	jg3817.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	5.8e-87	294.0	65.8	80.0	NA	yes	NA
+Physcomitrium_patens	XP_073389643.1	KAG0554324.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.3e-09	38.4	11.0	27.4	NA	no	query coverage 11.0% below 50%
+Physcomitrium_patens	XP_073389643.1	KAG0554328.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4e-10	41.8	11.6	28.4	NA	no	query coverage 11.6% below 50%
+Physcomitrium_patens	XP_073389643.1	KAG0554330.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-09	40.0	9.8	26.0	NA	no	query coverage 9.8% below 50%
+Physcomitrium_patens	XP_073389643.1	KAG0554530.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-10	41.5	10.9	34.3	NA	no	query coverage 10.9% below 50%
+Physcomitrium_patens	XP_073389643.1	KAG0555825.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00019	23.1	7.5	21.5	NA	no	query coverage 7.5% below 50%
+Physcomitrium_patens	XP_073390670.1	KAG0504166.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-42	149.5	41.1	36.7	NA	no	query coverage 41.1% below 50%
+Physcomitrium_patens	XP_073390670.1	KAG0553640.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-35	126.2	71.9	47.1	NA	yes	NA
+Physcomitrium_patens	XP_073390670.1	KAG0553895.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-09	41.2	39.0	19.6	NA	no	query coverage 39.0% below 50%
+Physcomitrium_patens	XP_073390670.1	KAG0554128.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-62	216.1	54.2	40.9	NA	yes	NA
+Physcomitrium_patens	XP_073390670.1	KAG0554229.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-07	33.6	43.2	18.2	NA	no	query coverage 43.2% below 50%
+Physcomitrium_patens	XP_073390791.1	KAG0576229.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-183	611.8	94.3	99.3	NA	yes	NA
+Physcomitrium_patens	XP_073390791.1	KAH8960375.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.2e-62	214.7	43.8	91.2	NA	no	query coverage 43.8% below 50%
+Physcomitrium_patens	XP_073390791.1	jg6504.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	7.6e-183	610.2	94.3	99.3	NA	yes	NA
+Physcomitrium_patens	XP_073390791.1	jg9012.t1__Syntrichia_ruralis	Syntrichia_ruralis	homology-jackhmmer	9e-175	583.7	90.2	92.1	NA	yes	NA
+Physcomitrium_patens	XP_073391148.1	KAG0565079.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.2e-10	42.2	9.8	11.6	NA	no	query coverage 9.8% below 50%
+Physcomitrium_patens	XP_073391148.1	KAG0583832.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-181	605.9	92.6	99.4	NA	yes	NA
+Physcomitrium_patens	XP_073391148.1	KAH8932443.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	5e-173	579.0	80.7	86.2	NA	yes	NA
+Physcomitrium_patens	XP_073391148.1	KAH8945672.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.3e-05	27.1	10.6	14.7	NA	no	query coverage 10.6% below 50%
+Physcomitrium_patens	XP_073391148.1	KAH8969351.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.9e-13	53.1	9.5	20.4	NA	no	query coverage 9.5% below 50%
+Physcomitrium_patens	XP_073391376.1	KAG0582945.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1049.4	84.9	99.0	NA	yes	NA
+Physcomitrium_patens	XP_073391376.1	KAH8953056.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1056.3	83.9	96.8	NA	yes	NA
+Physcomitrium_patens	XP_073391376.1	KAH8955510.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	1106.3	84.3	97.4	NA	yes	NA
+Physcomitrium_patens	XP_073391376.1	KAH8955515.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.3e-27	100.1	8.9	56.7	NA	no	query coverage 8.9% below 50%
+Physcomitrium_patens	XP_073391376.1	KAH8955517.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.1e-36	129.2	11.5	90.9	NA	no	query coverage 11.5% below 50%
+Physcomitrium_patens	XP_073391456.1	KAG0560849.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	2377.8	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_073391456.1	KAG0560852.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	2378.0	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_073391456.1	KAG0575309.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-16	63.2	9.8	46.9	NA	no	query coverage 9.8% below 50%
+Physcomitrium_patens	XP_073391456.1	KAH8940224.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.9e-06	29.7	4.5	5.5	NA	no	query coverage 4.5% below 50%
+Physcomitrium_patens	XP_073391456.1	KAH8945832.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	0.0	2106.9	100.0	100.0	NA	yes	NA
+Physcomitrium_patens	XP_073391581.1	KAG0504121.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.3e-105	356.1	47.5	60.7	NA	no	query coverage 47.5% below 50%
+Physcomitrium_patens	XP_073391581.1	KAG0504123.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.7e-39	137.3	13.9	28.4	NA	no	query coverage 13.9% below 50%
+Physcomitrium_patens	XP_073391581.1	KAG0504156.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-180	606.3	70.8	57.1	NA	yes	NA
+Physcomitrium_patens	XP_073391581.1	KAG0504180.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.6e-86	294.3	26.9	89.8	NA	no	query coverage 26.9% below 50%
+Physcomitrium_patens	XP_073391581.1	KAG0504202.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.8e-68	233.9	42.1	60.7	NA	no	query coverage 42.1% below 50%
+Physcomitrium_patens	XP_073392270.1	KAG0556998.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-14	56.4	47.1	8.3	NA	no	query coverage 47.1% below 50%
+Physcomitrium_patens	XP_073392270.1	KAG0558688.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.6e-30	107.5	81.2	14.3	NA	yes	NA
+Physcomitrium_patens	XP_073392270.1	KAG0565892.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-33	118.3	88.2	15.7	NA	yes	NA
+Physcomitrium_patens	XP_073392270.1	KAG0570122.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.8e-16	61.5	52.9	9.4	NA	yes	NA
+Physcomitrium_patens	XP_073392270.1	KAG0573974.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.4e-23	85.6	80.0	14.6	NA	yes	NA
+Physcomitrium_patens	XP_073392280.1	KAG0504123.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00065	21.6	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_073392280.1	KAG0504156.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-05	25.4	18.4	9.3	NA	no	query coverage 18.4% below 50%
+Physcomitrium_patens	XP_073392280.1	KAG0504530.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00023	23.1	0.0	0.0	NA	no	query coverage 0.0% below 50%
+Physcomitrium_patens	XP_073392280.1	KAG0553635.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.1e-20	76.1	31.3	19.1	NA	no	query coverage 31.3% below 50%
+Physcomitrium_patens	XP_073392280.1	KAG0553800.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.8e-13	51.5	33.6	30.4	NA	no	query coverage 33.6% below 50%
+Physcomitrium_patens	XP_073392657.1	KAG0504528.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.3e-18	68.8	31.3	51.8	NA	no	query coverage 31.3% below 50%
+Physcomitrium_patens	XP_073392657.1	KAG0553880.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3e-48	168.6	23.4	49.2	NA	no	query coverage 23.4% below 50%
+Physcomitrium_patens	XP_073392657.1	KAG0553881.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-58	202.0	28.9	66.8	NA	no	query coverage 28.9% below 50%
+Physcomitrium_patens	XP_073392657.1	KAG0554027.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.2e-07	33.5	50.7	20.4	NA	yes	NA
+Physcomitrium_patens	XP_073392657.1	KAG0554034.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-07	35.1	50.4	20.3	NA	yes	NA
+Physcomitrium_patens	XP_073392668.1	KAG0553667.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	2047.2	89.4	90.0	NA	yes	NA
+Physcomitrium_patens	XP_073392668.1	KAG0553669.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	1514.4	57.5	87.1	NA	yes	NA
+Physcomitrium_patens	XP_073392668.1	KAG0553671.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.0	2188.7	90.6	89.8	NA	yes	NA
+Physcomitrium_patens	XP_073392668.1	KAG0566598.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.7e-06	28.5	8.1	27.3	NA	no	query coverage 8.1% below 50%
+Physcomitrium_patens	XP_073392668.1	KAG0569465.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-11	45.6	7.7	25.5	NA	no	query coverage 7.7% below 50%
+Physcomitrium_patens	XP_073392800.1	KAG0554280.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.4e-05	25.6	4.8	4.6	NA	no	query coverage 4.8% below 50%
+Physcomitrium_patens	XP_073392800.1	KAG0555185.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.6e-11	46.9	7.0	12.6	NA	no	query coverage 7.0% below 50%
+Physcomitrium_patens	XP_073392800.1	KAG0556719.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.3e-17	66.2	12.9	7.6	NA	no	query coverage 12.9% below 50%
+Physcomitrium_patens	XP_073392800.1	KAG0560878.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.1e-25	92.2	12.9	13.8	NA	no	query coverage 12.9% below 50%
+Physcomitrium_patens	XP_073392800.1	KAG0562009.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.6e-05	25.8	7.2	31.8	NA	no	query coverage 7.2% below 50%
+Physcomitrium_patens	XP_073393657.1	KAG0504106.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-06	31.5	71.4	64.1	NA	yes	NA
+Physcomitrium_patens	XP_073393657.1	KAG0553942.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-36	129.5	92.2	27.7	NA	yes	NA
+Physcomitrium_patens	XP_073393657.1	KAG0554054.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.2e-16	61.7	68.2	15.8	NA	yes	NA
+Physcomitrium_patens	XP_073393657.1	KAG0554087.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-17	67.1	68.8	15.8	NA	yes	NA
+Physcomitrium_patens	XP_073393657.1	KAG0555022.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.1e-61	207.9	93.5	48.7	NA	yes	NA
+Physcomitrium_patens	XP_073394121.1	KAG0561322.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.7e-12	49.4	22.1	7.8	NA	no	query coverage 22.1% below 50%
+Physcomitrium_patens	XP_073394121.1	KAG0580294.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-185	619.5	99.4	99.4	NA	yes	NA
+Physcomitrium_patens	XP_073394121.1	KAG0593095.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-10	43.8	22.1	9.4	NA	no	query coverage 22.1% below 50%
+Physcomitrium_patens	XP_073394121.1	KAH8945874.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.1e-162	544.3	84.7	79.8	NA	yes	NA
+Physcomitrium_patens	XP_073394121.1	KAH8975851.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.4e-168	562.0	96.2	94.9	NA	yes	NA
+Physcomitrium_patens	XP_073394307.1	KAG0553385.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.5e-44	155.4	66.8	98.0	NA	yes	NA
+Physcomitrium_patens	XP_073394307.1	KAG0553386.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.4e-36	128.8	50.0	94.7	NA	yes	NA
+Physcomitrium_patens	XP_073394307.1	KAG0553469.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2e-18	70.7	69.0	16.3	NA	yes	NA
+Physcomitrium_patens	XP_073394307.1	KAG0553779.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.6e-08	36.3	32.8	7.3	NA	no	query coverage 32.8% below 50%
+Physcomitrium_patens	XP_073394307.1	KAG0554609.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	6.5e-38	134.5	73.7	28.9	NA	yes	NA
+Physcomitrium_patens	XP_073394347.1	KAG0570578.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.2e-112	377.2	70.0	83.6	NA	yes	NA
+Physcomitrium_patens	XP_073394347.1	KAG0579082.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.8e-112	377.3	70.0	83.6	NA	yes	NA
+Physcomitrium_patens	XP_073394347.1	KAG0589001.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.7e-112	377.0	70.0	83.6	NA	yes	NA
+Physcomitrium_patens	XP_073394347.1	KAG0590382.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.2e-112	378.1	70.0	83.6	NA	yes	NA
+Physcomitrium_patens	XP_073394347.1	KAH8931755.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	9.7e-74	251.5	52.2	95.7	NA	yes	NA
+Physcomitrium_patens	XP_073394415.1	KAG0504121.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.3e-42	147.0	95.7	18.8	NA	yes	NA
+Physcomitrium_patens	XP_073394415.1	KAG0504156.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	3.8e-46	159.2	95.7	12.4	NA	yes	NA
+Physcomitrium_patens	XP_073394415.1	KAG0504180.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.4e-25	92.8	61.5	33.6	NA	yes	NA
+Physcomitrium_patens	XP_073394415.1	KAG0504202.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.9e-25	90.9	94.0	22.2	NA	yes	NA
+Physcomitrium_patens	XP_073394415.1	KAG0504224.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.8e-09	40.9	73.5	17.6	NA	yes	NA
+Physcomitrium_patens	XP_073395127.1	KAG0553829.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	2.6e-06	30.4	9.6	8.4	NA	no	query coverage 9.6% below 50%
+Physcomitrium_patens	XP_073395127.1	KAG0586678.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-96	326.7	94.5	37.2	NA	yes	NA
+Physcomitrium_patens	XP_073395127.1	KAG0586681.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-111	376.0	94.8	38.0	NA	yes	NA
+Physcomitrium_patens	XP_073395127.1	KAG0586858.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	9.7e-117	392.6	94.8	15.5	NA	yes	NA
+Physcomitrium_patens	XP_073395127.1	KAH8971785.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	3.4e-106	358.0	95.6	36.0	NA	yes	NA
+Physcomitrium_patens	XP_073395527.1	KAG0560506.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-22	84.0	63.6	22.9	NA	yes	NA
+Physcomitrium_patens	XP_073395527.1	KAG0560513.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1e-22	84.0	63.6	22.9	NA	yes	NA
+Physcomitrium_patens	XP_073395527.1	KAG0576303.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.9e-32	113.4	60.3	11.0	NA	yes	NA
+Physcomitrium_patens	XP_073395527.1	KAG0584792.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	5.8e-26	94.5	62.8	15.7	NA	yes	NA
+Physcomitrium_patens	XP_073395527.1	KAG0585696.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.9e-13	52.8	43.0	11.0	NA	no	query coverage 43.0% below 50%
+Physcomitrium_patens	XP_073395709.1	KAG0574474.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.5e-277	925.5	97.0	41.6	NA	yes	NA
+Physcomitrium_patens	XP_073395709.1	KAH8959413.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	7.7e-56	193.4	28.3	24.0	NA	no	query coverage 28.3% below 50%
+Physcomitrium_patens	XP_073395709.1	KAH8959418.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	2.8e-150	505.3	60.8	82.1	NA	yes	NA
+Physcomitrium_patens	XP_073395709.1	g13267.t1__Sphagnum_palustre	Sphagnum_palustre	homology-jackhmmer	1.1e-247	826.9	95.8	48.7	NA	yes	NA
+Physcomitrium_patens	XP_073395709.1	g406.t1__Blasia_pusilla	Blasia_pusilla	homology-jackhmmer	1.1e-263	879.8	92.9	38.3	NA	yes	NA
+Physcomitrium_patens	XP_073395929.1	KAG0504240.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.2e-12	50.4	13.2	18.7	NA	no	query coverage 13.2% below 50%
+Physcomitrium_patens	XP_073395929.1	KAG0504459.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	0.00053	21.8	3.4	55.0	NA	no	query coverage 3.4% below 50%
+Physcomitrium_patens	XP_073395929.1	KAG0553376.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	7.7e-123	415.1	51.8	85.2	NA	yes	NA
+Physcomitrium_patens	XP_073395929.1	KAG0553607.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	1.1e-39	139.9	38.1	17.3	NA	no	query coverage 38.1% below 50%
+Physcomitrium_patens	XP_073395929.1	KAG0553845.1__Ceratodon_purpureus	Ceratodon_purpureus	homology-jackhmmer	4.2e-115	389.5	45.2	63.5	NA	no	query coverage 45.2% below 50%
+Physcomitrium_patens	YP_539006.1	KAH8932845.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	8.1e-112	374.7	100.0	98.3	NA	yes	NA
+Physcomitrium_patens	YP_539006.1	KAH8952199.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	6.1e-37	130.9	42.9	86.9	NA	no	query coverage 42.9% below 50%
+Physcomitrium_patens	YP_539019.1	KAH8932758.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.2e-70	242.5	29.2	99.3	NA	no	query coverage 29.2% below 50%
+Physcomitrium_patens	YP_539019.1	KAH8936127.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	5.1e-67	230.5	37.2	94.7	NA	no	query coverage 37.2% below 50%
+Physcomitrium_patens	YP_539019.1	KAH8939256.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	9e-35	124.1	37.2	66.1	NA	no	query coverage 37.2% below 50%
+Physcomitrium_patens	YP_539019.1	KAH8940303.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	1.7e-06	30.8	7.6	24.2	NA	no	query coverage 7.6% below 50%
+Physcomitrium_patens	YP_539019.1	KAH8944285.1__Sphagnum_fallax	Sphagnum_fallax	homology-jackhmmer	4.7e-34	121.8	21.5	98.2	NA	no	query coverage 21.5% below 50%

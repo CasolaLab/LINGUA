@@ -1,0 +1,42 @@
+# RPSBLAST 2.17.0+
+# Query: gene_a1 mock candidate gene
+# Database: /mock/Cdd
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length, subject title
+# 1 hits found
+gene_a1	gnl|CDD|278456	41.2	261	0	0	20	280	1	250	1e-40	150.0	300	264	pfam00069, Pkinase, Protein kinase domain.
+# RPSBLAST 2.17.0+
+# Query: gene_a2 mock candidate gene
+# Database: /mock/Cdd
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length, subject title
+# 1 hits found
+gene_a2	gnl|CDD|223589	33.0	146	0	0	5	150	10	250	1e-08	45.0	200	400	COG0515, SPS1, Serine/threonine protein kinase [Signal transduction mechanisms].
+# RPSBLAST 2.17.0+
+# Query: gene_a3 mock candidate gene
+# Database: /mock/Cdd
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length, subject title
+# 1 hits found
+gene_a3	gnl|CDD|214593	28.0	51	0	0	30	80	1	50	1e-05	38.0	150	250	smart00220, S_TKc, Serine/Threonine protein kinases, catalytic domain.
+# RPSBLAST 2.17.0+
+# Query: gene_a4 mock candidate gene
+# Database: /mock/Cdd
+# 0 hits found
+# RPSBLAST 2.17.0+
+# Query: gene_a6 mock candidate gene
+# Database: /mock/Cdd
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length, subject title
+# 1 hits found
+gene_a6	gnl|CDD|238001	25.0	91	0	0	10	100	1	90	5e-02	22.0	180	100	cd00001, MOCK_DOMAIN, A mock domain hit above the E-value threshold.
+# RPSBLAST 2.17.0+
+# Query: gene_a7 mock candidate gene
+# Database: /mock/Cdd
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length, subject title
+# 2 hits found
+gene_a7	gnl|CDD|278800	30.0	151	0	0	10	160	1	45	1e-06	40.0	400	100	pfam00400, WD40, WD domain, G-beta repeat.
+gene_a7	gnl|CDD|278800	32.0	131	0	0	200	330	55	100	1e-07	44.0	400	100	pfam00400, WD40, WD domain, G-beta repeat.
+# RPSBLAST 2.17.0+
+# Query: gene_a8__SpeciesA mock candidate gene
+# Database: /mock/Cdd
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length, subject title
+# 1 hits found
+gene_a8__SpeciesA	gnl|CDD|234000	35.0	201	0	0	20	220	1	200	1e-12	60.0	250	300	PRK00001, mockPRK, Mock protein cluster hit.
+# BLAST processed 7 queries

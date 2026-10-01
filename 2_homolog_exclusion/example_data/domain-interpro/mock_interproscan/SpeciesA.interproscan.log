@@ -1,0 +1,5 @@
+26/09/2026 09:07:29:604 Welcome to InterProScan-5.78-109.0
+26/09/2026 09:07:45:093 Running the following analyses:
+[AntiFam-8.0,CDD-3.21,Coils-2.2.1,Hamap-2026_01,MobiDBLite-4.0,Pfam-38.2]
+Pre-calculated match lookup service DISABLED.  Please wait for match calculations to complete...
+26/09/2026 09:09:51:274 100% done:  InterProScan analyses completed 

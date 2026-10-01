@@ -1,0 +1,27 @@
+#                                                                                            --- full sequence --- -------------- this domain -------------   hmm coord   ali coord   env coord
+# target name                        accession   tlen query name           accession   qlen   E-value  score  bias   #  of  c-Evalue  i-Evalue  score  bias  from    to  from    to  from    to  acc description of target
+#                ------------------- ---------- ----- -------------------- ---------- ----- --------- ------ ----- --- --- --------- --------- ------ ----- ----- ----- ----- ----- ----- ----- ---- ---------------------
+c1__Ceratodon_purpureus              -         300 gene_j1              -     200     1e-35  100.0   1.0   1   1     1e-30     1e-30   90.0   0.5     1   181     5   185     3   187 0.90 -
+f2__Fossombronia_cristula            -         300 gene_j10             -     200      0.05  100.0   1.0   1   1      0.05      0.05   90.0   0.5     1   200     1   200     1   202 0.90 -
+f3__Fossombronia_cristula            -         300 gene_j11             -     200     1e-10  100.0   1.0   1   2      1e-9      1e-9   90.0   0.5     1    40     1    40     1    42 0.90 -
+f3__Fossombronia_cristula            -         300 gene_j11             -     200     1e-10  100.0   1.0   2   2       0.5       0.5   90.0   0.5    41   160    41   160    39   162 0.90 -
+f4__Fossombronia_cristula            -        1000 gene_j12             -     200     1e-30  100.0   1.0   1   1     1e-28     1e-28   90.0   0.5     1   180     1   100     1   102 0.90 -
+p1__Physcomitrium_patens             -         300 gene_j2              -     200     1e-40  100.0   1.0   1   1     1e-38     1e-38   90.0   0.5     1   200     1   300     1   302 0.90 -
+b1__Blasia_pusilla                   -         250 gene_j3              -     200     1e-12  100.0   1.0   1   1     1e-10     1e-10   90.0   0.5    20   179    10   169     8   171 0.90 -
+p2__Physcomitrium_patens             -         300 gene_j3              -     200     1e-40  100.0   1.0   1   1     1e-38     1e-38   90.0   0.5     1   200     1   300     1   302 0.90 -
+c2__Ceratodon_purpureus              -         300 gene_j4              -     200      1e-8  100.0   1.0   1   1      1e-7      1e-7   90.0   0.5    10    61    10    61     8    63 0.90 -
+u1                                   -         300 gene_j7              -     200     1e-20  100.0   1.0   1   1     1e-18     1e-18   90.0   0.5     1   200     1   200     1   202 0.90 -
+c3__Ceratodon_purpureus_R40          -         300 gene_j8              -     200     1e-20  100.0   1.0   1   1     1e-18     1e-18   90.0   0.5     1   200     1   200     1   202 0.90 -
+f1__Fossombronia_cristula            -         400 gene_j9              -     200      1e-9  100.0   1.0   1   2      1e-8      1e-8   90.0   0.5    10    69    10    69     8    71 0.90 -
+f1__Fossombronia_cristula            -         400 gene_j9              -     200      1e-9  100.0   1.0   2   2      1e-6      1e-6   90.0   0.5   100   150   100   150    98   152 0.90 -
+f5__Fossombronia_cristula            -         300 gene_j13             -     200      0.05  100.0   1.0   1   1      1e-9      1e-9   90.0   0.5     1   200     1   200     1   202 0.90 -
+f6__Fossombronia_cristula            -         300 gene_j14             -     200     1e-12  100.0   1.0   1   2     1e-10     1e-10   90.0   0.5     1    60     1    60     1    62 0.90 -
+f6__Fossombronia_cristula            -         300 gene_j14             -     200     1e-12  100.0   1.0   2   2      1e-9      1e-9   90.0   0.5    10    70    10    70     8    72 0.90 -
+#
+# Program:         jackhmmer
+# Query file:      chunk_00000.faa
+# Target file:     db/mock.faa
+# Option settings: jackhmmer -N 2 -o /dev/null --domtblout chunk_00000.domtbl --noali -E 1e-3 --incE 1e-3 --cpu 1 chunk_00000.faa db/mock.faa
+# Current dir:     /work
+# Date:            Sat Sep 26 11:40:03 2026
+# [ok]

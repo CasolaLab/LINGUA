@@ -1,0 +1,19 @@
+# TBLASTN 2.17.0+
+# Query: YP_539019.1 NADH dehydrogenase subunit 2 (mitochondrion) [Physcomitrium patens]
+# Database: /path/to/db/marchantia_cp
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length
+# 5 hits found
+YP_539019.1	NC_001319.1__Marchantia_paleacea	39.560	91	55	0	264	354	2833	3105	9.13e-52	90.1	489	121024
+YP_539019.1	NC_001319.1__Marchantia_paleacea	30.833	120	83	0	71	190	1721	2080	9.13e-52	84.8	489	121024
+YP_539019.1	NC_001319.1__Marchantia_paleacea	55.882	34	15	0	213	246	2138	2239	9.13e-52	58.0	489	121024
+YP_539019.1	NC_001319.1__Marchantia_paleacea	30.120	83	58	0	119	201	92792	92544	8.41e-16	46.0	489	121024
+YP_539019.1	NC_001319.1__Marchantia_paleacea	28.814	59	42	0	292	350	97303	97127	1.97e-07	47.4	489	121024
+# TBLASTN 2.17.0+
+# Query: XP_024376530.1 protein SPIRRIG [Physcomitrium patens]
+# Database: /path/to/db/marchantia_cp
+# 0 hits found
+# TBLASTN 2.17.0+
+# Query: XP_073392668.1 uncharacterized protein [Physcomitrium patens]
+# Database: /path/to/db/marchantia_cp
+# 0 hits found
+# BLAST processed 3 queries

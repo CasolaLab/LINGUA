@@ -1,0 +1,21 @@
+# BLASTP 2.17.0+
+# Query: XP_073393566.1 uncharacterized protein [Physcomitrium patens]
+# Database: /path/to/db/bryo8
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length
+# 1 hits found
+XP_073393566.1	XP_073393566.1__Physcomitrium_patens	100.000	257	0	0	1	257	1	257	2.24e-169	469	257	257
+# BLASTP 2.17.0+
+# Query: XP_024403912.1 uncharacterized protein [Physcomitrium patens]
+# Database: /path/to/db/bryo8
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length
+# 1 hits found
+XP_024403912.1	XP_024403912.1__Physcomitrium_patens	100.000	230	0	0	1	230	1	230	6.21e-125	355	230	230
+# BLASTP 2.17.0+
+# Query: YP_539006.1 cytochrome c biogenesis B (mitochondrion) [Physcomitrium patens]
+# Database: /path/to/db/bryo8
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length
+# 3 hits found
+YP_539006.1	YP_539006.1__Physcomitrium_patens	100.000	175	0	0	1	175	1	175	1.04e-99	286	175	175
+YP_539006.1	KAH8932845.1__Sphagnum_fallax	84.000	175	28	0	1	175	4	178	3.16e-79	235	175	178
+YP_539006.1	KAH8952199.1__Sphagnum_fallax	55.000	100	25	2	76	175	1	80	1.30e-17	75.5	175	84
+# BLAST processed 3 queries

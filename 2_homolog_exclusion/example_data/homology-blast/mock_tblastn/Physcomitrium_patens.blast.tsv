@@ -1,0 +1,19 @@
+# TBLASTN 2.17.0+
+# Query: gene_o1 mock candidate gene
+# Database: /mock/organelle
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length
+# 1 hits found
+gene_o1	NC_001319.1__Marchantia_paleacea	95.0	225	0	0	1	225	1	675	0.0	900.0	250	121024
+# TBLASTN 2.17.0+
+# Query: gene_o2 mock candidate gene
+# Database: /mock/organelle
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length
+# 1 hits found
+gene_o2	NC_001319.1__Marchantia_paleacea	42.0	18	0	0	222	239	302	379	1e-4	30.0	300	121024
+# TBLASTN 2.17.0+
+# Query: gene_o3 mock candidate gene
+# Database: /mock/organelle
+# Fields: query id, subject id, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, query length, subject length
+# 1 hits found
+gene_o3	NC_005087.2__Physcomitrium_patens	100.0	200	0	0	1	200	1	600	0.0	800.0	200	122890
+# BLAST processed 3 queries

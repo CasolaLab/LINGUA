@@ -1,0 +1,88 @@
+{
+  "analysis_species": [
+    "Physcomitrium_patens"
+  ],
+  "chain": null,
+  "command": "/mnt/c/Users/user/Documents/Doc/lingua-stage-three/homolog-exclusion-pipeline/bin/homology_jackhmmer.py -i mk/out/passed -o jh/chain --db mk/mine.faa --label chain_jack --parallel-jobs 8 --quiet",
+  "config_file": null,
+  "counts": {
+    "Physcomitrium_patens": {
+      "EXCLUDED_ONLY": 0,
+      "HIT": 1,
+      "IN_PHYLOGENY_ONLY": 0,
+      "NOT_RUN": 0,
+      "NO_HIT": 12,
+      "SPURIOUS": 0,
+      "input": 13,
+      "passed": 12
+    }
+  },
+  "database": "/home/user/hep_test/mk/mine.faa",
+  "database_info": {
+    "sequences": 227344,
+    "type": "fasta"
+  },
+  "database_inventory": {
+    "first_ids": [
+      "jg25595.t1__Bazzania_tridens",
+      "jg25967.t1__Bazzania_tridens",
+      "jg22881.t1__Bazzania_tridens",
+      "jg24219.t1__Bazzania_tridens",
+      "jg3399.t1__Bazzania_tridens"
+    ],
+    "ids": 227344,
+    "species": {
+      "Bazzania_tridens": 26441,
+      "Blasia_pusilla": 17392,
+      "Ceratodon_purpureus": 31482,
+      "Fossombronia_cristula": 41463,
+      "Sphagnum_fallax": 25100,
+      "Sphagnum_palustre": 41154,
+      "Syntrichia_ruralis": 44312
+    },
+    "tagged": 227344
+  },
+  "date": "2026-09-26T15:47:30",
+  "ignore_in_phylogeny": true,
+  "ignore_taxa": [],
+  "inputs": [
+    {
+      "file": "/home/user/hep_test/mk/out/passed/Physcomitrium_patens.faa",
+      "species": "Physcomitrium_patens"
+    }
+  ],
+  "label": "chain_jack",
+  "match_level": "species",
+  "module": "homology-jackhmmer",
+  "non_default_settings": {
+    "parallel_jobs": {
+      "default": 4,
+      "value": 8
+    }
+  },
+  "parsed_from": null,
+  "pipeline": "homolog-exclusion-pipeline",
+  "settings": {
+    "chunk_size": 1,
+    "dbsize": null,
+    "evalue": 0.001,
+    "ignore_in_phylogeny": true,
+    "ignore_taxa": null,
+    "incE": 0.001,
+    "iterations": 3,
+    "match_level": "species",
+    "min_qcov": 50,
+    "min_tcov": 0,
+    "parallel_jobs": 8,
+    "species_source": "header",
+    "species_strip_suffixes": "_final",
+    "taxon_map": null
+  },
+  "tools": [
+    {
+      "name": "jackhmmer (HMMER)",
+      "version": "HMMER 3.4"
+    }
+  ],
+  "version": "0.1.0"
+}

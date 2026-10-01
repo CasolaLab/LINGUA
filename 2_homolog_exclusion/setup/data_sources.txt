@@ -1,0 +1,58 @@
+data_sources.txt - where to get the public data the modules use.
+
+The repository ships no programs and no data. Everything below is downloaded by you, from the source named here. Sizes and dates
+were read from the servers on 2026-09-26 and change over time; check them before you plan disk space. `setup/get_data.sh` can do
+the downloads for you (cdd, interproscan, taxonomy); doing them by hand from these URLs is equally fine.
+
+Which module needs what
+  domain-interpro      InterProScan (with its data) and Java 11 or newer
+  domain-cdd           the CDD database prebuilt for rpsblast, and BLAST+ (rpsblast)
+  homology-blast       BLAST+ (blastp, tblastn, makeblastdb, blastdbcmd) and a database YOU build (docs/databases.md)
+  homology-jackhmmer   HMMER 3 (jackhmmer) and a database YOU build (docs/databases.md)
+  combine, make-db     nothing beyond Python 3.11+
+  db-report (optional) the NCBI taxonomy dump (below), or your own species-to-tier table (nothing to download)
+
+-------------------------------------------------------------------------------------------------------------------------------
+Programs (installed from conda-forge and bioconda with setup/environment.yml; no Anaconda "defaults" channel)
+  BLAST+          conda package "blast"          tested with 2.17.0+
+  HMMER           conda package "hmmer"          tested with 3.4
+  Java (OpenJDK)  conda package "openjdk>=11"    tested with 25 (for InterProScan)
+  Python          3.11 or newer                  tested with 3.12; standard library only, no packages to install
+
+-------------------------------------------------------------------------------------------------------------------------------
+CDD (Conserved Domain Database), prebuilt for RPS-BLAST                                    used by: domain-cdd
+  URL       https://ftp.ncbi.nlm.nih.gov/pub/mmdb/cdd/little_endian/Cdd_LE.tar.gz
+  release   https://ftp.ncbi.nlm.nih.gov/pub/mmdb/cdd/cdd.info   (small text file; saying "cdd version 3.21" on 2026-09-26)
+  size      1,745,781,939 bytes (1.75 GB) download; 3.82 GB unpacked (301 files: Cdd.00.* to Cdd.24.* and Cdd.pal)
+  checksum  NCBI publishes none next to this file; get_data.sh checks the size and that the archive reads to its end
+  last modified on the server: 2024-04-05
+  use       --db /path/to/Cdd     (the prefix, not a file name)
+
+-------------------------------------------------------------------------------------------------------------------------------
+InterProScan                                                                                used by: domain-interpro
+  URL       https://ftp.ebi.ac.uk/pub/databases/interpro/iprscan/5/5.78-109.0/interproscan-5.78-109.0-64-bit.tar.gz
+  checksum  the same URL with .md5 added (72 bytes)
+  size      7,037,746,512 bytes (7.04 GB) download; 36.52 GB unpacked, of which data/ is 36.19 GB
+  version   5.78-109.0 (tested). Other versions live in sibling folders of https://ftp.ebi.ac.uk/pub/databases/interpro/iprscan/5/
+  notes     EBI can throttle one connection to about 0.3 MB/s (measured); 8 parallel connections gave about 3 MB/s. If a single
+            download is slow, use a multi-connection downloader on the same URL. Each analysis needs only its own folder under
+            data/, so a partial install works if you list only those analyses in `applications`. Sizes of the larger data
+            folders in 5.78 (GB): funfam 14.89, gene3d 5.27, panther 4.87. The tool always runs InterProScan with -dp, so it
+            never needs the internet.
+
+-------------------------------------------------------------------------------------------------------------------------------
+NCBI taxonomy dump (optional)                                                               used by: db-report
+  URL       https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz
+  checksum  the same URL with .md5 added (49 bytes)
+  size      79.6 MB download on 2026-09-26; names.dmp 302 MB and nodes.dmp 222 MB unpacked (allow about 550 MB)
+  notes     regenerated daily by NCBI; setup/get_taxonomy.sh records the archive date and md5 in TAXONOMY_SOURCE.txt, and
+            db-report copies them into its report.json. Only names.dmp and nodes.dmp are used.
+
+-------------------------------------------------------------------------------------------------------------------------------
+Proteomes for your homology databases (you choose these; the repository does not)
+  Sources people commonly use: NCBI (RefSeq / GenBank genomes), Ensembl and Ensembl Genomes (Plants, Fungi, Metazoa, Protists,
+  Bacteria), UniProt Reference Proteomes, Phytozome, and genome portals for individual species. Whatever you use:
+    - keep one protein per gene (usually the longest isoform; Stage 1 of LINGUA does this);
+    - tag each ID with its species (make-db does it);
+    - see docs/databases.md, "Designing a database for your clade", and the caveat there that public databases are uneven.
+  Nothing in this repository fetches proteomes.

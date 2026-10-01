@@ -1,0 +1,91 @@
+{
+  "analysis_species": [
+    "Physcomitrium_patens"
+  ],
+  "chain": null,
+  "command": "/mnt/c/Users/user/Documents/Doc/lingua-stage-three/homolog-exclusion-pipeline/bin/homology_blast.py -i ../in/Physcomitrium_patens.faa -o out --db mine.faa --index-dir idx --quiet",
+  "config_file": null,
+  "counts": {
+    "Physcomitrium_patens": {
+      "EXCLUDED_ONLY": 0,
+      "HIT": 187,
+      "IN_PHYLOGENY_ONLY": 0,
+      "NOT_RUN": 0,
+      "NO_HIT": 13,
+      "SPURIOUS": 0,
+      "input": 200,
+      "passed": 13
+    }
+  },
+  "database": "/home/user/hep_test/mk/mine.faa",
+  "database_index": "/home/user/hep_test/mk/idx/mine_311e9d8a",
+  "database_info": {
+    "sequences": 227344,
+    "title": "homology-blast",
+    "type": "prot"
+  },
+  "database_inventory": {
+    "first_ids": [
+      "jg25595.t1__Bazzania_tridens",
+      "jg25967.t1__Bazzania_tridens",
+      "jg22881.t1__Bazzania_tridens",
+      "jg24219.t1__Bazzania_tridens",
+      "jg3399.t1__Bazzania_tridens"
+    ],
+    "ids": 227344,
+    "species": {
+      "Bazzania_tridens": 26441,
+      "Blasia_pusilla": 17392,
+      "Ceratodon_purpureus": 31482,
+      "Fossombronia_cristula": 41463,
+      "Sphagnum_fallax": 25100,
+      "Sphagnum_palustre": 41154,
+      "Syntrichia_ruralis": 44312
+    },
+    "tagged": 227344
+  },
+  "date": "2026-09-26T11:29:32",
+  "ignore_in_phylogeny": true,
+  "ignore_taxa": [],
+  "inputs": [
+    {
+      "file": "/home/user/hep_test/in/Physcomitrium_patens.faa",
+      "species": "Physcomitrium_patens"
+    }
+  ],
+  "label": "homology-blast",
+  "match_level": "species",
+  "module": "homology-blast",
+  "non_default_settings": {},
+  "parsed_from": null,
+  "pipeline": "homolog-exclusion-pipeline",
+  "program": "blastp",
+  "settings": {
+    "chunk_size": 1000,
+    "comp_based_stats": null,
+    "dbsize": null,
+    "evalue": 0.001,
+    "ignore_in_phylogeny": true,
+    "ignore_taxa": null,
+    "match_level": "species",
+    "max_hsps": null,
+    "max_target_seqs": 5000,
+    "min_pident": null,
+    "min_qcov": 50,
+    "min_tcov": 0,
+    "parallel_jobs": 4,
+    "program": "blastp",
+    "seg": true,
+    "species_source": "header",
+    "species_strip_suffixes": "_final",
+    "taxon_map": null,
+    "ungapped": false
+  },
+  "tools": [
+    {
+      "name": "BLASTP (BLAST+)",
+      "version": "2.17.0+"
+    }
+  ],
+  "version": "0.1.0"
+}

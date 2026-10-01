@@ -1,0 +1,3 @@
+# accession<TAB>species (for databases whose IDs carry no __Species tag)
+S1	Physcomitrium patens
+ABC123.1	Physcomitrium_patens

@@ -1,0 +1,14 @@
+# environment.yml - conda environment with the search tools the modules call.
+# Create with:  conda env create -f setup/environment.yml
+# Channels: conda-forge and bioconda only. Do not use Anaconda's 'defaults' channel (its terms restrict use
+# at larger organizations). Miniforge already uses conda-forge only.
+# Versions are unpinned here; docs/setup.md lists the exact versions this repository was tested with.
+name: hep
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.12      # the modules need Python 3.11 or newer; 3.12 is the version this repository is tested with
+  - blast            # blastp, tblastn, makeblastdb, rpsblast (BLAST+)
+  - hmmer            # jackhmmer (HMMER 3)
+  - openjdk>=11      # needed by InterProScan, which is installed separately (see docs/setup.md)
