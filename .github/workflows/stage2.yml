@@ -1,8 +1,15 @@
-name: tests
+name: stage 2 (2_homolog_exclusion)
 
 on:
   push:
+    paths: ['2_homolog_exclusion/**', '.github/workflows/stage2.yml']
   pull_request:
+    paths: ['2_homolog_exclusion/**', '.github/workflows/stage2.yml']
+
+defaults:
+  run:
+    working-directory: 2_homolog_exclusion
+
 
 jobs:
   test:

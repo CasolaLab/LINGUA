@@ -1,10 +1,15 @@
-name: CI
+name: stage 1 (1_gene_stratigraphy)
 
 on:
   push:
-    branches: [main]
+    paths: ['1_gene_stratigraphy/**', '.github/workflows/stage1.yml']
   pull_request:
-    branches: [main]
+    paths: ['1_gene_stratigraphy/**', '.github/workflows/stage1.yml']
+
+defaults:
+  run:
+    working-directory: 1_gene_stratigraphy
+
 
 jobs:
   reproducibility-check:

@@ -1,10 +1,15 @@
-name: CI
+name: stage 0 (0_protein_preprocessing)
 
 on:
   push:
-    branches: [main]
+    paths: ['0_protein_preprocessing/**', '.github/workflows/stage0.yml']
   pull_request:
-    branches: [main]
+    paths: ['0_protein_preprocessing/**', '.github/workflows/stage0.yml']
+
+defaults:
+  run:
+    working-directory: 0_protein_preprocessing
+
 
 jobs:
   reproducibility-check:
