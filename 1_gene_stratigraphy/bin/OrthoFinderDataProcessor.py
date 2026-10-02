@@ -260,7 +260,7 @@ class OrthoFinderDataProcessor:
         header = ['Node', 'Number_of_HOGs', 'Number_of_Genes']
         try:
             with open(summary_file, 'w', newline='') as f:
-                writer = csv.writer(f)
+                writer = csv.writer(f, lineterminator="\n")
                 writer.writerow(header)
                 writer.writerows(summary_data)
             logging.info(f"Per-species summary written to {summary_file.name}")
@@ -279,7 +279,7 @@ class OrthoFinderDataProcessor:
         summary_file = self.intermediate_dir / "global_gene_counts_per_node.tsv"
         try:
             with open(summary_file, 'w', newline='') as f:
-                writer = csv.writer(f, delimiter='\t')
+                writer = csv.writer(f, lineterminator="\n", delimiter='\t')
                 writer.writerow(header)
                 for species_name, node_data in sorted(global_summary_data.items()):
                     row = [species_name] + [node_data.get(node, 'NA') for node in all_nodes]
@@ -328,7 +328,6 @@ class OrthoFinderDataProcessor:
         gene_ids_dir, hog_ids_dir, protein_dir = species_out_dir / 'gene_IDs_by_node', species_out_dir / 'HOG_IDs_by_node', species_out_dir / 'proteins_by_node'
         gene_ids_dir.mkdir(parents=True, exist_ok=True)
         hog_ids_dir.mkdir(parents=True, exist_ok=True)
-        protein_dir.mkdir(parents=True, exist_ok=True)
 
         all_clustered_genes, c_lsg_count = set(), 0
         candidate_lsg_genes = set()
@@ -403,6 +402,8 @@ class OrthoFinderDataProcessor:
 
         if self.prt_dir and verified_candidate_genes:
             logging.info(f"Writing combined candidate FASTA for {species_basename}")
+            # created only here, so a species with no candidates leaves no empty folder (git cannot track one)
+            protein_dir.mkdir(parents=True, exist_ok=True)
 
             self._filter_fasta(
                 species_basename,
@@ -557,7 +558,7 @@ class OrthoFinderDataProcessor:
             # to be processed in, not sorted.
             sorted_rows = sorted(all_species_classifications, key=lambda row: (row[0], row[1]))
             with open(summary_file, 'w', newline='') as f:
-                writer = csv.writer(f, delimiter='\t')
+                writer = csv.writer(f, lineterminator="\n", delimiter='\t')
                 writer.writerow(header)
                 writer.writerows(sorted_rows)
             logging.info(f"Successfully wrote detailed gene summary to {summary_file}")
@@ -585,7 +586,7 @@ class OrthoFinderDataProcessor:
             'verified_candidate_percentage',
         ]
         with open(smry_file, 'w', newline='') as f:
-            writer = csv.writer(f)
+            writer = csv.writer(f, lineterminator="\n")
             writer.writerow(header)
             for species_filename in sorted(gene_stats):
                 raw_pct, total_candidate_pct, verified_pct = gene_stats[species_filename]

@@ -264,7 +264,7 @@ class CLSGClassificationVerifier:
         """Writes the violations report (TSV). Always written, even if empty."""
         with open(report_path, "w", newline="") as fh:
             writer = csv.DictWriter(
-                fh, fieldnames=["species", "gene_id", "hog_id", "issue", "other_species_in_hog"]
+                fh, lineterminator="\n", fieldnames=["species", "gene_id", "hog_id", "issue", "other_species_in_hog"]
             )
             writer.writeheader()
             writer.writerows(self.violations)

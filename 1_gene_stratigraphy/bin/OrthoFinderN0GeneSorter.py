@@ -214,7 +214,7 @@ class N0OrthoGeneSorter:
 
         try:
             with open(output_path, 'w', newline='') as f:
-                writer = csv.DictWriter(f, fieldnames=headers)
+                writer = csv.DictWriter(f, lineterminator="\n", fieldnames=headers)
                 writer.writeheader()
                 
                 # Sort the data by species name for consistent output
