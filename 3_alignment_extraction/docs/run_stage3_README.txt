@@ -72,6 +72,3 @@ step8c_log.tsv or step17_all_species.tsv (a species missing from the tree); refu
 step14_masked_deletions.tsv (deletions not reported or trimmed because of the mask); audits/audit_stage3_endtoend.py
 and, with STEP3=dominant, audits/audit_optionA.py (these audit scripts are not part of this repository).
 
-Known limitation: steps 12-17 never see insertions relative to the reference; step 14 reports deletions only (see
-its README). In the Capra hircus test run (2026-11-10) the reference rows had no gaps already in the step 1 MAFs (13,071 reference rows, 0 gap characters), so insertions never reached the alignments; step 9 would also remove any column where
-the reference has a gap.
