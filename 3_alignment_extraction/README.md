@@ -134,6 +134,4 @@ bash scripts/step1_mafextractor.sh <species_name> <reference_species_coordinates
 
 ## Credits
 
-Developed by Sierra C. Sanders in the Casola Lab, Texas A&M University. Step 8c (`step8c_one_collinear_row.py`)
-and the masked step 14 come from LINGUA stage 3 ([CasolaLab/LINGUA](https://github.com/CasolaLab/LINGUA),
-`3_alignment_extraction/`, commit 81849bc). MIT license (`../LICENSE`).
+Developed by Sierra C. Sanders in the Casola Lab, Texas A&M University.
