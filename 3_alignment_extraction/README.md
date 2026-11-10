@@ -41,7 +41,8 @@ transcript coordinates (BED), the pipeline:
    reference species' transcript IDs. Each species and ancestral node then keeps
    one row, built from its dominant collinear chain of exons (one contig and
    strand, in reference exon order, within 50 kb); its other exons become gaps,
-   and every stretch where a species has no aligned sequence is recorded in a
+   and every stretch where a species has no aligned sequence (including blocks
+   step 3 dropped from an exon the species is still in) is recorded in a
    missing-data mask.
 7. Removes the one extra reference base per exon that the extraction adds, at its
    position from the BED, so every species is cut at the same correct column, and
