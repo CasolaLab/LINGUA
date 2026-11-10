@@ -85,6 +85,7 @@ against bryophyte proteomes, on one chloroplast genome, and on CDD; no benchmark
 |---|---|---|---|
 | homology-blast, homology-jackhmmer | `filter_evalue` | blank (= `evalue`) | E-value a hit must reach to count, when stricter than the search E-value |
 | homology-blast, homology-jackhmmer | `min_genera` | 1 | counted hits must come from at least this many genera; all species of a genus count once, hits of unknown species count as one genus |
+| homology-blast, homology-jackhmmer | `min_genera_scope` | all_databases | with several `--db` side by side, genera are counted over all the databases together in one pooled run (0.3.2); `per_database` counts within each database, as before |
 | homology-jackhmmer | `max_bias_frac` | blank (off) | a hit does not count when its full-sequence bias is at least this fraction of its bit score (0.5 in the Brassicaceae preset) |
 | homology-blast | `qcov_mode` | union | `single_hsp`: coverage is the longest single alignment over the query length (the TE rule) |
 | homology-blast | `word_size`, `matrix` | blank | passed to BLAST+ (2 and PAM30 in the TE preset) |

@@ -57,12 +57,12 @@ bash $S hog-rule -i cand/ -o out/hog --combine out/combine --hogs N0.tsv --confi
 bash $S paralog-rule -i cand/ -o out/paralog --passed out/hog --proteomes proteomes/ --config $P
 ```
 
-The study kept ten BLASTp targets per database and counted genera across all five databases together. The module cannot do both
-at once. With several `--db`, each database is its own run (labelled `blast-prokaryotes`, `blast-plants` and so on, which the
-`blast*` pattern of the preset matches), so `min_genera` counts genera within one database. With one merged database, genera are
-counted across all of it, but `max_target_seqs=10` then caps the targets at ten in total; raising it to 50 keeps roughly the
-study's number of targets. Neither reproduces the study exactly. In the study every database hit had a species label, so the
-module's rule that hits of unknown species count together as one genus never applied.
+The study kept ten BLASTp targets per database and counted genera across all five databases together. From 0.3.2 the module
+does both: with several `--db`, each database is searched as its own run (`blast-prokaryotes`, `blast-plants` and so on, ten
+targets each), and one more run labelled `blast` pools their hits and applies `min_genera` across all five databases
+(`min_genera_scope=all_databases`, the default). `combine` reads the pooled `blast` run, which the `blast*` pattern of the
+preset matches, and skips the per-database runs. Before 0.3.2 genera were counted within each database. In the study every
+database hit had a species label, so the module's rule that hits of unknown species count together as one genus never applied.
 
 ## Counts in the study
 

@@ -212,5 +212,70 @@ open(pf, "w").write("ARATH|TAIR=AT1G1|UniProtKB=Q1\tQ1\tAT1G1\tPTHR10:SF1\tX\n"
 out = subprocess.run([sys.executable, os.path.join(ROOT, "bin", "panther_families.py"), pf], capture_output=True, text=True)
 check("panther_families table", out.stdout == "family\tspecies\tn_genes\nPTHR10\tARATH\t2\nPTHR11\tHUMAN\t1\n", out.stdout)
 
+# ---- 0.3.2: min_genera counted across several databases (pooled run)
+import combine as cb  # noqa: E402
+
+pool_root = os.path.join(tmp, "pool_out")
+os.makedirs(pool_root)
+pfa = os.path.join(tmp, "SpA_pool.faa")
+open(pfa, "w").write("".join(">G%d\nMKV%s\n" % (i, "ACDEFG"[i - 1]) for i in range(1, 7)))
+
+
+def comp_run(label, rows, statuses, min_genera=1):
+    d = os.path.join(pool_root, label)
+    with h.ModuleOutput(d, "homology-blast", label) as o:
+        o.add_species("SpA", pfa, [dict(gene_id=g, target=t, target_species=s, source=label, counts_as_hit=c)
+                                    for g, t, s, c in rows], statuses)
+        o.close({"settings": {"min_genera": min_genera}}, quiet=True)
+    return d
+
+
+# db1: G1 Alpha; G2 Alpha; G3 Alpha; G5 only an in-phylogeny hit; G6 Alpha + Epsilon
+d1 = comp_run("t-db1", [("G1", "a1", "Alpha_one", True), ("G2", "a2", "Alpha_one", True), ("G3", "a3", "Alpha_two", True),
+                        ("G5", "t1", "Tarenaya_hassleriana", False), ("G6", "a6", "Alpha_one", True),
+                        ("G6", "e6", "Epsilon_one", True)],
+              {"G1": h.HIT, "G2": h.HIT, "G3": h.HIT, "G4": h.NO_HIT, "G5": h.IN_PHYLOGENY_ONLY, "G6": h.HIT})
+# db2: G1 Beta; G2 Alpha (same genus as db1); G3 and G6 not searched; G4 Gamma + Delta; G5 nothing
+d2 = comp_run("t-db2", [("G1", "b1", "Beta_one", True), ("G2", "a2b", "Alpha_three", True),
+                        ("G4", "g4", "Gamma_one", True), ("G4", "d4", "Delta_one", True)],
+              {"G1": h.HIT, "G2": h.HIT, "G3": h.NOT_RUN, "G4": h.HIT, "G5": h.NO_HIT, "G6": h.NOT_RUN})
+pooled = os.path.join(pool_root, "t")
+h.pool_database_runs("homology-blast", "t", pooled, [d1, d2], [("SpA", pfa)], 2, {"settings": {"min_genera": 2}}, quiet=True)
+got = {r["gene_id"]: r["status"] for r in h._read_tsv(os.path.join(pooled, "gene_status.tsv"))}
+# by hand: G1 Alpha(db1)+Beta(db2) = 2 genera -> HIT, though each database alone has 1; G2 Alpha in both = 1 genus -> NO_HIT;
+# G3 1 genus and not searched in db2 -> NOT_RUN; G4 2 genera in db2 -> HIT; G5 in-phylogeny only -> IN_PHYLOGENY_ONLY;
+# G6 2 genera in db1 -> HIT although db2 never searched it (a removal stands)
+check("pooled min_genera across databases: statuses",
+      got == {"G1": "HIT", "G2": "NO_HIT", "G3": "NOT_RUN", "G4": "HIT", "G5": "IN_PHYLOGENY_ONLY", "G6": "HIT"}, got)
+pas = sorted(r["gene_id"] for r in h._read_tsv(os.path.join(pooled, "passed_ids.tsv")))
+check("pooled run: passed list", pas == ["G2", "G5"], pas)
+notes = {(r["gene_id"], r["target"]): r["note"] for r in h._read_tsv(os.path.join(pooled, "hits.tsv"))}
+check("pooled run: demoted hit says why", "below min_genera=2" in notes.get(("G2", "a2"), ""), notes.get(("G2", "a2")))
+check("pooled run: components marked", all(h.read_marker(d).get(h.COMPONENT_KEY) == "t" for d in (d1, d2)))
+pj = json.load(open(os.path.join(pooled, "run.json")))
+check("pooled run: run.json records scope and parts",
+      pj.get("min_genera_scope") == "all_databases" and [x["label"] for x in pj.get("pooled_from", [])] == ["t-db1", "t-db2"])
+check("combine expands to the pooled run only", cb.expand_runs([pool_root]) == [pooled], cb.expand_runs([pool_root]))
+try:
+    cb.Run(d1)
+    check("combine refuses a component run", False)
+except h.HepError:
+    check("combine refuses a component run", True)
+d3 = comp_run("t-db3", [], {g: h.NO_HIT for g in ("G1", "G2", "G3", "G4", "G5", "G6")}, min_genera=2)
+try:
+    h.pool_database_runs("homology-blast", "t3", os.path.join(pool_root, "t3"), [d3], [("SpA", pfa)], 2, {}, quiet=True)
+    check("pooling refuses a component evaluated with min_genera>1", False)
+except h.HepError:
+    check("pooling refuses a component evaluated with min_genera>1", True)
+check("pooling_wanted: side by side, default scope", h.pooling_wanted({"min_genera": 2}, 2, False, False) is True)
+check("pooling_wanted: per_database", h.pooling_wanted({"min_genera_scope": "per_database"}, 2, False, False) is False)
+check("pooling_wanted: sequential and single database", not h.pooling_wanted({}, 2, True, False)
+      and not h.pooling_wanted({}, 1, False, False))
+try:
+    h.pooling_wanted({"min_genera_scope": "everywhere"}, 2, False, False)
+    check("pooling_wanted rejects an unknown scope", False)
+except h.HepError:
+    check("pooling_wanted rejects an unknown scope", True)
+
 print("ALL PASSED" if not fails else "%d FAILED: %s" % (len(fails), ", ".join(fails)))
 sys.exit(1 if fails else 0)

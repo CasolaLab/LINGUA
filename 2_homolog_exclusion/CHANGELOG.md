@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.2 (2026-11-10)
+
+- `homology-blast`, `homology-jackhmmer`: with several `--db` searched side by side, `min_genera` now counts genera across all
+  the databases together, as the lab's Brassicaceae study did. Each database is still its own run, now evaluated with
+  `min_genera=1` and marked `component_of=<label>`; one more run, labelled `--label` (or the module name), pools their counted
+  hits per gene and gives the verdict. Before 0.3.2 genera were counted within each database, so a gene with one genus in
+  each of two databases passed although it had two genera of evidence. New setting `min_genera_scope` (`all_databases`,
+  the default; `per_database` keeps the old behavior). `--sequential` chains still count per database and warn when
+  `min_genera` > 1.
+- `combine` reads the pooled run and skips its components; it refuses a component run given directly.
+- A gene is HIT in the pooled run when its pooled hits reach `min_genera`, even if another database did not search it;
+  otherwise any database that did not search it makes it NOT_RUN.
+- Tests in `tests/test_stage2_rules.py` (hand-worked statuses for six genes over two databases).
+
 ## 0.3.1 (2026-11-10)
 
 - `paralog-rule`: `max_target_seqs` default 50 → 1000. With 50, genes in large lineage-specific families filled every slot with

@@ -13,7 +13,9 @@ database must not contain the analysis species or close relatives: hits from the
 names) and from species in ignore_taxa are reported but not counted (status IN_PHYLOGENY_ONLY). For an organelle
 database, set ignore_in_phylogeny=no: a hit to the analysis species' own organelle genome is exactly the signal.
 
-Several databases can be searched in one command (--db given more than once); each is its own labelled run.
+Several databases can be searched in one command (--db given more than once); each is its own labelled run, and one
+more run (labelled --label, or homology-blast) pools them into one verdict with min_genera counted across all the
+databases together (min_genera_scope=all_databases, the default; per_database keeps the separate verdicts).
 
 Nothing here uses the network. Python 3.11+, standard library only. Needs BLAST+ (blastp or tblastn, blastdbcmd) on
 PATH for a run, not for --parse-only.
@@ -526,12 +528,17 @@ def main(argv=None):
     if sequential and len(runs) < 2:
         h.warn("--sequential needs at least two --db; it has no effect here")
         sequential = False
+    try:
+        pool = h.pooling_wanted(cfg, len(runs), sequential, args.parse_only)
+    except h.HepError as e:
+        h.die(str(e))
+    run_ctx = h.component_context(ctx) if pool else ctx
     failed, not_searched = [], []
     inputs, prev = ctx["inputs"], None
     for pos, (db, label, outdir) in enumerate(runs, 1):
         chain = {"sequential": True, "position": pos, "of": len(runs), "input_from": prev} if sequential else None
         try:
-            run_one_database(ctx, db, label, outdir, matcher, tmap, inputs, chain)
+            run_one_database(run_ctx, db, label, outdir, matcher, tmap, inputs, chain)
         except (DbProblem, h.HepError) as e:
             h.warn("%s: %s" % (label, e))
             failed.append(label)
@@ -551,6 +558,16 @@ def main(argv=None):
         if not_searched:
             extra = ". The sequential chain stopped there; NOT searched: %s. Genes cannot pass a database that was never searched" % ", ".join(not_searched)
         h.die("%d of %d database run(s) did not complete: %s%s" % (len(failed), len(runs), ", ".join(failed), extra))
+    if pool:
+        plabel = args.label or MODULE
+        try:
+            h.pool_database_runs(MODULE, plabel, os.path.join(args.output, plabel), [r[2] for r in runs], ctx["inputs"],
+                                 cfg.get("min_genera"), h.run_info_base(ctx), resume=args.resume, force=args.force,
+                                 quiet=args.quiet)
+        except h.HepError as e:
+            h.die(str(e))
+        h.log("pooled verdict over %d databases in %s (give this folder, or %s, to combine)"
+              % (len(runs), os.path.join(args.output, plabel), args.output))
 
 
 if __name__ == "__main__":

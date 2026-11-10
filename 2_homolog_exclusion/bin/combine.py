@@ -54,6 +54,10 @@ class Run(object):
         self.module, self.label = mk.get("module"), mk.get("label")
         if self.module == MODULE:
             raise h.HepError("%s is the output of combine itself, not a search run" % path)
+        if mk.get(h.COMPONENT_KEY):
+            raise h.HepError("%s is one database of the pooled run '%s', whose verdict counts genera across all its "
+                             "databases; give the pooled run (or the folder holding both) instead"
+                             % (path, mk[h.COMPONENT_KEY]))
         for name in ("gene_status.tsv", "passed_ids.tsv", "hits.tsv", "run.json"):
             if not os.path.isfile(os.path.join(path, name)):
                 raise h.HepError("%s: %s is missing (was the run finished?)" % (path, name))
@@ -119,7 +123,8 @@ def expand_runs(paths):
         if os.path.isfile(os.path.join(p, h.RUN_MARKER)):
             out.append(p)
             continue
-        kids = sorted(os.path.join(p, d) for d in os.listdir(p) if os.path.isfile(os.path.join(p, d, h.RUN_MARKER)))
+        kids = sorted(os.path.join(p, d) for d in os.listdir(p) if os.path.isfile(os.path.join(p, d, h.RUN_MARKER))
+                      and not h.read_marker(os.path.join(p, d)).get(h.COMPONENT_KEY))
         if not kids:
             raise h.HepError("%s holds no run folders (no %s files inside)" % (p, h.RUN_MARKER))
         runs = [Run(k) for k in kids]

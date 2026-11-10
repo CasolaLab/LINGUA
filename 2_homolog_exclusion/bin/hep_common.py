@@ -28,7 +28,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 
-__version__ = "0.3.1"
+__version__ = "0.3.2"
 PIPELINE_NAME = "homolog-exclusion-pipeline"
 
 # Exit status: 0 = finished and every gene was searched; 1 = the run could not be done (an error, nothing usable);
@@ -897,6 +897,128 @@ def apply_min_genera(hit_rows, counted, min_genera):
             r["counts_as_hit"] = False
             r["note"] = "counted hits from %d genus/genera, below min_genera=%d" % (len(genera.get(r["gene_id"], ())), k)
     return keep
+
+
+MIN_GENERA_SCOPES = ("all_databases", "per_database")
+COMPONENT_KEY = "component_of"
+
+
+def pooling_wanted(cfg, n_runs, sequential, parse_only):
+    """
+    Should several --db runs be pooled into one verdict? Yes when more than one database is searched side by side and
+    min_genera_scope=all_databases (the default). A --sequential chain is a cascade, not a pool: there min_genera stays
+    per database, and a warning says so when it matters.
+    """
+    scope = cfg.get("min_genera_scope") or "all_databases"
+    if scope not in MIN_GENERA_SCOPES:
+        raise HepError("min_genera_scope must be one of %s, not %r" % (", ".join(MIN_GENERA_SCOPES), scope))
+    if n_runs > 1 and sequential and int(cfg.get("min_genera") or 1) > 1:
+        warn("--sequential with min_genera=%s: genera are counted within each database, not across them"
+             % cfg.get("min_genera"))
+    return n_runs > 1 and not sequential and not parse_only and scope == "all_databases"
+
+
+def component_context(ctx):
+    """A copy of ctx that evaluates each database with min_genera=1, as components of a pooled run must be."""
+    c = dict(ctx)
+    c["cfg"] = dict(ctx["cfg"], min_genera=1)
+    return c
+
+
+def read_marker(path):
+    """The key=value lines of a run folder's marker file ({} if there is none)."""
+    out = {}
+    p = os.path.join(path, RUN_MARKER)
+    if os.path.isfile(p):
+        with open(p, "r", encoding="utf-8") as fh:
+            for line in fh:
+                k, _, v = line.strip().partition("=")
+                if k:
+                    out[k] = v
+    return out
+
+
+def _read_tsv(path):
+    with open(path, "r", encoding="utf-8", newline="") as fh:
+        rd = csv.reader(fh, delimiter="\t")
+        head = next(rd, None) or []
+        return [dict(zip(head, row)) for row in rd if row]
+
+
+def pool_database_runs(module, label, outdir, component_dirs, inputs, min_genera, run_info,
+                       resume=False, force=False, quiet=False):
+    """
+    One verdict from several per-database runs of the same search, with min_genera applied ACROSS the databases.
+
+    Each component run must have been evaluated with min_genera=1, so its hits.tsv marks every qualifying hit as counted.
+    Per species and gene, the counted hits of all components are pooled and kept only if they come from at least
+    `min_genera` distinct genera over all databases together (apply_min_genera). Status of a gene in the pooled run:
+      HIT                counted after pooling (a removal stands even if another database did not search the gene);
+      NOT_RUN            not counted, and at least one database did not search it (a pass cannot be claimed);
+      IN_PHYLOGENY_ONLY  not counted, and some database had only analysis-species / ignore_taxa hits;
+      NO_HIT             otherwise.
+    The pooled run is an ordinary run folder at `outdir`. Every component gets component_of=<label> in its marker and
+    run.json, so combine reads only the pooled run. Returns the per-species tallies.
+    """
+    comps = []
+    for d in component_dirs:
+        for name in ("hits.tsv", "gene_status.tsv", "run.json"):
+            if not os.path.isfile(os.path.join(d, name)):
+                raise HepError("%s: %s is missing; cannot pool an unfinished run" % (d, name))
+        mk = read_marker(d)
+        status = {(r["species"], r["gene_id"]): r["status"] for r in _read_tsv(os.path.join(d, "gene_status.tsv"))}
+        with open(os.path.join(d, "run.json"), "r", encoding="utf-8") as fh:
+            info = json.load(fh)
+        k = int((info.get("settings") or {}).get("min_genera") or 1)
+        if k != 1:
+            raise HepError("%s was evaluated with min_genera=%d; components of a pooled run need min_genera=1" % (d, k))
+        comps.append({"dir": d, "label": mk.get("label"), "hits": _read_tsv(os.path.join(d, "hits.tsv")),
+                      "status": status, "info": info})
+    labels = [c["label"] for c in comps]
+    if label in labels:
+        raise HepError("the pooled run label '%s' is also the label of one of its databases" % label)
+
+    tallies = {}
+    with ModuleOutput(outdir, module, label, resume=resume, force=force) as out:
+        for sp, fasta in inputs:
+            all_ids = load_fasta_ids(fasta)
+            rows = [dict(r) for c in comps for r in c["hits"] if r.get("species") == sp]
+            counted_any = {r["gene_id"] for r in rows if r.get("counts_as_hit") == "yes"}
+            counted = apply_min_genera(rows, counted_any, min_genera)
+            not_run, in_phylo = set(), set()
+            for g in all_ids:
+                for c in comps:
+                    st = c["status"].get((sp, g))
+                    if st is None or st == NOT_RUN:
+                        not_run.add(g)
+                    elif st == IN_PHYLOGENY_ONLY:
+                        in_phylo.add(g)
+            statuses = classify_genes(all_ids, counted=counted, in_phylogeny=in_phylo, not_run=not_run - counted)
+            tallies[sp] = out.add_species(sp, fasta, rows, statuses)
+            log("%s [%s]: pooled over %d databases, min_genera=%s across all of them: %d with a counted hit, %d NOT_RUN"
+                % (sp, label, len(comps), min_genera, tallies[sp][HIT], tallies[sp][NOT_RUN]))
+        tools, seen = [], set()
+        for c in comps:
+            for t in c["info"].get("tools") or []:
+                key = (t.get("name"), t.get("version"))
+                if key not in seen:
+                    seen.add(key)
+                    tools.append(t)
+        info = dict(run_info)
+        info.update(tools=tools, pooled_from=[{"label": c["label"], "path": os.path.abspath(c["dir"])} for c in comps],
+                    min_genera=min_genera, min_genera_scope="all_databases")
+        info["settings"] = dict(info.get("settings") or {}, min_genera=min_genera)
+        out.close(info, quiet=quiet)
+    for c in comps:
+        with open(os.path.join(c["dir"], RUN_MARKER), "a", encoding="utf-8") as fh:
+            fh.write("%s=%s\n" % (COMPONENT_KEY, label))
+        c["info"][COMPONENT_KEY] = label
+        c["info"]["component_note"] = ("one database of the pooled run '%s'; min_genera is applied across all databases "
+                                       "there, so this folder's own gene_status.tsv is not a verdict" % label)
+        with open(os.path.join(c["dir"], "run.json"), "w", encoding="utf-8") as fh:
+            json.dump(c["info"], fh, indent=2, sort_keys=True, default=str)
+            fh.write("\n")
+    return tallies
 
 
 def union_length(intervals):
