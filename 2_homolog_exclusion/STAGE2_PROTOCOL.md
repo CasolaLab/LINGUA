@@ -37,6 +37,7 @@ classification files (143 genomes), built into a table with `panther-families`.
 | TE | one BLASTp alignment (word size 2, PAM30, E ≤ 1e-3) to a TE protein covering at least 50% of the candidate | `brassicaceae_2026_te.conf` |
 | Organelle | any tBLASTn hit (E ≤ 1e-3, ungapped) to an organelle genome | `organelle_tblastn.conf` |
 | HOG rule | after the above, the candidate's BLASTp alignment to a removed member of its HOG overlaps that member's hit region by at least 20 aa (members removed by BLASTp, jackhmmer, CDD, InterProScan or PANTHER) | `[hog-rule]` |
+| Paralog rule | after the HOG rule, one BLASTp alignment (SEG off, E ≤ 1e-5) to a gene of the candidate's own proteome that is not a candidate has at least 50% identity over at least 50% of the candidate's length | `[paralog-rule]` |
 
 Hits to the OrthoFinder outgroup genomes do not count (only *T. hassleriana* is in the databases).
 
@@ -53,6 +54,7 @@ bash $S homology-blast     -i cand/ -o out/te       --label te       --config pr
 bash $S homology-blast     -i cand/ -o out/org      --label organelle --config presets/organelle_tblastn.conf --db db/organelle
 bash $S combine --runs out/blast out/jack out/cdd out/ipr out/te out/org -o out/combine
 bash $S hog-rule -i cand/ -o out/hog --combine out/combine --hogs N0.tsv --config $P
+bash $S paralog-rule -i cand/ -o out/paralog --passed out/hog --proteomes proteomes/ --config $P
 ```
 
 The study kept ten BLASTp targets per database and counted genera across all five databases together. The module cannot do both
@@ -69,10 +71,12 @@ module's rule that hits of unknown species count together as one genus never app
 | candidates | 192,193 |
 | flagged by BLASTp / jackhmmer / CDD / InterProScan / PANTHER / TE / organelle | 114,241 / 108,116 / 115,966 / 113,982 / 113,816 / 46,318 / 8,118 |
 | removed by their own hits (any screen) | 147,887 (15,672 by one screen only) |
-| gene-level lineage-specific genes | 44,306 |
+| candidates with no counted hit of their own | 44,306 |
 | in a HOG with a removed member | 16,279 |
 | removed by the HOG rule | 10,286 |
-| lineage-specific genes | 34,020 |
+| passing the HOG rule | 34,020 |
+| removed by the paralog rule | 954 |
+| lineage-specific genes | 33,066 |
 
 ## How the study's numbers were produced
 
@@ -85,6 +89,8 @@ module. What has been checked:
 - the `hog-rule` decision, applied to the study's within-HOG BLASTp output and hit regions, reproduces the study's call for all
   16,279 genes in HOGs with a removed member (10,286 removed; best overlap identical for every gene), and
   `hog-rule` running BLAST+ itself reproduces the verdicts and overlaps of four of them;
+- `paralog-rule`, run with BLAST+ 2.17.0 on the 34,020 genes passing the HOG rule, removes 954 genes, the same 954 that the
+  project's analysis of a separate BLASTp run removed;
 - each new setting has a unit test with hand-worked answers (`tests/test_stage2_rules.py`).
 
 Not checked: a full rerun of the 192,193 candidates through the module. Known differences from the project scripts are small

@@ -24,6 +24,7 @@ Commands:
   db-report             OPTIONAL: check how well a database covers the tree of life outside your clade
   make-bed              Look up CDS coordinates for a list of gene/protein IDs in a GFF3 (general purpose)
   hog-rule              After combine: remove passing genes homologous to the hit region of a removed gene in their HOG
+  paralog-rule          After hog-rule: remove passing genes with a similar established gene in their own proteome
   panther-families      Build the PANTHER family/species table for domain-interpro's PANTHER family rule
 
 Run '<command> --help' for the options of one command.
@@ -50,7 +51,7 @@ case "$cmd" in
     check)
         exec bash "$SCRIPT_DIR/check_tools.sh" "$@"
         ;;
-    domain-interpro|domain-cdd|homology-blast|homology-jackhmmer|combine|make-db|db-report|make-bed|hog-rule|panther-families)
+    domain-interpro|domain-cdd|homology-blast|homology-jackhmmer|combine|make-db|db-report|make-bed|hog-rule|paralog-rule|panther-families)
         module_file="$BIN_DIR/${cmd//-/_}.py"
         [[ "$cmd" == "make-db" ]] && module_file="$BIN_DIR/make_homology_db.py"
         [[ "$cmd" == "make-bed" ]] && module_file="$BIN_DIR/make_cds_bed.py"

@@ -25,6 +25,7 @@ Four search modules, each runnable on its own, plus tools to build databases and
 | `db-report` (optional) | shows how well your database covers the tree of life outside your clade | NCBI taxonomy |
 | `make-bed` (optional) | looks up CDS coordinates for a list of gene/protein IDs in a GFF3, for handoff to downstream steps | Python only |
 | `hog-rule` (optional, after `combine`) | removes passing genes homologous to the hit region of a removed gene in their OrthoFinder HOG | BLAST+ |
+| `paralog-rule` (optional, after `hog-rule`) | removes passing genes with a similar established gene (not a candidate) in their own proteome | BLAST+ |
 | `panther-families` | builds the PANTHER family/species table for the PANTHER family rule of `domain-interpro` | Python only |
 | `check` | reports which tools and databases are installed (changes nothing) | |
 
@@ -114,6 +115,7 @@ bash scripts/homolog_exclusion_pipeline.sh combine --runs out/blast -o out/combi
 | `docs/interpreting_hits.md` | what the statuses mean and what a pass does not prove |
 | `docs/domain-interpro.md`, `domain-cdd.md`, `homology-blast.md`, `homology-jackhmmer.md`, `combine.md`, `db-report.md`, `make-bed.md` | one page per module |
 | `docs/hog-rule.md` | homology through a hierarchical orthogroup |
+| `docs/paralog-rule.md` | a similar established gene in the candidate's own genome |
 | `STAGE2_PROTOCOL.md`, `presets/brassicaceae_2026*.conf` | the exact stage-2 protocol of the Brassicaceae de novo gene study |
 | `CHANGELOG.md` | what changed in each version |
 | `docs/citing.md` | what to cite |

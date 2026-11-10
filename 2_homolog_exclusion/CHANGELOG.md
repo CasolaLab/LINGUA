@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0 (2026-11-10)
+
+- New module `paralog-rule` (`docs/paralog-rule.md`): after `hog-rule`, removes passing genes with a similar established gene
+  (not a candidate) in their own proteome, namely one BLASTp alignment (SEG off, E ≤ 1e-5) with at least 50% identity over at
+  least 50% of the gene's length. It catches pairs OrthoFinder left unclustered, such as *MT1C*/*MT1A* in *Arabidopsis thaliana*.
+- `presets/brassicaceae_2026.conf`: `[paralog-rule]` section; `STAGE2_PROTOCOL.md`: the rule, its command and the study's counts
+  (34,020 → 33,066).
+- Tests for the module in `tests/test_stage2_rules.py`.
+
 ## 0.2.1 (2026-11-09)
 
 Fixes from a review of 0.2.0.

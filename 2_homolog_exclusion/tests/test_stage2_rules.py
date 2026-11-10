@@ -170,8 +170,43 @@ check("hog-rule: candidate missing from the BLAST output is NOT_RUN (wildcard ev
       got3 == {"L1": "PASS", "L2": "NOT_RUN", "L3": "PASS", "L4": "PASS"} and res3.returncode == 2, (got3, res3.returncode))
 check("hog-rule end to end: passed list", pas == ["species", "gene_id", "SpA", "L1", "SpA", "L4"], pas)
 
+# ---- paralog-rule
+import paralog_rule as pr  # noqa: E402
+# C1..C4 are candidates (C3 is a candidate paralog, not judged); O1, O2 are established genes of the same proteome
+rows = [["C1", "C1", "100", "1e-50", "200", "1", "100", "100"],     # self hit: ignored
+        ["C1", "O1", "60", "1e-20", "90", "1", "60", "100"],       # 60% identity over 60%: removes C1
+        ["C2", "C3", "95", "1e-40", "150", "1", "100", "100"],     # paralog is a candidate: ignored
+        ["C2", "O2", "45", "1e-10", "50", "1", "100", "100"],      # identity below 50: C2 passes, O2 reported
+        ["C4", "O1", "80", "1e-12", "60", "1", "40", "100"],       # 40% of length: not enough
+        ["C4", "O2", "90", "1e-3", "40", "1", "100", "100"]]       # E above 1e-5: ignored
+al = pr.best_paralogs(rows, {"C1", "C2", "C3", "C4"}, 1e-5)
+check("paralog-rule ignores self, candidate and weak-E hits", al == {"C1": [("O1", 60.0, 60.0, 1e-20)], "C2": [("O2", 45.0, 100.0, 1e-10)],
+                                                                    "C4": [("O1", 80.0, 40.0, 1e-12)]}, al)
+d = pr.decide(al, 50, 50)
+check("paralog-rule decide", {k: v[:2] for k, v in d.items()} == {"C1": ("REMOVED_PARALOG", "O1"), "C2": ("PASS", "O2"),
+                                                                    "C4": ("PASS", "O1")}, d)
+check("paralog-rule: identity and coverage must hold in one alignment",
+      pr.decide({"X": [("A", 90.0, 30.0, 1e-9), ("B", 40.0, 90.0, 1e-9)]}, 50, 50)["X"][0] == "PASS")
+pin, pprot, pprev, pbl = (os.path.join(tmp, x) for x in ("par_in", "par_prot", "par_prev", "par_bl"))
+for x in (pin, pprot, pprev, pbl):
+    os.makedirs(x)
+open(os.path.join(pin, "SpA_final.faa"), "w").write(">C1\nMKVA\n>C2\nMKVC\n>C3\nMKVD\n>C4\nMKVE\n>C5\nMKVF\n")
+open(os.path.join(pprot, "SpA.faa"), "w").write(">C1\nMKVA\n>C2\nMKVC\n>C3\nMKVD\n>C4\nMKVE\n>C5\nMKVF\n>O1\nMKVG\n>O2\nMKVH\n")
+open(os.path.join(pprev, "passed_ids.tsv"), "w").write("species\tgene_id\nSpA\tC1\nSpA\tC2\nSpA\tC4\nSpA\tC5\n")
+open(os.path.join(pbl, "SpA.tsv"), "w").write("# BLASTP 2.17.0+\n# Query: C1\n# Query: C2\n# Query: C4\n"
+                                              + "".join("\t".join(r) + "\n" for r in rows) + "# BLAST processed 3 queries\n")
+po = os.path.join(tmp, "par_out")                                # C5 has no BLAST record: NOT_RUN, exit status 2
+res = subprocess.run([sys.executable, os.path.join(ROOT, "bin", "paralog_rule.py"), "-i", pin, "-o", po, "--passed", pprev,
+                      "--proteomes", pprot, "--parse-only", pbl, "--quiet"], capture_output=True, text=True)
+got = {l.split("\t")[1]: l.split("\t")[2] for l in open(os.path.join(po, "paralog_rule.tsv")).read().splitlines()[1:]} \
+    if os.path.isfile(os.path.join(po, "paralog_rule.tsv")) else res.stderr[-300:]
+check("paralog-rule end to end: verdicts", got == {"C1": "REMOVED_PARALOG", "C2": "PASS", "C4": "PASS", "C5": "NOT_RUN"}, got)
+check("paralog-rule end to end: exit status 2 when a gene is NOT_RUN", res.returncode == 2, res.returncode)
+pas = open(os.path.join(po, "passed_ids.tsv")).read().split() if os.path.isfile(os.path.join(po, "passed_ids.tsv")) else []
+check("paralog-rule end to end: passed list", pas == ["species", "gene_id", "SpA", "C2", "SpA", "C4"], pas)
+
 # ---- panther-families
-pf = os.path.join(tmp, "PTHR19.0_test")
+pf =os.path.join(tmp, "PTHR19.0_test")
 open(pf, "w").write("ARATH|TAIR=AT1G1|UniProtKB=Q1\tQ1\tAT1G1\tPTHR10:SF1\tX\n"
                     "ARATH|TAIR=AT1G2|UniProtKB=Q2\tQ2\tAT1G2\tPTHR10:SF2\tX\nHUMAN|HGNC=1|UniProtKB=P1\tP1\tG\tPTHR11\tY\n")
 out = subprocess.run([sys.executable, os.path.join(ROOT, "bin", "panther_families.py"), pf], capture_output=True, text=True)

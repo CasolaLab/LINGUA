@@ -93,6 +93,7 @@ against bryophyte proteomes, on one chloroplast genome, and on CDD; no benchmark
 | domain-interpro | `max_evalue_exempt` | empty | analyses to which `max_evalue` and `require_evalue` do not apply (PANTHER in the Brassicaceae preset) |
 | domain-interpro | `panther_family_species`, `panther_exclude_species` | blank | a PANTHER hit counts only if its family holds a species outside the exclude list |
 | hog-rule | `min_overlap_aa`, `evalue`, `dbsize`, `unknown_region` | 20, 1e-3, 1e8, fail | see `docs/hog-rule.md` |
+| paralog-rule | `min_pident`, `min_qcov`, `evalue`, `seg` | 50, 50, 1e-5, no | see `docs/paralog-rule.md` |
 
 The Brassicaceae values (`presets/brassicaceae_2026.conf`) were chosen for that study, not tuned on a benchmark; `STAGE2_PROTOCOL.md`
 says where each comes from.
