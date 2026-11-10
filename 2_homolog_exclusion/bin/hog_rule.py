@@ -17,6 +17,7 @@ keep their PASS. Nothing else is changed: genes combine did not pass are not tou
 Python 3.11+, standard library only; needs BLAST+ (blastp, makeblastdb) unless --parse-only is given.
 """
 import csv
+import fnmatch
 import json
 import os
 import sys
@@ -27,7 +28,7 @@ import hep_common as h  # noqa: E402
 MODULE = "hog-rule"
 DESCRIPTION = __doc__.strip().split("\n\n")[0]
 OUTFMT = "qseqid sseqid evalue bitscore qstart qend sstart send"
-PASS, REMOVED_HOG, REGION_UNKNOWN = "PASS", "REMOVED_HOG", "REGION_UNKNOWN"
+PASS, REMOVED_HOG, REGION_UNKNOWN, NOT_RUN = "PASS", "REMOVED_HOG", "REGION_UNKNOWN", "NOT_RUN"
 
 
 def read_hogs(path):
@@ -132,12 +133,15 @@ def main(argv=None):
     try:
         if cfg.get("unknown_region") not in ("fail", "pass"):
             raise h.HepError("unknown_region must be 'fail' or 'pass'")
+        if int(cfg["min_overlap_aa"]) < 1:
+            raise h.HepError("min_overlap_aa must be at least 1")
         matrix = read_matrix(a.combine)
         with open(os.path.join(a.combine, "run.json"), "r", encoding="utf-8") as fh:
             cinfo = json.load(fh)
         runs = {r["label"]: r["path"] for r in cinfo.get("runs", [])}
-        want = h.as_list(cfg.get("evidence_runs")) or list(runs)
-        missing = [l for l in want if l not in runs]
+        pats = h.as_list(cfg.get("evidence_runs")) or ["*"]
+        missing = [p for p in pats if not fnmatch.filter(runs, p)]
+        want = [l for l in runs if any(fnmatch.fnmatchcase(l, p) for p in pats)]
         if missing:
             raise h.HepError("evidence_runs not found in combine's run.json: %s (known: %s)" % (", ".join(missing), ", ".join(runs)))
         if not cfg.get("evidence_runs"):
@@ -197,6 +201,13 @@ def main(argv=None):
             h.die(str(e))
         dec = decide(al, {g: iv for (_, g), iv in regions.items()}, {g for _, g in unknown}, int(cfg["min_overlap_aa"]),
                      cfg["unknown_region"])
+        done = {h.canonical_id(q) for q in searched}
+        lost = sorted(cands - done)
+        if lost:
+            h.warn("%d candidate(s) are not in the within-HOG BLASTp output (e.g. %s): NOT_RUN, they do not pass"
+                   % (len(lost), lost[0]))
+            for g in lost:
+                dec[g] = (NOT_RUN, None, 0)
     else:
         dec = {}
     regions_g = {g: iv for (_, g), iv in regions.items()}
@@ -222,17 +233,18 @@ def main(argv=None):
                     h.write_fasta_record(fh, header, seq)
     tally = {}
     for x in rows[1:]:
-        tally.setdefault(x[0], {PASS: 0, REMOVED_HOG: 0, REGION_UNKNOWN: 0})[x[4]] += 1
+        tally.setdefault(x[0], {PASS: 0, REMOVED_HOG: 0, REGION_UNKNOWN: 0, NOT_RUN: 0})[x[4]] += 1
     with open(os.path.join(a.output, "summary.tsv"), "w", encoding="utf-8") as fh:
-        fh.write("species\tcombine_pass\t%s\t%s\t%s\n" % (PASS, REMOVED_HOG, REGION_UNKNOWN))
+        fh.write("species\tcombine_pass\t%s\t%s\t%s\t%s\n" % (PASS, REMOVED_HOG, REGION_UNKNOWN, NOT_RUN))
         for sp in sorted(tally):
             t = tally[sp]
-            fh.write("%s\t%d\t%d\t%d\t%d\n" % (sp, sum(t.values()), t[PASS], t[REMOVED_HOG], t[REGION_UNKNOWN]))
+            fh.write("%s\t%d\t%d\t%d\t%d\t%d\n" % (sp, sum(t.values()), t[PASS], t[REMOVED_HOG], t[REGION_UNKNOWN], t[NOT_RUN]))
     info = h.run_info_base(ctx)
     info.update(module=MODULE, pipeline=h.PIPELINE_NAME, version=h.__version__, tools=tools,
                 combine=os.path.abspath(a.combine), hogs=os.path.abspath(a.hogs), evidence_runs=want,
                 n_candidates=len(cands), n_removed_hog=sum(v[0] == REMOVED_HOG for v in dec.values()),
                 n_region_unknown=sum(v[0] == REGION_UNKNOWN for v in dec.values()), n_pass=len(passed),
+                n_not_run=sum(v[0] == NOT_RUN for v in dec.values()),
                 members_without_region=len(unknown))
     with open(os.path.join(a.output, "run.json"), "w", encoding="utf-8") as fh:
         json.dump(info, fh, indent=2, sort_keys=True, default=str)
@@ -242,8 +254,8 @@ def main(argv=None):
         shutil.rmtree(workdir, ignore_errors=True)
     h.log("hog-rule: %d candidates, %d removed (overlap >= %s aa), %d region unknown, %d pass"
           % (len(cands), info["n_removed_hog"], cfg["min_overlap_aa"], info["n_region_unknown"], len(passed)))
-    if info["n_region_unknown"]:
-        h.note_incomplete(info["n_region_unknown"])
+    if info["n_region_unknown"] or info["n_not_run"]:
+        h.note_incomplete(info["n_region_unknown"] + info["n_not_run"])
 
 
 if __name__ == "__main__":

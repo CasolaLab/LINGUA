@@ -120,6 +120,7 @@ def evaluate(rows, cfg):
     e_exempt = {norm(x) for x in h.as_list(cfg.get("max_evalue_exempt"))}
     pan_species = read_panther_family_species(cfg.get("panther_family_species"))
     pan_exclude = {x.upper() for x in h.as_list(cfg.get("panther_exclude_species"))}
+    missing_fam = set()
 
     hit_rows, counted, excluded, spurious = [], set(), set(), set()
     for r in rows:
@@ -146,7 +147,12 @@ def evaluate(rows, cfg):
             row["note"] = "E-value above %g" % max_e
         elif need_e and a in E_VALUE_ANALYSES and a not in e_exempt and value is None:
             row["note"] = "no E-value reported (require_evalue)"
-        elif pan_species is not None and a == "panther" and not (pan_species.get(r["sig"].split(":")[0], set()) - pan_exclude):
+        elif pan_species is not None and a == "panther" and r["sig"].split(":")[0] not in pan_species:
+            row["counts_as_hit"] = True
+            row["note"] = "PANTHER family not in panther_family_species; counted (check the table's PANTHER version)"
+            counted.add(gene)
+            missing_fam.add(r["sig"].split(":")[0])
+        elif pan_species is not None and a == "panther" and not (pan_species[r["sig"].split(":")[0]] - pan_exclude):
             row["note"] = "PANTHER family with no species outside panther_exclude_species"
             excluded.add(gene)
         else:
@@ -154,6 +160,9 @@ def evaluate(rows, cfg):
             row["note"] = ("InterPro %s" % r["ipr"]) if r["ipr"] not in ("", "-") else "no InterPro entry"
             counted.add(gene)
         hit_rows.append(row)
+    if missing_fam:
+        h.warn("%d PANTHER famil(ies) are not in panther_family_species and were counted as evidence (e.g. %s)"
+               % (len(missing_fam), sorted(missing_fam)[0]))
     return hit_rows, counted, excluded, spurious
 
 

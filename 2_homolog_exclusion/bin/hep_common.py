@@ -28,7 +28,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 PIPELINE_NAME = "homolog-exclusion-pipeline"
 
 # Exit status: 0 = finished and every gene was searched; 1 = the run could not be done (an error, nothing usable);

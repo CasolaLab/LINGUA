@@ -55,9 +55,12 @@ bash $S combine --runs out/blast out/jack out/cdd out/ipr out/te out/org -o out/
 bash $S hog-rule -i cand/ -o out/hog --combine out/combine --hogs N0.tsv --config $P
 ```
 
-With several BLASTp databases, `min_genera` counts genera within each database run; the study counted genera across all five
-databases together, so merge them into one database (or one taxon-tagged FASTA) to reproduce it exactly. The same holds for
-jackhmmer.
+The study kept ten BLASTp targets per database and counted genera across all five databases together. The module cannot do both
+at once. With several `--db`, each database is its own run (labelled `blast-prokaryotes`, `blast-plants` and so on, which the
+`blast*` pattern of the preset matches), so `min_genera` counts genera within one database. With one merged database, genera are
+counted across all of it, but `max_target_seqs=10` then caps the targets at ten in total; raising it to 50 keeps roughly the
+study's number of targets. Neither reproduces the study exactly. In the study every database hit had a species label, so the
+module's rule that hits of unknown species count together as one genus never applied.
 
 ## Counts in the study
 
@@ -87,4 +90,4 @@ module. What has been checked:
 Not checked: a full rerun of the 192,193 candidates through the module. Known differences from the project scripts are small
 and listed here so they can be tested. The TE rule here measures an alignment's query span over the protein length, whereas the
 study divided the alignment length by the protein length minus one; InterProScan matches must have status `T` here; and `min_genera`
-is applied per database run (see Commands).
+is applied per database run unless the databases are merged (see Commands).

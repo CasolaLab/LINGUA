@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.1 (2026-11-09)
+
+Fixes from a review of 0.2.0.
+
+- `hog-rule`: a candidate missing from the within-HOG BLASTp output (possible with `--parse-only`) is now `NOT_RUN` and does not
+  pass; before, it passed. `evidence_runs` accepts shell wildcards, so the preset's `blast*` matches the per-database runs that
+  several `--db` create (before, the protocol's command stopped with "evidence_runs not found"). `min_overlap_aa` must be at least 1.
+- `domain-interpro`: a PANTHER hit whose family is missing from `panther_family_species` is now counted, with a warning, instead of
+  being silently excluded.
+- `STAGE2_PROTOCOL.md`: states that the study's ten targets per database and genera counted across databases cannot both be
+  reproduced, and what each option gives.
+
 ## 0.2.0 (2026-11-09)
 
 Added for the Casola Lab's stage-2 re-screen of Brassicaceae candidates (`STAGE2_PROTOCOL.md`). Every new setting is off by

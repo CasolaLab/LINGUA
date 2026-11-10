@@ -104,9 +104,9 @@ rows = [irow("p1", "PANTHER", "PTHR1:SF2", "1e-50"),     # family only in exclud
         irow("p2", "PANTHER", "PTHR2", "0.5"),           # family has HUMAN; E 0.5 but PANTHER exempt -> counts
         irow("p3", "Pfam", "PF00001", "-"),              # require_evalue -> not counted
         irow("p4", "Pfam", "PF00002", "1e-5"),           # counts
-        irow("p5", "PANTHER", "PTHR9", "1e-50")]         # family absent from the table -> no outside species -> excluded
+        irow("p5", "PANTHER", "PTHR9", "1e-50")]         # family absent from the table -> counted, with a warning
 hits, counted, excl, _ = ipr.evaluate(rows, cfg)
-check("interpro PANTHER rule, exemption and require_evalue", counted == {"p2", "p4"} and {"p1", "p5"} <= excl, (counted, excl))
+check("interpro PANTHER rule, exemption and require_evalue", counted == {"p2", "p4", "p5"} and "p1" in excl, (counted, excl))
 check("interpro q_intervals", any(r.get("q_intervals") == "5-60" for r in hits))
 
 # ---- hog-rule
@@ -158,6 +158,16 @@ check("hog-rule end to end: verdicts", got == {"L1": ("PASS", "11"), "L2": ("REM
                                                "L4": ("PASS", "0")}, (got, res.stderr[-400:]))
 check("hog-rule end to end: exit status 2 when a verdict is REGION_UNKNOWN", res.returncode == 2, res.returncode)
 pas = open(os.path.join(o, "passed_ids.tsv")).read().split() if os.path.isfile(os.path.join(o, "passed_ids.tsv")) else []
+bl3 = os.path.join(tmp, "hog_blastp3.tsv")          # L2 missing from the BLAST output
+open(bl3, "w").write("# BLASTP 2.17.0+\n# Query: L1\n# Query: L3\nL1\tM1\t1e-20\t80\t1\t31\t10\t40\n"
+                     "L3\tM2\t1e-20\t80\t1\t5\t1\t5\n# BLAST processed 2 queries\n")
+o3 = os.path.join(tmp, "hog_out3")
+res3 = subprocess.run([sys.executable, os.path.join(ROOT, "bin", "hog_rule.py"), "-i", inp, "-o", o3, "--combine", comb, "--hogs", hogs,
+                       "--parse-only", bl3, "--set", "evidence_runs=bl*", "--set", "unknown_region=pass", "--quiet"], capture_output=True, text=True)
+got3 = {l.split("\t")[1]: l.split("\t")[4] for l in open(os.path.join(o3, "hog_rule.tsv")).read().splitlines()[1:]} \
+    if os.path.isfile(os.path.join(o3, "hog_rule.tsv")) else res3.stderr[-300:]
+check("hog-rule: candidate missing from the BLAST output is NOT_RUN (wildcard evidence_runs bl*)",
+      got3 == {"L1": "PASS", "L2": "NOT_RUN", "L3": "PASS", "L4": "PASS"} and res3.returncode == 2, (got3, res3.returncode))
 check("hog-rule end to end: passed list", pas == ["species", "gene_id", "SpA", "L1", "SpA", "L4"], pas)
 
 # ---- panther-families

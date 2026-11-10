@@ -18,7 +18,7 @@ authors:
   - name: "Protein Evolution Lab (Casola Lab), Texas A&M University"
 repository-code: "https://github.com/Ludtson/homolog-exclusion-pipeline"
 license: MIT
-version: 0.2.0
+version: 0.2.1
 keywords:
   - comparative genomics
   - homology search

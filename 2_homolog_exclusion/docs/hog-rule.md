@@ -21,6 +21,7 @@ region that gave the removed gene its homolog or domain. `hog-rule` tests that d
 | `PASS` | not in a HOG with an evidence member, no alignment to one, or overlap below `min_overlap_aa` |
 | `REMOVED_HOG` | overlap of at least `min_overlap_aa` with an evidence member's region |
 | `REGION_UNKNOWN` | aligned to a member whose region has no coordinates, and overlapped no known region enough; does not pass unless `unknown_region=pass`; the run exits with status 2 |
+| `NOT_RUN` | the within-HOG BLASTp output has no finished record of the candidate (possible with `--parse-only`); does not pass; exit status 2 |
 
 Only genes that `combine` passed are judged; the others keep their `combine` verdict.
 
@@ -48,8 +49,8 @@ BLAST+.
 
 | Setting | Default | Why |
 |---|---|---|
-| `evidence_runs` | blank = every run | runs whose hits count as homology evidence |
-| `min_overlap_aa` | 20 | the Casola Lab's Brassicaceae choice; 1 = any overlap. There is no natural value: on that dataset 1, 10, 20 and 30 aa kept 33,207, 33,614, 34,020 and 34,782 of 44,306 genes |
+| `evidence_runs` | blank = every run | run labels whose hits count as homology evidence; shell wildcards allowed (`blast*` matches the per-database runs `blast-plants`, ...) |
+| `min_overlap_aa` | 20 (at least 1) | the Casola Lab's Brassicaceae choice; 1 = any overlap. There is no natural value: on that dataset 1, 10, 20 and 30 aa kept 33,207, 33,614, 34,020 and 34,782 of 44,306 genes |
 | `evalue`, `dbsize`, `seg`, `max_target_seqs` | 1e-3, 1e8, yes, 5000 | within-HOG BLASTp |
 | `unknown_region` | fail | a pass needs evidence of absence |
 
