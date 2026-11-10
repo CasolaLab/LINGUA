@@ -19,9 +19,3 @@ Inputs:
 
 Notes:
   - run_stage3.sh passes step8c/step8c_missing_data.tsv and writes step14_masked_deletions.tsv in the workdir.
-  - Insertions are not reported in practice: the alignments reaching step 14 contain no column where the reference
-    has a gap. In the Capra hircus test run (2026-11-10) the reference rows had no gaps already in the step 1 MAFs
-    (13,071 reference rows, 0 gap characters), and step 9 removes any such column. Frameshift insertions and 3-bp
-    stop-codon insertions relative to the reference are therefore not detected by stage 3 as it stands.
-  - Gaps from a species missing part of an exon (absent from some MAF blocks, padded with dashes by step 4) are not
-    in the mask and are still tested as deletions.
