@@ -1,10 +1,7 @@
 ================================================================================
 SCRIPT: run_stage3.sh
 ================================================================================
-Description: Runs stage 3 steps 1-17 for one focal (reference) species in one working folder: input preparation
-(exon list and header-cleaned reference CDS from the BED), step 1 (mafExtractor, or a copy of existing step 1
-files), steps 2-8, step 8c (one collinear row per species and the missing-data mask, from LINGUA), and steps 9-17,
-with step 14 reading the step 8c mask. Stops at the first failed step.
+Description: Runs stage 3 steps 1-17 for one focal (reference) species in one working folder. Stops at the first failed step.
 
 Usage:
   bash run_stage3.sh <workdir> <focal_species> <bed> <cds_fasta> <maf> <tree_newick>
