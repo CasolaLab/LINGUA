@@ -8,7 +8,7 @@ python3 node_summary_tree_v2.py \
   --indels-dir indels_dir \
   --stops-dir Stops_dir \
   --tree SpeciesTree_rooted_node_labels_oct_16.txt \
-  --outdir hyper_summary/nodes_summary_by_species
+  --outdir nodes_summary_by_species
 
 
 python3 node_summary_tree_v2.py \
@@ -585,6 +585,12 @@ def select_nodes_row_nearest_to_orf(
             continue
         if normalize_node_label(orf_node, focal_species) in nodes:
             continue
+        if _cfg.opt("skip_events_in_younger_nodes"):
+            younger = [n for n in nodes
+                       if (node_age_index(n, focal_species, ancestors_young_to_old) or 0) not in (0,)
+                       and node_age_index(n, focal_species, ancestors_young_to_old) < orf_idx]
+            if younger:
+                continue
 
         idxs: List[int] = []
         for n in nodes:
@@ -602,11 +608,11 @@ def select_nodes_row_nearest_to_orf(
         n_nodes = len(nodes)
 
         if best_nearest_idx is None or nearest_idx < best_nearest_idx:
-            best_value = "|".join(nodes)
+            best_value = EventRow("|".join(nodes), getattr(value, "pos", ""))
             best_nearest_idx = nearest_idx
             best_n_nodes = n_nodes
         elif nearest_idx == best_nearest_idx and n_nodes > best_n_nodes:
-            best_value = "|".join(nodes)
+            best_value = EventRow("|".join(nodes), getattr(value, "pos", ""))
             best_n_nodes = n_nodes
 
     return best_value
@@ -803,6 +809,7 @@ def read_multi_node_lookup(
             die(f"Could not read header from {path}")
         gene_col = get_first_existing_col(reader.fieldnames, ["geneID", "gff_transcriptID"], path)
         use_nodes_col = get_required_col(reader.fieldnames, nodes_col, path)
+        pos_col = next((c for c in ("IndelStart_RefPos", "StopCodonStart_RefPos") if c in reader.fieldnames), None)
         for row in reader:
             gid = (row.get(gene_col, "") or "").strip()
             if not gid:
@@ -815,11 +822,21 @@ def read_multi_node_lookup(
             gid_exact = (gid or "").strip()
             gid_norm = normalize_geneid(gid_exact)
 
+            pos = (row.get(pos_col, "") or "").strip() if pos_col else ""
+            item = EventRow(val, pos)
             if gid_exact:
-                lookup.setdefault(gid_exact, []).append(val)
-            if gid_norm:
-                lookup.setdefault(gid_norm, []).append(val)
+                lookup.setdefault(gid_exact, []).append(item)
+            if gid_norm and gid_norm != gid_exact:
+                lookup.setdefault(gid_norm, []).append(item)
     return lookup
+
+
+class EventRow(str):
+    """A Nodes_indels / Nodes_stops value that also carries its event position (RefPos)."""
+    def __new__(cls, value, pos=""):
+        obj = super().__new__(cls, value)
+        obj.pos = pos
+        return obj
 
 
 # ============================================================
@@ -860,6 +877,8 @@ def write_one_summary(
     synteny_lookup = read_single_node_lookup(synteny_path, "Node_Synteny_AncSeq-40", focal, synteny=True)
     indels_lookup = read_multi_node_lookup(indels_path, "Nodes_indels", focal, ancestors_young_to_old)
     stops_lookup = read_multi_node_lookup(stops_path, "Nodes_stops", focal, ancestors_young_to_old)
+    orf_clade_rule = bool(_cfg.opt("orf_clade_consistency"))
+    detail = _nee_load_detail(indels_path.parent, stops_path.parent, focal) if orf_clade_rule else None
 
     out_cols = [
         "geneID",
@@ -871,6 +890,11 @@ def write_one_summary(
         "Gene_type",
         "ORF-Enablers_Node_dist",
     ]
+    if _cfg.opt("record_enabler_events"):
+        out_cols += ["Indels_event_RefPos", "Stops_event_RefPos"]
+    if orf_clade_rule:
+        out_cols += ["ORF_Node_tblastn", "Enablers_living_inferred"]
+    n_orf_moved = 0
 
     n_syn_match = 0
     n_indel_match = 0
@@ -901,6 +925,15 @@ def write_one_summary(
                 focal_species=focal,
                 ancestors_young_to_old=ancestors_young_to_old,
             )
+            orf_node_tblastn = orf_node
+            inferred_nodes: List[str] = []
+            if orf_clade_rule:
+                orf_node, indels_node, stops_node, inferred_nodes = _nee_orf_clade_consistency(
+                    gid, orf_node, indels_candidates, stops_candidates, detail, focal, ancestors_young_to_old)
+                if orf_node != orf_node_tblastn:
+                    n_orf_moved += 1
+            indel_pos = getattr(indels_node, "pos", "") or "NA"
+            stop_pos = getattr(stops_node, "pos", "") or "NA"
 
             if synteny_node != "NA":
                 n_syn_match += 1
@@ -964,18 +997,24 @@ def write_one_summary(
                 n_pdng_old_orf_removed += 1
                 continue
 
-            writer.writerow(
-                {
-                    "geneID": gid,
-                    "ORF_Node": orf_node,
-                    "Synteny_Node": synteny_node,
-                    "Indels_Node": indels_node,
-                    "Stops_Node": stops_node,
-                    "Enablers_Nodes": enablers_nodes,
-                    "Gene_type": gene_type,
-                    "ORF-Enablers_Node_dist": orf_enablers_node_dist,
-                }
-            )
+            out_row = {
+                "geneID": gid,
+                "ORF_Node": orf_node,
+                "Synteny_Node": synteny_node,
+                "Indels_Node": indels_node,
+                "Stops_Node": stops_node,
+                "Enablers_Nodes": enablers_nodes,
+                "Gene_type": gene_type,
+                "ORF-Enablers_Node_dist": orf_enablers_node_dist,
+            }
+            if _cfg.opt("record_enabler_events"):
+                # positions of the event rows chosen; NA where the synteny filter emptied the row
+                out_row["Indels_event_RefPos"] = indel_pos if indels_node != "NA" else "NA"
+                out_row["Stops_event_RefPos"] = stop_pos if stops_node != "NA" else "NA"
+            if orf_clade_rule:
+                out_row["ORF_Node_tblastn"] = orf_node_tblastn
+                out_row["Enablers_living_inferred"] = ";".join(inferred_nodes) or "NA"
+            writer.writerow(out_row)
 
     total = len(orf_rows)
     print(f"Wrote: {out_path}", file=sys.stderr)
@@ -987,6 +1026,8 @@ def write_one_summary(
     print(f"DEBUG: genes with valid Enablers_Nodes = {n_enabler} / {total}", file=sys.stderr)
     print(f"DEBUG: DNG = {n_dng}; PDNG = {n_pdng}", file=sys.stderr)
     print(f"DEBUG: PDNG rows removed because ORF_Node is N0/N1/N2/N3 = {n_pdng_old_orf_removed}", file=sys.stderr)
+    if orf_clade_rule:
+        print(f"DEBUG: ORF_Node moved younger by the ORF-clade consistency rule = {n_orf_moved} / {total}", file=sys.stderr)
 
 
 def species_prefix_for_output(focal_species: str, fallback: str) -> str:
@@ -1220,6 +1261,128 @@ def main() -> None:
         focal_species=focal,
         out_path=out_path,
     )
+
+
+# ── tree configuration (lingua_config.py) ──
+import lingua_config as _cfg
+EXCLUDED_ENABLER_NODES = set(_cfg.EXCLUDED_ENABLER_NODES)
+EXCLUDED_PDNG_ORF_NODES = set(_cfg.EXCLUDED_ORF_NODES)
+
+
+def canonicalize_species(s: str) -> str:
+    return _cfg.canonicalize(s)
+
+
+def species_prefix_for_output(focal_species: str, fallback: str) -> str:
+    focal = _cfg.canonicalize(focal_species)
+    ab = _cfg.ABBREV.get(focal)
+    return ab.lower() if ab else fallback
+
+# ── NEE revision 2026-10-28: ORF-clade consistency (method option orf_clade_consistency) ──
+# A disabler event that step 7 would use as an enabler must be absent from the ORF clade: from every
+# reconstructed node inside the clade of ORF_Node (ORF_Node included) and from every living species in
+# it other than the focal one (stops: same position; indels: same position and a length carried by the
+# event's nearest older lineage node). If the chosen indel or stop event is present inside the clade,
+# ORF_Node moves one node younger along the focal lineage and the events are re-chosen, until no chosen
+# event is present inside the ORF clade or the ORF is focal-specific. When ORF_Node moved, a lineage node
+# between the new ORF_Node and the event's nearest older reconstructed lineage node is added to the event's
+# nodes if a living species on its side branch carries the event ("living-inferred").
+
+def _nee_load_detail(indels_dir: Path, stops_dir: Path, focal: str) -> Dict[Tuple[str, str, str], Dict[str, Set[str]]]:
+    detail: Dict[Tuple[str, str, str], Dict[str, Set[str]]] = {}
+    found = {"indel": 0, "stop": 0}
+    for kind, d, suffix, pcol in (("indel", indels_dir, "_indels_summary.tsv", "IndelStart_RefPos"),
+                                  ("stop", stops_dir, "_stop_codon_summary.tsv", "StopCodonStart_RefPos")):
+        for f in sorted(d.glob(f"*{suffix}")):
+            with f.open() as fh:
+                reader = csv.DictReader(fh, delimiter="\t")
+                first = next(reader, None)
+                if first is None or not first["file_name"].startswith(focal + "_"):
+                    continue
+                found[kind] += 1
+                for row in [first] + list(reader):
+                    key = (normalize_geneid(row["gff_transcriptID"]), kind, row[pcol])
+                    val = row["IndelLength"] if kind == "indel" else "stop"
+                    detail.setdefault(key, {}).setdefault(row["Species"], set()).add(val)
+    if found != {"indel": 1, "stop": 1}:
+        die(f"orf_clade_consistency: expected one indel and one stop detail table for {focal}, found {found}")
+    return detail
+
+
+def _nee_clade(node: str, focal: str) -> Set[str]:
+    if node in _cfg.NODE_CLADES:
+        return set(_cfg.NODE_CLADES[node])
+    return {focal}
+
+
+def _nee_internal_nodes_in(clade: Set[str]) -> Set[str]:
+    return {n for n, c in _cfg.NODE_CLADES.items() if set(c) <= clade}
+
+
+def _nee_event_lengths(carriers: Dict[str, Set[str]], nodes: List[str], orf_node: str, focal: str,
+                       ancestors_young_to_old: List[str]) -> Set[str]:
+    """Lengths (or 'stop') of the event at its nearest lineage node older than orf_node."""
+    orf_idx = node_age_index(orf_node, focal, ancestors_young_to_old)
+    lin = [(node_age_index(n, focal, ancestors_young_to_old), n) for n in nodes]
+    lin = sorted((i, n) for i, n in lin if i is not None and orf_idx is not None and i > orf_idx and n in carriers)
+    return set(carriers[lin[0][1]]) if lin else set()
+
+
+def _nee_present_inside(event: Any, kind: str, gid: str, orf_node: str, detail, focal: str,
+                        ancestors_young_to_old: List[str]) -> bool:
+    if event is None or event == "NA":
+        return False
+    nodes = split_node_list(event, focal)
+    clade = _nee_clade(normalize_node_label(orf_node, focal), focal)
+    if set(nodes) & (_nee_internal_nodes_in(clade) | {orf_node}):
+        return True
+    carriers = detail.get((normalize_geneid(gid), kind, getattr(event, "pos", "")), {})
+    lengths = _nee_event_lengths(carriers, nodes, orf_node, focal, ancestors_young_to_old)
+    return any(sp in clade and sp != focal and carriers[sp] & lengths for sp in carriers)
+
+
+def _nee_orf_clade_consistency(gid, orf_node, indels_candidates, stops_candidates, detail, focal,
+                               ancestors_young_to_old):
+    orf0 = orf_node
+    lineage_young_to_old = [get_focal_specific_label(focal)] + list(ancestors_young_to_old)
+    while True:
+        ind = select_nodes_row_nearest_to_orf(indels_candidates, orf_node, focal, ancestors_young_to_old)
+        stp = select_nodes_row_nearest_to_orf(stops_candidates, orf_node, focal, ancestors_young_to_old)
+        orf_idx = node_age_index(orf_node, focal, ancestors_young_to_old)
+        if orf_idx is None or orf_idx == 0:
+            break
+        if not (_nee_present_inside(ind, "indel", gid, orf_node, detail, focal, ancestors_young_to_old) or
+                _nee_present_inside(stp, "stop", gid, orf_node, detail, focal, ancestors_young_to_old)):
+            break
+        orf_node = lineage_young_to_old[orf_idx - 1]
+    inferred: List[str] = []
+    if orf_node != orf0:
+        new_rows = []
+        for ev, kind in ((ind, "indel"), (stp, "stop")):
+            if ev is None or ev == "NA":
+                new_rows.append(ev)
+                continue
+            nodes = split_node_list(ev, focal)
+            carriers = detail.get((normalize_geneid(gid), kind, getattr(ev, "pos", "")), {})
+            lengths = _nee_event_lengths(carriers, nodes, orf_node, focal, ancestors_young_to_old)
+            orf_idx = node_age_index(orf_node, focal, ancestors_young_to_old)
+            lin_idx = [node_age_index(n, focal, ancestors_young_to_old) for n in nodes]
+            older = [i for i in lin_idx if i is not None and i > orf_idx]
+            added = []
+            if older and lengths:
+                for i in range(orf_idx + 1, min(older)):
+                    x = lineage_young_to_old[i]
+                    younger = _nee_clade(lineage_young_to_old[i - 1], focal)
+                    side = set(_cfg.NODE_CLADES[x]) - younger
+                    if any(sp in side and carriers[sp] & lengths for sp in carriers):
+                        added.append(x)
+            if added:
+                inferred += [f"{x}:{kind}:{getattr(ev, 'pos', '')}" for x in added]
+                new_rows.append(EventRow("|".join(nodes + added), getattr(ev, "pos", "")))
+            else:
+                new_rows.append(ev)
+        ind, stp = new_rows
+    return orf_node, ind, stp, inferred
 
 
 if __name__ == "__main__":

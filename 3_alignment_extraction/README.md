@@ -65,12 +65,13 @@ lives in [`docs/progressive_cactus_gene_analysis_pipeline_README.txt`](docs/prog
 | 6 | `step6_update_summary_files.py` | Sync FASTA-extraction summary with the BED file |
 | 7 | `step7_first_stage_validation.py` | Nucleotide-count integrity check across raw/filtered/extracted files |
 | 8 | `step8_stitching_exons.sh` | Stitch exon blocks into full transcripts |
+| 8c | `step8c_one_collinear_row.py` | Keep one row per species from its dominant collinear chain (one contig and strand, ≤ 50 kb); gap the other exons and write the missing-data mask |
 | 9 | `step9_trimming_duplicate_bases.py` | Trim padding/intron bleed-over, enforce reading frame |
 | 10 | `step10_second_stage_validation.py` | Confirm final sequences match reference length/content |
 | 11 | `step11_update_stitched_exons_summary.py` | Compare expected vs. actual stitched-exon lengths |
 | 12 | `step12_identify_start_codons.sh` | Locate in-frame start codons |
 | 13 | `step13_identify_stop_codons.sh` | Locate in-frame stop codons |
-| 14 | `step14_identify_indels.sh` | Identify frameshift indels, incl. premature-stop-causing 3bp insertions |
+| 14 | `step14_identify_indels.sh` | Identify frameshift indels, incl. premature-stop-causing 3bp insertions; with the step 8c mask, gaps over missing exons are not deletions and deletions overlapping them are trimmed to their unmasked part |
 | 15 | `step15_identify_first_and_last_three_bases.sh` | Extract first/last 3bp per species |
 | 16 | `step16_extract_start_and_stops.py` | Directory-wide start/stop motif extraction and validation |
 | 17 | `step17_combine_all_species_info.py` | Final aggregation across all species into a master TSV |
@@ -88,12 +89,37 @@ reference nucleotide FASTA before running step 9 (see that step's README).
 
 ## Running
 
-Each step is a separate script run in order; arguments for each are given in its README in `docs/`. For example,
-step 1 is
+`run_stage3.sh` runs steps 1-17 with step 8c for one reference species, with the commands and
+step order that produced the alignments of the published catalog:
+
+```
+TREE_FILE=<newick> THREADS=4 bash run_stage3.sh <workdir> <Species> <bed> <cds_fasta> <maf> <genome_dir>
+```
+
+Set `STEP1_DIR` to reuse existing step 1 files. The verdict is written to `<workdir>/STATUS`.
+Each step can also be run alone; arguments for each are given in its README in `docs/`. For
+example, step 1 is
 
 ```
 bash scripts/step1_mafextractor.sh <species_name> <reference_species_coordinates_file> <maf_file> <output_dir>
 ```
+
+Notes on the published run. Step 4 fills the bases a species skips between consecutive MAF
+blocks from its genome (`-g`, `-c`), looking the genome up by its exact `<Species>.fa` name;
+species without a genome file in that folder are padded with gaps. Step 8c rebuilds every
+species and ancestor row from one place in its genome (step 8 merges exons by contig name, so
+a row could otherwise join exons from distant loci or opposite strands) and writes
+`step8c/step8c_missing_data.tsv`, which step 14 reads as its sixth argument. Steps 12-14 take
+the reference length from the `actual_nt` column of the step 11 summary.
+
+## Validation
+
+`run_stage3.sh` was rerun on *Arabidopsis thaliana* (1,078 loci, 2,244 exons) from the production
+step 1 files (2026-11-09). The step 8c alignments, log and missing-data mask and the step 9
+alignments were byte-identical to the run behind the published catalog; the step 12-17 tables
+held the same rows, apart from the `reference_length` (steps 12-14) and `cds_length` (step 14)
+columns, which now report the trimmed reference length and each species' own coding length and
+are not read by stage 4.
 
 ## Development and test case
 
