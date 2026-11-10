@@ -90,6 +90,7 @@ def evaluate(rows, cfg):
     min_dom = float(cfg["min_domain_cov"] or 0)
     min_q = float(cfg["min_qcov"] or 0)
     ignored = {s.upper() for s in h.as_list(cfg.get("ignore_sources"))}
+    ignored_dom = {d.lower() for d in h.as_list(cfg.get("ignore_domains"))}
 
     groups = {}
     for r in rows:
@@ -110,6 +111,7 @@ def evaluate(rows, cfg):
             qcov = 100.0 * _union_len([(r["qstart"], r["qend"]) for r in passing]) / max(1, passing[0]["qlen"])
             tcov = 100.0 * _union_len([(r["sstart"], r["send"]) for r in passing]) / max(1, passing[0]["slen"])
             row["qcov"], row["tcov"] = round(qcov, 1), round(tcov, 1)
+            row["q_intervals"] = h.format_intervals([(r["qstart"], r["qend"]) for r in passing])
             best_passing = min(passing, key=lambda r: (r["evalue"], -r["bitscore"]))
             row.update(evalue=best_passing["evalue"], bitscore=best_passing["bitscore"],
                        pident=best_passing["pident"])
@@ -117,6 +119,9 @@ def evaluate(rows, cfg):
                 row["note"] = "domain coverage %.1f%% below %g%%" % (tcov, min_dom)
             elif qcov < min_q:
                 row["note"] = "query coverage %.1f%% below %g%%" % (qcov, min_q)
+            elif accession.lower() in ignored_dom:
+                row["note"] = "ignored domain %s (ignore_domains)" % accession
+                qualifying_ignored.add(gene)
             elif source in ignored:
                 row["note"] = "ignored source %s" % source
                 qualifying_ignored.add(gene)

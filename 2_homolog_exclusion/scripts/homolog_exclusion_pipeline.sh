@@ -23,6 +23,8 @@ Commands:
   combine               Combine the results of several runs into one per-gene table and a verdict
   db-report             OPTIONAL: check how well a database covers the tree of life outside your clade
   make-bed              Look up CDS coordinates for a list of gene/protein IDs in a GFF3 (general purpose)
+  hog-rule              After combine: remove passing genes homologous to the hit region of a removed gene in their HOG
+  panther-families      Build the PANTHER family/species table for domain-interpro's PANTHER family rule
 
 Run '<command> --help' for the options of one command.
 Each module also runs on its own:  python3 bin/<module>.py --help
@@ -48,10 +50,11 @@ case "$cmd" in
     check)
         exec bash "$SCRIPT_DIR/check_tools.sh" "$@"
         ;;
-    domain-interpro|domain-cdd|homology-blast|homology-jackhmmer|combine|make-db|db-report|make-bed)
+    domain-interpro|domain-cdd|homology-blast|homology-jackhmmer|combine|make-db|db-report|make-bed|hog-rule|panther-families)
         module_file="$BIN_DIR/${cmd//-/_}.py"
         [[ "$cmd" == "make-db" ]] && module_file="$BIN_DIR/make_homology_db.py"
         [[ "$cmd" == "make-bed" ]] && module_file="$BIN_DIR/make_cds_bed.py"
+        [[ "$cmd" == "panther-families" ]] && module_file="$BIN_DIR/panther_families.py"
         if [[ ! -f "$module_file" ]]; then
             echo "Error: '$cmd' is not implemented yet ($module_file not found)." >&2
             exit 3

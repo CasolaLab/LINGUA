@@ -28,7 +28,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 PIPELINE_NAME = "homolog-exclusion-pipeline"
 
 # Exit status: 0 = finished and every gene was searched; 1 = the run could not be done (an error, nothing usable);
@@ -447,7 +447,7 @@ def discover_inputs(path, strip_suffixes=("_final",), species_map=None):
 # 5. output schema
 # --------------------------------------------------------------------------
 HITS_COLUMNS = ["species", "gene_id", "target", "target_species", "source", "evalue", "bitscore",
-                "qcov", "tcov", "pident", "counts_as_hit", "note"]
+                "qcov", "tcov", "pident", "counts_as_hit", "note", "q_intervals"]
 STATUS_COLUMNS = ["species", "gene_id", "status", "n_counted_hits"]
 
 
@@ -825,6 +825,78 @@ def read_blast_tabular(path, ncols, outfmt_hint=""):
     unconfirmed.update(pending)               # the file ended before a completion footer
     unconfirmed -= confirmed
     return confirmed, unconfirmed, rows
+
+
+def format_intervals(intervals):
+    """Merged query intervals as 'a-b;c-d' (1-based, inclusive), or None. Written to hits.tsv for the hog-rule module."""
+    merged = merge_intervals(intervals)
+    return ";".join("%d-%d" % ab for ab in merged) or None
+
+
+def parse_intervals(text):
+    """Inverse of format_intervals; 'NA', '' or None give []."""
+    if text in (None, "", "NA"):
+        return []
+    out = []
+    for part in str(text).split(";"):
+        a, _, b = part.partition("-")
+        out.append((int(a), int(b)))
+    return out
+
+
+def merge_intervals(intervals):
+    """Sorted, merged (start, end) pairs with start <= end."""
+    iv = sorted((min(a, b), max(a, b)) for a, b in intervals)
+    merged = []
+    for a, b in iv:
+        if merged and a <= merged[-1][1] + 1:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], b))
+        else:
+            merged.append((a, b))
+    return merged
+
+
+def overlap_length(intervals_a, intervals_b):
+    """Number of positions shared by two interval sets."""
+    a, b = merge_intervals(intervals_a), merge_intervals(intervals_b)
+    n, i, j = 0, 0, 0
+    while i < len(a) and j < len(b):
+        lo, hi = max(a[i][0], b[j][0]), min(a[i][1], b[j][1])
+        if hi >= lo:
+            n += hi - lo + 1
+        if a[i][1] < b[j][1]:
+            i += 1
+        else:
+            j += 1
+    return n
+
+
+def genus_of(species):
+    """First word of a species name ('Arabidopsis_thaliana' or 'Arabidopsis thaliana' -> 'arabidopsis'); None stays None."""
+    if not species:
+        return None
+    return re.split(r"[\s_]+", str(species).strip())[0].lower() or None
+
+
+def apply_min_genera(hit_rows, counted, min_genera):
+    """
+    Keep a gene's counted hits only if they come from at least `min_genera` distinct genera (all species of a genus count
+    once). Hits whose species is unknown count as one genus together. Returns the genes still counted. min_genera <= 1
+    changes nothing (the original any-hit rule).
+    """
+    k = int(min_genera or 1)
+    if k <= 1:
+        return set(counted)
+    genera = {}
+    for r in hit_rows:
+        if r.get("counts_as_hit") in (True, "yes"):
+            genera.setdefault(r["gene_id"], set()).add(genus_of(r.get("target_species")) or "NA")
+    keep = {g for g in counted if len(genera.get(g, ())) >= k}
+    for r in hit_rows:
+        if r.get("counts_as_hit") in (True, "yes") and r["gene_id"] not in keep:
+            r["counts_as_hit"] = False
+            r["note"] = "counted hits from %d genus/genera, below min_genera=%d" % (len(genera.get(r["gene_id"], ())), k)
+    return keep
 
 
 def union_length(intervals):

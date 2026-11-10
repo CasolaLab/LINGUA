@@ -73,6 +73,27 @@ def parse_tsv(path):
     return rows
 
 
+def read_panther_family_species(path):
+    """
+    {family: {species codes}} from a table with family and species code in the first two columns (as written by
+    panther_families.py from the PANTHER sequence classification files), or None when no file is set.
+    """
+    if not path:
+        return None
+    if not os.path.isfile(path):
+        raise h.HepError("panther_family_species file not found: %s" % path)
+    fam = {}
+    with open(path, "r", encoding="utf-8") as fh:
+        for line in fh:
+            c = line.rstrip("\r\n").split("\t")
+            if len(c) < 2 or line.startswith("#") or c[0] == "family":
+                continue
+            fam.setdefault(c[0], set()).add(c[1].upper())
+    if not fam:
+        raise h.HepError("%s: no family/species rows" % path)
+    return fam
+
+
 def _float(text):
     try:
         return float(text)
@@ -95,6 +116,10 @@ def evaluate(rows, cfg):
     ignored_dom = {norm(d) for d in h.as_list(cfg.get("ignore_domains"))}
     max_e = cfg.get("max_evalue")
     max_e = float(max_e) if max_e not in (None, "") else None
+    need_e = bool(cfg.get("require_evalue"))
+    e_exempt = {norm(x) for x in h.as_list(cfg.get("max_evalue_exempt"))}
+    pan_species = read_panther_family_species(cfg.get("panther_family_species"))
+    pan_exclude = {x.upper() for x in h.as_list(cfg.get("panther_exclude_species"))}
 
     hit_rows, counted, excluded, spurious = [], set(), set(), set()
     for r in rows:
@@ -102,7 +127,8 @@ def evaluate(rows, cfg):
         a = norm(r["analysis"])
         value = _float(r["score"])
         row = {"gene_id": gene, "target": r["sig"], "source": r["analysis"], "counts_as_hit": False,
-               "qcov": round(100.0 * (r["stop"] - r["start"] + 1) / r["length"], 1) if r["length"] > 0 else None}
+               "qcov": round(100.0 * (r["stop"] - r["start"] + 1) / r["length"], 1) if r["length"] > 0 else None,
+               "q_intervals": h.format_intervals([(r["start"], r["stop"])])}
         if value is not None:
             row["evalue" if a in E_VALUE_ANALYSES else "bitscore"] = value
         if a in spurious_an:
@@ -116,8 +142,13 @@ def evaluate(rows, cfg):
         elif ignored_dom & {norm(r["sig"]), norm(r["ipr"]), norm(r["desc"])} - {""}:
             row["note"] = "ignored domain (ignore_domains)"
             excluded.add(gene)
-        elif max_e is not None and a in E_VALUE_ANALYSES and value is not None and value > max_e:
+        elif max_e is not None and a in E_VALUE_ANALYSES and a not in e_exempt and value is not None and value > max_e:
             row["note"] = "E-value above %g" % max_e
+        elif need_e and a in E_VALUE_ANALYSES and a not in e_exempt and value is None:
+            row["note"] = "no E-value reported (require_evalue)"
+        elif pan_species is not None and a == "panther" and not (pan_species.get(r["sig"].split(":")[0], set()) - pan_exclude):
+            row["note"] = "PANTHER family with no species outside panther_exclude_species"
+            excluded.add(gene)
         else:
             row["counts_as_hit"] = True
             row["note"] = ("InterPro %s" % r["ipr"]) if r["ipr"] not in ("", "-") else "no InterPro entry"

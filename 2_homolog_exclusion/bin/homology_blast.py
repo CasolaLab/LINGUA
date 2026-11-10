@@ -56,7 +56,7 @@ def parse_blast_output(path):
     rows = []
     for cols in raw_rows:
         try:
-            rows.append({"qid": cols[0], "sid": cols[1], "pident": float(cols[2]),
+            rows.append({"qid": cols[0], "sid": cols[1], "pident": float(cols[2]), "length": int(cols[3]),
                          "qstart": int(cols[6]), "qend": int(cols[7]), "sstart": int(cols[8]), "send": int(cols[9]),
                          "evalue": float(cols[10]), "bitscore": float(cols[11]),
                          "qlen": int(cols[12]), "slen": int(cols[13])})
@@ -105,9 +105,10 @@ def evaluate(rows, cfg, program, matcher, tmap, label):
       - a hit that qualifies but comes from an analysis species or an ignore_taxa species does not count when
         ignore_in_phylogeny is on; its gene becomes IN_PHYLOGENY_ONLY unless another hit counts.
     """
-    evalue_max = float(cfg["evalue"])
+    evalue_max = float(cfg.get("filter_evalue") or cfg["evalue"])
     min_q = float(cfg["min_qcov"] or 0)
     min_t = float(cfg["min_tcov"] or 0)
+    single = (cfg.get("qcov_mode") or "union") == "single_hsp"
     min_id = cfg.get("min_pident")
     min_id = float(min_id) if min_id is not None else None
     exempt = bool(cfg["ignore_in_phylogeny"])
@@ -129,8 +130,12 @@ def evaluate(rows, cfg, program, matcher, tmap, label):
             continue
         best_p = min(passing, key=lambda r: (r["evalue"], -r["bitscore"]))
         row.update(evalue=best_p["evalue"], bitscore=best_p["bitscore"], pident=best_p["pident"])
-        qcov = 100.0 * h.union_length([(r["qstart"], r["qend"]) for r in passing]) / max(1, passing[0]["qlen"])
+        if single:   # the longest single alignment, as a percent of the query (TE rule of the Casola Lab)
+            qcov = 100.0 * max(abs(r["qend"] - r["qstart"]) + 1 for r in passing) / max(1, passing[0]["qlen"])
+        else:
+            qcov = 100.0 * h.union_length([(r["qstart"], r["qend"]) for r in passing]) / max(1, passing[0]["qlen"])
         row["qcov"] = round(qcov, 1)
+        row["q_intervals"] = h.format_intervals([(r["qstart"], r["qend"]) for r in passing])
         tcov = None
         if program == "blastp":
             tcov = 100.0 * h.union_length([(r["sstart"], r["send"]) for r in passing]) / max(1, passing[0]["slen"])
@@ -151,6 +156,7 @@ def evaluate(rows, cfg, program, matcher, tmap, label):
                 row["note"] = None if sp else "target species unknown, counted"
                 counted.add(gene)
         hit_rows.append(row)
+    counted = h.apply_min_genera(hit_rows, counted, cfg.get("min_genera"))
     return hit_rows, counted, in_phylo - counted
 
 
@@ -275,6 +281,10 @@ def blast_command(program, chunk, db, out_tsv, cfg, threads):
         cmd += ["-comp_based_stats", str(int(cfg["comp_based_stats"]))]
     if cfg.get("dbsize") is not None:
         cmd += ["-dbsize", str(int(cfg["dbsize"]))]
+    if cfg.get("word_size") is not None:
+        cmd += ["-word_size", str(int(cfg["word_size"]))]
+    if cfg.get("matrix") is not None:
+        cmd += ["-matrix", str(cfg["matrix"])]
     return cmd
 
 
@@ -294,6 +304,11 @@ def check_settings(cfg):
         raise h.HepError("species_source=map needs taxon_map (a file with accession and species)")
     if cfg.get("match_level") not in h.MATCH_LEVELS:
         raise h.HepError("match_level must be one of %s, not %r" % (", ".join(h.MATCH_LEVELS), cfg.get("match_level")))
+    if (cfg.get("qcov_mode") or "union") not in ("union", "single_hsp"):
+        raise h.HepError("qcov_mode must be 'union' or 'single_hsp', not %r" % cfg.get("qcov_mode"))
+    fe = cfg.get("filter_evalue")
+    if fe is not None and float(fe) > float(cfg["evalue"]):
+        raise h.HepError("filter_evalue (%g) cannot be looser than the search evalue (%g)" % (float(fe), float(cfg["evalue"])))
 
 
 def run_search(species, fasta, db, cfg, args, out):

@@ -59,7 +59,7 @@ def parse_domtbl(path):
                 raise h.HepError("%s: a domain line has %d columns, expected 22 or more: %r" % (path, len(c), line[:80]))
             try:
                 rows.append({"tid": c[0], "tlen": int(c[2]), "qid": c[3], "qlen": int(c[5]), "evalue": float(c[6]),
-                             "bitscore": float(c[7]), "ievalue": float(c[12]), "qstart": int(c[15]), "qend": int(c[16]),
+                             "bitscore": float(c[7]), "bias": float(c[8]), "ievalue": float(c[12]), "qstart": int(c[15]), "qend": int(c[16]),
                              "sstart": int(c[17]), "send": int(c[18])})
             except ValueError as e:
                 raise h.HepError("%s: cannot read a number in a domain line for %s (%s)" % (path, c[3], e))
@@ -89,9 +89,10 @@ def evaluate(rows, cfg, matcher, tmap, label):
       - a hit that qualifies but comes from an analysis species or an ignore_taxa species does not count when
         ignore_in_phylogeny is on; its gene becomes IN_PHYLOGENY_ONLY unless another hit counts.
     """
-    evalue_max = float(cfg["evalue"])
+    evalue_max = float(cfg.get("filter_evalue") or cfg["evalue"])
     min_q = float(cfg["min_qcov"] or 0)
     min_t = float(cfg["min_tcov"] or 0)
+    bias_frac = cfg.get("max_bias_frac")
     exempt = bool(cfg["ignore_in_phylogeny"])
     groups = {}
     for r in rows:
@@ -109,8 +110,13 @@ def evaluate(rows, cfg, matcher, tmap, label):
         good = [r for r in rs if r["ievalue"] <= evalue_max]
         qcov = 100.0 * h.union_length([(r["qstart"], r["qend"]) for r in good]) / max(1, rs[0]["qlen"])
         tcov = 100.0 * h.union_length([(r["sstart"], r["send"]) for r in good]) / max(1, rs[0]["tlen"])
-        row.update(qcov=round(qcov, 1), tcov=round(tcov, 1))
-        if qcov < min_q:
+        row.update(qcov=round(qcov, 1), tcov=round(tcov, 1),
+                   # region for hog-rule: the passing domains, or all domains of the hit when none passes on its own (a hit
+                   # built from many weak repeats), so that a counted hit always has coordinates
+                   q_intervals=h.format_intervals([(r["qstart"], r["qend"]) for r in (good or rs)]))
+        if bias_frac is not None and rs[0]["bias"] >= float(bias_frac) * rs[0]["bitscore"]:
+            row["note"] = "composition bias %.1f not below %g x bit score %.1f" % (rs[0]["bias"], float(bias_frac), rs[0]["bitscore"])
+        elif qcov < min_q:
             row["note"] = "query coverage %.1f%% below %g%%" % (qcov, min_q)
         elif tcov < min_t:
             row["note"] = "target coverage %.1f%% below %g%%" % (tcov, min_t)
@@ -124,6 +130,7 @@ def evaluate(rows, cfg, matcher, tmap, label):
                 row["note"] = None if sp else "target species unknown, counted"
                 counted.add(gene)
         hit_rows.append(row)
+    counted = h.apply_min_genera(hit_rows, counted, cfg.get("min_genera"))
     return hit_rows, counted, in_phylo - counted
 
 
@@ -180,6 +187,9 @@ def check_settings(cfg):
     for key in ("evalue", "incE"):
         if float(cfg[key]) <= 0:
             raise h.HepError("%s must be above 0" % key)
+    fe = cfg.get("filter_evalue")
+    if fe is not None and float(fe) > float(cfg["evalue"]):
+        raise h.HepError("filter_evalue (%g) cannot be looser than the search evalue (%g)" % (float(fe), float(cfg["evalue"])))
     if cfg.get("species_source") not in ("header", "map"):
         raise h.HepError("species_source must be 'header' or 'map', not %r" % cfg.get("species_source"))
     if cfg.get("species_source") == "map" and not cfg.get("taxon_map"):

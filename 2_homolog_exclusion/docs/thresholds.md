@@ -78,3 +78,21 @@ choice belongs to the project, not to the tool: state the values you used in you
 
 Whether these defaults are the best ones for any clade has not been tested. The tool was run for real on one moss proteome
 against bryophyte proteomes, on one chloroplast genome, and on CDD; no benchmark of false and missed removals exists yet.
+
+## Added in 0.2.0 (all off by default)
+
+| Module | Setting | Default | Meaning |
+|---|---|---|---|
+| homology-blast, homology-jackhmmer | `filter_evalue` | blank (= `evalue`) | E-value a hit must reach to count, when stricter than the search E-value |
+| homology-blast, homology-jackhmmer | `min_genera` | 1 | counted hits must come from at least this many genera; all species of a genus count once, hits of unknown species count as one genus |
+| homology-jackhmmer | `max_bias_frac` | blank (off) | a hit does not count when its full-sequence bias is at least this fraction of its bit score (0.5 in the Brassicaceae preset) |
+| homology-blast | `qcov_mode` | union | `single_hsp`: coverage is the longest single alignment over the query length (the TE rule) |
+| homology-blast | `word_size`, `matrix` | blank | passed to BLAST+ (2 and PAM30 in the TE preset) |
+| domain-cdd | `ignore_domains` | empty | CDD accessions whose hits do not count |
+| domain-interpro | `require_evalue` | no | a hit of an analysis that normally reports an E-value but reports `-` does not count |
+| domain-interpro | `max_evalue_exempt` | empty | analyses to which `max_evalue` and `require_evalue` do not apply (PANTHER in the Brassicaceae preset) |
+| domain-interpro | `panther_family_species`, `panther_exclude_species` | blank | a PANTHER hit counts only if its family holds a species outside the exclude list |
+| hog-rule | `min_overlap_aa`, `evalue`, `dbsize`, `unknown_region` | 20, 1e-3, 1e8, fail | see `docs/hog-rule.md` |
+
+The Brassicaceae values (`presets/brassicaceae_2026.conf`) were chosen for that study, not tuned on a benchmark; `STAGE2_PROTOCOL.md`
+says where each comes from.

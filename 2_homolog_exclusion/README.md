@@ -24,6 +24,8 @@ Four search modules, each runnable on its own, plus tools to build databases and
 | `combine` | merges the runs into one per-gene table and a verdict (`PASS`, `REMOVED`, `INCOMPLETE`) | Python only |
 | `db-report` (optional) | shows how well your database covers the tree of life outside your clade | NCBI taxonomy |
 | `make-bed` (optional) | looks up CDS coordinates for a list of gene/protein IDs in a GFF3, for handoff to downstream steps | Python only |
+| `hog-rule` (optional, after `combine`) | removes passing genes homologous to the hit region of a removed gene in their OrthoFinder HOG | BLAST+ |
+| `panther-families` | builds the PANTHER family/species table for the PANTHER family rule of `domain-interpro` | Python only |
 | `check` | reports which tools and databases are installed (changes nothing) | |
 
 Run them all on the same genes and merge, or chain them so each searches only what the previous one passed (`--sequential` does
@@ -111,6 +113,9 @@ bash scripts/homolog_exclusion_pipeline.sh combine --runs out/blast -o out/combi
 | `docs/thresholds.md` | every default, where it comes from, how far it was checked |
 | `docs/interpreting_hits.md` | what the statuses mean and what a pass does not prove |
 | `docs/domain-interpro.md`, `domain-cdd.md`, `homology-blast.md`, `homology-jackhmmer.md`, `combine.md`, `db-report.md`, `make-bed.md` | one page per module |
+| `docs/hog-rule.md` | homology through a hierarchical orthogroup |
+| `STAGE2_PROTOCOL.md`, `presets/brassicaceae_2026*.conf` | the exact stage-2 protocol of the Brassicaceae de novo gene study |
+| `CHANGELOG.md` | what changed in each version |
 | `docs/citing.md` | what to cite |
 | `REVIEW.md` | a ten-minute guide to checking the tool without reading the code |
 
