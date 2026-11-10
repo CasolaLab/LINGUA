@@ -5,10 +5,7 @@ GENOMES2GENES README
 --------------------------------------------------------------------------------
 0. run_stage3.sh
 --------------------------------------------------------------------------------
-Description: Runs stage 3 steps 1-17 for one focal (reference) species in one working folder: input preparation
-(exon list and header-cleaned reference CDS from the BED), step 1 (mafExtractor, or a copy of existing step 1
-files), steps 2-8, step 8c (one collinear row per species and the missing-data mask, from LINGUA), and steps 9-17,
-with step 14 reading the step 8c mask. Stops at the first failed step.
+Description: Runs stage 3 steps 1-17. Stops at the first failed step.
 
 Usage:
   bash run_stage3.sh <workdir> <focal_species> <bed> <cds_fasta> <maf> <tree_newick>
@@ -79,9 +76,6 @@ step8c_log.tsv or step17_all_species.tsv (a species missing from the tree); refu
 step14_masked_deletions.tsv (deletions not reported or trimmed because of the mask); audits/audit_stage3_endtoend.py
 and, with STEP3=dominant, audits/audit_optionA.py (these audit scripts are not part of this repository).
 
-Known limitation: steps 12-17 never see insertions relative to the reference; step 14 reports deletions only (see
-its README). In the Capra hircus test run (2026-11-10) the reference rows had no gaps already in the step 1 MAFs (13,071 reference rows, 0 gap characters), so insertions never reached the alignments; step 9 would also remove any column where
-the reference has a gap.
 
 
 --------------------------------------------------------------------------------
@@ -232,7 +226,7 @@ master_summary.tsv columns: file_name, gff_transcriptID, chromosome (BED name wi
 
 
 --------------------------------------------------------------------------------
-8c. step8c_one_collinear_row.py  (from LINGUA stage 3; runs after step 8, before step 9)
+8c. step8c_one_collinear_row.py  (runs after step 8, before step 9)
 --------------------------------------------------------------------------------
 Description: Gives every species and every ancestral node one row per stitched alignment, from one place in its
 genome. Step 8 keys rows by species.contig, so a species whose exons were extracted from different contigs has
@@ -283,7 +277,7 @@ Notes:
 
 
 --------------------------------------------------------------------------------
-9. step9_trimming_duplicate_bases.py  (LINGUA 69ca427, per-exon padding removal)
+9. step9_trimming_duplicate_bases.py  
 --------------------------------------------------------------------------------
 Description: Removes from every stitched alignment the one extra reference base that step 1 extracted per exon, at its known position from the BED (last base of each exon block on plus-strand genes, first base on minus-strand genes; no extra base on an exon that ends at the end of its scaffold), and removes columns where the reference has a gap, so every species is projected onto the reference CDS. Because the extra base is located by position rather than by matching sequence, every species is cut at the same correct column even when the extra base equals its neighbor. A file is written only if the trimmed reference row equals its CDS in the FNA (N or IUPAC ambiguity codes may match a base they stand for); every other file is refused and listed with its reason (e.g. REFERENCE_MISMATCH_AFTER_TRIM, EXTRACTION_SHIFTED, NOT_IN_FNA) in <output_dir>/step9_trimming_report.tsv. The BED convention (0-based or 1-based) is detected from the data.
 
@@ -367,7 +361,7 @@ Note: a species split over several rows (exons on different chromosomes) is read
 
 
 --------------------------------------------------------------------------------
-14. step14_identify_indels.sh  (LINGUA masked version)
+14. step14_identify_indels.sh  
 --------------------------------------------------------------------------------
 Description: For every non-reference species in each step 9 alignment, finds runs of columns where the species has a gap and the reference a base (deletion) or the species a base and the reference a gap (insertion), and reports a run if its length is not a multiple of 3 (frameshift), or if it is a 3-bp insertion whose bases are a stop codon. With the step 8c missing-data mask, a deletion lying wholly inside a masked range of that species is missing data and is not reported, and a deletion overlapping a masked range is trimmed to its part(s) outside it, each reported only if its own length is not a multiple of 3 (remainders of 1 bp at a mask boundary are dropped). Transcript ID, chromosome and strand come from the step 11 summary; reference_length is the step 11 actual_nt column; cds_length is that species' own length with gaps removed. Writes one <file>_indels.tsv per alignment and master_indels.tsv; alignment files are read in sorted order.
 
