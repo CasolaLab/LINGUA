@@ -22,10 +22,6 @@ Checks: with --mask the run stops if a block outside the mask lies on a contig o
 Notes:
   - Alignment files are read in sorted order, so reruns write rows in the same order.
   - Without --mask, exons step 8c gapped on the kept contig cannot be recognized, and a species with several rows
-    (step 8c not run) keeps a comma-joined list of its row contigs, as before 2026-11-10.
-  - Before 2026-11-10 every block of every exon was used. In the Capra hircus test run (2026-11-10, 632 alignments,
-    15,408 rows) the fix changed 1,965 rows: 432 that spanned several contigs (all now on one), 1,123 other rows of
-    species step 8c rebuilt (span narrower), and 410 rows of species it did not rebuild, all narrowed by skipping the
-    extra base past an exon end (154 by 1 bp; 256 by more, where that base was aligned a few bases away).
+    (step 8c not run) keeps a comma-joined list of its row contigs.
   - The transcript is matched to the file name by the longest BED transcript ID that prefixes it (before, the first
     match in BED order).
