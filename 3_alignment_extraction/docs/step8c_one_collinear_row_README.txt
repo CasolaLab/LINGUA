@@ -1,5 +1,5 @@
 ================================================================================
-SCRIPT: step8c_one_collinear_row.py  (from LINGUA stage 3; runs after step 8, before step 9)
+SCRIPT: step8c_one_collinear_row.py  
 ================================================================================
 Description: Gives every species and every ancestral node one row per stitched alignment, from one place in its
 genome. Step 8 keys rows by species.contig, so a species whose exons were extracted from different contigs has
@@ -42,8 +42,3 @@ base identical to step 8 at the same column; kept + gapped bases equal the step 
 row unchanged; per-exon widths sum to the alignment length; a species on two contigs within one exon (step 3
 prevents this) or bases without a step 3 MAF block.
 
-Notes:
-  - Change from the LINGUA copy: BED header and '#' lines are skipped by content (non-numeric start), as in step 8,
-    instead of always skipping the first line, so a BED without a header keeps its first exon. The log's type
-    column comes from the tree, not from the name pattern N<number>, which typed every mammal ancestor (e.g.
-    fullTreeAnc235) as living: 777 of the 1,561 rows rebuilt in the Capra hircus test run (2026-11-10).
