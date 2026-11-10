@@ -50,12 +50,16 @@ highest identity.
 | `min_pident`, `min_qcov` | 50, 50 | the Casola Lab's Brassicaceae choice (2026-11); both must hold for one alignment |
 | `evalue` | 1e-5 | the E-value at which the study counts BLASTp hits |
 | `seg` | no | the study searched without low-complexity masking, so that short cysteine-rich proteins such as *MT1C* are searched over their full length |
-| `max_target_seqs` | 50 | targets per gene |
+| `max_target_seqs` | 1000 | targets per gene; with 50, genes in large lineage-specific families filled every slot with other candidates and an old paralog could fall outside the list |
 
 ## Checked
 
 On the Brassicaceae data, a full run with BLAST+ 2.17.0 (the 34,020 genes that passed `hog-rule`, the 192,193 candidates as
-`-i`, the 23 longest-isoform proteomes) removed 954 genes and passed 33,066, the same 954 genes that the project's own analysis
-of a separate BLASTp run had found. The *MT1C* (AT1G07610) control finds *MT1A* (AT1G07600) at 95.6% identity over the full
+`-i`, the 23 longest-isoform proteomes) with 50 targets removed 954 genes, the same 954 that the project's own analysis of a
+separate BLASTp run had found. An audit then showed that 472 kept genes had reached the 50-target cap, 451 of them with at least 40
+of their targets being other candidates. With 1,000 targets the run removed 1,006 genes and passed 33,014. All 954 earlier removals
+stayed removed, the 52 added ones had all reached the 50-target cap, and no gene reached the 1,000-target cap. All 954 reported
+paralogs of the 50-target run sit in OrthoFinder HOGs that include *Theobroma cacao* (established genes), and an independent
+Smith-Waterman re-alignment of 20 pairs (random, and nearest the cuts) agreed with 19 verdicts; the exception lay at the cut. The *MT1C* (AT1G07610) control finds *MT1A* (AT1G07600) at 95.6% identity over the full
 length; *MT1A* is itself a candidate, so *MT1C* passes. The tests (`tests/test_stage2_rules.py`) cover the hit filter, the
 decision and a full run with `--parse-only`.

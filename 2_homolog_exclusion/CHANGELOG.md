@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1 (2026-11-10)
+
+- `paralog-rule`: `max_target_seqs` default 50 → 1000. With 50, genes in large lineage-specific families filled every slot with
+  other candidates and an old paralog could fall outside the list; on the Brassicaceae data 1,000 targets remove 52 more genes
+  (1,006 instead of 954; 33,014 lineage-specific genes) and no gene reaches the new cap. Preset, protocol and docs updated.
+
 ## 0.3.0 (2026-11-10)
 
 - New module `paralog-rule` (`docs/paralog-rule.md`): after `hog-rule`, removes passing genes with a similar established gene
