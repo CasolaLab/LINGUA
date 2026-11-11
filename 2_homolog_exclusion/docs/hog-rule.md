@@ -50,13 +50,13 @@ BLAST+.
 | Setting | Default | Why |
 |---|---|---|
 | `evidence_runs` | blank = every run | run labels whose hits count as homology evidence; shell wildcards allowed (`blast*` matches the per-database runs `blast-plants`, ...) |
-| `min_overlap_aa` | 20 (at least 1) | the Casola Lab's Brassicaceae choice; 1 = any overlap. There is no natural value: on that dataset 1, 10, 20 and 30 aa kept 33,207, 33,614, 34,020 and 34,782 of 44,306 genes |
+| `min_overlap_aa` | 20 (at least 1) | the Casola Lab's Brassicaceae choice; 1 = any overlap. There is no natural value: on that dataset 1, 10, 20 and 30 aa kept 32,428, 32,793, 33,196 and 33,971 of 43,618 genes (0.3.3 rules; 33,207, 33,614, 34,020 and 34,782 of 44,306 with the 0.3.2 jackhmmer bias rule) |
 | `evalue`, `dbsize`, `seg`, `max_target_seqs` | 1e-3, 1e8, yes, 5000 | within-HOG BLASTp |
 | `unknown_region` | fail | a pass needs evidence of absence |
 
 ## Checked
 
-On the Brassicaceae data, the decision function reproduced the project's own calls for all 16,279 genes in HOGs with an evidence
+On the Brassicaceae data with the 0.3.2 rules (jackhmmer bias rule on), the decision function reproduced the project's own calls for all 16,279 genes in HOGs with an evidence
 member (10,286 removed, best overlap identical for every gene), and a run with BLAST+ 2.17.0 on four of those genes reproduced
 their verdicts and overlaps. The tests (`tests/test_stage2_rules.py`) cover the decision, the HOG table, the BLAST parser and a
 full run with `--parse-only`.

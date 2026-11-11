@@ -57,7 +57,8 @@ highest identity.
 On the Brassicaceae data, a full run with BLAST+ 2.17.0 (the 34,020 genes that passed `hog-rule`, the 192,193 candidates as
 `-i`, the 23 longest-isoform proteomes) with 50 targets removed 954 genes, the same 954 that the project's own analysis of a
 separate BLASTp run had found. An audit then showed that 472 kept genes had reached the 50-target cap, 451 of them with at least 40
-of their targets being other candidates. With 1,000 targets the run removed 1,006 genes and passed 33,014. All 954 earlier removals
+of their targets being other candidates. With 1,000 targets the run removed 1,006 genes and passed 33,014 (0.3.2 rules; under 0.3.3, without the jackhmmer bias rule,
+33,196 genes pass the HOG rule and the same verdicts remove 986 of them, passing 32,210). All 954 earlier removals
 stayed removed, the 52 added ones had all reached the 50-target cap, and no gene reached the 1,000-target cap. All 954 reported
 paralogs of the 50-target run sit in OrthoFinder HOGs that include *Theobroma cacao* (established genes), and an independent
 Smith-Waterman re-alignment of 20 pairs (random, and nearest the cuts) agreed with 19 verdicts; the exception lay at the cut. The *MT1C* (AT1G07610) control finds *MT1A* (AT1G07600) at 95.6% identity over the full

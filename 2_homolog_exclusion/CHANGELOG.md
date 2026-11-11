@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.3 (2026-11-11)
+
+- `presets/brassicaceae_2026.conf`: the jackhmmer composition-bias rule is removed (`max_bias_frac` blank; it was 0.5, so a hit
+  counted only when its full-sequence bias was below half its bit score). The setting stays available and is off by default, as
+  before. On the Brassicaceae data, jackhmmer flags 109,688 candidates instead of 108,116, the HOG rule passes 33,196 instead of
+  34,020, and 32,210 lineage-specific genes remain instead of 33,014. `STAGE2_PROTOCOL.md`, `docs/thresholds.md`,
+  `docs/hog-rule.md` and `docs/paralog-rule.md` updated.
+
 ## 0.3.2 (2026-11-10)
 
 - `homology-blast`, `homology-jackhmmer`: with several `--db` searched side by side, `min_genera` now counts genera across all

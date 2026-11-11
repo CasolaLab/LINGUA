@@ -30,7 +30,7 @@ classification files (143 genomes), built into a table with `panther-families`.
 | Screen | A gene is removed when | Preset keys |
 |---|---|---|
 | BLASTp | hits with E ≤ 1e-5 from at least two genera (search E 1e-3, `-seg yes`, ten targets per database) | `filter_evalue`, `min_genera`, `max_target_seqs` |
-| jackhmmer | one iteration (`-N 1 -E 1e-4 --incE 1e-5`); full-sequence hits with E ≤ 1e-5 and bias below half the bit score, from at least two genera | `iterations`, `filter_evalue`, `max_bias_frac`, `min_genera` |
+| jackhmmer | one iteration (`-N 1 -E 1e-4 --incE 1e-5`); full-sequence hits with E ≤ 1e-5 from at least two genera, with no composition-bias filter (`max_bias_frac` blank since 0.3.3) | `iterations`, `filter_evalue`, `min_genera` |
 | RPS-BLAST vs CDD | a hit with E ≤ 0.01 to any domain except four Brassicaceae-restricted DUFs (pfam02713 DUF220, pfam05212 DUF707, pfam06683 DUF1184, pfam06880 DUF1262) | `ignore_domains`, `min_domain_cov=0` |
 | InterProScan | a hit with E ≤ 1e-3 (PROSITE profiles and HAMAP at their own thresholds), ignoring Coils, MobiDB-lite, PROSITE patterns, AntiFam, the signatures PS51257, PR01217 and PR01228, and the four DUFs | `max_evalue`, `require_evalue`, `exclude_analyses`, `ignore_domains` |
 | PANTHER | a family hit (no E-value cutoff) whose family includes a species other than *A. thaliana*, *Brassica napus*, *B. rapa* and *T. cacao* | `max_evalue_exempt`, `panther_family_species`, `panther_exclude_species` |
@@ -69,14 +69,17 @@ database hit had a species label, so the module's rule that hits of unknown spec
 | Step | Genes |
 |---|---|
 | candidates | 192,193 |
-| flagged by BLASTp / jackhmmer / CDD / InterProScan / PANTHER / TE / organelle | 114,241 / 108,116 / 115,966 / 113,982 / 113,816 / 46,318 / 8,118 |
-| removed by their own hits (any screen) | 147,887 (15,672 by one screen only) |
-| candidates with no counted hit of their own | 44,306 |
-| in a HOG with a removed member | 16,279 |
-| removed by the HOG rule | 10,286 |
-| passing the HOG rule | 34,020 |
-| removed by the paralog rule | 1,006 |
-| lineage-specific genes | 33,014 |
+| flagged by BLASTp / jackhmmer / CDD / InterProScan / PANTHER / TE / organelle | 114,241 / 109,688 / 115,966 / 113,982 / 113,816 / 46,318 / 8,118 |
+| removed by their own hits (any screen) | 148,575 (15,817 by one screen only) |
+| candidates with no counted hit of their own | 43,618 |
+| in a HOG with a removed member | 16,182 |
+| removed by the HOG rule | 10,422 |
+| passing the HOG rule | 33,196 |
+| removed by the paralog rule | 986 |
+| lineage-specific genes | 32,210 |
+
+Until 0.3.2 jackhmmer hits also needed composition bias below half the bit score; with that rule the same data gave 108,116
+jackhmmer-flagged genes, 44,306 candidates with no counted hit, 34,020 passing the HOG rule and 33,014 lineage-specific genes.
 
 ## How the study's numbers were produced
 
@@ -86,11 +89,13 @@ same proteins (BLASTp with BLAST+ 2.2.31, earlier jackhmmer runs, an InterProSca
 and an RPS-BLAST run of March 2026), and project scripts merged them under the rules above. The rules were then added to this
 module. What has been checked:
 
-- the `hog-rule` decision, applied to the study's within-HOG BLASTp output and hit regions, reproduces the study's call for all
-  16,279 genes in HOGs with a removed member (10,286 removed; best overlap identical for every gene), and
+- with the 0.3.2 rules (jackhmmer bias rule on), the `hog-rule` decision, applied to the study's within-HOG BLASTp output and hit
+  regions, reproduces the study's call for all 16,279 genes in HOGs with a removed member (10,286 removed; best overlap identical for every gene), and
   `hog-rule` running BLAST+ itself reproduces the verdicts and overlaps of four of them;
-- `paralog-rule`, run with BLAST+ 2.17.0 on the 34,020 genes passing the HOG rule, removes 1,006 genes with 1,000 targets; with
-  50 targets it removed 954, the same 954 that the project's analysis of a separate BLASTp run removed;
+- `paralog-rule`, run with BLAST+ 2.17.0 on the 34,020 genes passing the HOG rule under the 0.3.2 rules, removes 1,006 genes with
+  1,000 targets; with 50 targets it removed 954, the same 954 that the project's analysis of a separate BLASTp run removed. Its
+  verdict depends only on a gene and its own proteome, so the 0.3.3 count reuses those verdicts for the 33,196 genes (all among the
+  34,020), which removes 986;
 - each new setting has a unit test with hand-worked answers (`tests/test_stage2_rules.py`).
 
 Not checked: a full rerun of the 192,193 candidates through the module. Known differences from the project scripts are small
