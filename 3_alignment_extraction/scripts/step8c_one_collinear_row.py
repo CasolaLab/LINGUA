@@ -26,18 +26,13 @@ Missing-data mask (decided 2026-10-28): <out_dir>/step8c_missing_data.tsv (or --
 per alignment and non-reference species, every reference range in which that species has no aligned sequence after
 this step: exons it was absent from (step 8 padding) and every piece gapped here, each with its reason. Stage 3 step
 14 reads it to stop calling those gap runs deletions (they are missing data, not disablers).
-2026-11-10: the mask also lists, for every species present in an exon, the reference range of each block of that
-species that step 3 dropped (reason "dropped by step 3"), found by comparing the exon's step 1 and step 3 MAFs. The
-default step 3 (step3_dominant_chain.py) keeps a species in the exon but drops its blocks outside the dominant chain;
-without these rows step 14 called the resulting gaps deletions, and frameshifts when not a multiple of 3. The strict
-step 3 removes a species from the whole exon, which is masked as absent, so it adds no rows of this kind.
 
 Checks, each aborting the run: one row per species after; species set unchanged; row lengths equal; every kept base
 identical to step 8 at the same column; kept + gapped bases = step 8 bases per species; reference row byte-identical;
 every kept row on one contig and strand, collinear, within MAXSPAN; per-exon widths sum to the alignment length;
 alignments with nothing to change are copied byte for byte.
 
-Inputs:  <species_dir>: a run_stage3.sh workdir holding <Species>.bed (the only .bed there), step1/, step3/, step4/ and
+Inputs:  <species_dir>: a run_stage3.sh workdir holding <Species>.bed (the only .bed there), step3/, step4/ and
          step8/ (step 8 run WITHOUT --one-row-per-species, so every species.contig row is still present)
 Outputs: <out_dir>/*.aln (all alignments), <out_dir>/master_summary.tsv (aligned_species updated), <log_tsv>
          (one line per (alignment, species) changed: kept chain and every gapped exon with its reason)
@@ -133,67 +128,20 @@ def exon_key(chrom, s, e):
 
 
 def index_exon_files(species_dir):
-    """(chrom lower, start, end) -> step 3 MAF path, step 4 per-exon alignment path and step 1 MAF path"""
-    maf, aln, maf1 = {}, {}, {}
+    """(chrom lower, start, end) -> step 3 MAF path and step 4 per-exon alignment path"""
+    maf, aln = {}, {}
     pat = re.compile(r"^[^.]+\.(.+)_(\d+)_(\d+)$")
     for p in glob.glob(os.path.join(species_dir, "step3", "*.txt")):
         m = pat.match(os.path.basename(p)[:-4])
         if m:
             maf[(m.group(1).lower(), m.group(2), m.group(3))] = p
-    for p in glob.glob(os.path.join(species_dir, "step1", "*.txt")):
-        m = pat.match(os.path.basename(p)[:-4])
-        if m:
-            maf1[(m.group(1).lower(), m.group(2), m.group(3))] = p
     for d in glob.glob(os.path.join(species_dir, "step4", "*")):
         m = pat.match(os.path.basename(d))
         if m and os.path.isdir(d):
             fs = glob.glob(os.path.join(d, "*.aln"))
             if len(fs) == 1:
                 aln[(m.group(1).lower(), m.group(2), m.group(3))] = fs[0]
-    return maf, aln, maf1
-
-
-def subtract(ranges, holes):
-    """Half-open ranges minus half-open holes; empty pieces are dropped."""
-    out = []
-    for a, b in ranges:
-        cur = [(a, b)]
-        for h0, h1 in holes:
-            cur = [p for x, y in cur for p in ((x, min(y, h0)), (max(x, h1), y)) if p[0] < p[1]] \
-                if any(x < h1 and h0 < y for x, y in cur) else cur
-        out.extend(cur)
-    return sorted(set(out))
-
-
-def block_ref_ranges(maf_path, ref_species):
-    """species -> set of reference ranges (plus strand, 0-based, half-open) of the MAF blocks holding that species.
-    Blocks without a reference line are skipped (step 3 does not write them)."""
-    out = collections.defaultdict(set)
-    block, ref_range = [], None
-
-    def flush():
-        nonlocal block, ref_range
-        if ref_range is not None:
-            for sp in block:
-                out[sp].add(ref_range)
-        block, ref_range = [], None
-
-    for line in open(maf_path, errors="replace"):
-        if line.startswith("a"):
-            flush()
-            continue
-        if not line.startswith("s "):
-            continue
-        f = line.split()
-        sp = species_of(f[1])
-        if sp == ref_species:
-            if f[4] != "+":
-                die(f"{maf_path}: reference block on the minus strand")
-            ref_range = (int(f[2]), int(f[2]) + int(f[3]))
-        else:
-            block.append(sp)
-    flush()
-    return out
+    return maf, aln
 
 
 def read_sources(maf_path, ref_species):
@@ -292,7 +240,7 @@ def gap_reason(ex, dom, maxspan):
 
 
 def process_locus(tid, strand, bed_exons, maf_idx, aln_idx, stitched_recs, ref_species, maxspan, log_rows, fname,
-                  mask_rows=None, types=None, maf1_idx=None):
+                  mask_rows=None, types=None):
     """Returns (new_recs, changed, stats) for one stitched alignment."""
     order = sorted(range(len(bed_exons)), key=lambda i: int(bed_exons[i][1]), reverse=(strand == "-"))
     ref_order = sorted(range(len(bed_exons)), key=lambda i: int(bed_exons[i][1]))   # ascending reference coordinate
@@ -320,13 +268,6 @@ def process_locus(tid, strand, bed_exons, maf_idx, aln_idx, stitched_recs, ref_s
     if len(rows_by_sp.get(ref_species, [])) != 1:
         die(f"{fname}: reference species has {len(rows_by_sp.get(ref_species, []))} rows")
     sources = {i: read_sources(maf_idx[exon_key(*bed_exons[i])], ref_species) for i in order}
-    step1_ranges = {}
-    if mask_rows is not None:
-        for i in order:
-            k = exon_key(*bed_exons[i])
-            if k not in maf1_idx:
-                die(f"{fname}: exon {bed_exons[i]} has a step 3 MAF but no step 1 MAF")
-            step1_ranges[i] = block_ref_ranges(maf1_idx[k], ref_species)
     ref_row = stitched_recs[rows_by_sp[ref_species][0]][1]
     # reference genomic position of every column of every exon; an insertion column (reference gap) takes the
     # genomically preceding reference position, which is the previous column for a plus-strand gene and the next
@@ -354,18 +295,6 @@ def process_locus(tid, strand, bed_exons, maf_idx, aln_idx, stitched_recs, ref_s
         if sp == ref_species:
             new_recs.append(stitched_recs[idxs[0]])
             continue
-        # blocks of this species that step 3 dropped from an exon it is still in: no aligned sequence there
-        if mask_rows is not None:
-            for i in order:
-                if sp not in sources[i]:
-                    continue
-                kept = {r for pc in sources[i][sp] for r in pc[5]}
-                dropped = sorted(step1_ranges[i].get(sp, set()) - kept)
-                # only the part of a dropped block outside every kept block: a kept block's columns hold real sequence
-                for r0, r1 in subtract(dropped, sorted(kept)):
-                    mask_rows.append([fname[:-4], sp, f"{bed_exons[i][0]}:{bed_exons[i][1]}-{bed_exons[i][2]}",
-                                      str(r0), str(r1), "dropped by step 3"])
-                    stats["step 3 dropped blocks masked"] += 1
         entries = []          # one per (exon, contig, strand) piece: chain fields + the piece's columns and row
         for i in order:
             a, b = cols[i]
@@ -492,8 +421,6 @@ def run(species_dir, out_dir, log_tsv, maxspan, dry_run, mask_path=None, tree_pa
     for p in (step8, os.path.join(species_dir, "step3"), os.path.join(species_dir, "step4")):
         if not os.path.isdir(p):
             die(f"missing {p}")
-    if not os.path.isdir(os.path.join(species_dir, "step1")) and (mask_path or not dry_run):
-        die(f"missing {os.path.join(species_dir, 'step1')}: the mask needs the step 1 MAFs to find blocks step 3 dropped")
     if not dry_run:
         if os.path.abspath(out_dir) == os.path.abspath(step8):
             die("out_dir must differ from step8")
@@ -501,7 +428,7 @@ def run(species_dir, out_dir, log_tsv, maxspan, dry_run, mask_path=None, tree_pa
             die(f"{out_dir} is not empty; refusing to overwrite")
         os.makedirs(out_dir, exist_ok=True)
     loci = read_bed(beds[0])
-    maf_idx, aln_idx, maf1_idx = index_exon_files(species_dir)
+    maf_idx, aln_idx = index_exon_files(species_dir)
     log_rows, totals = [], collections.Counter()
     rows_after = {}
     if mask_path is None and not dry_run:
@@ -518,7 +445,7 @@ def run(species_dir, out_dir, log_tsv, maxspan, dry_run, mask_path=None, tree_pa
         strand, bed_exons = loci[tid]
         recs = read_fasta(os.path.join(step8, f))
         new_recs, changed, stats = process_locus(tid, strand, bed_exons, maf_idx, aln_idx, recs, ref_species,
-                                                 maxspan, log_rows, f, mask_rows, types, maf1_idx)
+                                                 maxspan, log_rows, f, mask_rows, types)
         totals.update(stats)
         totals["alignments"] += 1
         totals["alignments changed"] += changed
@@ -562,9 +489,7 @@ def self_test():
     """Synthetic locus: 3 exons; species A split on two contigs (exons 1-2 on c1, exon 3 on c2, c1 has more bases);
     species B on one contig but exon 3 is 2 Mb away; species C on one contig, exons 1-2 on + and exon 3 on -;
     species D clean. Expected: A keeps c1 and gaps exon 3; B gaps exon 3 (beyond span); C keeps + and gaps exon 3;
-    D untouched; species E has exon 2 half on + and half on -: the - half is gapped; reference untouched;
-    species H keeps the first half of exon 2 and step 3 dropped its block in the second half (other contig in step 1):
-    that half is masked "dropped by step 3"."""
+    D untouched; species E has exon 2 half on + and half on -: the - half is gapped; reference untouched."""
     d = tempfile.mkdtemp(prefix="step8c_test_")
     ref = "Ref_sp"
     os.makedirs(os.path.join(d, "step3"))
@@ -583,18 +508,12 @@ def self_test():
         "E": [("c5", 1000, "+"), ("c5", 1100, "+"), ("c5", 1200, "+")],   # exon 2 rewritten below: 5 bp +, 5 bp -
         "F": [("c6", 1000, "+"), ("c6", 1100, "+"), None],                  # absent from exon 3
         "G": [("c7", 1000, "+"), ("c7", 1100, "+"), ("c7", 1200, "+")],   # exon 3: only the padding base (row below)
-        "H": [("c8", 1000, "+"), ("c8", 1100, "+"), ("c8", 1200, "+")],   # exon 2: first 5 bp only (blocks below)
     }
     for i, (c, s, e) in enumerate(exons):
         base = f"{ref}.{c}_{s}_{e}"
         os.makedirs(os.path.join(d, "step4", base))
-        def row_seq(sp):
-            if sp == "G" and i == 2:
-                return "-" * 10 + "G"
-            if sp == "H" and i == 1:
-                return seqs[i][:5] + "-" * 5
-            return seqs[i]
-        rows = [(f"{ref}.{c}", seqs[i])] + [(f"{sp}.{src[sp][i][0]}", row_seq(sp)) for sp in src if src[sp][i]]
+        rows = [(f"{ref}.{c}", seqs[i])] + [(f"{sp}.{src[sp][i][0]}", "-" * 10 + "G" if (sp == "G" and i == 2) else seqs[i])
+                                             for sp in src if src[sp][i]]
         write_fasta(os.path.join(d, "step4", base, base + ".aln"), rows)
         with open(os.path.join(d, "step3", base + ".txt"), "w") as fh:
             fh.write("##maf version=1\n\na score=0\n")
@@ -603,30 +522,22 @@ def self_test():
                 if not src[sp][i]:
                     continue
                 ct, st, strand = src[sp][i]
-                if sp in ("E", "H") and i == 1:
+                if sp == "E" and i == 1:
                     continue
                 st_field = st if strand == "+" else 10_000_000 - st - 10
                 fh.write(f"s {sp}.{ct} {st_field} 10 {strand} 10000000 {seqs[i][:10]}\n")
             if i == 1:
-                fh.write(f"\na score=0\ns {ref}.{c} {s} 5 + 1000000 {seqs[i][:5]}\ns E.c5 1100 5 + 10000000 {seqs[i][:5]}\n"
-                         f"s H.c8 1100 5 + 10000000 {seqs[i][:5]}\n")
+                fh.write(f"\na score=0\ns {ref}.{c} {s} 5 + 1000000 {seqs[i][:5]}\ns E.c5 1100 5 + 10000000 {seqs[i][:5]}\n")
                 fh.write(f"\na score=0\ns {ref}.{c} {int(s) + 5} 5 + 1000000 {seqs[i][5:]}\n"
                          f"s E.c5 {10_000_000 - 1105 - 5} 5 - 10000000 {seqs[i][5:]}\n")
-    # step 1 = step 3 plus H's block in the second half of exon 2, on another contig (what step 3 dropped)
-    os.makedirs(os.path.join(d, "step1"))
-    for f in os.listdir(os.path.join(d, "step3")):
-        shutil.copy(os.path.join(d, "step3", f), os.path.join(d, "step1", f))
-    with open(os.path.join(d, "step1", f"{ref}.Chr1_200_209.txt"), "a") as fh:
-        fh.write(f"s H.c88 4000 5 + 10000000 {seqs[1][5:]}\n")
     full = seqs[0] + seqs[1] + seqs[2]
     gap = "-" * 11
     stitched = [(f"{ref}.Chr1", full), ("A.c1", seqs[0] + seqs[1] + gap), ("A.c2", "-" * 20 + seqs[2]),
-                ("B.c9", full), ("C.c3", full), ("D.c4", full), ("E.c5", full), ("F.c6", seqs[0] + seqs[1] + gap), ("G.c7", seqs[0] + seqs[1] + "-" * 10 + "G"),
-                ("H.c8", seqs[0] + seqs[1][:5] + "-" * 5 + seqs[2])]
+                ("B.c9", full), ("C.c3", full), ("D.c4", full), ("E.c5", full), ("F.c6", seqs[0] + seqs[1] + gap), ("G.c7", seqs[0] + seqs[1] + "-" * 10 + "G")]
     fname = f"{ref}_T1_chr1_100_309"
     write_fasta(os.path.join(d, "step8", fname + ".aln"), stitched)
     with open(os.path.join(d, "step8", "master_summary.tsv"), "w") as fh:
-        fh.write("file_name\taligned_species\n" + f"{fname}\t10\n")
+        fh.write("file_name\taligned_species\n" + f"{fname}\t9\n")
     out = os.path.join(d, "step8c")
     totals = run(d, out, os.path.join(d, "log.tsv"), 50000, False)
     got = dict(read_fasta(os.path.join(out, fname + ".aln")))
@@ -642,8 +553,7 @@ def self_test():
                for r in line.split("\t")[-1].split(";")}
     assert reasons == {"other contig", "beyond 50000 bp", "opposite strand"}, reasons
     ms = open(os.path.join(out, "master_summary.tsv")).read()
-    assert f"{fname}\t9" in ms
-    assert got["H.c8"] == seqs[0] + seqs[1][:5] + "-" * 5 + seqs[2]   # alignment untouched, only the mask grows
+    assert f"{fname}\t8" in ms
     assert got["G.c7"] == seqs[0] + seqs[1] + "-" * 10 + "G"            # alignment untouched
     mask = [l.split("\t") for l in open(os.path.join(out, "step8c_missing_data.tsv")).read().strip().split("\n")[1:]]
     got_mask = {(m[1], m[2], m[3], m[4], m[5]) for m in mask}
@@ -653,11 +563,7 @@ def self_test():
     assert ("C", "Chr1:300-309", "300", "309", "opposite strand") in got_mask
     assert ("E", "Chr1:200-209", "205", "210", "opposite strand") in got_mask, got_mask
     assert ("G", "Chr1:300-309", "300", "309", "absent (padding only)") in got_mask, got_mask
-    assert ("H", "Chr1:200-209", "205", "210", "dropped by step 3") in got_mask, got_mask
-    assert totals["step 3 dropped blocks masked"] == 1
-    assert len(mask) == 7, mask
-    assert subtract([(0, 10)], [(2, 4), (6, 7)]) == [(0, 2), (4, 6), (7, 10)]
-    assert subtract([(0, 10)], [(0, 10)]) == [] and subtract([(0, 5)], [(5, 9)]) == [(0, 5)]
+    assert len(mask) == 6, mask
     shutil.rmtree(d)
     print("  self-test passed", file=sys.stderr)
 

@@ -17,7 +17,7 @@ Usage:
 
 Inputs:
   - <workdir>: Folder holding <reference_species>.bed (the only .bed there; the reference species is taken from its
-    name), step1/ (step 1 MAFs), step3/ (step 3 MAFs), step4/ (per-exon alignments) and step8/ (stitched alignments and
+    name), step3/ (step 3 MAFs), step4/ (per-exon alignments) and step8/ (stitched alignments and
     master_summary.tsv). Step 8 must have been run WITHOUT --one-row-per-species.
   - <output_dir>: New or empty folder for the rebuilt alignments (must differ from step8/).
   - <log_tsv>: One line per (alignment, species) changed: rows before, kept contig and strand, kept and gapped bases,
@@ -34,10 +34,8 @@ Outputs:
   - <output_dir>/master_summary.tsv: The step 8 summary with aligned_species updated to the new row count.
   - <output_dir>/step8c_missing_data.tsv: The missing-data mask: alignment, species, exon, ref_start, ref_end, reason.
     Lists every reference range (0-based half-open BED coordinates) in which a non-reference species has no aligned
-    sequence after this step: exons it is absent from ("absent", "absent (padding only)"), every piece gapped here,
-    and every block step 3 dropped from an exon the species is still in ("dropped by step 3", found by comparing the
-    exon's step 1 and step 3 MAFs; added 2026-11-10, because the default dominant-chain step 3 leaves such gaps and
-    step 14 used to call them deletions). Step 14 reads it so these gaps are not reported as deletions.
+    sequence after this step: exons it is absent from ("absent", "absent (padding only)") and every piece gapped here.
+    Step 14 reads it so these gaps are not reported as deletions.
 
 Checks (each stops the run): one row per species afterwards; species set unchanged; row lengths equal; every kept
 base identical to step 8 at the same column; kept + gapped bases equal the step 8 bases of each species; reference
