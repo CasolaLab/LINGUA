@@ -1,5 +1,5 @@
 ================================================================================
-SCRIPT: step14_identify_indels.sh  (LINGUA masked version, with sorted input and a masked-deletions table)
+SCRIPT: step14_identify_indels.sh  
 ================================================================================
 Description: For every non-reference species in each step 9 alignment, finds runs of columns where the species has a gap and the reference a base (deletion) or the species a base and the reference a gap (insertion), and reports a run if its length is not a multiple of 3 (frameshift), or if it is a 3-bp insertion whose bases are a stop codon. With the step 8c missing-data mask, a deletion lying wholly inside a masked range of that species is missing data and is not reported, and a deletion overlapping a masked range is trimmed to its part(s) outside it, each reported only if its own length is not a multiple of 3 (remainders of 1 bp at a mask boundary are dropped). Transcript ID, chromosome and strand come from the step 11 summary; reference_length is the step 11 actual_nt column; cds_length is that species' own length with gaps removed. Writes one <file>_indels.tsv per alignment and master_indels.tsv; alignment files are read in sorted order.
 
@@ -22,9 +22,5 @@ Notes:
   - Step 14b (step14b_deletion_evidence.py) then labels every deletion reported here with where its gap came from
     and whether the species has its own sequence in that spot (step14_deletion_evidence.tsv); this step's own files
     are not changed.
-  - Insertions are not reported in practice: the alignments reaching step 14 contain no column where the reference
-    has a gap. In the Capra hircus test run (2026-11-10) the reference rows had no gaps already in the step 1 MAFs
-    (13,071 reference rows, 0 gap characters), and step 9 removes any such column. Frameshift insertions and 3-bp
-    stop-codon insertions relative to the reference are therefore not detected by stage 3 as it stands.
   - Gaps from a species missing part of an exon (absent from some MAF blocks, padded with dashes by step 4) are not
     in the mask and are still tested as deletions.
