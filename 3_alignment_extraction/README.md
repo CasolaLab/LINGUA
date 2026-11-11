@@ -77,13 +77,13 @@ lives in [`docs/Genomes2Genes_README.txt`](docs/Genomes2Genes_README.txt).
 | 6 | `step6_update_summary_files.py` | Sync FASTA-extraction summary with the BED file |
 | 7 | `step7_first_stage_validation.py` | Nucleotide-count integrity check across raw/filtered/extracted files |
 | 8 | `step8_stitching_exons.py` | Stitch exon blocks into full transcripts (one row per species.chromosome) |
-| 8c | `step8c_one_collinear_row.py` | One row per species from its dominant collinear exon chain; writes the missing-data mask (from LINGUA) |
+| 8c | `step8c_one_collinear_row.py` | One row per species from its dominant collinear exon chain; writes the missing-data mask |
 | 9 | `step9_trimming_duplicate_bases.py` | Remove the extra base per exon at its BED position; keep only files whose reference equals the CDS |
 | 10 | `step10_second_stage_validation.py` | Confirm final sequences match reference length/content |
 | 11 | `step11_update_stitched_exons_summary.py` | Compare BED, FNA and alignment lengths (`expected_bed`, `expected_fna`, `actual_nt`, `bed_fna_check`) |
 | 12 | `step12_identify_start_codons.sh` | Locate start codons, reported in reference coordinates |
 | 13 | `step13_identify_stop_codons.sh` | Locate stop codons, reported in reference coordinates |
-| 14 | `step14_identify_indels.sh` | Identify frameshift-length indels relative to the reference, skipping or trimming gaps in the step 8c mask (from LINGUA) |
+| 14 | `step14_identify_indels.sh` | Identify frameshift-length indels relative to the reference, skipping or trimming gaps in the step 8c mask |
 | 14b | `step14b_deletion_evidence.py` | For each reported deletion: where its gap came from and whether the species has its own sequence in place (evidence table; step 14 unchanged) |
 | 15 | `step15_identify_first_and_last_three_bases.sh` | Extract first/last 3bp per species |
 | 16 | `step16_extract_start_and_stops.py` | Directory-wide start/stop motif extraction and validation |
@@ -138,6 +138,4 @@ bash scripts/step1_mafextractor.sh <species_name> <reference_species_coordinates
 
 ## Credits
 
-Developed by Sierra C. Sanders in the Casola Lab, Texas A&M University. Step 8c (`step8c_one_collinear_row.py`)
-and the masked step 14 come from LINGUA stage 3 ([CasolaLab/LINGUA](https://github.com/CasolaLab/LINGUA),
-`3_alignment_extraction/`, commit 81849bc). MIT license (`../LICENSE`).
+Developed by Sierra C. Sanders in the Casola Lab, Texas A&M University. 
