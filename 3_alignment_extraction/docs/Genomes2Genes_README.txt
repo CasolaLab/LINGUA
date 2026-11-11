@@ -5,7 +5,10 @@ GENOMES2GENES README
 --------------------------------------------------------------------------------
 0. run_stage3.sh
 --------------------------------------------------------------------------------
-Description: Runs stage 3 steps 1-17. Stops at the first failed step.
+Description: Runs stage 3 steps 1-17 for one focal (reference) species in one working folder: input preparation
+(exon list and header-cleaned reference CDS from the BED), step 1 (mafExtractor, or a copy of existing step 1
+files), steps 2-8, step 8c (one collinear row per species and the missing-data mask, from LINGUA), and steps 9-17,
+with step 14 reading the step 8c mask. Stops at the first failed step.
 
 Usage:
   bash run_stage3.sh <workdir> <focal_species> <bed> <cds_fasta> <maf> <tree_newick>
@@ -57,7 +60,7 @@ step N and later must be moved out of the workdir first (the script never delete
 of step 8: START_STEP=8 reruns steps 8 and 8c, START_STEP=9 needs step8c/.
 Outputs per step: 1 step1/; 2 step2/; 3 step3/, step3_summary.csv; 4 step4/; 6 step4/extraction_summary_fixed.tsv;
 8 step8/, step8c/ (with step8c_missing_data.tsv), step8c_log.tsv; 9 step9/; 11 step8c/master_summary_final_validation.tsv;
-12 step12/; 13 step13/; 14 step14/, step14_masked_deletions.tsv; 15 step15/; 16 step16_starts_stops.tsv;
+12 step12/; 13 step13/; 14 step14/, step14_masked_deletions.tsv, step14_deletion_evidence.tsv (step 14b); 15 step15/; 16 step16_starts_stops.tsv;
 17 step17_all_species.tsv. Steps 5, 7 and 10 only report (in the log).
 
 Status and records in the workdir:
@@ -73,9 +76,13 @@ the exons each species kept.
 What to check after a run: STATUS; step1_missing.txt and step1_problems.tsv empty; step8c_log.tsv (species rows
 rebuilt by step 8c, typed living or ancestor, and every exon gapped, with its reason); no not_in_tree types in
 step8c_log.tsv or step17_all_species.tsv (a species missing from the tree); refused files in step9/step9_trimming_report.tsv;
-step14_masked_deletions.tsv (deletions not reported or trimmed because of the mask); audits/audit_stage3_endtoend.py
+step14_masked_deletions.tsv (deletions not reported or trimmed because of the mask); step14_deletion_evidence.tsv
+(step 14b: where each reported deletion's gap came from and whether the species has sequence in place); audits/audit_stage3_endtoend.py
 and, with STEP3=dominant, audits/audit_optionA.py (these audit scripts are not part of this repository).
 
+Known limitation: steps 12-17 never see insertions relative to the reference; step 14 reports deletions only (see
+its README). In the Capra hircus test run (2026-11-10) the reference rows had no gaps already in the step 1 MAFs (13,071 reference rows, 0 gap characters), so insertions never reached the alignments; step 9 would also remove any column where
+the reference has a gap.
 
 
 --------------------------------------------------------------------------------
@@ -114,7 +121,7 @@ Notes:
 --------------------------------------------------------------------------------
 3. step3_dominant_chain.py  (default step 3 in run_stage3.sh; STEP3=dominant)
 --------------------------------------------------------------------------------
-Description: For every exon (one step 1 MAF file) and every non-reference species, including ancestral nodes: groups the species' blocks by chromosome and strand; within each group finds the best collinear chain (blocks in MAF order whose species coordinates increase without overlapping, at most the jump threshold apart, maximizing aligned bases); keeps the group whose chain has the most aligned bases and only that chain; and removes the species from all its other blocks in that exon. Reference blocks are never touched; blocks that lose the reference are not written. Ties go to the earliest blocks and the first group seen.
+Description: For every exon (one step 1 MAF file) and every non-reference species, including ancestral nodes: groups the species' blocks by chromosome and strand; within each group finds the best collinear chain (blocks in MAF order whose species coordinates increase without overlapping, at most the jump threshold apart, maximizing aligned bases); keeps the group whose chain has the most aligned bases and only that chain; and removes the species from all its other blocks in that exon. Unlike step3_filtering_species.py, the species stays in the exon with its main chain instead of being removed from the whole exon. Reference blocks are never touched; blocks that lose the reference are not written. Ties go to the earliest blocks and the first group seen.
 
 Usage:
   python3 step3_dominant_chain.py -i <mafextractor_dir> -o <output_dir> -r <reference_species> -s <summary_csv> [-j 50000] [-t 8]
@@ -126,6 +133,12 @@ Inputs:
   - -s / --summary: Output CSV: file_name, species, status (clean = nothing dropped, trimmed = blocks dropped), blocks_kept, blocks_dropped, bases_kept, bases_dropped.
   - -j / --jump: (Optional) Max bp between consecutive blocks of a chain (Default: 50000).
   - -t / --threads: (Optional) Number of threads (Default: 8).
+
+Note: the blocks removed here leave gaps in the species' row that the step 8c missing-data mask does not cover, so
+step 14 reports them as deletions when their length is not a multiple of 3. Step 14b labels each of these
+(gap_source = dropped_piece) with where the removed block came from and whether the species has its own sequence in
+that spot. In the Capra hircus test run (2026-11-10) this applied to 338 of 81,481 reported deletions; see
+step14b_deletion_evidence_README.txt.
 
 
 --------------------------------------------------------------------------------
@@ -226,7 +239,7 @@ master_summary.tsv columns: file_name, gff_transcriptID, chromosome (BED name wi
 
 
 --------------------------------------------------------------------------------
-8c. step8c_one_collinear_row.py  (runs after step 8, before step 9)
+8c. step8c_one_collinear_row.py  (from LINGUA stage 3; runs after step 8, before step 9)
 --------------------------------------------------------------------------------
 Description: Gives every species and every ancestral node one row per stitched alignment, from one place in its
 genome. Step 8 keys rows by species.contig, so a species whose exons were extracted from different contigs has
@@ -277,7 +290,7 @@ Notes:
 
 
 --------------------------------------------------------------------------------
-9. step9_trimming_duplicate_bases.py  
+9. step9_trimming_duplicate_bases.py  (LINGUA 69ca427, per-exon padding removal)
 --------------------------------------------------------------------------------
 Description: Removes from every stitched alignment the one extra reference base that step 1 extracted per exon, at its known position from the BED (last base of each exon block on plus-strand genes, first base on minus-strand genes; no extra base on an exon that ends at the end of its scaffold), and removes columns where the reference has a gap, so every species is projected onto the reference CDS. Because the extra base is located by position rather than by matching sequence, every species is cut at the same correct column even when the extra base equals its neighbor. A file is written only if the trimmed reference row equals its CDS in the FNA (N or IUPAC ambiguity codes may match a base they stand for); every other file is refused and listed with its reason (e.g. REFERENCE_MISMATCH_AFTER_TRIM, EXTRACTION_SHIFTED, NOT_IN_FNA) in <output_dir>/step9_trimming_report.tsv. The BED convention (0-based or 1-based) is detected from the data.
 
@@ -361,7 +374,7 @@ Note: a species split over several rows (exons on different chromosomes) is read
 
 
 --------------------------------------------------------------------------------
-14. step14_identify_indels.sh  
+14. step14_identify_indels.sh  (LINGUA masked version)
 --------------------------------------------------------------------------------
 Description: For every non-reference species in each step 9 alignment, finds runs of columns where the species has a gap and the reference a base (deletion) or the species a base and the reference a gap (insertion), and reports a run if its length is not a multiple of 3 (frameshift), or if it is a 3-bp insertion whose bases are a stop codon. With the step 8c missing-data mask, a deletion lying wholly inside a masked range of that species is missing data and is not reported, and a deletion overlapping a masked range is trimmed to its part(s) outside it, each reported only if its own length is not a multiple of 3 (remainders of 1 bp at a mask boundary are dropped). Transcript ID, chromosome and strand come from the step 11 summary; reference_length is the step 11 actual_nt column; cds_length is that species' own length with gaps removed. Writes one <file>_indels.tsv per alignment and master_indels.tsv; alignment files are read in sorted order.
 
@@ -381,6 +394,81 @@ Inputs:
 
 Notes:
   - run_stage3.sh passes step8c/step8c_missing_data.tsv and writes step14_masked_deletions.tsv in the workdir.
+  - Step 14b (step14b_deletion_evidence.py) then labels every deletion reported here with where its gap came from
+    and whether the species has its own sequence in that spot (step14_deletion_evidence.tsv); this step's own files
+    are not changed.
+  - Insertions are not reported in practice: the alignments reaching step 14 contain no column where the reference
+    has a gap. In the Capra hircus test run (2026-11-10) the reference rows had no gaps already in the step 1 MAFs
+    (13,071 reference rows, 0 gap characters), and step 9 removes any such column. Frameshift insertions and 3-bp
+    stop-codon insertions relative to the reference are therefore not detected by stage 3 as it stands.
+  - Gaps from a species missing part of an exon (absent from some MAF blocks, padded with dashes by step 4) are not
+    in the mask and are still tested as deletions.
+
+
+--------------------------------------------------------------------------------
+14b. step14b_deletion_evidence.py  (runs after step 14; step 14's own files are unchanged)
+--------------------------------------------------------------------------------
+Description: For every deletion step 14 reported, records where its gap came from and whether the species still has
+its own sequence in that spot, in one table (one row per deletion, same order as step14/master_indels.tsv). Nothing
+is removed or relabeled in step 14's output: the table is evidence for deciding which deletions to trust.
+
+Usage:
+  python3 step14b_deletion_evidence.py <step14_master_indels.tsv> <step1_dir> <step3_dir> <step9_dir> <bed_file> <reference_species> <output.tsv> [--tree <newick>]
+
+Inputs:
+  - <step14_master_indels.tsv>: step14/master_indels.tsv.
+  - <step1_dir>, <step3_dir>: step 1 and step 3 MAFs (what each species had before and after step 3).
+  - <step9_dir>: step 9 alignments (which relatives are present, for the sharing columns).
+  - <bed_file>: Reference BED (0-based half-open), to turn CDS positions into genomic positions.
+  - <reference_species>: The reference species name.
+  - <output.tsv>: Must be outside step14/: stage 4 reads every .tsv there as indel calls.
+  - --tree: (Default $TREE_FILE) Newick tree; gives species_type and the parent and sister for the sharing columns.
+
+Columns (step 14's columns first, then):
+  species_type            living (tree tip), ancestor (labeled internal node), not_in_tree, or NA without a tree
+  gap_source              cactus_gap    every position is a '-' the aligner placed inside a block step 3 kept
+                          no_alignment  some position had no block of this species at all, even before step 3
+                          dropped_piece some position was covered only by a block step 3 dropped from this species
+  bases_cactus_gap, bases_no_alignment, dropped_covers_bp
+                          how many positions of the deletion fall in each kind of gap
+  dropped_from            for dropped_piece: where the dropped block came from, compared with the blocks the species
+                          kept in this exon: other chromosome / same chromosome, other strand / same chromosome and
+                          strand (several joined by ';')
+  dropped_distance_bp     for a dropped block on the kept chromosome: its distance from the kept blocks (0 = overlap)
+  reference_gap_bp        reference bases between the kept blocks just before and after the gap
+  species_bases_in_place  species bases between those same two kept blocks, in the species' own genome
+  sides_touch             yes when species_bases_in_place is 0: the species sequence runs straight across the
+                          missing stretch, which is what a real deletion looks like
+  in_place_difference_bp  reference_gap_bp - species_bases_in_place: the likely real size of the change
+                          (negative when the species has more bases there than the reference)
+  in_place_frameshift     yes when in_place_difference_bp is not a multiple of 3
+  exon_edge               start / end (the gap reaches the exon's first / last base, in gene direction), both,
+                          none, or "spans N exons"
+  cant_tell_reason        why the in-place check could not run: no kept piece before / after the gap in this exon,
+                          no kept piece anywhere in this exon, gap crosses into the next exon, the two sides are on
+                          different chromosomes or strands, or the species' two sides overlap
+  shared_with_parent      yes / no: an overlapping deletion is reported for the tree parent in the same alignment;
+                          no data (parent not in the alignment); no parent (tree root). Parents are reconstructed
+                          partly from these same species, so this is weak evidence.
+  shared_with_sister      the same for any other child of the parent (closer to independent evidence)
+  evidence                aligner gap (kept as called)  gap_source cactus_gap
+                          likely real deletion          sides_touch = yes
+                          possible smaller frameshift   sides do not touch; in_place_difference_bp not a multiple of 3
+                          probably not a frameshift     sides do not touch; in_place_difference_bp 0 or a multiple of 3
+                          can't tell                    the in-place check could not run (see cant_tell_reason)
+
+Checks (each stops the run): a deletion position where a kept block gives the species a base; a step 3 block not
+found in step 1; rows that do not add up to step 14's deletions.
+
+Notes:
+  - The in-place check needs a kept block on both sides of the gap in the same exon; gaps at an exon edge or across
+    exons are "can't tell". For dropped_piece rows, dropped_from, dropped_distance_bp and the sharing columns are
+    still filled for those.
+  - The species' actual bases in the gap are not shown: that would need each species' genome FASTA (ancestral
+    genomes are not available as FASTA here).
+  - Capra hircus test run (2026-11-10, 81,481 deletions): cactus_gap 78,808; no_alignment 2,335 (793 likely real,
+    370 possible smaller frameshift, 193 probably not, 979 can't tell); dropped_piece 338 (1 likely real, 54 possible
+    smaller frameshift, 79 probably not, 204 can't tell).
 
 
 --------------------------------------------------------------------------------

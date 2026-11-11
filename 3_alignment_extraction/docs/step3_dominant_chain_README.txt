@@ -14,3 +14,9 @@ Inputs:
   - -j / --jump: (Optional) Max bp between consecutive blocks of a chain (Default: 50000).
   - -t / --threads: (Optional) Number of threads (Default: 8).
 
+Note: the blocks removed here leave gaps in the species' row that the step 8c missing-data mask does not cover, so
+step 14 reports them as deletions when their length is not a multiple of 3. Step 14b labels each of these
+(gap_source = dropped_piece) with where the removed block came from and whether the species has its own sequence in
+that spot. In the Capra hircus test run (2026-11-10) this applied to 338 of 81,481 reported deletions; see
+step14b_deletion_evidence_README.txt.
+
