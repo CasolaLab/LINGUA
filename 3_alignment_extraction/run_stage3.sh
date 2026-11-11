@@ -6,21 +6,21 @@
 #   step 3   dominant collinear chain per species and exon (default), keeping the orthologous blocks and dropping
 #            blocks on other chromosomes/strands, more than JUMP bp apart, out of order or overlapping;
 #            STEP3=strict uses the original filter, which removes the species from the whole exon instead
-#   step 4   no genome lookup (LINGUA 911c653): bases a species skips between MAF blocks are not added
+#   step 4   no genome lookup: bases a species skips between MAF blocks are not added
 #   step 8   Python port, run without --one-row-per-species (every species.contig row is kept for step 8c)
-#   step 8c  LINGUA step8c_one_collinear_row.py: one row per species and ancestor, from its dominant collinear chain
+#   step 8c  step8c_one_collinear_row.py: one row per species and ancestor, from its dominant collinear chain
 #            of exons (one contig and strand, collinear with the reference exon order, within MAXSPAN bp); every
 #            other exon becomes gaps, and every reference range a species has no sequence in (exons it is absent
 #            from, exons gapped here) goes to the missing-data mask step8c/step8c_missing_data.tsv
-#   step 9   per-exon padding removal (LINGUA 69ca427), which fixes the exon-junction errors; reads step8c/
-#   step 14  LINGUA masked version: deletions inside the step 8c mask are missing data and not reported; deletions
+#   step 9   per-exon padding removal, which fixes the exon-junction errors; reads step8c/
+#   step 14  masked version: deletions inside the step 8c mask are missing data and not reported; deletions
 #            overlapping it are trimmed to their unmasked parts, each tested as a frameshift; every masked or
 #            trimmed deletion is listed in step14_masked_deletions.tsv (outside step14/, which stage 4 reads)
 #   step 14b step14b_deletion_evidence.py: for every reported deletion, where its gap came from (aligner gap, no
 #            alignment, piece dropped by step 3) and whether the species has its own sequence in place, in
 #            step14_deletion_evidence.tsv; step 14's own files are unchanged
 #
-# Usage (on Dayhoff):
+# Usage:
 #   bash run_stage3.sh <workdir> <focal_species> <bed> <cds_fasta> <maf> <tree_newick>
 #   <focal_species> must match the species prefix of the MAF sequence names (e.g. Homo_sapiens).
 #   <bed>: tab-separated, columns chrom, start (0-based), end, name, score, strand, transcript ID (a header line
