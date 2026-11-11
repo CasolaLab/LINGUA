@@ -5,10 +5,7 @@ GENOMES2GENES README
 --------------------------------------------------------------------------------
 0. run_stage3.sh
 --------------------------------------------------------------------------------
-Description: Runs stage 3 steps 1-17 for one focal (reference) species in one working folder: input preparation
-(exon list and header-cleaned reference CDS from the BED), step 1 (mafExtractor, or a copy of existing step 1
-files), steps 2-8, step 8c (one collinear row per species and the missing-data mask, from LINGUA), and steps 9-17,
-with step 14 reading the step 8c mask. Stops at the first failed step.
+Description: Runs stage 3 steps 1-17 for one focal (reference) species in one working folder. Stops at the first failed step.
 
 Usage:
   bash run_stage3.sh <workdir> <focal_species> <bed> <cds_fasta> <maf> <tree_newick>
@@ -80,9 +77,6 @@ step14_masked_deletions.tsv (deletions not reported or trimmed because of the ma
 (step 14b: where each reported deletion's gap came from and whether the species has sequence in place); audits/audit_stage3_endtoend.py
 and, with STEP3=dominant, audits/audit_optionA.py (these audit scripts are not part of this repository).
 
-Known limitation: steps 12-17 never see insertions relative to the reference; step 14 reports deletions only (see
-its README). In the Capra hircus test run (2026-11-10) the reference rows had no gaps already in the step 1 MAFs (13,071 reference rows, 0 gap characters), so insertions never reached the alignments; step 9 would also remove any column where
-the reference has a gap.
 
 
 --------------------------------------------------------------------------------
@@ -137,8 +131,7 @@ Inputs:
 Note: the blocks removed here leave gaps in the species' row that the step 8c missing-data mask does not cover, so
 step 14 reports them as deletions when their length is not a multiple of 3. Step 14b labels each of these
 (gap_source = dropped_piece) with where the removed block came from and whether the species has its own sequence in
-that spot. In the Capra hircus test run (2026-11-10) this applied to 338 of 81,481 reported deletions; see
-step14b_deletion_evidence_README.txt.
+that spot. 
 
 
 --------------------------------------------------------------------------------
@@ -239,7 +232,7 @@ master_summary.tsv columns: file_name, gff_transcriptID, chromosome (BED name wi
 
 
 --------------------------------------------------------------------------------
-8c. step8c_one_collinear_row.py  (from LINGUA stage 3; runs after step 8, before step 9)
+8c. step8c_one_collinear_row.py  (runs after step 8, before step 9)
 --------------------------------------------------------------------------------
 Description: Gives every species and every ancestral node one row per stitched alignment, from one place in its
 genome. Step 8 keys rows by species.contig, so a species whose exons were extracted from different contigs has
@@ -282,15 +275,9 @@ base identical to step 8 at the same column; kept + gapped bases equal the step 
 row unchanged; per-exon widths sum to the alignment length; a species on two contigs within one exon (step 3
 prevents this) or bases without a step 3 MAF block.
 
-Notes:
-  - Change from the LINGUA copy: BED header and '#' lines are skipped by content (non-numeric start), as in step 8,
-    instead of always skipping the first line, so a BED without a header keeps its first exon. The log's type
-    column comes from the tree, not from the name pattern N<number>, which typed every mammal ancestor (e.g.
-    fullTreeAnc235) as living: 777 of the 1,561 rows rebuilt in the Capra hircus test run (2026-11-10).
-
 
 --------------------------------------------------------------------------------
-9. step9_trimming_duplicate_bases.py  (LINGUA 69ca427, per-exon padding removal)
+9. step9_trimming_duplicate_bases.py  
 --------------------------------------------------------------------------------
 Description: Removes from every stitched alignment the one extra reference base that step 1 extracted per exon, at its known position from the BED (last base of each exon block on plus-strand genes, first base on minus-strand genes; no extra base on an exon that ends at the end of its scaffold), and removes columns where the reference has a gap, so every species is projected onto the reference CDS. Because the extra base is located by position rather than by matching sequence, every species is cut at the same correct column even when the extra base equals its neighbor. A file is written only if the trimmed reference row equals its CDS in the FNA (N or IUPAC ambiguity codes may match a base they stand for); every other file is refused and listed with its reason (e.g. REFERENCE_MISMATCH_AFTER_TRIM, EXTRACTION_SHIFTED, NOT_IN_FNA) in <output_dir>/step9_trimming_report.tsv. The BED convention (0-based or 1-based) is detected from the data.
 
@@ -374,7 +361,7 @@ Note: a species split over several rows (exons on different chromosomes) is read
 
 
 --------------------------------------------------------------------------------
-14. step14_identify_indels.sh  (LINGUA masked version)
+14. step14_identify_indels.sh 
 --------------------------------------------------------------------------------
 Description: For every non-reference species in each step 9 alignment, finds runs of columns where the species has a gap and the reference a base (deletion) or the species a base and the reference a gap (insertion), and reports a run if its length is not a multiple of 3 (frameshift), or if it is a 3-bp insertion whose bases are a stop codon. With the step 8c missing-data mask, a deletion lying wholly inside a masked range of that species is missing data and is not reported, and a deletion overlapping a masked range is trimmed to its part(s) outside it, each reported only if its own length is not a multiple of 3 (remainders of 1 bp at a mask boundary are dropped). Transcript ID, chromosome and strand come from the step 11 summary; reference_length is the step 11 actual_nt column; cds_length is that species' own length with gaps removed. Writes one <file>_indels.tsv per alignment and master_indels.tsv; alignment files are read in sorted order.
 
@@ -397,10 +384,6 @@ Notes:
   - Step 14b (step14b_deletion_evidence.py) then labels every deletion reported here with where its gap came from
     and whether the species has its own sequence in that spot (step14_deletion_evidence.tsv); this step's own files
     are not changed.
-  - Insertions are not reported in practice: the alignments reaching step 14 contain no column where the reference
-    has a gap. In the Capra hircus test run (2026-11-10) the reference rows had no gaps already in the step 1 MAFs
-    (13,071 reference rows, 0 gap characters), and step 9 removes any such column. Frameshift insertions and 3-bp
-    stop-codon insertions relative to the reference are therefore not detected by stage 3 as it stands.
   - Gaps from a species missing part of an exon (absent from some MAF blocks, padded with dashes by step 4) are not
     in the mask and are still tested as deletions.
 
@@ -466,9 +449,6 @@ Notes:
     still filled for those.
   - The species' actual bases in the gap are not shown: that would need each species' genome FASTA (ancestral
     genomes are not available as FASTA here).
-  - Capra hircus test run (2026-11-10, 81,481 deletions): cactus_gap 78,808; no_alignment 2,335 (793 likely real,
-    370 possible smaller frameshift, 193 probably not, 979 can't tell); dropped_piece 338 (1 likely real, 54 possible
-    smaller frameshift, 79 probably not, 204 can't tell).
 
 
 --------------------------------------------------------------------------------
@@ -524,11 +504,5 @@ Checks: with --mask the run stops if a block outside the mask lies on a contig o
 
 Notes:
   - Alignment files are read in sorted order, so reruns write rows in the same order.
-  - Without --mask, exons step 8c gapped on the kept contig cannot be recognized, and a species with several rows
-    (step 8c not run) keeps a comma-joined list of its row contigs, as before 2026-11-10.
-  - Before 2026-11-10 every block of every exon was used. In the Capra hircus test run (2026-11-10, 632 alignments,
-    15,408 rows) the fix changed 1,965 rows: 432 that spanned several contigs (all now on one), 1,123 other rows of
-    species step 8c rebuilt (span narrower), and 410 rows of species it did not rebuild, all narrowed by skipping the
-    extra base past an exon end (154 by 1 bp; 256 by more, where that base was aligned a few bases away).
   - The transcript is matched to the file name by the longest BED transcript ID that prefixes it (before, the first
     match in BED order).
