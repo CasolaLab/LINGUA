@@ -59,6 +59,3 @@ Notes:
     still filled for those.
   - The species' actual bases in the gap are not shown: that would need each species' genome FASTA (ancestral
     genomes are not available as FASTA here).
-  - Capra hircus test run (2026-11-10, 81,481 deletions): cactus_gap 78,808; no_alignment 2,335 (793 likely real,
-    370 possible smaller frameshift, 193 probably not, 979 can't tell); dropped_piece 338 (1 likely real, 54 possible
-    smaller frameshift, 79 probably not, 204 can't tell).
