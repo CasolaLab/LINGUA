@@ -14,7 +14,7 @@
 # exon is missing data, the bases missing beyond it in a neighbouring exon are a deletion. Each remainder is tested as
 # a frameshift (length not a multiple of 3) on its own; remainders of 1 bp at a mask boundary are dropped (boundary
 # ambiguity, the former 1-bp tolerance). A deletion with no overlap is unchanged.
-# 2026-11-10 (Genomes2Genes merge): alignment files are read in sorted order; optional 7th argument writes every
+# Alignment files are read in sorted order; optional 7th argument writes every
 # deletion the mask removed or trimmed (with its reported and dropped remainders) to a TSV. Keep that TSV outside
 # <output_dir>: stage 4 reads every .tsv in the step 14 folder as indel calls.
 #
