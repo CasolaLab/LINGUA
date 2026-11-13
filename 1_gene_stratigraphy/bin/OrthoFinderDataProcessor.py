@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import re
 import argparse
 import logging
@@ -504,6 +505,7 @@ class OrthoFinderDataProcessor:
                 self.cross_checker.write_exclusion_log(exclusion_log_path)
                 logging.info(f"Cross-check excluded {len(self.cross_checker.exclusions)} candidate genes "
                              f"total across all species; log written to {exclusion_log_path}")
+            self.completed = True
 
         except FileNotFoundError as e:
             # Missing/misnamed input file -- initialize_processors() already
@@ -516,6 +518,35 @@ class OrthoFinderDataProcessor:
             logging.critical(f"A critical error occurred in the main pipeline: {e}", exc_info=True)
 
         logging.info("Pipeline finished.")
+
+    def verify(self):
+        """Re-derives every candidate from the HOG table with CLSGClassificationVerifier (independent code) and
+        returns True only when every species was checked and no candidate disagrees with the table."""
+        from CLSGClassificationVerifier import CLSGClassificationVerifier
+        hog_file = self._find_hog_file()
+        dir_names = {b: self.species_map.get(b, b).replace(" ", "_") for b in self.n0_sorter.all_species}
+        verifier = CLSGClassificationVerifier(str(hog_file), self.out_dir, dir_names=dir_names)
+        verifier.run()
+        report = self.out_dir / "clsg_verification_report.tsv"
+        verifier.write_report(report)
+        verifier.print_summary(report)
+        found = verifier._find_species_dirs()
+        missing = sorted(set(dir_names) - set(found))
+        no_lists = sorted(f"{d.name}/gene_IDs_by_node/{b}_species_specific_{k}_gene_ids.txt"
+                          for b, d in found.items() for k in ("clustered", "unclustered")
+                          if not (d / "gene_IDs_by_node" / f"{b}_species_specific_{k}_gene_ids.txt").is_file())
+        ok = not verifier.violations and not verifier.skipped_species and not missing and not no_lists
+        if missing:
+            logging.critical(f"Verification: no output folder for {missing}")
+        if no_lists:
+            logging.critical(f"Verification: candidate lists missing, nothing to check: {no_lists[:4]}")
+        if ok:
+            logging.info(f"Verification passed: {verifier.total_clustered_checked} clustered and "
+                         f"{verifier.total_unclustered_checked} unclustered candidates agree with {os.path.basename(str(hog_file))}")
+        else:
+            logging.critical(f"Verification FAILED: {len(verifier.violations)} candidates disagree with "
+                             f"{os.path.basename(str(hog_file))}, {len(verifier.skipped_species)} species skipped; see {report}")
+        return ok
     def _save_gene_ids(self, filepath, ids):
         try:
             with open(filepath, 'w') as f:
@@ -627,6 +658,10 @@ def main():
                              'not be verified against anything outside the HOG table used by '
                              '--hog-filename, so results may include genes with a real ortholog '
                              'that table cannot see.')
+    parser.add_argument('--skip-verification', action='store_true',
+                        help='Skip the check that re-derives every candidate from the HOG table with '
+                             'CLSGClassificationVerifier (run by default; the run exits with status 1 '
+                             'when any candidate disagrees with the table).')
     args = parser.parse_args()
     processor = OrthoFinderDataProcessor(
         args.out_dir,
@@ -641,6 +676,12 @@ def main():
         skip_cross_check=args.skip_cross_check,
     )
     processor.run()
+    if not getattr(processor, "completed", False):
+        sys.exit(1)
+    if args.skip_verification:
+        logging.warning("Verification skipped (--skip-verification); candidates were not re-derived from the HOG table")
+    elif not processor.verify():
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

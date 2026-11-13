@@ -144,6 +144,8 @@ Every exclusion is logged (`cross_check_exclusions.tsv`: gene ID, original class
 
 `bin/CLSGClassificationVerifier.py` re-derives ground truth directly from the HOG table, from scratch — it does not reuse any other class in this pipeline, so a shared bug can't silently cancel out and hide a real error. It checks that every "clustered" candidate's HOG really is private to that species, and every "unclustered" candidate really is absent from the HOG table entirely.
 
+**It runs automatically at the end of every `OrthoFinderDataProcessor.py` run** (since 2026-11-13), on the same HOG table, and writes `clsg_verification_report.tsv` in the output directory. The run exits with status 1 when any candidate disagrees with the table, when a species could not be checked, or when a species' candidate lists are missing; it also exits with status 1 when the classification itself failed. `--skip-verification` turns the check off and logs a warning. It can still be run on its own:
+
 ```bash
 python bin/CLSGClassificationVerifier.py \
   --hog-tsv path/to/N1.tsv \
@@ -166,6 +168,7 @@ output_dir/
   C_LSG_Iso.tsv               # every gene, every species, one row each
   global_summary.csv          # canonical master table (merges the intermediate/ files)
   cross_check_exclusions.tsv  # audit log of every cross-check exclusion
+  clsg_verification_report.tsv # candidates that disagree with the HOG table (header only when none)
   OrthoFinderDataProcessor.log
 ```
 

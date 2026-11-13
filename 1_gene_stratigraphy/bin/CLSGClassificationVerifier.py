@@ -70,10 +70,13 @@ __author__ = "Adekola Owoyemi (Casola Lab, Texas A&M University)"
 
 
 class CLSGClassificationVerifier:
-    def __init__(self, hog_tsv_path, results_dir, species_filter=None):
+    def __init__(self, hog_tsv_path, results_dir, species_filter=None, dir_names=None):
         self.hog_tsv_path = hog_tsv_path
         self.results_dir = Path(results_dir)
         self.species_filter = set(species_filter) if species_filter else None
+        # {HOG-table column: output subdirectory name}, for runs whose output folders carry the
+        # --species-map names; without it a folder is matched to the column of the same name.
+        self.dir_names = dict(dir_names) if dir_names else None
 
         # {hog_id: {species: set(genes)}}
         self.hog_species_genes = {}
@@ -160,9 +163,15 @@ class CLSGClassificationVerifier:
             raise FileNotFoundError(f"Results directory not found: {self.results_dir}")
 
         species_dirs = {}
-        for entry in sorted(self.results_dir.iterdir()):
-            if entry.is_dir() and (entry / "gene_IDs_by_node").is_dir():
-                species_dirs[entry.name] = entry
+        if self.dir_names:
+            for column, name in self.dir_names.items():
+                entry = self.results_dir / name
+                if (entry / "gene_IDs_by_node").is_dir():
+                    species_dirs[column] = entry
+        else:
+            for entry in sorted(self.results_dir.iterdir()):
+                if entry.is_dir() and (entry / "gene_IDs_by_node").is_dir():
+                    species_dirs[entry.name] = entry
 
         if self.species_filter:
             species_dirs = {s: d for s, d in species_dirs.items() if s in self.species_filter}
