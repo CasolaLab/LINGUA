@@ -1,0 +1,14 @@
+# stage5.conf.example - copy, edit and pass to run_stage5.sh. Paths are absolute or relative to where you run it.
+TREE_CONFIG=4_enablers/data/tree_config.json
+COORDS_DIR=/path/to/stage3/step17_tables          # *_all_species_summary.tsv, one per focal species
+NODES_DIR=/path/to/stage4/stage4_final/nodes_summary_by_species
+TBLASTN_DIR=/path/to/stage4/cdngs_tblastn_results  # *_cdngs_tblastn_*_summary.tsv
+HOGS=/path/to/OrthoFinder/Phylogenetic_Hierarchical_Orthogroups/N0.tsv
+PROTEINS_DIR=/path/to/stage4/clsgs_1line           # candidate proteins, one FASTA per species
+BRANCH_LENGTHS=5_birth_death/data/branch_lengths_brassicaceae.tsv
+GFF_TABLE=                                         # optional: TSV species, gff[, fai]
+OUTDIR=stage5_out
+THREADS=4
+HOG_ID_MATCH=normalized
+EXCLUDE_OVERLAP=same_strand_cds                     # same_strand_cds (only same-strand CDS-CDS overlaps left out) or any (the paper)
+HOG_SPAN=split                                     # split (once per lineage) or merge (once per orthogroup, the paper)
