@@ -308,6 +308,9 @@ def main():
     ap.add_argument("--coords", required=True, help="step 1 output")
     ap.add_argument("--gff-table", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--no-gff", default="",
+                    help="comma-separated species that have no annotation; their loci are not checked (any other "
+                         "species of the coordinates without a GFF stops the run)")
     ap.add_argument("--max-unmatched", type=float, default=0.05,
                     help="stop when a larger share of a species' loci overlapping GFF genes has no own gene")
     ap.add_argument("--max-unknown", type=float, default=0.05,
@@ -329,9 +332,20 @@ def main():
         need(*[p for p in table[sp] if p])
     coords = read_tsv(a.coords)
     focal = [s for s in tree.species if any(tree.canon(r["focal_species"]) == s for r in coords)]
-    no_gff = [s for s in focal if s not in table]
+    opt_out = {tree.canon(x.strip()) for x in a.no_gff.split(",") if x.strip()}
+    bad = sorted(x for x in opt_out if x not in tree.species)
+    if bad:
+        die(f"--no-gff: {bad} not species of tree_config")
+    both = sorted(opt_out & set(table))
+    if both:
+        die(f"{both} have a GFF in {a.gff_table} and are also listed in --no-gff; choose one")
+    no_gff = [s for s in focal if s not in table and s not in opt_out]
     if no_gff:
-        log(f"WARNING: no GFF for {no_gff}; their loci are not classified and are never excluded")
+        die(f"no GFF for {no_gff} in {a.gff_table}; add their annotation, or name them in --no-gff (NO_GFF_SPECIES in "
+            f"the driver) to count their loci without the overlap check")
+    skipped_sp = [s for s in focal if s in opt_out]
+    if skipped_sp:
+        log(f"WARNING: no GFF by choice (--no-gff) for {skipped_sp}; their loci are counted without the overlap check")
     out = []
     for sp in focal:
         if sp not in table:

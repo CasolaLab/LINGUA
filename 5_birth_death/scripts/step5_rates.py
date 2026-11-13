@@ -5,7 +5,7 @@ Stage 5 step 5. Births and deaths of DNGs and PDNGs on every branch of the speci
 branch length.
 
 1. Filters. A gene is left out when a coding exon of its locus overlaps a coding exon of another annotated gene on
-   the same strand (step 3: same_strand_cds_overlap; skipped without --overlap). Antisense loci and loci in an intron
+   the same strand (step 3: same_strand_cds_overlap; --overlap is required, --no-overlap only for tests and comparisons). Antisense loci and loci in an intron
    or UTR of a same-strand gene are counted; --exclude-overlap any leaves out every overlap class, as the paper did.
    A gene is also left out when it is a non-representative member of a family of
    unclustered duplicates (step 4; skipped without --families).
@@ -38,7 +38,7 @@ of the paper) with the tree, branch lengths and species read from inputs.
 
 Usage:
   python step5_rates.py --tree-config tree_config.json --loci loci.tsv --genes genes.tsv --hogs N0.tsv \
-      --branch-lengths lengths.tsv [--overlap overlap.tsv] [--families unclustered_families.tsv] \
+      --branch-lengths lengths.tsv (--overlap overlap.tsv | --no-overlap) [--families unclustered_families.tsv] \
       [--hog-id-match normalized|exact] [--hog-span split|merge] [--exclude-overlap same_strand_cds|any] --outdir DIR
   lengths.tsv: columns branch, length (branch = internal node or species; length in the time unit of the rates,
   e.g. million years), or columns node, age (node ages; species are age 0).
@@ -69,7 +69,10 @@ def main():
     ap.add_argument("--genes", required=True)
     ap.add_argument("--hogs", required=True)
     ap.add_argument("--branch-lengths", required=True)
-    ap.add_argument("--overlap")
+    ov = ap.add_mutually_exclusive_group(required=True)
+    ov.add_argument("--overlap", help="step 3 output")
+    ov.add_argument("--no-overlap", action="store_true",
+                    help="count without the gene-overlap filter (tests and comparisons only)")
     ap.add_argument("--families")
     ap.add_argument("--hog-id-match", choices=("normalized", "exact"), default="normalized")
     ap.add_argument("--hog-span", choices=("split", "merge"), default="split")

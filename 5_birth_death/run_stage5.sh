@@ -10,7 +10,8 @@
 #     HOGS            OrthoFinder HOG table (N0.tsv, or the node holding all species)
 #     PROTEINS_DIR    candidate protein FASTAs, one per species
 #     BRANCH_LENGTHS  TSV branch,length (or node,age)
-#     GFF_TABLE       optional TSV species,gff[,fai]; empty skips step 3 and its filter
+#     GFF_TABLE       TSV species,gff[,fai], one GFF3 per focal species (step 3, required)
+#     NO_GFF_SPECIES  optional comma-separated species with no annotation; their loci are counted without step 3
 #     OUTDIR          output folder (must not exist when starting at step 1)
 #     THREADS         BLASTp threads (default 4); PYTHON, BLASTP, MAKEBLASTDB optional
 #     HOG_ID_MATCH    normalized (default) or exact (reproduces the Brassicaceae paper)
@@ -20,7 +21,7 @@
 # Steps: 1 coordinates, 2 loci, 3 overlap with annotated genes, 4 unclustered duplicates (BLASTp), 5 rates.
 set -euo pipefail
 
-[ $# -ge 1 ] || { sed -n '2,22p' "$0"; exit 1; }
+[ $# -ge 1 ] || { sed -n '2,21p' "$0"; exit 1; }
 CONF=$1; FIRST=${2:-1}; LAST=${3:-5}
 [ -f "$CONF" ] || { echo "ERROR: config not found: $CONF" >&2; exit 1; }
 case "$FIRST$LAST" in
@@ -32,16 +33,12 @@ source "$CONF"
 HERE=$(cd "$(dirname "$0")" && pwd)
 S=$HERE/scripts
 PYTHON=${PYTHON:-python3}; BLASTP=${BLASTP:-blastp}; MAKEBLASTDB=${MAKEBLASTDB:-makeblastdb}
-THREADS=${THREADS:-4}; HOG_ID_MATCH=${HOG_ID_MATCH:-normalized}; GFF_TABLE=${GFF_TABLE:-}; HOG_SPAN=${HOG_SPAN:-split}; EXCLUDE_OVERLAP=${EXCLUDE_OVERLAP:-same_strand_cds}
+THREADS=${THREADS:-4}; HOG_ID_MATCH=${HOG_ID_MATCH:-normalized}; GFF_TABLE=${GFF_TABLE:-}; NO_GFF_SPECIES=${NO_GFF_SPECIES:-}; HOG_SPAN=${HOG_SPAN:-split}; EXCLUDE_OVERLAP=${EXCLUDE_OVERLAP:-same_strand_cds}
 MAKEBLASTDB=$(command -v "$MAKEBLASTDB" || echo "$MAKEBLASTDB"); BLASTP=$(command -v "$BLASTP" || echo "$BLASTP")
-for v in TREE_CONFIG COORDS_DIR NODES_DIR TBLASTN_DIR HOGS PROTEINS_DIR BRANCH_LENGTHS OUTDIR; do
+for v in TREE_CONFIG COORDS_DIR NODES_DIR TBLASTN_DIR HOGS PROTEINS_DIR BRANCH_LENGTHS GFF_TABLE OUTDIR; do
     [ -n "${!v:-}" ] || { echo "ERROR: $v is not set in $CONF" >&2; exit 1; }
 done
 if [ "$FIRST" -le 1 ] && [ -e "$OUTDIR" ]; then echo "ERROR: $OUTDIR exists; reruns go to a new folder" >&2; exit 1; fi
-if [ -z "$GFF_TABLE" ] && [ "$FIRST" -eq 3 ] && [ "$LAST" -eq 3 ]; then
-    echo "ERROR: step 3 needs GFF_TABLE in $CONF" >&2; exit 1
-fi
-NOTE=""; [ -z "$GFF_TABLE" ] && [ "$FIRST" -le 3 ] && [ "$LAST" -ge 3 ] && NOTE=" (step 3 skipped: no GFF_TABLE)"
 run() { [ "$FIRST" -le "$1" ] && [ "$LAST" -ge "$1" ]; }
 case "$OUTDIR" in
     *" "*) if run 4; then echo "ERROR: OUTDIR contains a space; BLAST+ (step 4) cannot use such paths: $OUTDIR" >&2; exit 1; fi ;;
@@ -76,9 +73,9 @@ if run 2; then
         2> "$OUTDIR/step2.log"
 fi
 STEP=3
-if run 3 && [ -n "$GFF_TABLE" ]; then
+if run 3; then
     "$PYTHON" "$S/step3_overlap.py" --tree-config "$TREE_CONFIG" --coords "$OUTDIR/coords.tsv" --gff-table "$GFF_TABLE" \
-        --out "$OUTDIR/overlap.tsv" 2> "$OUTDIR/step3.log"
+        --no-gff "$NO_GFF_SPECIES" --out "$OUTDIR/overlap.tsv" 2> "$OUTDIR/step3.log"
 fi
 STEP=4
 if run 4; then
@@ -98,11 +95,11 @@ if run 4; then
 fi
 STEP=5
 if run 5; then
-    OV=(); [ -n "$GFF_TABLE" ] && OV=(--overlap "$OUTDIR/overlap.tsv" --exclude-overlap "$EXCLUDE_OVERLAP")
     "$PYTHON" "$S/step5_rates.py" --tree-config "$TREE_CONFIG" --loci "$OUTDIR/loci.tsv" --genes "$OUTDIR/genes.tsv" \
-        --hogs "$HOGS" --branch-lengths "$BRANCH_LENGTHS" ${OV[@]+"${OV[@]}"} \
+        --hogs "$HOGS" --branch-lengths "$BRANCH_LENGTHS" \
+        --overlap "$OUTDIR/overlap.tsv" --exclude-overlap "$EXCLUDE_OVERLAP" \
         --families "$OUTDIR/unclustered/unclustered_families.tsv" --hog-id-match "$HOG_ID_MATCH" --hog-span "$HOG_SPAN" \
         --outdir "$OUTDIR" 2> "$OUTDIR/step5.log"
 fi
-echo "SUCCEEDED steps $FIRST-$LAST$NOTE $(date)" > "$OUTDIR/STATUS"
+echo "SUCCEEDED steps $FIRST-$LAST $(date)" > "$OUTDIR/STATUS"
 cat "$OUTDIR/STATUS"

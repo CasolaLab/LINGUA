@@ -86,7 +86,7 @@ def test_toy():
         assert sorted(os.listdir(f"{d}/out/unc")) == ["A_unclustered.faa", "unclustered_counts.tsv"]
         w(f"{d}/out/unc/A_unclustered.blastp.tsv", "a6\ta6\t100\t5\t5\t5\t1e-10\t20\na6\ta7\t100\t5\t5\t8\t1e-6\t15\n")
         run(f"{S}/step4_unclustered_families.py", "families", "--outdir", f"{d}/out/unc")
-        run(f"{S}/step5_rates.py", "--tree-config", cf, "--loci", f"{d}/out/loci.tsv", "--genes", f"{d}/out/genes.tsv",
+        run(f"{S}/step5_rates.py", "--no-overlap", "--tree-config", cf, "--loci", f"{d}/out/loci.tsv", "--genes", f"{d}/out/genes.tsv",
             "--hogs", f"{d}/N0.tsv", "--branch-lengths", f"{d}/len.tsv", "--families",
             f"{d}/out/unc/unclustered_families.tsv", "--outdir", f"{d}/out")
         r = {x["Branch"]: x for x in csv.DictReader(open(f"{d}/out/rates_by_branch.tsv"), delimiter="\t")}
@@ -109,7 +109,7 @@ def test_id_form_mismatch_stops():
         run(f"{S}/step1_coordinates.py", "--tree-config", cf, "--coords", f"{d}/coords", "--nodes", f"{d}/nodes",
             "--tblastn", f"{d}/tb", "--out", f"{d}/out/coords.tsv")
         run(f"{S}/step2_loci.py", "--tree-config", cf, "--coords", f"{d}/out/coords.tsv", "--outdir", f"{d}/out")
-        run(f"{S}/step5_rates.py", "--tree-config", cf, "--loci", f"{d}/out/loci.tsv", "--genes", f"{d}/out/genes.tsv",
+        run(f"{S}/step5_rates.py", "--no-overlap", "--tree-config", cf, "--loci", f"{d}/out/loci.tsv", "--genes", f"{d}/out/genes.tsv",
             "--hogs", f"{d}/N0.tsv", "--branch-lengths", f"{d}/len.tsv", "--outdir", f"{d}/out", fail="differ in form")
         w(f"{d}/nodes/A_nodes_summary_filtered.tsv", "geneID\tORF_Node\tSynteny_Node\tEnablers_Nodes\tGene_type\n"
           + "".join(f"A.{g}\tA-specific\tN2\tNA\tPDNG\n" for g in ("a1", "a2", "a3", "a4", "a5", "a6", "a7")))
@@ -153,7 +153,7 @@ def test_hog_lineage_split():
         w(f"{d}/h.tsv", "HOG\tOG\tGene Tree Parent Clade\tA\tB\tC\tD\nH1\tO1\tn\tx1\tx1b\tx2\t\nH2\tO2\tn\ty2\t\ty1\t\n")
         for mode, want in (("split", {"N1": (1, 0), "N2": (1, 0), "B": (0, 1), "C": (1, 0)}),
                            ("merge", {"N1": (1, 0), "N2": (1, 0), "B": (0, 1)})):
-            run(f"{S}/step5_rates.py", "--tree-config", cf, "--loci", f"{d}/l.tsv", "--genes", f"{d}/g.tsv",
+            run(f"{S}/step5_rates.py", "--no-overlap", "--tree-config", cf, "--loci", f"{d}/l.tsv", "--genes", f"{d}/g.tsv",
                 "--hogs", f"{d}/h.tsv", "--branch-lengths", f"{d}/len.tsv", "--hog-span", mode,
                 "--outdir", f"{d}/{mode}")
             r = csv.DictReader(open(f"{d}/{mode}/rates_by_branch.tsv"), delimiter="\t")
@@ -242,7 +242,7 @@ def test_id_suffix_rules():
         run(f"{S}/step1_coordinates.py", "--tree-config", cf, "--coords", f"{d}/coords", "--nodes", f"{d}/nodes",
             "--tblastn", f"{d}/tb", "--out", f"{d}/out/coords.tsv")
         run(f"{S}/step2_loci.py", "--tree-config", cf, "--coords", f"{d}/out/coords.tsv", "--outdir", f"{d}/out")
-        s5 = [f"{S}/step5_rates.py", "--tree-config", cf, "--loci", f"{d}/out/loci.tsv", "--genes", f"{d}/out/genes.tsv",
+        s5 = [f"{S}/step5_rates.py", "--no-overlap", "--tree-config", cf, "--loci", f"{d}/out/loci.tsv", "--genes", f"{d}/out/genes.tsv",
               "--branch-lengths", f"{d}/len.tsv"]
         w(f"{d}/p.tsv", "HOG\tOG\tGene Tree Parent Clade\tA\tB\tC\tD\n"
           "N0.H1\tOG1\tn\ta1.p\tb1.p\t\t\nN0.H2\tOG2\tn\ta2, a3\t\t\t\nN0.H3\tOG3\tn\ta4, a5\t\t\t\n")
@@ -255,9 +255,35 @@ def test_id_suffix_rules():
         run(*s5, "--hogs", f"{d}/e.tsv", "--outdir", f"{d}/r2", fail="would join different IDs")
 
 
+def test_overlap_required():
+    """The overlap check cannot be skipped silently. Step 5 stops without --overlap or --no-overlap. Step 3 stops when a
+    species of the coordinates (B) has no GFF, runs when B is named in --no-gff, and stops when a species is both in the
+    GFF table and in --no-gff."""
+    with tempfile.TemporaryDirectory() as d:
+        cf = build(d)
+        run(f"{S}/step1_coordinates.py", "--tree-config", cf, "--coords", f"{d}/coords", "--nodes", f"{d}/nodes",
+            "--tblastn", f"{d}/tb", "--out", f"{d}/out/coords.tsv")
+        run(f"{S}/step2_loci.py", "--tree-config", cf, "--coords", f"{d}/out/coords.tsv", "--outdir", f"{d}/out")
+        run(f"{S}/step5_rates.py", "--tree-config", cf, "--loci", f"{d}/out/loci.tsv", "--genes", f"{d}/out/genes.tsv",
+            "--hogs", f"{d}/N0.tsv", "--branch-lengths", f"{d}/len.tsv", "--outdir", f"{d}/r",
+            fail="one of the arguments --overlap --no-overlap is required")
+        w(f"{d}/gff/A.gff", "##gff-version 3\nchr1\tx\tgene\t1\t10\t.\t+\t.\tID=zzzz1\n")
+        w(f"{d}/gffs.tsv", "species\tgff\nA\tgff/A.gff\n")
+        hdr = "geneID\tfocal_species\tfile_name\tspecies_name\tchromosome\tstart\tend\tORF_Node\tSynteny_Node\t" \
+              "Enablers_Nodes\tGene_type\n"
+        w(f"{d}/c.tsv", hdr + "zzzz1\tA\tf\tA\tchr1\t1\t10\tA-specific\tN2\tNA\tPDNG\n"
+          "yy\tB\tf\tB\tchr1\t1\t10\tB-specific\tN2\tNA\tPDNG\n")
+        s3 = [f"{S}/step3_overlap.py", "--tree-config", cf, "--coords", f"{d}/c.tsv", "--gff-table", f"{d}/gffs.tsv"]
+        run(*s3, "--out", f"{d}/o1.tsv", fail="name them in --no-gff")
+        run(*s3, "--no-gff", "A,B", "--out", f"{d}/o2.tsv", fail="also listed in --no-gff")
+        run(*s3, "--no-gff", "B", "--out", f"{d}/o3.tsv")
+        got = [(r["species"], r["geneID"]) for r in csv.DictReader(open(f"{d}/o3.tsv"), delimiter="\t")]
+        assert got == [("A", "zzzz1")], got
+
+
 if __name__ == "__main__":
     for t in (test_toy, test_id_form_mismatch_stops, test_overlap_inside_long_gene, test_hog_lineage_split,
               test_overlap_classes, test_own_gene_rules,
-              test_id_suffix_rules):
+              test_id_suffix_rules, test_overlap_required):
         t()
         print(f"{t.__name__} PASSED")

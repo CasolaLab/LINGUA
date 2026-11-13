@@ -17,7 +17,7 @@ others.
 |---|---|---|---|
 | 1 | `step1_coordinates.py` | Joins the stage 3 step 17 coordinates of each locus in every genome with the stage 4 classification and the stage 4 tBLASTn table, keeping a genome only when tBLASTn finds the ORF there (stage 4 step 9 without its species lists) | `coords.tsv` |
 | 2 | `step2_loci.py` | Joins the genes of different species that occupy the same aligned position into one locus (union-find over coordinate overlap within the clade of the gene's ORF node, on either strand); a locus takes the oldest ORF node of its members, and is a DNG when any member is | `loci.tsv`, `genes.tsv` |
-| 3 | `step3_overlap.py` (optional) | Classifies each locus against the protein-coding genes of the species' GFF3 (same-strand CDS overlap, same-strand overlap without CDS overlap, antisense overlap, or the nearest neighbor); only loci whose coding exons overlap coding exons of a same-strand gene are left out in step 5. Overlaps between two candidate loci do not count | `overlap.tsv` |
+| 3 | `step3_overlap.py` | Classifies each locus against the protein-coding genes of the species' GFF3 (same-strand CDS overlap, same-strand overlap without CDS overlap, antisense overlap, or the nearest neighbor); only loci whose coding exons overlap coding exons of a same-strand gene are left out in step 5. Overlaps between two candidate loci do not count. Required: the run stops when a species has no GFF, unless it is named in `NO_GFF_SPECIES` (`--no-gff`), and step 5 needs `--overlap` (`--no-overlap` is for tests and comparisons only) | `overlap.tsv` |
 | 4 | `step4_unclustered_families.py` + BLASTp | For loci in no OrthoFinder orthogroup, BLASTp all against all within each species (E ≤ 10⁻⁵); connected loci form a family and only the longest protein is kept, whatever its type or age (as in the paper) | `unclustered/unclustered_families.tsv` |
 | 5 | `step5_rates.py` | Collapses loci sharing a HOG into one DNG origin and one PDNG origin per lineage, drops PDNGs whose every species also carries a DNG of that HOG, places each origin on the branch of its oldest locus, counts deaths by Dollo parsimony on tBLASTn presence, and divides by branch length | `rates_by_branch.tsv`, `origins.tsv`, `gene_status.tsv` |
 
@@ -85,7 +85,7 @@ others.
 | HOG table (`N0.tsv`, or the node table that holds every species) | OrthoFinder `Phylogenetic_Hierarchical_Orthogroups/`; its species columns must be species names or aliases in `tree_config.json` |
 | candidate proteins, one FASTA per species | the stage 4 input |
 | branch lengths: TSV `branch`, `length` (or `node`, `age`) | a time-calibrated tree; `data/branch_lengths_brassicaceae.tsv` is the paper's (million years) |
-| GFF3 per species (optional): TSV `species`, `gff`, optional `fai` | the annotations; give the `.fai` only when the GFF names chromosomes differently from the genome used in stage 3 |
+| GFF3 per species (required): TSV `species`, `gff`, optional `fai` (`GFF_TABLE`); species with no annotation are named in `NO_GFF_SPECIES` and counted without the overlap check | the annotations; give the `.fai` only when the GFF names chromosomes differently from the genome used in stage 3 |
 
 File-name patterns of step 1 can be changed with `--coords-glob`, `--nodes-glob` and `--tblastn-glob`. The species of
 each file is read from the start of its name and must be a species or alias in `tree_config.json`.
@@ -142,6 +142,9 @@ script it replaces:
   | merge (the paper) | 1,632 | 18,758 | 546 | 1,529 |
   | split (default) | 1,700 | 19,429 | 556 | 1,563 |
 
+  These counts use the loci of the paper (26,124 genes). A full driver run from the local stage 4 tBLASTn tables
+  (`cdngs_tblastn_results_Apr-2026`) gives 26,078 genes in 25,776 loci, and 1,700 DNG and 19,386 PDNG births, 563 DNG
+  and 1,573 PDNG deaths (2026-11-13); the paper's step 9 read the tBLASTn tables of the strict run on the server.
   With the split, 56 of 1,632 DNG HOG units become 124 origins and 465 of 18,758 PDNG units become 1,136.
   N0.HOG0019995 (four genes at four alignment positions) becomes three PDNG origins, at N5 (*Microthlaspi
   erraticum* and *Brassica oleracea*), N9 (*Arabidopsis lyrata*) and *Camelina neglecta*.
