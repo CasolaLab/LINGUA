@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="928.8pt" height="391.32pt" viewBox="0 0 928.8 391.32" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-13T12:24:47.759799</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 391.32 
+L 928.8 391.32 
+L 928.8 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 219.6 60.48 
+L 709.2 60.48 
+Q 716.4 60.48 716.4 53.28 
+L 716.4 10.8 
+Q 716.4 3.6 709.2 3.6 
+L 219.6 3.6 
+Q 212.4 3.6 212.4 10.8 
+L 212.4 53.28 
+Q 212.4 60.48 219.6 60.48 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #eef3f1; stroke: #5b5b5b; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 10.8 192.24 
+L 134.4 192.24 
+Q 141.6 192.24 141.6 185.04 
+L 141.6 107.28 
+Q 141.6 100.08 134.4 100.08 
+L 10.8 100.08 
+Q 3.6 100.08 3.6 107.28 
+L 3.6 185.04 
+Q 3.6 192.24 10.8 192.24 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 167.52 192.24 
+L 291.12 192.24 
+Q 298.32 192.24 298.32 185.04 
+L 298.32 107.28 
+Q 298.32 100.08 291.12 100.08 
+L 167.52 100.08 
+Q 160.32 100.08 160.32 107.28 
+L 160.32 185.04 
+Q 160.32 192.24 167.52 192.24 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 324.24 192.24 
+L 447.84 192.24 
+Q 455.04 192.24 455.04 185.04 
+L 455.04 107.28 
+Q 455.04 100.08 447.84 100.08 
+L 324.24 100.08 
+Q 317.04 100.08 317.04 107.28 
+L 317.04 185.04 
+Q 317.04 192.24 324.24 192.24 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 480.96 192.24 
+L 604.56 192.24 
+Q 611.76 192.24 611.76 185.04 
+L 611.76 107.28 
+Q 611.76 100.08 604.56 100.08 
+L 480.96 100.08 
+Q 473.76 100.08 473.76 107.28 
+L 473.76 185.04 
+Q 473.76 192.24 480.96 192.24 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 637.68 192.24 
+L 761.28 192.24 
+Q 768.48 192.24 768.48 185.04 
+L 768.48 107.28 
+Q 768.48 100.08 761.28 100.08 
+L 637.68 100.08 
+Q 630.48 100.08 630.48 107.28 
+L 630.48 185.04 
+Q 630.48 192.24 637.68 192.24 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 794.4 192.24 
+L 918 192.24 
+Q 925.2 192.24 925.2 185.04 
+L 925.2 107.28 
+Q 925.2 100.08 918 100.08 
+L 794.4 100.08 
+Q 787.2 100.08 787.2 107.28 
+L 787.2 185.04 
+Q 787.2 192.24 794.4 192.24 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 10.8 341.64 
+L 212.76 341.64 
+Q 219.96 341.64 219.96 334.44 
+L 219.96 239.04 
+Q 219.96 231.84 212.76 231.84 
+L 10.8 231.84 
+Q 3.6 231.84 3.6 239.04 
+L 3.6 334.44 
+Q 3.6 341.64 10.8 341.64 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 245.88 341.64 
+L 447.84 341.64 
+Q 455.04 341.64 455.04 334.44 
+L 455.04 239.04 
+Q 455.04 231.84 447.84 231.84 
+L 245.88 231.84 
+Q 238.68 231.84 238.68 239.04 
+L 238.68 334.44 
+Q 238.68 341.64 245.88 341.64 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 480.96 341.64 
+L 682.92 341.64 
+Q 690.12 341.64 690.12 334.44 
+L 690.12 239.04 
+Q 690.12 231.84 682.92 231.84 
+L 480.96 231.84 
+Q 473.76 231.84 473.76 239.04 
+L 473.76 334.44 
+Q 473.76 341.64 480.96 341.64 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 716.04 341.64 
+L 918 341.64 
+Q 925.2 341.64 925.2 334.44 
+L 925.2 239.04 
+Q 925.2 231.84 918 231.84 
+L 716.04 231.84 
+Q 708.84 231.84 708.84 239.04 
+L 708.84 334.44 
+Q 708.84 341.64 716.04 341.64 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #eef3f1; stroke: #5b5b5b; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 219.96 286.74 
+Q 229.32 286.74 237.002949 286.74 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 230.602949 283.54 
+L 237.002949 286.74 
+L 230.602949 289.94 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 455.04 286.74 
+Q 464.4 286.74 472.082949 286.74 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 465.682949 283.54 
+L 472.082949 286.74 
+L 465.682949 289.94 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 690.12 286.74 
+Q 699.48 286.74 707.162949 286.74 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 700.762949 283.54 
+L 707.162949 286.74 
+L 700.762949 289.94 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 464.4 60.48 
+L 464.4 80.28 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 72.6 80.28 
+L 856.2 80.28 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 72.6 80.28 
+Q 72.6 90.18 72.6 98.402949 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 75.8 92.002949 
+L 72.6 98.402949 
+L 69.4 92.002949 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 229.32 80.28 
+Q 229.32 90.18 229.32 98.402949 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 232.52 92.002949 
+L 229.32 98.402949 
+L 226.12 92.002949 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 386.04 80.28 
+Q 386.04 90.18 386.04 98.402949 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 389.24 92.002949 
+L 386.04 98.402949 
+L 382.84 92.002949 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 542.76 80.28 
+Q 542.76 90.18 542.76 98.402949 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 545.96 92.002949 
+L 542.76 98.402949 
+L 539.56 92.002949 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 699.48 80.28 
+Q 699.48 90.18 699.48 98.402949 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 702.68 92.002949 
+L 699.48 98.402949 
+L 696.28 92.002949 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 856.2 80.28 
+Q 856.2 90.18 856.2 98.402949 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 859.4 92.002949 
+L 856.2 98.402949 
+L 853 92.002949 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 72.6 192.24 
+L 72.6 212.04 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 229.32 192.24 
+L 229.32 212.04 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 386.04 192.24 
+L 386.04 212.04 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 542.76 192.24 
+L 542.76 212.04 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+   </g>
+   <g id="line2d_7">
+    <path d="M 699.48 192.24 
+L 699.48 212.04 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 856.2 192.24 
+L 856.2 212.04 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+   </g>
+   <g id="line2d_9">
+    <path d="M 72.6 212.04 
+L 856.2 212.04 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 111.78 212.04 
+Q 111.78 221.94 111.78 230.162949 
+" clip-path="url(#p5cc8f7db57)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 114.98 223.762949 
+L 111.78 230.162949 
+L 108.58 223.762949 
+z
+" clip-path="url(#p5cc8f7db57)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(107.999375 365.13873)">Screens run on all genes or each on the survivors of the previous one. Hits to the analysis species are not counted.</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(284.629063 381.16791)">Thresholds shown are the defaults; each can be changed.</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #1a1a1a" x="464.4" y="24.941836" transform="rotate(-0 464.4 24.941836)">Input</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 14px; font-family: 'Arial'; text-anchor: middle; fill: #1a1a1a" x="464.4" y="43.67709" transform="rotate(-0 464.4 43.67709)">candidate genes (stage 1), one protein FASTA per species</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="72.6" y="121.421836" transform="rotate(-0 72.6 121.421836)">InterProScan</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(10.739687 140.554121)">member databases;</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(19.447031 156.18627)">PANTHER family</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(29.80375 172.215449)">rule (optional)</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="229.32" y="121.421836" transform="rotate(-0 229.32 121.421836)">CDD</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(190.419687 141.545059)">RPS-BLAST</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(179.610156 156.668613)">E ≤ 0.01, ≥ 50%</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(186.906563 173.606699)">of the domain</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="386.04" y="121.421836" transform="rotate(-0 386.04 121.421836)">BLASTp</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(332.724062 141.463027)">database outside</text>
+    <!-- the clade; E ≤ 10$^{-3}$, -->
+    <g style="fill: #1a1a1a" transform="translate(325.77 157.60377)">
+     <text>
+      <tspan x="0" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">t</tspan>
+      <tspan x="3.889648" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">h</tspan>
+      <tspan x="11.675781" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">e</tspan>
+      <tspan x="19.461914" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a"> </tspan>
+      <tspan x="23.351562" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">c</tspan>
+      <tspan x="30.351562" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">l</tspan>
+      <tspan x="33.461914" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">a</tspan>
+      <tspan x="41.248047" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">d</tspan>
+      <tspan x="49.03418" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">e</tspan>
+      <tspan x="56.820312" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">;</tspan>
+      <tspan x="60.709961" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a"> </tspan>
+      <tspan x="64.599609" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">E</tspan>
+      <tspan x="73.9375" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a"> </tspan>
+      <tspan x="77.827148" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">≤</tspan>
+      <tspan x="85.510742" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a"> </tspan>
+      <tspan x="89.400391" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">1</tspan>
+      <tspan x="97.186523" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">0</tspan>
+      <tspan x="116.636426" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">,</tspan>
+      <tspan x="105.099805" y="-5.95625" style="font-size: 9.8px; font-family: 'Arial'; fill: #1a1a1a">−</tspan>
+      <tspan x="110.822852" y="-5.95625" style="font-size: 9.8px; font-family: 'Arial'; fill: #1a1a1a">3</tspan>
+     </text>
+    </g>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(339.007656 172.215449)">≥ 50% of query</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="542.76" y="121.421689" transform="rotate(-0 542.76 121.421689)">jackhmmer</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(506.576562 140.574902)">3 iterations;</text>
+    <!-- E ≤ 10$^{-3}$, ≥ 50% -->
+    <g style="fill: #1a1a1a" transform="translate(492.99 157.60377)">
+     <text>
+      <tspan x="0" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">E</tspan>
+      <tspan x="9.337891" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a"> </tspan>
+      <tspan x="13.227539" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">≤</tspan>
+      <tspan x="20.911133" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a"> </tspan>
+      <tspan x="24.800781" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">1</tspan>
+      <tspan x="32.586914" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">0</tspan>
+      <tspan x="52.036816" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">,</tspan>
+      <tspan x="55.926465" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a"> </tspan>
+      <tspan x="59.816113" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">≥</tspan>
+      <tspan x="67.499707" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a"> </tspan>
+      <tspan x="71.389355" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">5</tspan>
+      <tspan x="79.175488" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">0</tspan>
+      <tspan x="86.961621" y="-0.870313" style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a">%</tspan>
+      <tspan x="40.500195" y="-5.95625" style="font-size: 9.8px; font-family: 'Arial'; fill: #1a1a1a">−</tspan>
+      <tspan x="46.223242" y="-5.95625" style="font-size: 9.8px; font-family: 'Arial'; fill: #1a1a1a">3</tspan>
+     </text>
+    </g>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(517.469219 172.215449)">of query</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="699.48" y="121.421836" transform="rotate(-0 699.48 121.421836)">TE proteins</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(647.867031 140.239121)">BLASTp vs a TE</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(655.65125 156.100957)">protein library,</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(642.711094 172.215449)">≥ 50% of the gene</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="856.2" y="121.421689" transform="rotate(-0 856.2 121.421689)">Organelle</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(819.242188 141.545059)">tBLASTn vs</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(794.719219 156.100957)">organelle genomes;</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(813.01 172.130137)">any hit counts</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="111.78" y="253.181836" transform="rotate(-0 111.78 253.181836)">Combine</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(46.40875 271.91709)">a qualifying hit in any</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(30.852344 287.860957)">screen removes the gene;</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(47.185313 305.366699)">an unfinished search</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(70.148594 318.703066)">never passes</text>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="346.86" y="253.181836" transform="rotate(-0 346.86 253.181836)">HOG rule</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(274.10375 271.831777)">removes genes sharing</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(266.751563 287.881738)">≥ 20 aa with the hit region</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(288.493125 303.975449)">of a removed gene</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(307.5725 321.396973)">of their HOG</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="581.94" y="253.181689" transform="rotate(-0 581.94 253.181689)">Paralog rule</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(497.950938 271.91709)">removes genes with ≥ 50%</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(514.677656 287.94627)">identity over ≥ 50% of</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(502.940625 303.890137)">length to a non-candidate</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(511.512344 320.004629)">gene of their proteome</text>
+   </g>
+   <g id="text_22">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #1a1a1a" x="817.02" y="253.181836" transform="rotate(-0 817.02 253.181836)">Output</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(745.814688 271.91709)">lineage-specific genes,</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(734.663906 288.028301)">protein FASTA and BED of</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(764.10875 305.363418)">CDS coordinates</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(785.115313 319.940098)">→ stage 3</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5cc8f7db57">
+   <rect x="0" y="0" width="928.8" height="391.32"/>
+  </clipPath>
+ </defs>
+</svg>
