@@ -28,14 +28,14 @@ jobs:
         with:
           environment-name: tools
           create-args: -c conda-forge -c bioconda blast hmmer
-          init-shell: bash
+          init-shell: none
       - name: Shell scripts parse
         run: for f in scripts/*.sh setup/*.sh tests/*.sh; do bash -n "$f"; done
       - name: Run every test file
-        shell: bash -el {0}
         run: |
-          tools="$CONDA_PREFIX/bin"
-          export PATH="$(echo "$PATH" | tr ':' '\n' | grep -vxF "$tools" | paste -sd: -):$tools"
+          tools="$MAMBA_ROOT_PREFIX/envs/tools/bin"
+          [ -x "$tools/blastp" ] || { echo "blastp not found in $tools"; exit 1; }
+          export PATH="$PATH:$tools"
           echo "python: $(command -v python3) $(python3 --version)"; blastp -version | head -1; jackhmmer -h | sed -n 2p
           status=0
           for t in tests/test_*.py; do
