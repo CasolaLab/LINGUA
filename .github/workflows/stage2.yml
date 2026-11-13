@@ -22,6 +22,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - name: BLAST+ and HMMER for the run_stage2.sh test
+        run: sudo apt-get update && sudo apt-get install -y ncbi-blast+ hmmer
       - name: Shell scripts parse
         run: for f in scripts/*.sh setup/*.sh tests/*.sh; do bash -n "$f"; done
       - name: Run every test file
