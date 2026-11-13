@@ -57,6 +57,11 @@ bash $S hog-rule -i cand/ -o out/hog --combine out/combine --hogs N0.tsv --confi
 bash $S paralog-rule -i cand/ -o out/paralog --passed out/hog --proteomes proteomes/ --config $P
 ```
 
+From 0.3.4, `scripts/run_stage2.sh` runs the same sequence from one config (`CONFIG=presets/brassicaceae_2026.conf`,
+`TE_CONFIG=presets/brassicaceae_2026_te.conf`, `ORGANELLE_CONFIG=presets/organelle_tblastn.conf`); it was tested on a small
+hand-built example, not rerun on the study's 192,193 candidates. The `panther-families` table is built beforehand and given as
+`PANTHER_FAMILY_SPECIES`.
+
 The study kept ten BLASTp targets per database and counted genera across all five databases together. From 0.3.2 the module
 does both: with several `--db`, each database is searched as its own run (`blast-prokaryotes`, `blast-plants` and so on, ten
 targets each), and one more run labelled `blast` pools their hits and applies `min_genera` across all five databases

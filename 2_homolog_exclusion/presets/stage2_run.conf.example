@@ -1,0 +1,16 @@
+# stage2_run.conf.example - copy, edit and pass to scripts/run_stage2.sh. Paths are absolute or relative to where you run it.
+CANDIDATES=/path/to/stage1/candidate_proteins       # one protein FASTA per species
+OUTDIR=stage2_out
+BLAST_DBS="db/prokaryotes db/protists db/animals db/fungi db/plants"   # make-db output; each searched, hits pooled
+JACKHMMER_DB=db/all_proteins.faa
+CDD_DB=/path/to/Cdd
+TE_DB=db/te_proteins
+TE_CONFIG=presets/brassicaceae_2026_te.conf          # one alignment covering >= 50% of the candidate
+ORGANELLE_DB=db/organelle
+ORGANELLE_CONFIG=presets/organelle_tblastn.conf
+HOGS=/path/to/OrthoFinder/Phylogenetic_Hierarchical_Orthogroups/N0.tsv
+PROTEOMES=/path/to/stage0/final_proteins             # full proteomes, named like the candidate files
+CONFIG=                                              # e.g. presets/brassicaceae_2026.conf; empty = defaults
+THREADS=8
+SKIP_SCREENS=                                        # e.g. organelle when no organelle genomes exist; recorded in STATUS
+# SPECIES_MAP=  IPRSCAN_BIN=  PANTHER_FAMILY_SPECIES=

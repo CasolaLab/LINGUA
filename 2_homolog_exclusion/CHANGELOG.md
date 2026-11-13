@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.4 (2026-11-13)
+
+- New `scripts/run_stage2.sh`: stage 2 end to end from one config (`presets/stage2_run.conf.example`), namely the six screens
+  (BLASTp, jackhmmer, CDD, InterProScan, TE, organelle), `combine`, `hog-rule` and `paralog-rule`, in that order, with a `STATUS`
+  file (`RUNNING`, `SUCCEEDED`, `FAILED at step N`) and one log per step. The HOG rule and the paralog rule always run; a screen
+  can be left out only by naming it in `SKIP_SCREENS`, which the status records. A module exit status of 2 (genes not searched)
+  stops the run. The stage 2 output for stage 3 is `OUTDIR/paralog/passed/`. The modules are unchanged and still run on their own.
+- `tests/test_run_stage2.py`: the driver on a hand-built example with real BLAST+ and HMMER (eight candidates, each removed by
+  the intended step or passing).
+
 ## 0.3.3 (2026-11-11)
 
 - `presets/brassicaceae_2026.conf`: the jackhmmer composition-bias rule is removed (`max_bias_frac` blank; it was 0.5, so a hit

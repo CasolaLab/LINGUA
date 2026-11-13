@@ -24,8 +24,8 @@ Four search modules, each runnable on its own, plus tools to build databases and
 | `combine` | merges the runs into one per-gene table and a verdict (`PASS`, `REMOVED`, `INCOMPLETE`) | Python only |
 | `db-report` (optional) | shows how well your database covers the tree of life outside your clade | NCBI taxonomy |
 | `make-bed` (optional) | looks up CDS coordinates for a list of gene/protein IDs in a GFF3, for handoff to downstream steps | Python only |
-| `hog-rule` (optional, after `combine`) | removes passing genes homologous to the hit region of a removed gene in their OrthoFinder HOG | BLAST+ |
-| `paralog-rule` (optional, after `hog-rule`) | removes passing genes with a similar established gene (not a candidate) in their own proteome | BLAST+ |
+| `hog-rule` (after `combine`) | removes passing genes homologous to the hit region of a removed gene in their OrthoFinder HOG | BLAST+ |
+| `paralog-rule` (after `hog-rule`) | removes passing genes with a similar established gene (not a candidate) in their own proteome | BLAST+ |
 | `panther-families` | builds the PANTHER family/species table for the PANTHER family rule of `domain-interpro` | Python only |
 | `check` | reports which tools and databases are installed (changes nothing) | |
 
@@ -41,7 +41,7 @@ per-species protein FASTA, from Stage 1"])
 
     CAND --> DI & DC & HB & HJ
 
-    subgraph SEARCH[" Four independent search modules "]
+    subgraph SEARCH[" Four independent search modules (TE and organelle screens are homology-blast runs) "]
         direction LR
         DI["domain-interpro
 InterProScan"]
@@ -62,8 +62,12 @@ check its coverage"]] -.->|checks| MDB
     DI & DC & HB & HJ --> CMB["combine"]
     CMB --> VERDICT["gene_matrix.tsv
 PASS / REMOVED / INCOMPLETE"]
-    VERDICT --> PASS(["passed_all_ids.tsv
-passed_all/*.faa"])
+    VERDICT --> HR["hog-rule
+homology to a removed gene of the same HOG"]
+    HR --> PR["paralog-rule
+similar established gene in the same proteome"]
+    PR --> PASS(["paralog/passed_ids.tsv
+paralog/passed/*.faa"])
 
     PASS -.->|optional| MB["make-bed"]
     GFF["your GFF3 annotation"] -.->|optional| MB
@@ -79,7 +83,21 @@ previous one passed (`docs/workflows.md`). `make-db` and `db-report` are only fo
 which need a database; the domain modules don't. `make-bed` is general purpose and optional: it works from any GFF3 and
 any gene/protein ID list, not only `combine`'s output.
 
-## Quick start
+## Running the whole stage
+
+`scripts/run_stage2.sh` runs the complete stage 2 from one config: the six screens (BLASTp, jackhmmer, CDD, InterProScan, TE,
+organelle), `combine`, `hog-rule` and `paralog-rule`, in that order. The HOG rule and the paralog rule are part of every run; a
+screen is left out only when named in `SKIP_SCREENS` (for example `organelle` for a clade with no organelle genomes), and the
+`STATUS` file records it. The run stops as `FAILED at step N` when any module leaves a gene unsearched (exit status 2).
+
+```bash
+cp presets/stage2_run.conf.example my_stage2.conf      # edit the paths
+bash scripts/run_stage2.sh my_stage2.conf               # or: run_stage2.sh my_stage2.conf <first_step> <last_step>
+```
+
+The stage 2 result, the input of stage 3, is `OUTDIR/paralog/passed/` (one FASTA per species) and `OUTDIR/paralog/passed_ids.tsv`.
+
+## Quick start (one module)
 
 ```bash
 conda env create -f setup/environment.yml && conda activate hep     # BLAST+, HMMER, Java, Python 3.12

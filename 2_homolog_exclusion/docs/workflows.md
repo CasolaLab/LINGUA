@@ -67,6 +67,12 @@ Brassica rapa	BrapaFPsc
 
 The same file works for `make-db --exclude-inputs`, `db-report --clade-inputs` and every search module.
 
+## 0. The whole stage in one command
+
+`scripts/run_stage2.sh my.conf` (config from `presets/stage2_run.conf.example`) runs recipe 1 with all six screens, then
+`combine`, `hog-rule` and `paralog-rule`. This is how stage 2 of LINGUA is meant to run; the HOG and paralog rules are part of
+every run, and a screen is left out only when named in `SKIP_SCREENS`. See the README.
+
 ## 1. Everything on every gene, then merge
 
 Each run searches every gene. Use it when you want to see how the searches differ (which genes only the sensitive search removes).
