@@ -27,7 +27,7 @@
 # (BLASTp), 5 rates.
 set -euo pipefail
 
-[ $# -ge 1 ] || { sed -n '2,28p' "$0"; exit 1; }
+[ $# -ge 1 ] || { sed -n '2,27p' "$0"; exit 1; }
 CONF=$1; FIRST=${2:-1}; LAST=${3:-5}
 [ -f "$CONF" ] || { echo "ERROR: config not found: $CONF" >&2; exit 1; }
 case "$FIRST$LAST" in
