@@ -955,7 +955,7 @@ def main() -> None:
             sf.write("\t".join(row) + "\n")
 
     # Write AncSeq output #3
-    ancseq_nodes = [f"N{i}" for i in range(21, -1, -1)]
+    ancseq_nodes = list(_cfg.NODE_ORDER_YOUNG_TO_OLD)
     with ancseq_path.open("w") as af:
         af.write("\t".join(["geneID", "Node_AncSeq_ORF"] + ancseq_nodes) + "\n")
 
@@ -968,11 +968,9 @@ def main() -> None:
             if not focal_lineage_nodes and focal_canon:
                 focal_lineage_nodes = species_to_ancestors.get(focal_canon, [])
 
-            node_anc = focal_specific_label
-            for node in reversed(focal_lineage_nodes):  # oldest -> youngest, focal lineage only
-                if pres.get(node, 0) > 0:
-                    node_anc = node
-                    break
+            # oldest focal-lineage ancestor with the ORF (orf_node_contiguous: of the unbroken run above the focal species)
+            node_anc = _cfg.orf_node_from_cells(lambda n: pres.get(n, 0) > 0, list(reversed(focal_lineage_nodes)),
+                                                focal_specific_label)
 
             row = [gene_id, node_anc] + [str(pres[node]) for node in ancseq_nodes]
             af.write("\t".join(row) + "\n")
@@ -981,6 +979,15 @@ def main() -> None:
     print(f"Output TSV        : {out_path}")
     print(f"Summary output TSV: {summary_path}")
     print(f"AncSeq output TSV : {ancseq_path}")
+
+
+# ── tree configuration (lingua_config.py) ──
+import lingua_config as _cfg
+SPECIES_COLUMNS = list(_cfg.SPECIES)
+ABBREV_TO_CANON = dict(_cfg.ALIASES)
+CANON_SET = set(SPECIES_COLUMNS)
+NODE_CLADE_ABBREV = {k: list(v) for k, v in _cfg.NODE_CLADES.items()}
+NODE_CLADE_CANON = {k: set(v) for k, v in _cfg.NODE_CLADES.items()}
 
 
 if __name__ == "__main__":

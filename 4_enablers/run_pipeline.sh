@@ -1,41 +1,40 @@
 #!/usr/bin/env bash
 # run_pipeline.sh
 #
-# Runs the enabler-detection and node-assignment pipeline, steps 1-9, on the LINGUA
-# outputs of the 23-species Progressive Cactus alignment. Steps 6 and 7 include the rules
-# of the NEE revision (2026-10-28/29) that produced the published catalog of 1,811 DNGs,
-# namely step 6b (ORF-bearing nodes cannot carry disablers; whole event dropped), the step 7
-# classification with orf_clade_consistency and recorded enabler events (data/method_options.json),
-# step 7c (annotate_evidence.py), step 7d (option B) and step 7e (consecutive enablers).
-# Final classification: WORKDIR/stage4_final/nodes_summary_by_species/.
+# Stage 4 of LINGUA: enabler detection and DNG/PDNG classification, steps 1-9, from the stage 3 results.
+# Which rules apply is set by the method options file (data/method_options.json, or LINGUA_OPTIONS):
+#   data/method_options.json                           the default rules (T2T mammal rules of 2026-11-13)
+#   presets/method_options_brassicaceae_published.json the rules of the published Brassicaceae catalog (1,811 DNGs)
+# The tree (species, node labels, excluded nodes) comes from data/tree_config.json (or LINGUA_CONFIG), written by
+# scripts/make_tree_config.py. Final classification: WORKDIR/stage4_final/nodes_summary_by_species/.
 #
 # Usage:
 #   bash run_pipeline.sh WORKDIR [FIRST_STEP] [LAST_STEP]
 #
 # WORKDIR must contain the upstream inputs described in README.md, namely
-#   _all_species_data/                   LINGUA result archives, one .zip per species
+#   _all_species_data/                   stage 3 result archives, one .zip per species
 #   clsgs_45k_1line/                     candidate de novo gene proteins, one FASTA per species
 #   coordinates_alignments_all_species/  MAF block coordinates (only needed for step 9)
-# All outputs are written inside WORKDIR. Steps can be rerun individually, for
-# example `bash run_pipeline.sh work 4 4` reruns only the tBLASTn step. Set ONLY to a
-# space-separated list of query prefixes from data/species.tsv to restrict step 4, for
-# example `ONLY=athaliana bash run_pipeline.sh work`; the other steps process whatever
-# species are present in WORKDIR. Set REMOVE_LIST= (empty) to skip step 7b, the removal of
-# loci flagged by the original stage 2 domain and TE screens (data/lsgs_to_remove.txt); with
-# stage 2 of LINGUA v1.1 or later those loci never reach stage 3.
+# All outputs are written inside WORKDIR. Steps can be rerun individually, for example
+# `bash run_pipeline.sh work 4 4` reruns only the tBLASTn step. Set ONLY to a space-separated list of query
+# prefixes from data/species.tsv (or SPECIES_TSV) to restrict steps 4, 7c, 7d and 7e. REMOVE_LIST (default
+# data/lsgs_to_remove.txt, the loci of the original Brassicaceae stage 2 screens) is applied in step 7b; set
+# REMOVE_LIST= (empty) to skip it, as with stage 2 of LINGUA v1.1 or later. CONSERVED_NODES (step 7c) defaults to
+# excluded_orf_nodes of the tree config.
 
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPTS="$REPO/scripts"
-TREE="$REPO/data/SpeciesTree_rooted_node_labels_oct_16.txt"
-SPECIES="$REPO/data/species.tsv"
+TREE="${TREE:-$REPO/data/SpeciesTree_rooted_node_labels_oct_16.txt}"
+SPECIES="${SPECIES_TSV:-$REPO/data/species.tsv}"
 REMOVE_LIST="${REMOVE_LIST-$REPO/data/lsgs_to_remove.txt}"
 export LINGUA_CONFIG="${LINGUA_CONFIG:-$REPO/data/tree_config.json}"
 export LINGUA_OPTIONS="${LINGUA_OPTIONS:-$REPO/data/method_options.json}"
 PY="${PYTHON:-python3}"
 TBLASTN="${TBLASTN:-tblastn}"
 MAKEBLASTDB="${MAKEBLASTDB:-makeblastdb}"
+BLASTP="${BLASTP:-$(dirname "$(command -v "$TBLASTN" 2>/dev/null || echo ./blastp)")/blastp}"
 
 # Thresholds used for the published analysis
 FRAC_ORF=80      # minimum ORF conservation, % of the query length
@@ -52,10 +51,19 @@ die() { echo "ERROR: $*" >&2; exit 1; }
 need() { [ -e "$1" ] || die "missing $1"; }
 run() { [ "$1" -ge "$FIRST" ] && [ "$1" -le "$LAST" ]; }
 step() { echo; echo "=== step $1: $2 ==="; }
+# value of a method option, or the given default; opt: 1 if the option is true, else 0
+optval() { ( cd "$SCRIPTS" && "$PY" -c 'import sys, lingua_config as c; print(c.opt(sys.argv[1], sys.argv[2]))' "$1" "$2" ); }
+opt() { ( cd "$SCRIPTS" && "$PY" -c 'import sys, lingua_config as c; print(1 if c.opt(sys.argv[1]) else 0)' "$1" ); }
+only() { [ -z "${ONLY:-}" ] || [[ " $ONLY " == *" $1 "* ]]; }
 
-for f in "$TREE" "$SPECIES" "$LINGUA_CONFIG" "$LINGUA_OPTIONS"; do need "$f"; done
+for f in "$TREE" "$SPECIES" "$LINGUA_CONFIG"; do need "$f"; done
+[ -f "$LINGUA_OPTIONS" ] || die "missing method options $LINGUA_OPTIONS"
 [ -z "$REMOVE_LIST" ] || need "$REMOVE_LIST"
+echo "method options: $LINGUA_OPTIONS"
+echo "tree config:    $LINGUA_CONFIG"
+cp "$LINGUA_OPTIONS" "$WORK/logs/method_options_used.json"
 
+RESULTS="$WORK/brassicaceae_23species_LINGUA_results"
 NOGAPS="$WORK/brassicaceae_23species_LINGUA_nogaps"
 RENAMED="$WORK/45k_renamed"
 TBLASTN_OUT="$WORK/cdngs_tblastn_results"
@@ -65,6 +73,13 @@ OPTB="$WORK/stage4_optionB"
 FINAL="$WORK/stage4_final"
 NODES="$RULES/nodes_summary_by_species"
 FINAL_NODES="$FINAL/nodes_summary_by_species"
+INPUTS="$WORK/logs/stage4_inputs.tsv"
+
+# per-species inputs (scripts/stage4_inputs.py): focal qpref opref nodes_prefix aln_dir indel_table stop_table ancseq
+inputs() {
+    ( cd "$SCRIPTS" && "$PY" stage4_inputs.py "$SPECIES" "$RESULTS" "$WORK/indels_dir" "$WORK/stops_dir" "$TBLASTN_OUT" ) > "$INPUTS"
+}
+ok() { [ "$1" != NA ] || die "$2"; }
 
 if run 1; then
     step 1 "unpack LINGUA results into per-species alignment, indel and stop folders"
@@ -74,9 +89,8 @@ fi
 
 if run 2; then
     step 2 "remove alignment gaps from every per-species sequence"
-    need "$WORK/brassicaceae_23species_LINGUA_results"
-    "$PY" "$SCRIPTS/remove_gaps_batch_recursive.py" \
-        -i "$WORK/brassicaceae_23species_LINGUA_results" -o "$NOGAPS"
+    need "$RESULTS"
+    "$PY" "$SCRIPTS/remove_gaps_batch_recursive.py" -i "$RESULTS" -o "$NOGAPS"
 fi
 
 if run 3; then
@@ -91,19 +105,31 @@ if run 4; then
     need "$RENAMED"; need "$NOGAPS"
     mkdir -p "$TBLASTN_OUT"
     tail -n +2 "$SPECIES" | while IFS=$'\t' read -r qpref nogaps opref focal; do
-        if [ -n "${ONLY:-}" ] && [[ " $ONLY " != *" $qpref "* ]]; then continue; fi
+        only "$qpref" || continue
         faa=$(ls "$RENAMED"/"${qpref}"_cdngs_*.faa 2>/dev/null | head -1)
         [ -n "$faa" ] || die "no query FASTA for $qpref in $RENAMED"
         need "$NOGAPS/$nogaps"
         n=$(grep -c '^>' "$faa")
         base="$TBLASTN_OUT/${opref}_cdngs_tblastn_${n}"
         echo "  $focal: $n proteins"
+        rm -f "${base}_AncSeq.tblastn.tsv"   # a fresh step 4 table must not be shadowed by an old step 4b backup
         "$PY" "$SCRIPTS/blast_prts-vs-nogaps_AncSeq_v2.py" \
             "$faa" "$NOGAPS/$nogaps" "${base}.tsv" "${base}_summary.tsv" "${base}_AncSeq.tsv" \
             --tree "$TREE" --focal-species "$focal" \
             --frac_ORFss "$FRAC_ORF" --pident "$PIDENT" \
             --tblastn "$TBLASTN" --makeblastdb "$MAKEBLASTDB" --sanity-check
     done
+    if [ "$(optval orf_test tblastn)" = length ]; then
+        inputs
+        while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
+            only "$qpref" || continue
+            [ "$anc" != NA ] || continue
+            ok "$alnd" "step 4b: no alignment folder for $focal under $RESULTS"
+            step 4b "length-based ORF test for $focal (>= $(optval orf_min_len 80)% of the CDS, >= $(optval orf_min_in_frame 0)% in frame)"
+            "$PY" "$SCRIPTS/orf_length_node.py" "$anc" "$alnd" --focal-species "$focal" \
+                --min-len "$(optval orf_min_len 80)" --min-cov "$(optval orf_min_cov 80)"
+        done < "$INPUTS"
+    fi
 fi
 
 if run 5; then
@@ -114,32 +140,56 @@ if run 5; then
 fi
 
 if run 6; then
+    need "$WORK/indels_dir"; need "$WORK/stops_dir"; need "$TBLASTN_OUT"
+    inputs
+    if [ "$(opt start_codon_events)" = 1 ]; then
+        step 5b "add start-codon events (non-ATG at the focal ATG) to the stop tables"
+        while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
+            [ "$anc" != NA ] || continue
+            ok "$alnd" "step 5b: no alignment folder for $focal"; ok "$stpt" "step 5b: no stop table for $focal"
+            "$PY" "$SCRIPTS/add_start_codon_events.py" "$WORK/stops_dir" "$alnd" "$anc" --focal-species "$focal" --table "$stpt"
+        done < "$INPUTS"
+    elif ls "$WORK"/stops_dir/*.pre_start >/dev/null 2>&1; then
+        # start_codon_events off after a run with it on: restore the original stop tables
+        for f in "$WORK"/stops_dir/*.pre_start; do cp "$f" "${f%.pre_start}"; done
+    fi
     step 6 "assign shared indels and premature stop codons to nodes"
-    need "$WORK/indels_dir"; need "$WORK/stops_dir"
     "$PY" "$SCRIPTS/indel_oldest_shared_node_AncSeq_v2.py" "$WORK/indels_dir"
     "$PY" "$SCRIPTS/stops_oldest_shared_node_AncSeq_v2.py" "$WORK/stops_dir"
-    step 6b "drop disabler events that touch an ORF-bearing node (pre-filter tables kept as *_unfiltered.tsv)"
-    need "$TBLASTN_OUT"
-    n=0
-    for anc in "$TBLASTN_OUT"/*_cdngs_tblastn_*_AncSeq.tsv; do
-        pre=$(basename "$anc" | sed 's/_cdngs_tblastn.*//')
-        sp=$(cd "$SCRIPTS" && "$PY" -c 'import sys, lingua_config as c; print(c.canonicalize(sys.argv[1]))' "$pre")
-        ind="$WORK/indels_dir/all_indels_nodes_${sp}.tsv"; stp="$WORK/stops_dir/all_stops_nodes_${sp}.tsv"
-        [ -s "$ind" ] && [ -s "$stp" ] || die "step 6b: node tables missing for $sp ($pre)"
-        tmp="$WORK/step6b_tmp"; mkdir -p "$tmp" "$WORK/logs"
-        "$PY" "$SCRIPTS/step6b_orf_bearing_nodes_filter.py" "$anc" "$ind" "$stp" "$tmp" \
-            --log "$WORK/logs/step6b_${sp}.tsv" --drop-whole-event | sed "s/^/  $sp: /"
-        mv "$ind" "${ind%.tsv}_unfiltered.tsv"; mv "$stp" "${stp%.tsv}_unfiltered.tsv"
-        mv "$tmp/$(basename "$ind")" "$ind"; mv "$tmp/$(basename "$stp")" "$stp"
-        n=$((n + 1))
-    done
-    rmdir "$WORK/step6b_tmp"
-    echo "  step 6b: $n species filtered"
+    # step 6 just rewrote the event lists; a step 6b backup of an earlier run would otherwise be read instead of them
+    rm -f "$WORK"/indels_dir/all_indels_nodes_*.unfiltered.tsv
+    if [ "$(opt drop_terminal_indels)" = 1 ] || [ "$(opt homopolymer_needs_extant)" = 1 ]; then
+        step 6b "remove indel events that are not evidence (terminal gaps; homopolymers without extant support)"
+        while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
+            [ "$anc" != NA ] || continue
+            ok "$alnd" "step 6b: no alignment folder for $focal"; ok "$indt" "step 6b: no indel table for $focal"
+            "$PY" "$SCRIPTS/filter_enabler_events.py" "$WORK/indels_dir" "$alnd" --focal-species "$focal" --detail "$indt"
+        done < "$INPUTS"
+    fi
+    if [ "$(opt orf_bearing_nodes_filter)" = 1 ]; then
+        # an ancestor that carries the ORF (AncSeq table) cannot be a disabler node; an event touching any
+        # ORF-bearing node is dropped whole. The input of the last run is kept as *.pre_orf_bearing.tsv.
+        step 6c "drop disabler events that touch an ORF-bearing node (whole event)"
+        n=0
+        while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
+            [ "$anc" != NA ] || continue
+            ind="$WORK/indels_dir/all_indels_nodes_${focal}.tsv"; stp="$WORK/stops_dir/all_stops_nodes_${focal}.tsv"
+            [ -s "$ind" ] && [ -s "$stp" ] || die "step 6c: node tables missing for $focal ($opref)"
+            tmp="$WORK/step6c_tmp"; rm -rf "$tmp"; mkdir -p "$tmp"
+            "$PY" "$SCRIPTS/step6b_orf_bearing_nodes_filter.py" "$anc" "$ind" "$stp" "$tmp" \
+                --log "$WORK/logs/step6c_orf_bearing_${focal}.tsv" --drop-whole-event 2>&1 | sed "s/^/  $focal: /"
+            cp "$ind" "${ind%.tsv}.pre_orf_bearing.tsv"; cp "$stp" "${stp%.tsv}.pre_orf_bearing.tsv"
+            mv "$tmp/$(basename "$ind")" "$ind"; mv "$tmp/$(basename "$stp")" "$stp"
+            rmdir "$tmp"
+            n=$((n + 1))
+        done < "$INPUTS"
+        echo "  step 6c: $n species filtered"
+    fi
 fi
 
 if run 7; then
     step 7 "combine ORF, synteny and disabler nodes and classify DNGs and PDNGs"
-    [ ! -e "$RULES" ] || die "$RULES exists; remove it to rerun step 7"
+    for d in "$RULES" "$OPTB" "$FINAL"; do [ ! -e "$d" ] || die "$d exists; remove it to rerun step 7"; done
     "$PY" "$SCRIPTS/node_summary_tree_v2.py" --batch \
         --tblastn-dir "$TBLASTN_OUT" --synteny-dir "$SYNTENY_OUT" \
         --indels-dir "$WORK/indels_dir" --stops-dir "$WORK/stops_dir" \
@@ -160,49 +210,78 @@ for f in sorted(d.glob("*_nodes_summary.tsv")):
         print(f"  renamed {f.name} -> {new.name}")
 ' "$NODES" )
     if [ -n "$REMOVE_LIST" ]; then
-        step 7b "remove loci flagged by the original stage 2 domain and TE screens"
+        step 7b "remove loci listed in $(basename "$REMOVE_LIST")"
         "$PY" "$SCRIPTS/filter_nodes_summary_by_geneids.py" "$REMOVE_LIST" "$NODES"
+    else
+        step 7b "no REMOVE_LIST: every locus kept"
+        "$PY" "$SCRIPTS/filter_nodes_summary_by_geneids.py" /dev/null "$NODES"
     fi
-    step 7c "annotate the evidence behind every enabler node (any valid disabler at the node)"
-    ( cd "$SCRIPTS" && "$PY" - "$WORK" "$NODES" ) > "$WORK/logs/step7c_inputs.tsv" <<'EOF'
-import csv, glob, os, sys
-import lingua_config as cfg
-csv.field_size_limit(10 ** 9)
-wd, nodes = sys.argv[1:]
-aln = {}
-for d in glob.glob(os.path.join(wd, "brassicaceae_23species_LINGUA_results", "*")):
-    fs = glob.glob(os.path.join(d, "*.aln"))
-    sps = {sp for sp in cfg.SPECIES for f in fs[:50] if os.path.basename(f).startswith(sp + "_")}
-    if len(sps) == 1:
-        aln[sps.pop()] = d
-ind, stp = {}, {}
-for sub, pat, store in (("indels_dir", "*_indels_summary.tsv", ind), ("stops_dir", "*_stop_codon_summary.tsv", stp)):
-    for f in glob.glob(os.path.join(wd, sub, pat)):
-        r = next(csv.DictReader(open(f), delimiter="\t"), None)
-        hit = [sp for sp in cfg.SPECIES if r and r["file_name"].startswith(sp + "_")]
-        if len(hit) == 1:
-            store[hit[0]] = f
-for f in sorted(glob.glob(os.path.join(nodes, "*_nodes_summary_filtered.tsv"))):
-    pre = os.path.basename(f)[: -len("_nodes_summary_filtered.tsv")]
-    sp = cfg.canonicalize(pre)
-    if sp not in aln or sp not in ind or sp not in stp:
-        sys.exit(f"ERROR: step 7c inputs missing for {pre} ({sp})")
-    print("\t".join([pre, sp, aln[sp], ind[sp], stp[sp]]))
-EOF
-    while IFS=$'\t' read -r pre sp alnd indf stpf; do
-        "$PY" "$SCRIPTS/annotate_evidence.py" "$NODES" "$pre" "$alnd" "$indf" \
-            --focal-species "$sp" --stops-detail "$stpf" \
-            --all-indel-events "$WORK/indels_dir/all_indels_nodes_${sp}.tsv" \
-            --all-stop-events "$WORK/stops_dir/all_stops_nodes_${sp}.tsv"
-    done < "$WORK/logs/step7c_inputs.tsv"
-    step 7d "option B: a DNG needs extant support for its enabler nodes"
-    "$PY" "$SCRIPTS/apply_option_b_reclassification.py" "$RULES" "$OPTB"
-    step 7e "consecutive enablers: the parent and grandparent of the ORF node"
-    "$PY" "$SCRIPTS/apply_consecutive_enablers.py" "$OPTB" "$FINAL"
+    inputs
+    if [ "$(optval conserved_orf_filter True)" != False ]; then
+        CONSERVED_NODES="${CONSERVED_NODES:-$( cd "$SCRIPTS" && "$PY" -c 'import lingua_config as c; print(" ".join(sorted(c.EXCLUDED_ORF_NODES, key=lambda n: c.NODE_ORDER_YOUNG_TO_OLD.index(n))))' )}"
+        step 7c "remove candidates with an ORF in an ancestor outside the ingroup ($CONSERVED_NODES)"
+        if [ -n "$CONSERVED_NODES" ]; then
+            while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
+                only "$qpref" || continue
+                [ -s "$NODES/${npref}_nodes_summary_filtered.tsv" ] || continue
+                ok "$anc" "step 7c: no AncSeq table for $focal"
+                "$PY" "$SCRIPTS/remove_conserved_orfs.py" "$NODES" "$anc" "$npref" $CONSERVED_NODES
+            done < "$INPUTS"
+        fi
+    else
+        echo "  step 7c skipped (conserved_orf_filter false)"
+    fi
+    if [ "$(opt remove_literature_etes)" = 1 ]; then
+        ete_faa="$(optval ete_proteins '')"
+        [ -n "$ete_faa" ] || die "remove_literature_etes needs ete_proteins (a protein FASTA) in the method options"
+        case "$ete_faa" in /*) ;; *) ete_faa="$REPO/$ete_faa" ;; esac
+        need "$ete_faa"
+        step 7e "remove literature ETEs (BLASTp vs $(basename "$ete_faa"), >= 50% identity over >= 50% of the candidate or the ETE)"
+        while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
+            only "$qpref" || continue
+            [ -s "$NODES/${npref}_nodes_summary_filtered.tsv" ] || continue
+            faa=$(ls "$RENAMED"/"${qpref}"_cdngs_*.faa 2>/dev/null | head -1)
+            [ -n "$faa" ] || die "no query FASTA for $qpref in $RENAMED"
+            "$PY" "$SCRIPTS/remove_literature_etes.py" "$NODES" "$faa" "$npref" "$ete_faa" --blastp "$BLASTP" --makeblastdb "$MAKEBLASTDB"
+        done < "$INPUTS"
+    fi
+    if [ "$(opt annotate_evidence)" = 1 ]; then
+        step 7d "annotate the evidence behind every enabler node"
+        while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
+            only "$qpref" || continue
+            [ -s "$NODES/${npref}_nodes_summary_filtered.tsv" ] || continue
+            ok "$alnd" "step 7d: no alignment folder for $focal"; ok "$indt" "step 7d: no indel table for $focal"
+            ok "$stpt" "step 7d: no stop table for $focal"
+            allev=()
+            if [ "$(opt evidence_any_valid_disabler)" = 1 ]; then
+                allev=(--all-indel-events "$WORK/indels_dir/all_indels_nodes_${focal}.tsv"
+                       --all-stop-events "$WORK/stops_dir/all_stops_nodes_${focal}.tsv")
+            fi
+            "$PY" "$SCRIPTS/annotate_evidence.py" "$NODES" "$npref" "$alnd" "$indt" \
+                --focal-species "$focal" --stops-detail "$stpt" ${allev[@]+"${allev[@]}"}
+        done < "$INPUTS"
+    fi
+    # Steps 7f and 7g write parallel folders with only Gene_type rewritten (DNG -> PDNG):
+    # stage4_rules/ (before 7f), stage4_optionB/ (after 7f), stage4_final/ (after 7g, the final classification).
+    if [ "$(opt option_b_extant_support)" = 1 ] || [ "$(opt consecutive_enablers)" = 1 ]; then
+        [ "$(opt annotate_evidence)" = 1 ] || die "option_b_extant_support and consecutive_enablers need annotate_evidence"
+    fi
+    cur="$RULES"
+    if [ "$(opt option_b_extant_support)" = 1 ]; then
+        step 7f "option B: a DNG needs an extant carrier at each enabler node"
+        "$PY" "$SCRIPTS/apply_option_b_reclassification.py" "$cur" "$OPTB"
+        cur="$OPTB"
+    fi
+    if [ "$(opt consecutive_enablers)" = 1 ]; then
+        step 7g "consecutive enablers: the parent and grandparent of the ORF node"
+        "$PY" "$SCRIPTS/apply_consecutive_enablers.py" "$cur" "$FINAL"
+    else
+        mkdir -p "$FINAL"; cp -R "$cur/nodes_summary_by_species" "$FINAL/"
+    fi
 fi
 
 if run 8; then
-    step 8 "family-wide summaries of DNGs and PDNGs by node and species"
+    step 8 "summaries of DNGs and PDNGs by node and species"
     "$PY" "$SCRIPTS/summarize_nodes_by_species_split.py" "$FINAL_NODES" "$WORK/brassicaceae" --tree "$TREE"
 fi
 

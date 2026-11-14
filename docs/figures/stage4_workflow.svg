@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="928.8pt" height="319.32pt" viewBox="0 0 928.8 319.32" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="928.8pt" height="372.24pt" viewBox="0 0 928.8 372.24" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-11-13T12:24:48.115784</dc:date>
+    <dc:date>2026-11-13T19:34:36.347805</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -21,8 +21,8 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 319.32 
-L 928.8 319.32 
+   <path d="M 0 372.24 
+L 928.8 372.24 
 L 928.8 0 
 L 0 0 
 z
@@ -30,211 +30,211 @@ z
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 10.8 131.04 
-L 212.76 131.04 
-Q 219.96 131.04 219.96 123.84 
+    <path d="M 10.8 148.68 
+L 212.76 148.68 
+Q 219.96 148.68 219.96 141.48 
 L 219.96 10.8 
 Q 219.96 3.6 212.76 3.6 
 L 10.8 3.6 
 Q 3.6 3.6 3.6 10.8 
-L 3.6 123.84 
-Q 3.6 131.04 10.8 131.04 
+L 3.6 141.48 
+Q 3.6 148.68 10.8 148.68 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #eef3f1; stroke: #5b5b5b; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p89f326a00e)" style="fill: #eef3f1; stroke: #5b5b5b; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
-    <path d="M 245.88 131.04 
-L 447.84 131.04 
-Q 455.04 131.04 455.04 123.84 
+    <path d="M 245.88 148.68 
+L 447.84 148.68 
+Q 455.04 148.68 455.04 141.48 
 L 455.04 10.8 
 Q 455.04 3.6 447.84 3.6 
 L 245.88 3.6 
 Q 238.68 3.6 238.68 10.8 
-L 238.68 123.84 
-Q 238.68 131.04 245.88 131.04 
+L 238.68 141.48 
+Q 238.68 148.68 245.88 148.68 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p89f326a00e)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
-    <path d="M 480.96 131.04 
-L 682.92 131.04 
-Q 690.12 131.04 690.12 123.84 
+    <path d="M 480.96 148.68 
+L 682.92 148.68 
+Q 690.12 148.68 690.12 141.48 
 L 690.12 10.8 
 Q 690.12 3.6 682.92 3.6 
 L 480.96 3.6 
 Q 473.76 3.6 473.76 10.8 
-L 473.76 123.84 
-Q 473.76 131.04 480.96 131.04 
+L 473.76 141.48 
+Q 473.76 148.68 480.96 148.68 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p89f326a00e)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
-    <path d="M 716.04 131.04 
-L 918 131.04 
-Q 925.2 131.04 925.2 123.84 
+    <path d="M 716.04 148.68 
+L 918 148.68 
+Q 925.2 148.68 925.2 141.48 
 L 925.2 10.8 
 Q 925.2 3.6 918 3.6 
 L 716.04 3.6 
 Q 708.84 3.6 708.84 10.8 
-L 708.84 123.84 
-Q 708.84 131.04 716.04 131.04 
+L 708.84 141.48 
+Q 708.84 148.68 716.04 148.68 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p89f326a00e)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
-    <path d="M 10.8 315.72 
-L 165.744 315.72 
-Q 172.944 315.72 172.944 308.52 
-L 172.944 177.84 
-Q 172.944 170.64 165.744 170.64 
-L 10.8 170.64 
-Q 3.6 170.64 3.6 177.84 
-L 3.6 308.52 
-Q 3.6 315.72 10.8 315.72 
+    <path d="M 10.8 368.64 
+L 165.744 368.64 
+Q 172.944 368.64 172.944 361.44 
+L 172.944 195.48 
+Q 172.944 188.28 165.744 188.28 
+L 10.8 188.28 
+Q 3.6 188.28 3.6 195.48 
+L 3.6 361.44 
+Q 3.6 368.64 10.8 368.64 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p89f326a00e)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
-    <path d="M 198.864 315.72 
-L 353.808 315.72 
-Q 361.008 315.72 361.008 308.52 
-L 361.008 177.84 
-Q 361.008 170.64 353.808 170.64 
-L 198.864 170.64 
-Q 191.664 170.64 191.664 177.84 
-L 191.664 308.52 
-Q 191.664 315.72 198.864 315.72 
+    <path d="M 198.864 368.64 
+L 353.808 368.64 
+Q 361.008 368.64 361.008 361.44 
+L 361.008 195.48 
+Q 361.008 188.28 353.808 188.28 
+L 198.864 188.28 
+Q 191.664 188.28 191.664 195.48 
+L 191.664 361.44 
+Q 191.664 368.64 198.864 368.64 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p89f326a00e)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_8">
-    <path d="M 386.928 315.72 
-L 541.872 315.72 
-Q 549.072 315.72 549.072 308.52 
-L 549.072 177.84 
-Q 549.072 170.64 541.872 170.64 
-L 386.928 170.64 
-Q 379.728 170.64 379.728 177.84 
-L 379.728 308.52 
-Q 379.728 315.72 386.928 315.72 
+    <path d="M 386.928 368.64 
+L 541.872 368.64 
+Q 549.072 368.64 549.072 361.44 
+L 549.072 195.48 
+Q 549.072 188.28 541.872 188.28 
+L 386.928 188.28 
+Q 379.728 188.28 379.728 195.48 
+L 379.728 361.44 
+Q 379.728 368.64 386.928 368.64 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p89f326a00e)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_9">
-    <path d="M 574.992 315.72 
-L 729.936 315.72 
-Q 737.136 315.72 737.136 308.52 
-L 737.136 177.84 
-Q 737.136 170.64 729.936 170.64 
-L 574.992 170.64 
-Q 567.792 170.64 567.792 177.84 
-L 567.792 308.52 
-Q 567.792 315.72 574.992 315.72 
+    <path d="M 574.992 368.64 
+L 729.936 368.64 
+Q 737.136 368.64 737.136 361.44 
+L 737.136 195.48 
+Q 737.136 188.28 729.936 188.28 
+L 574.992 188.28 
+Q 567.792 188.28 567.792 195.48 
+L 567.792 361.44 
+Q 567.792 368.64 574.992 368.64 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p89f326a00e)" style="fill: #ffffff; stroke: #14694c; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_10">
-    <path d="M 763.056 315.72 
-L 918 315.72 
-Q 925.2 315.72 925.2 308.52 
-L 925.2 177.84 
-Q 925.2 170.64 918 170.64 
-L 763.056 170.64 
-Q 755.856 170.64 755.856 177.84 
-L 755.856 308.52 
-Q 755.856 315.72 763.056 315.72 
+    <path d="M 763.056 368.64 
+L 918 368.64 
+Q 925.2 368.64 925.2 361.44 
+L 925.2 195.48 
+Q 925.2 188.28 918 188.28 
+L 763.056 188.28 
+Q 755.856 188.28 755.856 195.48 
+L 755.856 361.44 
+Q 755.856 368.64 763.056 368.64 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #eef3f1; stroke: #5b5b5b; stroke-width: 1.6; stroke-linejoin: miter"/>
+" clip-path="url(#p89f326a00e)" style="fill: #eef3f1; stroke: #5b5b5b; stroke-width: 1.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_11">
-    <path d="M 219.96 67.32 
-Q 229.32 67.32 237.002949 67.32 
-" clip-path="url(#p3d8bedd207)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
-    <path d="M 230.602949 64.12 
-L 237.002949 67.32 
-L 230.602949 70.52 
+    <path d="M 219.96 76.14 
+Q 229.32 76.14 237.002949 76.14 
+" clip-path="url(#p89f326a00e)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 230.602949 72.94 
+L 237.002949 76.14 
+L 230.602949 79.34 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+" clip-path="url(#p89f326a00e)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
    </g>
    <g id="patch_12">
-    <path d="M 455.04 67.32 
-Q 464.4 67.32 472.082949 67.32 
-" clip-path="url(#p3d8bedd207)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
-    <path d="M 465.682949 64.12 
-L 472.082949 67.32 
-L 465.682949 70.52 
+    <path d="M 455.04 76.14 
+Q 464.4 76.14 472.082949 76.14 
+" clip-path="url(#p89f326a00e)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 465.682949 72.94 
+L 472.082949 76.14 
+L 465.682949 79.34 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+" clip-path="url(#p89f326a00e)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
    </g>
    <g id="patch_13">
-    <path d="M 690.12 67.32 
-Q 699.48 67.32 707.162949 67.32 
-" clip-path="url(#p3d8bedd207)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
-    <path d="M 700.762949 64.12 
-L 707.162949 67.32 
-L 700.762949 70.52 
+    <path d="M 690.12 76.14 
+Q 699.48 76.14 707.162949 76.14 
+" clip-path="url(#p89f326a00e)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 700.762949 72.94 
+L 707.162949 76.14 
+L 700.762949 79.34 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+" clip-path="url(#p89f326a00e)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
    </g>
    <g id="patch_14">
-    <path d="M 172.944 243.18 
-Q 182.304 243.18 189.986949 243.18 
-" clip-path="url(#p3d8bedd207)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
-    <path d="M 183.586949 239.98 
-L 189.986949 243.18 
-L 183.586949 246.38 
+    <path d="M 172.944 278.46 
+Q 182.304 278.46 189.986949 278.46 
+" clip-path="url(#p89f326a00e)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 183.586949 275.26 
+L 189.986949 278.46 
+L 183.586949 281.66 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+" clip-path="url(#p89f326a00e)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
    </g>
    <g id="patch_15">
-    <path d="M 361.008 243.18 
-Q 370.368 243.18 378.050949 243.18 
-" clip-path="url(#p3d8bedd207)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
-    <path d="M 371.650949 239.98 
-L 378.050949 243.18 
-L 371.650949 246.38 
+    <path d="M 361.008 278.46 
+Q 370.368 278.46 378.050949 278.46 
+" clip-path="url(#p89f326a00e)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 371.650949 275.26 
+L 378.050949 278.46 
+L 371.650949 281.66 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+" clip-path="url(#p89f326a00e)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
    </g>
    <g id="patch_16">
-    <path d="M 549.072 243.18 
-Q 558.432 243.18 566.114949 243.18 
-" clip-path="url(#p3d8bedd207)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
-    <path d="M 559.714949 239.98 
-L 566.114949 243.18 
-L 559.714949 246.38 
+    <path d="M 549.072 278.46 
+Q 558.432 278.46 566.114949 278.46 
+" clip-path="url(#p89f326a00e)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 559.714949 275.26 
+L 566.114949 278.46 
+L 559.714949 281.66 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+" clip-path="url(#p89f326a00e)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
    </g>
    <g id="patch_17">
-    <path d="M 737.136 243.18 
-Q 746.496 243.18 754.178949 243.18 
-" clip-path="url(#p3d8bedd207)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
-    <path d="M 747.778949 239.98 
-L 754.178949 243.18 
-L 747.778949 246.38 
+    <path d="M 737.136 278.46 
+Q 746.496 278.46 754.178949 278.46 
+" clip-path="url(#p89f326a00e)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 747.778949 275.26 
+L 754.178949 278.46 
+L 747.778949 281.66 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+" clip-path="url(#p89f326a00e)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
    </g>
    <g id="line2d_1">
-    <path d="M 817.02 131.04 
-L 817.02 150.84 
-" clip-path="url(#p3d8bedd207)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+    <path d="M 817.02 148.68 
+L 817.02 168.48 
+" clip-path="url(#p89f326a00e)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
    </g>
    <g id="line2d_2">
-    <path d="M 88.272 150.84 
-L 817.02 150.84 
-" clip-path="url(#p3d8bedd207)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
+    <path d="M 88.272 168.48 
+L 817.02 168.48 
+" clip-path="url(#p89f326a00e)" style="fill: none; stroke: #14694c; stroke-width: 1.5"/>
    </g>
    <g id="patch_18">
-    <path d="M 88.272 150.84 
-Q 88.272 160.74 88.272 168.962949 
-" clip-path="url(#p3d8bedd207)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
-    <path d="M 91.472 162.562949 
-L 88.272 168.962949 
-L 85.072 162.562949 
+    <path d="M 88.272 168.48 
+Q 88.272 178.38 88.272 186.602949 
+" clip-path="url(#p89f326a00e)" style="fill: none; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 91.472 180.202949 
+L 88.272 186.602949 
+L 85.072 180.202949 
 z
-" clip-path="url(#p3d8bedd207)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
+" clip-path="url(#p89f326a00e)" style="fill: #14694c; stroke: #14694c; stroke-width: 1.5; stroke-linecap: round"/>
    </g>
    <g id="text_1">
     <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #1a1a1a" x="111.78" y="24.941836" transform="rotate(-0 111.78 24.941836)">Input</text>
@@ -254,16 +254,17 @@ z
     <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(286.157969 75.732168)">ancestral sequence</text>
    </g>
    <g id="text_5">
-    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="581.94" y="24.941836" transform="rotate(-0 581.94 24.941836)">4  ORF presence</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="581.94" y="24.941836" transform="rotate(-0 581.94 24.941836)">4–4b  ORF presence</text>
    </g>
    <g id="text_6">
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(496.731406 43.759121)">tBLASTn of each protein vs</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(494.787813 59.620957)">every species and ancestor;</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(509.975625 75.821855)">intact ORF: Met to stop</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(487.618281 91.764629)">≥ 80% of query, ≥ 40% identity</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(517.744531 43.681465)">longest ORF of each</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(515.793281 59.702988)">species and ancestor</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(507.287188 76.217793)">≥ 80% of the focal CDS,</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(521.6875 93.053066)">≥ 50% of it in frame</text>
    </g>
    <g id="text_7">
-    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; text-anchor: middle; fill: #5b5b5b" x="581.94" y="114.232383" transform="rotate(-0 581.94 114.232383)">→ oldest ORF node</text>
+    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(486.213906 115.281699)">→ oldest node of the unbroken</text>
+    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(489.350781 130.477988)">run of ORF-bearing ancestors</text>
    </g>
    <g id="text_8">
     <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="817.02" y="24.941689" transform="rotate(-0 817.02 24.941689)">5  Synteny</text>
@@ -276,64 +277,66 @@ z
     <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; text-anchor: middle; fill: #5b5b5b" x="817.02" y="78.952383" transform="rotate(-0 817.02 78.952383)">→ oldest syntenic node</text>
    </g>
    <g id="text_11">
-    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="88.272" y="191.981836" transform="rotate(-0 88.272 191.981836)">6–6b  Disablers</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="88.272" y="209.621836" transform="rotate(-0 88.272 209.621836)">5b–6c  Disablers</text>
    </g>
    <g id="text_12">
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(22.51575 210.713809)">indels and premature</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(27.234188 226.681738)">stops shared by ≥ 2</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(12.398563 244.167793)">nodes between the ORF</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(29.511375 258.719316)">and synteny nodes</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(15.519031 228.353809)">indels, premature stops</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(11.227156 244.300957)">and start-codon changes</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(18.625281 260.330137)">shared by consecutive</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(57.925906 277.63791)">ancestors</text>
    </g>
    <g id="text_13">
-    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(15.519031 282.321699)">events on ORF-bearing</text>
-    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(41.569969 297.517988)">nodes dropped</text>
+    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(15.519031 299.961699)">events on ORF-bearing</text>
+    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(22.888719 315.157988)">nodes, end gaps and</text>
+    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(11.242469 330.354277)">homopolymer indels with</text>
+    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(10.065594 345.591855)">no extant carrier dropped</text>
    </g>
    <g id="text_14">
-    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="276.336" y="191.981689" transform="rotate(-0 276.336 191.981689)">7  Classify</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="276.336" y="209.621689" transform="rotate(-0 276.336 209.621689)">7–7c  Classify</text>
    </g>
    <g id="text_15">
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(212.13725 212.105059)">DNG: enabler on the</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(204.748969 228.138613)">branch before the ORF</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(208.242406 243.257793)">node, absent from the</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(203.983344 259.291348)">ORF clade; else PDNG</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(212.13725 229.745059)">DNG: enabler on the</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(204.748969 245.778613)">branch before the ORF</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(208.242406 260.897793)">node, absent from the</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(203.983344 276.931348)">ORF clade; else PDNG</text>
    </g>
    <g id="text_16">
-    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(217.724125 282.321699)">ORF window set in</text>
-    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(226.919281 297.517988)">tree_config.json</text>
+    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(206.037406 299.961699)">ORF found outside the</text>
+    <text style="font-style: italic; font-size: 14px; font-family: 'Arial'; fill: #5b5b5b" transform="translate(214.865063 315.157988)">ingroup → removed</text>
    </g>
    <g id="text_17">
-    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="464.4" y="191.981836" transform="rotate(-0 464.4 191.981836)">7c–7e  Corroborate</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="464.4" y="209.621689" transform="rotate(-0 464.4 209.621689)">7d–7g  Corroborate</text>
    </g>
    <g id="text_18">
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(387.345313 212.023027)">both enabler nodes seen</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(400.587344 226.742988)">in an extant species,</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(392.021094 242.690137)">and they are the parent</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(393.573125 258.804629)">and grandparent of the</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(393.21 275.320527)">ORF node; else PDNG</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(387.345313 229.663027)">both enabler nodes seen</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(400.587344 244.382988)">in an extant species,</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(392.021094 260.330137)">and they are the parent</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(393.573125 276.444629)">and grandparent of the</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(393.21 292.960527)">ORF node; else PDNG</text>
    </g>
    <g id="text_19">
-    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="652.464" y="191.981836" transform="rotate(-0 652.464 191.981836)">8–9  Summarize</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #14694c" x="652.464" y="209.621836" transform="rotate(-0 652.464 209.621836)">8–9  Summarize</text>
    </g>
    <g id="text_20">
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(591.366031 210.631777)">counts by node and</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(582.037438 226.742988)">species; loci placed on</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(599.154625 242.690137)">internal nodes by</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(616.277281 260.110566)">coordinates</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(591.366031 228.271777)">counts by node and</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(582.037438 244.382988)">species; loci placed on</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(599.154625 260.330137)">internal nodes by</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(616.277281 277.750566)">coordinates</text>
    </g>
    <g id="text_21">
-    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #1a1a1a" x="840.528" y="191.981836" transform="rotate(-0 840.528 191.981836)">Output</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial'; text-anchor: middle; fill: #1a1a1a" x="840.528" y="209.621836" transform="rotate(-0 840.528 209.621836)">Output</text>
    </g>
    <g id="text_22">
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(759.220813 210.71709)">DNG and PDNG catalogs;</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(788.787063 228.052207)">node summaries</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(804.733938 242.772168)">per species</text>
-    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(808.623313 258.651504)">→ stage 5</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(759.220813 228.35709)">DNG and PDNG catalogs;</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(788.787063 245.692207)">node summaries</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(804.733938 260.412168)">per species</text>
+    <text style="font-size: 14px; font-family: 'Arial'; fill: #1a1a1a" transform="translate(808.623313 276.291504)">→ stage 5</text>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="p3d8bedd207">
-   <rect x="0" y="0" width="928.8" height="319.32"/>
+  <clipPath id="p89f326a00e">
+   <rect x="0" y="0" width="928.8" height="372.24"/>
   </clipPath>
  </defs>
 </svg>

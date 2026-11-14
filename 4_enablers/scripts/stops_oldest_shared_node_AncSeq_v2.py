@@ -209,7 +209,7 @@ def oldest_and_younger_from_ancseq_row(row, lineage_nodes):
     return present_nodes[0], present_nodes[1]
 
 
-def collect_gene_lineage_stop_nodes(ancseq_counts: pd.DataFrame, lineage_nodes):
+def collect_gene_lineage_stop_nodes(ancseq_counts: pd.DataFrame, lineage_nodes, living=None, focal=None):
     """
     Build rows for all_stops_nodes_<FocalSpecies>.tsv.
 
@@ -227,9 +227,12 @@ def collect_gene_lineage_stop_nodes(ancseq_counts: pd.DataFrame, lineage_nodes):
     """
     rows = []
 
+    # Enabler-node exclusions and conditions come from the tree config (the published
+    # scripts hardcoded {"N0", "N1"}). A conditional node counts only when every node it
+    # requires carries the same event (T2T: N0 only together with N1, decided 2026-10-08).
     lineage_nodes_no_N0_N1 = [
         node for node in lineage_nodes
-        if node not in {"N0", "N1"}
+        if node not in _cfg.EXCLUDED_ENABLER_NODES
     ]
 
     for _, row in ancseq_counts.iterrows():
@@ -243,17 +246,37 @@ def collect_gene_lineage_stop_nodes(ancseq_counts: pd.DataFrame, lineage_nodes):
                 continue
 
             value = pd.to_numeric(row[node], errors="coerce")
-            if pd.notna(value) and value > 0:
+            if pd.notna(value) and value > 0 and all(
+                    pd.to_numeric(row.get(req, 0), errors="coerce") > 0
+                    for req in _cfg.CONDITIONAL_ENABLER_NODES.get(node, ())):
                 present_nodes.append(node)
 
         if len(present_nodes) < 2:
             continue
 
-        rows.append({
-            "geneID": geneID,
-            "StopCodonStart_RefPos": stop_start,
-            "Nodes_stops": "|".join(present_nodes),
-        })
+        # contiguous_event_nodes: an event is inherited only along contiguous lineage ancestors; a run
+        # broken by a non-carrier implies separate origins, so each run of >= 2 is its own event
+        if _cfg.opt("event_gap_living_inferred") and living is not None:
+            present_nodes, inf = _cfg.fill_single_gaps(present_nodes, lineage_nodes, living.get((geneID, str(stop_start)), ()), focal)
+            GAP_INFERRED.extend((geneID, n) for n in inf)
+        runs = [present_nodes]
+        if _cfg.opt("contiguous_event_nodes"):
+            runs, cur = [], [present_nodes[0]]
+            for prev, node in zip(present_nodes, present_nodes[1:]):
+                if lineage_nodes.index(node) == lineage_nodes.index(prev) + 1:
+                    cur.append(node)
+                else:
+                    runs.append(cur)
+                    cur = [node]
+            runs.append(cur)
+        for run in runs:
+            if len(run) < 2:
+                continue
+            rows.append({
+                "geneID": geneID,
+                "StopCodonStart_RefPos": stop_start,
+                "Nodes_stops": "|".join(run),
+            })
 
     if not rows:
         return pd.DataFrame(columns=["geneID", "StopCodonStart_RefPos", "Nodes_stops"])
@@ -378,7 +401,31 @@ def process_one_file(infile: str, outdir: str):
     # -----------------------------
     # Output 4: all focal-lineage ancestral nodes with STOP codons per gene
     # -----------------------------
-    all_nodes_df = collect_gene_lineage_stop_nodes(ancseq_counts, lineage_nodes)
+    # 2026-10-09, T2T: with stops_focal_frame_only, only stops in the focal reading frame and other
+    # than the focal ORF's own terminal stop become shared events. Step 13 calls stops in each
+    # sequence's own frame, so a stop at one position in several ancestors can be the same unchanged
+    # triplet read after unrelated frameshifts; frameshifts are still counted as indel events.
+    stop_events = ancseq_counts
+    if _cfg.STOPS_FOCAL_FRAME_ONLY:
+        if "reference_length" not in df.columns:
+            raise SystemExit("ERROR: stops_focal_frame_only needs the reference_length column")
+        ref_len = df.groupby("gff_transcriptID")["reference_length"].first().astype(int)
+        pos = stop_events["StopCodonStart_RefPos"].astype(int)
+        L = stop_events["gff_transcriptID"].map(ref_len)
+        if L.isna().any():
+            raise SystemExit("ERROR: stop events without a reference_length")
+        keep = ((pos - 1) % 3 == 0) & (pos != L - 2)
+        print(f"  stops_focal_frame_only: kept {int(keep.sum())} of {len(keep)} stop events")
+        stop_events = stop_events[keep]
+    living = None
+    if _cfg.opt("event_gap_living_inferred"):
+        living = {}
+        for (g_, p_), sub in df_species.groupby(["gff_transcriptID", "StopCodonStart_RefPos"]):
+            living[(g_, str(p_))] = set(sub["Species_clean"])
+    del GAP_INFERRED[:]
+    all_nodes_df = collect_gene_lineage_stop_nodes(stop_events, lineage_nodes, living, focal)
+    if _cfg.opt("event_gap_living_inferred"):
+        print(f"  event_gap_living_inferred: {len(GAP_INFERRED)} single-ancestor gaps filled from living species")
 
     out3 = os.path.join(outdir, f"all_stops_nodes_{focal}.tsv")
     all_nodes_df.to_csv(out3, sep="\t", index=False)
@@ -422,6 +469,17 @@ def main():
 
     for infile in files:
         process_one_file(infile, outdir)
+
+GAP_INFERRED = []
+
+# ── tree configuration (lingua_config.py) ──
+import lingua_config as _cfg
+ALIASES = dict(_cfg.ALIASES)
+SPECIES_ORDER = list(_cfg.SPECIES)
+ANCSEQ_NODE_ORDER = list(_cfg.NODE_ORDER_YOUNG_TO_OLD)
+NODE_CLADE_ABBREV = {k: list(v) for k, v in _cfg.NODE_CLADES.items()}
+NODE_CLADE_CANON = {k: set(v) for k, v in _cfg.NODE_CLADES.items()}
+
 
 if __name__ == "__main__":
     main()

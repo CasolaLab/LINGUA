@@ -434,5 +434,6 @@
     "N1"
   ],
   "conditional_enabler_nodes": {},
-  "stops_focal_frame_only": false
+  "stops_focal_frame_only": false,
+  "reference_species": "Arabidopsis_thaliana"
 }

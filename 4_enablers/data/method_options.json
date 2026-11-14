@@ -1,1 +1,25 @@
-{"record_enabler_events": true, "orf_clade_consistency": true}
+{
+ "record_enabler_events": true,
+ "skip_events_in_younger_nodes": true,
+ "annotate_evidence": true,
+ "orf_test": "length",
+ "orf_min_len": 80,
+ "orf_min_cov": 80,
+ "indel_events_by_length": true,
+ "contiguous_event_nodes": true,
+ "orf_count_stop": true,
+ "drop_terminal_indels": true,
+ "homopolymer_needs_extant": true,
+ "remove_literature_etes": false,
+ "homopolymer_support_any_outgroup": true,
+ "orf_bearing_nodes_filter": true,
+ "orf_clade_consistency": true,
+ "evidence_any_valid_disabler": true,
+ "option_b_extant_support": true,
+ "consecutive_enablers": true,
+ "orf_node_contiguous": true,
+ "orf_min_in_frame": 50,
+ "start_codon_events": true,
+ "event_gap_living_inferred": true,
+ "option_b_outer_side_branch": true
+}

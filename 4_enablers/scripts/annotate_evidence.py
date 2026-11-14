@@ -99,15 +99,18 @@ def main():
         younger = set(cfg.NODE_CLADES[lineage[i + 1]]) if i + 1 < len(lineage) else {F}
         return set(cfg.NODE_CLADES[node]) - younger
 
-    def node_lengths(kind, gk, pos, node, nodes):
+    def node_lengths(kind, gk, pos, node, nodes, inferred_nodes=()):
         """Lengths of the event at `node` (indels), else at the nearest older lineage node of the event that
-        carries it (living-inferred nodes have no reconstructed copy); 'stop' for stops."""
+        carries it (living-inferred nodes have no reconstructed copy of the event: their own reconstructed indel at
+        the same start, when it has another length, is a different event and is not used; fix 2026-11-13); 'stop'
+        for stops."""
         if kind == "stop":
             return {"stop"}
-        own = {L for L, c in lengths[(gk, pos)].items() if node in c}
+        own = {L for L, c in lengths[(gk, pos)].items() if node in c} if node not in inferred_nodes else set()
         if own:
             return own
-        older = [x for x in lineage if x in nodes and lineage.index(x) < lineage.index(node)] if node in lineage else []
+        older = [x for x in lineage if x in nodes and x not in inferred_nodes
+                 and lineage.index(x) < lineage.index(node)] if node in lineage else []
         for x in reversed(older):
             got = {L for L, c in lengths[(gk, pos)].items() if x in c}
             if got:
@@ -146,6 +149,7 @@ def main():
         enablers = set((r["Enablers_Nodes"] or "NA").split("|")) - {"NA"}
         rec = {"geneID": g, "Gene_type": r["Gene_type"], "Enablers_Nodes": r["Enablers_Nodes"]}
         support = collections.defaultdict(list)
+        via = {}
         extant = collections.defaultdict(set)
         contra = collections.defaultdict(set)
         for kind, pcol, ncol in (("indel", "Indels_event_RefPos", "Indels_Node"),
@@ -194,6 +198,8 @@ def main():
                     x, k, q = item.split(":")
                     inferred[(k, q)].add(x)
             extant = collections.defaultdict(set)
+            proxy = collections.defaultdict(dict)  # option_b_outer_side_branch: node -> {older branch node: carriers}
+            outer = cfg.opt("option_b_outer_side_branch")
             for kind, pos, ev_nodes in all_events[gk]:
                 nodes_e = ev_nodes | inferred.get((kind, pos), set())
                 if nodes_e & inside_nodes:
@@ -201,13 +207,42 @@ def main():
                 for n in enablers & nodes_e:
                     if n not in lineage:
                         continue
-                    L = node_lengths(kind, gk, pos, n, nodes_e)
+                    L = node_lengths(kind, gk, pos, n, nodes_e, inferred.get((kind, pos), set()))
                     car = event_carriers(kind, gk, pos, L)
                     if car & (oclade - {F}):
                         continue
                     hit = car & side_branch(n) & species
                     if hit:
                         extant[n] |= hit
+                    elif outer:
+                        # the node's own side branch has no aligned data at the event: a living carrier on an older
+                        # side branch of the focal lineage may stand in (T2T 2026-11-13, rule 2)
+                        c0 = cols[min(int(pos) - 1, len(cols) - 1)]
+                        lo_c, hi_c = max(0, c0 - 10), c0 + 11
+                        side_n = side_branch(n) & species
+                        if any(sp in aln and any(ch not in "-N" for ch in aln[sp][lo_c:hi_c]) for sp in side_n):
+                            continue
+                        for x in lineage[:lineage.index(n)]:
+                            h = car & side_branch(x) & species
+                            if h:
+                                proxy[n].setdefault(x, set()).update(h)
+            via = {}
+            if outer:
+                # each enabler node needs its own observed side branch, or a distinct older one standing in; one
+                # outgroup branch cannot support both nodes (a lone outgroup cannot polarize the root)
+                ens = [n for n in enablers if n in lineage]
+                choices = [[n] if extant[n] else sorted(proxy[n]) for n in ens]
+                best = None
+                import itertools
+                for combo in itertools.product(*choices) if all(choices) else ():
+                    if len(set(combo)) == len(combo):
+                        best = combo
+                        break
+                if best is not None:
+                    for n, x in zip(ens, best):
+                        if not extant[n]:
+                            extant[n] |= proxy[n][x]
+                            via[n] = x
             for n in enablers:
                 if n in lineage and inferred and any(n in v for v in inferred.values()) and not extant[n]:
                     die(f"{g}: living-inferred enabler {n} has no living carrier; step 7 and step 7d disagree")
@@ -216,7 +251,7 @@ def main():
                                    or any(n not in support for n in enablers) else "no")
         if a.stops_detail:
             ordered = sorted(enablers, key=lambda x: (lineage.index(x) if x in lineage else -1, x))
-            rec["extant_support"] = ";".join(f"{n}:{','.join(sorted(extant[n])) or '-'}"
+            rec["extant_support"] = ";".join(f"{n}:{'via ' + via[n] + ':' if n in via else ''}{','.join(sorted(extant[n])) or '-'}"
                                              for n in sorted(enablers, key=lambda x: lineage.index(x) if x in lineage else -1)) or "NA"
             rec["extant_contradicting"] = ";".join(f"{n}:{','.join(sorted(contra[n] - extant[n])) or '-'}"
                                                    for n in sorted(enablers, key=lambda x: lineage.index(x) if x in lineage else -1)) or "NA"

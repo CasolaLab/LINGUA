@@ -428,8 +428,9 @@ def main() -> None:
     ap.add_argument("--tree", required=True, help="Newick tree file with labeled internal nodes.")
     ap.add_argument(
         "--reference-species",
-        default="Arabidopsis_thaliana",
-        help="Species used to order tips by relatedness. Default: Arabidopsis_thaliana",
+        default=None,
+        help="Species used to order tips by relatedness. Default: reference_species of the tree config, "
+             "else its first ingroup species",
     )
     args = ap.parse_args()
 
@@ -446,7 +447,8 @@ def main() -> None:
         die(f"No *_nodes_summary_filtered.tsv files found in {input_dir}")
 
     root = parse_newick(tree_path)
-    tree_species_order = species_order_by_relatedness(root, args.reference_species)
+    ref = args.reference_species or _cfg.CFG.get("reference_species") or _cfg.CFG["ingroup_species"][0]
+    tree_species_order = species_order_by_relatedness(root, ref)
     tree_rank = {sp: i for i, sp in enumerate(tree_species_order)}
 
     species_to_file: Dict[str, Path] = {}
@@ -517,6 +519,18 @@ def main() -> None:
     print(f"Wrote: {out_dng_age}", file=sys.stderr)
     print(f"Wrote: {out_totals}", file=sys.stderr)
     print(f"Wrote: {out_long}", file=sys.stderr)
+
+
+# ── tree configuration (lingua_config.py) ──
+import lingua_config as _cfg
+EXCLUDED_ORF_NODES = set(_cfg.EXCLUDED_ORF_NODES)
+NODE_COLS = ["Species-specific"] + [n for n in _cfg.NODE_ORDER_YOUNG_TO_OLD
+                                    if n not in EXCLUDED_ORF_NODES]
+AGE_HEADER = ["Species_name", "Total"] + NODE_COLS
+
+
+def canonicalize_species(s: str) -> str:
+    return _cfg.canonicalize(s)
 
 
 if __name__ == "__main__":

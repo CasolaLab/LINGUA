@@ -8,7 +8,7 @@ python3 node_summary_tree_v2.py \
   --indels-dir indels_dir \
   --stops-dir Stops_dir \
   --tree SpeciesTree_rooted_node_labels_oct_16.txt \
-  --outdir nodes_summary_by_species
+  --outdir hyper_summary/nodes_summary_by_species
 
 
 python3 node_summary_tree_v2.py \

@@ -35,19 +35,13 @@ next to the <prefix>_nodes_summary_filtered.tsv files)
 """
 
 import csv
+import glob
 import os
 import shutil
 import sys
 from collections import Counter
 
 csv.field_size_limit(10 ** 9)
-
-# file prefixes in nodes_summary_by_species/, the 21 Brassicaceae plus the two outgroups (no DNGs)
-SPECIES = ["aalpina", "aarabicum", "ahalleri", "alyrata", "anemorensis", "athaliana", "boleracea",
-           "brapa", "bstricta", "camaraamara", "cgrandiflora", "cneglecta", "crubella", "csativa",
-           "esalsugineum", "iindigotica", "merraticum", "rsativus", "salba", "sparvula",
-           "tarvensevarmn106", "tcacao", "thassleriana"]
-
 
 def main():
     if len(sys.argv) != 3:
@@ -66,7 +60,17 @@ def main():
 
     tot = Counter()
     print(f"  {'species':<30}{'DNG in':>8}{'DNG out':>9}{'->PDNG':>8}", file=sys.stderr)
-    for sp in SPECIES:
+    # T2T: species are the *_nodes_summary_filtered.tsv files present (the Brassicaceae list was hardcoded);
+    # every other file of the folder (ETE, conserved-ORF, BLASTp tables...) is copied unchanged
+    species = sorted(os.path.basename(f)[: -len("_nodes_summary_filtered.tsv")]
+                     for f in glob.glob(os.path.join(sd, "*_nodes_summary_filtered.tsv")))
+    if not species:
+        sys.exit(f"ERROR: no *_nodes_summary_filtered.tsv in {sd}")
+    for f in glob.glob(os.path.join(sd, "*")):
+        b = os.path.basename(f)
+        if not (b.endswith("_nodes_summary_filtered.tsv") or b.endswith("_evidence.tsv")):
+            shutil.copy2(f, os.path.join(dd, b))
+    for sp in species:
         f_sum = os.path.join(sd, f"{sp}_nodes_summary_filtered.tsv")
         f_ev = os.path.join(sd, f"{sp}_evidence.tsv")
         for p in (f_sum, f_ev):
@@ -95,10 +99,6 @@ def main():
             w.writeheader()
             w.writerows(rows)
         shutil.copy2(f_ev, os.path.join(dd, f"{sp}_evidence.tsv"))
-        for other in (f"{sp}_nodes_summary.tsv", f"{sp}_conserved_orf_removed.tsv"):
-            s = os.path.join(sd, other)
-            if os.path.isfile(s):
-                shutil.copy2(s, os.path.join(dd, other))
         c = Counter(r["Gene_type"] for r in rows)
         tot.update(c)
         tot["dng_in"] += n_in; tot["dng_out"] += n_out

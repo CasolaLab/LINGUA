@@ -155,8 +155,9 @@ def parse_geneid_from_filename(fname: str) -> str:
     if len(parts) >= 2 and parts[0] in {"XP", "NP", "YP", "WP"}:
         return parts[0] + "_" + parts[1]
 
-    # Case 2: geneIDs like Aa_G1910.h1.t1
-    if len(parts) >= 2 and re.fullmatch(r"[A-Za-z]{1,4}", parts[0]) and re.match(r"^G", parts[1]):
+    # Case 2: geneIDs like Aa_G1910.h1.t1, and the T2T mouse IDs mhaESC_G10Chr01g00007.t1 and mouse_G50ChrYg00041.t1
+    # (a 1-4 letter prefix only collapsed every mouse ID to "mhaESC" or "mouse", 2026-11-12)
+    if len(parts) >= 2 and re.fullmatch(r"[A-Za-z]+", parts[0]) and re.match(r"^G", parts[1]):
         return parts[0] + "_" + parts[1]
 
     # Default case: geneID is the first token after species name
@@ -580,7 +581,6 @@ def main() -> int:
                 node_flags = gene_ancseq_pass[geneID]
 
                 oldest_node = f"{focal}-specific"
-                # Only ancestors of the focal species can be its oldest syntenic node.
                 lineage = set(ancestors_young_to_old)
                 for nlab in sorted(all_anc_nodes, key=lambda x: int(x[1:])):  # N0 oldest -> N21 youngest
                     if nlab not in lineage:
@@ -670,7 +670,7 @@ def main() -> int:
         status = 0
         for subdir in subdirs:
             species_key = subdir.name[:-len("_stitched_nogaps")]
-            focal_species = species_dir_to_focal.get(species_key)
+            focal_species = species_dir_to_focal.get(species_key) or _cfg.ALIASES.get(species_key) or _cfg.ALIASES.get(species_key.lower())
             if focal_species is None:
                 print(f"WARNING: skipping {subdir.name}; cannot infer focal species from prefix '{species_key}'.", file=sys.stderr)
                 status = 1
@@ -712,6 +712,15 @@ def main() -> int:
         Path(args.out_by_ancseq_tsv),
         args.focal_species,
     )
+
+
+# ── tree configuration (lingua_config.py) ──
+import lingua_config as _cfg
+SPECIES_COLUMNS = list(_cfg.SPECIES)
+
+
+def canonicalize_species(s: str) -> str:
+    return _cfg.canonicalize(s)
 
 
 if __name__ == "__main__":

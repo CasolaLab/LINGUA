@@ -123,6 +123,9 @@ def main():
     ap.add_argument("--stops-focal-frame-only", action="store_true",
                     help="Step 6: count only stop events in the focal reading frame, excluding the focal "
                          "terminal stop (decided 2026-10-09 for the T2T tree).")
+    ap.add_argument("--reference-species", default=None,
+                    help="Step 8: species whose relatives are listed first in the summary tables "
+                         "(default: the first ingroup species).")
     args = ap.parse_args()
     if not os.path.isfile(args.tree):
         sys.exit(f"ERROR: tree not found: {args.tree}")
@@ -199,6 +202,8 @@ def main():
         "conditional_enabler_nodes": conditional,
         "stops_focal_frame_only": args.stops_focal_frame_only,
     }
+    if args.reference_species:
+        cfg["reference_species"] = args.reference_species
     os.makedirs(args.outdir, exist_ok=True)
     json.dump(cfg, open(os.path.join(args.outdir, "tree_config.json"), "w"), indent=2)
     open(os.path.join(args.outdir, "species_tree_N.nwk"), "w").write(to_newick(root) + ";\n")

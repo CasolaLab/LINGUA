@@ -1,0 +1,10 @@
+{
+ "record_enabler_events": true,
+ "orf_clade_consistency": true,
+ "orf_bearing_nodes_filter": true,
+ "annotate_evidence": true,
+ "evidence_any_valid_disabler": true,
+ "option_b_extant_support": true,
+ "consecutive_enablers": true,
+ "conserved_orf_filter": false
+}

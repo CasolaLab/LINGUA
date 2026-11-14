@@ -291,7 +291,7 @@ def oldest_and_younger_from_ancseq_row(row, lineage_nodes):
     return present_nodes[0], present_nodes[1]
 
 
-def collect_gene_lineage_indel_nodes(ancseq_counts: pd.DataFrame, lineage_nodes):
+def collect_gene_lineage_indel_nodes(ancseq_counts: pd.DataFrame, lineage_nodes, living=None, focal=None):
     """
     Build rows for all_indels_nodes_<FocalSpecies>.tsv.
 
@@ -309,9 +309,12 @@ def collect_gene_lineage_indel_nodes(ancseq_counts: pd.DataFrame, lineage_nodes)
     """
     rows = []
 
+    # Enabler-node exclusions and conditions come from the tree config (the published
+    # scripts hardcoded {"N0", "N1"}). A conditional node counts only when every node it
+    # requires carries the same event (T2T: N0 only together with N1, decided 2026-10-08).
     lineage_nodes_no_N0_N1 = [
         node for node in lineage_nodes
-        if node not in {"N0", "N1"}
+        if node not in _cfg.EXCLUDED_ENABLER_NODES
     ]
 
     for _, row in ancseq_counts.iterrows():
@@ -325,17 +328,37 @@ def collect_gene_lineage_indel_nodes(ancseq_counts: pd.DataFrame, lineage_nodes)
                 continue
 
             value = pd.to_numeric(row[node], errors="coerce")
-            if pd.notna(value) and value > 0:
+            if pd.notna(value) and value > 0 and all(
+                    pd.to_numeric(row.get(req, 0), errors="coerce") > 0
+                    for req in _cfg.CONDITIONAL_ENABLER_NODES.get(node, ())):
                 present_nodes.append(node)
 
         if len(present_nodes) < 2:
             continue
 
-        rows.append({
-            "geneID": geneID,
-            "IndelStart_RefPos": indel_start,
-            "Nodes_indels": "|".join(present_nodes),
-        })
+        # contiguous_event_nodes: an event is inherited only along contiguous lineage ancestors; a run
+        # broken by a non-carrier implies separate origins, so each run of >= 2 is its own event
+        if _cfg.opt("event_gap_living_inferred") and living is not None:
+            present_nodes, inf = _cfg.fill_single_gaps(present_nodes, lineage_nodes, living.get((geneID, str(indel_start), str(row["IndelLength"])) if "IndelLength" in row.index else (geneID, str(indel_start)), ()), focal)
+            GAP_INFERRED.extend((geneID, n) for n in inf)
+        runs = [present_nodes]
+        if _cfg.opt("contiguous_event_nodes"):
+            runs, cur = [], [present_nodes[0]]
+            for prev, node in zip(present_nodes, present_nodes[1:]):
+                if lineage_nodes.index(node) == lineage_nodes.index(prev) + 1:
+                    cur.append(node)
+                else:
+                    runs.append(cur)
+                    cur = [node]
+            runs.append(cur)
+        for run in runs:
+            if len(run) < 2:
+                continue
+            rows.append({
+                "geneID": geneID,
+                "IndelStart_RefPos": indel_start,
+                "Nodes_indels": "|".join(run),
+            })
 
     if not rows:
         return pd.DataFrame(columns=["geneID", "IndelStart_RefPos", "Nodes_indels"])
@@ -494,7 +517,30 @@ def process_one_file(infile: str, outdir: str):
     # -----------------------------
     # Output 4: all focal-lineage ancestral nodes with indels per gene
     # -----------------------------
-    all_nodes_df = collect_gene_lineage_indel_nodes(ancseq_counts, lineage_nodes)
+    # indel_events_by_length: an event is (position, length), so different indels starting at one
+    # base are not merged; the indels_by_AncSeq table written above is unchanged
+    event_counts = ancseq_counts
+    if _cfg.opt("indel_events_by_length") and not df_ancseq.empty:
+        event_counts = (
+            df_ancseq.groupby(["gff_transcriptID", "IndelStart_RefPos", "IndelLength", "Species_clean"])
+            .size()
+            .unstack(fill_value=0)
+        )
+        for node in ANCSEQ_NODE_ORDER:
+            if node not in event_counts.columns:
+                event_counts[node] = 0
+        event_counts = event_counts[ANCSEQ_NODE_ORDER].reset_index()
+    living = None
+    if _cfg.opt("event_gap_living_inferred"):
+        living = {}
+        by_len = _cfg.opt("indel_events_by_length")
+        cols = ["gff_transcriptID", "IndelStart_RefPos"] + (["IndelLength"] if by_len else [])
+        for k_, sub in df_species.groupby(cols):
+            living[tuple(str(x) for x in k_)] = set(sub["Species_clean"])
+    del GAP_INFERRED[:]
+    all_nodes_df = collect_gene_lineage_indel_nodes(event_counts, lineage_nodes, living, focal)
+    if _cfg.opt("event_gap_living_inferred"):
+        print(f"  event_gap_living_inferred: {len(GAP_INFERRED)} single-ancestor gaps filled from living species")
 
     out3 = os.path.join(outdir, f"all_indels_nodes_{focal}.tsv")
     all_nodes_df.to_csv(out3, sep="\t", index=False)
@@ -542,6 +588,17 @@ def main():
 
     for infile in files:
         process_one_file(infile, outdir)
+
+GAP_INFERRED = []
+
+# ── tree configuration (lingua_config.py) ──
+import lingua_config as _cfg
+ALIASES = dict(_cfg.ALIASES)
+SPECIES_ORDER = list(_cfg.SPECIES)
+ANCSEQ_NODE_ORDER = list(_cfg.NODE_ORDER_YOUNG_TO_OLD)
+NODE_CLADE_ABBREV = {k: list(v) for k, v in _cfg.NODE_CLADES.items()}
+NODE_CLADE_CANON = {k: set(v) for k, v in _cfg.NODE_CLADES.items()}
+
 
 if __name__ == "__main__":
     main()
