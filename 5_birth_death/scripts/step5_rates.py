@@ -25,6 +25,9 @@ branch length.
    the ORF of any of the unit's genes in that genome (step 1); an internal node carries it when any descendant does;
    N carries it. A death is recorded on every branch below N whose parent carries the unit and which does not. This
    is the fewest deaths for one origin at N. Units born on a species branch have no deaths.
+   With --unknown (T2T 2026-11-13), genomes listed there for a gene (alignment row missing or too sparse to call) take
+   whichever state gives the fewest deaths (dollo_unknown): missing data never adds a death. The log gives the deaths
+   this removed.
 4. Rates = count / branch length, for every branch from the ingroup crown down, and for every species.
 
 Gene IDs of loci.tsv are compared with the HOG table after removing isoform and '.p' suffixes, within a species
@@ -73,6 +76,8 @@ def main():
     ov.add_argument("--overlap", help="step 3 output")
     ov.add_argument("--no-overlap", action="store_true",
                     help="count without the gene-overlap filter (tests and comparisons only)")
+    ap.add_argument("--unknown", default=None,
+                    help="TSV species, geneID, unknown_in: genomes without a usable call, taken as carriers for deaths")
     ap.add_argument("--families")
     ap.add_argument("--hog-id-match", choices=("normalized", "exact"), default="normalized")
     ap.add_argument("--hog-span", choices=("split", "merge"), default="split")
@@ -92,6 +97,13 @@ def main():
     presence = {}
     for r in read_tsv(a.genes):
         presence[(tree.canon(r["species"]), r["geneID"])] = set(filter(None, r["present_in"].split(";")))
+    unknown = {}
+    if a.unknown:
+        need(a.unknown)
+        for r in read_tsv(a.unknown):
+            unknown[(tree.canon(r["species"]), r["geneID"])] = {tree.canon(x) for x in r["unknown_in"].split(";") if x}
+        log(f"--unknown: {len(unknown):,} genes with genomes taken as carriers for deaths only")
+    removed_by_unknown = Counter()
 
     excluded = {}
     overlap_classes = {"same_strand_cds_overlap"} | (
@@ -196,6 +208,36 @@ def main():
             counter[x] += 1
         return lost
 
+    def dollo_unknown(origin, pres, unk, counter):
+        """Dollo with genomes of unknown state: each unknown genome takes the state (carrier or not) that gives the
+        fewest deaths for the origin, so missing data never adds a death. c1/c0 = fewest deaths below a node that
+        carries / does not carry (c0 possible only when no carrier genome is below it). Ties put the death on the
+        higher branch, as plain Dollo does. With no unknown genome this equals dollo() (checked on every call)."""
+        if origin not in tree.clades:
+            return []
+        INF = float("inf")
+        c1, c0 = {}, {}
+        for x in tree.postorder(origin):
+            if x in tree.clades:
+                c1[x] = sum(min(c1[ch], c0[ch] + 1) for ch in tree.children[x])
+                c0[x] = 0 if all(c0[ch] == 0 for ch in tree.children[x]) else INF
+            else:
+                c1[x] = 0 if (x in pres or x in unk) else INF
+                c0[x] = INF if x in pres else 0
+        lost, stack = [], [origin]
+        while stack:
+            x = stack.pop()
+            for ch in tree.children.get(x, ()) if x in tree.clades else ():
+                if c0[ch] + 1 <= c1[ch]:
+                    lost.append(ch)
+                else:
+                    stack.append(ch)
+        order = {n: i for i, n in enumerate(tree.subtree(origin))}
+        lost.sort(key=lambda n: order[n])
+        for x in lost:
+            counter[x] += 1
+        return lost
+
     def pres_of(member_lists):
         out = set()
         for ms in member_lists:
@@ -239,7 +281,18 @@ def main():
             for k, (br, mls) in enumerate(lineages(items), 1):
                 label = hk if k == 1 else f"{hk}#{k}"
                 births[gt][br] += 1
-                lost = dollo(br, pres_of(mls), deaths[gt])
+                pres = pres_of(mls)
+                if unknown:
+                    unk = set().union(*[unknown.get(m, set()) for ms in mls for m in ms]) - pres
+                    strict = dollo(br, pres, Counter())
+                    if sorted(dollo_unknown(br, pres, set(), Counter())) != sorted(strict):
+                        die(f"dollo_unknown without unknown genomes differs from dollo for {hk} at {br}")
+                    lost = dollo_unknown(br, pres, unk, deaths[gt])
+                    if len(lost) > len(strict):
+                        die(f"{hk}: unknown genomes added a death")
+                    removed_by_unknown[gt] += len(strict) - len(lost)
+                else:
+                    lost = dollo(br, pres, deaths[gt])
                 origins.append([label, gt, br, ";".join(lost), len(mls)])
                 for ms in mls:
                     for m in ms:
@@ -276,6 +329,8 @@ def main():
     log(f"{n_genes:,} genes in {len(loci):,} loci; " + "; ".join(f"{k or 'not counted'}: {v:,}" for k, v in st.items()))
     for t in ("DNG", "PDNG"):
         log(f"{t}: {sum(births[t].values()):,} births, {sum(deaths[t].values()):,} deaths")
+        if unknown:
+            log(f"{t}: {removed_by_unknown[t]:,} deaths not counted because the genome had no usable call (--unknown)")
     log(f"wrote {a.outdir}/rates_by_branch.tsv, origins.tsv, gene_status.tsv")
 
 

@@ -13,3 +13,7 @@ THREADS=4
 HOG_ID_MATCH=normalized
 EXCLUDE_OVERLAP=same_strand_cds                     # same_strand_cds (only same-strand CDS-CDS overlaps left out) or any (the paper)
 HOG_SPAN=split                                     # split (once per lineage) or merge (once per orthogroup, the paper)
+PRESENCE=orf                                       # orf (presence by the stage 4 ORF rule; stage 4 default rules) or tblastn (published rules)
+ALIGNMENTS_DIR=/path/to/stage4/brassicaceae_23species_LINGUA_results   # with PRESENCE=orf: one stage 3 alignment folder per species
+STAGE4_OPTIONS=4_enablers/data/method_options.json # with PRESENCE=orf: the stage 4 method options of the run
+UNKNOWN_PRESENCE=                                  # empty = the step 1a table with PRESENCE=orf; none = leave out

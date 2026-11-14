@@ -1,7 +1,7 @@
 """
 test_toy.py
 
-Steps 1, 2, 4 (families) and 5 on a four-species toy tree whose answer was worked out by hand.
+Steps 1, 1a, 2, 4 (families) and 5 on a four-species toy tree whose answer was worked out by hand.
 
 Tree ((A,B)N2,C)N1,D)N0; ingroup crown N1, ORFs may not originate at N0.
   a1 (A, ORF N2, DNG) and b1 (B, ORF N2, PDNG) are the same locus, found in A and B -> one DNG locus at N2, no deaths.
@@ -281,9 +281,60 @@ def test_overlap_required():
         assert got == [("A", "zzzz1")], got
 
 
+def test_unknown_genomes():
+    """HOG H2 of test_hog_lineage_split: an origin at N1 carried by C (y1) and A (y2), lost on B. With B listed as
+    unknown for y1 the death on B is not counted; listing D (outside the origin's clade) or A (a carrier) changes
+    nothing, and no listing adds a death."""
+    with tempfile.TemporaryDirectory() as d:
+        cf = build(d)
+        w(f"{d}/l.tsv", "ClusterID\tNode\tGene_type\tA\tB\tC\tD\n3\tN1\tPDNG\t\t\ty1\t\n4\tA-specific\tPDNG\ty2\t\t\t\n")
+        w(f"{d}/g.tsv", "species\tgeneID\tORF_Node\tGene_type\tClusterID\tCluster_node\tpresent_in\n"
+          "C\ty1\tN1\tPDNG\t3\tN1\tC\nA\ty2\tA-specific\tPDNG\t4\tA-specific\tA\n")
+        w(f"{d}/h.tsv", "HOG\tOG\tGene Tree Parent Clade\tA\tB\tC\tD\nH2\tO2\tn\ty2\t\ty1\t\n")
+        uh = "species\tgeneID\tunknown_in\n"
+        for name, unk, want_b in (("none", None, 1), ("B", uh + "C\ty1\tB\n", 0), ("D", uh + "C\ty1\tD\n", 1),
+                                  ("A", uh + "A\ty2\tA;D\n", 1)):
+            extra = []
+            if unk:
+                w(f"{d}/u_{name}.tsv", unk)
+                extra = ["--unknown", f"{d}/u_{name}.tsv"]
+            run(f"{S}/step5_rates.py", "--no-overlap", "--tree-config", cf, "--loci", f"{d}/l.tsv", "--genes", f"{d}/g.tsv",
+                "--hogs", f"{d}/h.tsv", "--branch-lengths", f"{d}/len.tsv", *extra, "--outdir", f"{d}/{name}")
+            r = {x["Branch"]: x for x in csv.DictReader(open(f"{d}/{name}/rates_by_branch.tsv"), delimiter="\t")}
+            deaths = {b: int(r[b]["PDNG_deaths"]) for b in r if int(r[b]["PDNG_deaths"])}
+            assert deaths == ({"B": 1} if want_b else {}), (name, deaths)
+            assert int(r["N1"]["PDNG_births"]) == 1, name
+
+
+def test_orf_presence():
+    """Step 1a on one alignment of focal A (31-codon CDS, ATG ... TAA): B carries the same ORF (present); C has a stop
+    at codon 10, so its ORF covers 30 of 96 nt, below 80% (absent); D has bases at 9 of 96 CDS columns
+    (unknown). Locus a2 has no alignment: B, C and D unknown. The stage 4 options must use the length ORF test."""
+    with tempfile.TemporaryDirectory() as d:
+        cf = build(d)
+        cds = "ATG" + "GCT" * 30 + "TAA"
+        c_row = cds[:27] + "TAA" + cds[30:]
+        d_row = cds[:9] + "-" * (len(cds) - 9)
+        w(f"{d}/aln/A_stitched/A_a1_c1_100_200.aln", f">A\n{cds}\n>B\n{cds}\n>C\n{c_row}\n>D\n{d_row}\n>N2\n{cds}\n")
+        w(f"{d}/tb1a/A_cdngs_tblastn_2_summary.tsv", "geneID\tNode_tblastn\tA\tB\tC\tD\na1\tN2\t1\t1\t1\t0\n"
+          "a2\tA-specific\t1\t0\t0\t0\n")
+        opts = {"orf_test": "length", "orf_min_len": 80, "orf_min_cov": 80, "orf_min_in_frame": 50, "orf_count_stop": True}
+        w(f"{d}/opts.json", json.dumps(opts))
+        step = [f"{S}/step1a_orf_presence.py", "--tree-config", cf, "--tblastn", f"{d}/tb1a", "--alignments", f"{d}/aln"]
+        run(*step, "--stage4-options", f"{d}/opts.json", "--outdir", f"{d}/pres")
+        got = {r["geneID"]: (r["A"], r["B"], r["C"], r["D"])
+               for r in csv.DictReader(open(f"{d}/pres/A_cdngs_tblastn_2_summary.tsv"), delimiter="\t")}
+        assert got == {"a1": ("1", "1", "0", "0"), "a2": ("1", "0", "0", "0")}, got
+        unk = {(r["species"], r["geneID"]): r["unknown_in"]
+               for r in csv.DictReader(open(f"{d}/pres/unknown_presence.tsv"), delimiter="\t")}
+        assert unk == {("A", "a1"): "D", ("A", "a2"): "B;C;D"}, unk
+        w(f"{d}/opts_tb.json", json.dumps({"orf_test": "tblastn"}))
+        run(*step, "--stage4-options", f"{d}/opts_tb.json", "--outdir", f"{d}/pres2", fail="does not use the length ORF test")
+
+
 if __name__ == "__main__":
     for t in (test_toy, test_id_form_mismatch_stops, test_overlap_inside_long_gene, test_hog_lineage_split,
               test_overlap_classes, test_own_gene_rules,
-              test_id_suffix_rules, test_overlap_required):
+              test_id_suffix_rules, test_overlap_required, test_unknown_genomes, test_orf_presence):
         t()
         print(f"{t.__name__} PASSED")

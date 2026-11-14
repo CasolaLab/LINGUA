@@ -16,10 +16,11 @@ others.
 | Step | Script | What it does | Output |
 |---|---|---|---|
 | 1 | `step1_coordinates.py` | Joins the stage 3 step 17 coordinates of each locus in every genome with the stage 4 classification and the stage 4 tBLASTn table, keeping a genome only when tBLASTn finds the ORF there (stage 4 step 9 without its species lists) | `coords.tsv` |
+| 1a | `step1a_orf_presence.py` (`PRESENCE=orf`) | Replaces the tBLASTn presence by presence of the ORF in every extant genome under the stage 4 ORF rule (the thresholds of the stage 4 method options: length, coverage, in-frame share), and lists the genomes with no usable call (row missing, or bases at under 50% of the focal CDS) | `presence/*_cdngs_tblastn_*_summary.tsv`, `presence/unknown_presence.tsv`, `presence/presence_comparison.tsv` |
 | 2 | `step2_loci.py` | Joins the genes of different species that occupy the same aligned position into one locus (union-find over coordinate overlap within the clade of the gene's ORF node, on either strand); a locus takes the oldest ORF node of its members, and is a DNG when any member is | `loci.tsv`, `genes.tsv` |
 | 3 | `step3_overlap.py` | Classifies each locus against the protein-coding genes of the species' GFF3 (same-strand CDS overlap, same-strand overlap without CDS overlap, antisense overlap, or the nearest neighbor); only loci whose coding exons overlap coding exons of a same-strand gene are left out in step 5. Overlaps between two candidate loci do not count. Required: the run stops when a species has no GFF, unless it is named in `NO_GFF_SPECIES` (`--no-gff`), and step 5 needs `--overlap` (`--no-overlap` is for tests and comparisons only) | `overlap.tsv` |
 | 4 | `step4_unclustered_families.py` + BLASTp | For loci in no OrthoFinder orthogroup, BLASTp all against all within each species (E ≤ 10⁻⁵); connected loci form a family and only the longest protein is kept, whatever its type or age (as in the paper) | `unclustered/unclustered_families.tsv` |
-| 5 | `step5_rates.py` | Collapses loci sharing a HOG into one DNG origin and one PDNG origin per lineage, drops PDNGs whose every species also carries a DNG of that HOG, places each origin on the branch of its oldest locus, counts deaths by Dollo parsimony on tBLASTn presence, and divides by branch length | `rates_by_branch.tsv`, `origins.tsv`, `gene_status.tsv` |
+| 5 | `step5_rates.py` | Collapses loci sharing a HOG into one DNG origin and one PDNG origin per lineage, drops PDNGs whose every species also carries a DNG of that HOG, places each origin on the branch of its oldest locus, counts deaths by Dollo parsimony on the presence of step 1 or 1a, and divides by branch length | `rates_by_branch.tsv`, `origins.tsv`, `gene_status.tsv` |
 
 ## Rules
 
@@ -38,6 +39,15 @@ others.
 - **Deaths.** For an origin at internal node N, a species of clade(N) carries it when tBLASTn finds the ORF of any of
   its genes in that genome, an internal node when any descendant does, and N always. A death is placed on every
   branch whose parent carries the origin and which does not. Origins on a species branch have no deaths.
+- **Presence.** With `PRESENCE=tblastn` (default; the published analysis) a genome carries a gene when stage 4
+  tBLASTn finds its ORF there. With `PRESENCE=orf` (step 1a, for stage 4 runs with the default rules, whose ORF test
+  is by length) it carries the gene when its aligned row holds an ORF passing the stage 4 ORF rule, the definition
+  stage 4 uses for ancestors. Step 1a refuses a stage 4 options file without `orf_test` = `length`.
+- **Unknown genomes** (`UNKNOWN_PRESENCE`, step 5 `--unknown`, a TSV `species`, `geneID`, `unknown_in`; with
+  `PRESENCE=orf` the table of step 1a by default). A genome with no usable call for a gene takes whichever state gives
+  the fewest deaths for the origin, so missing data never adds a death; ties put the death on the higher branch, as
+  plain Dollo does. Without unknown genomes the result is plain Dollo, which step 5 checks on every origin. Both rules
+  come from the T2T mammal analysis (2026-11-13).
 - **Rates** are counts divided by branch length, written for the ingroup crown, every node below it and every
   species (outgroups included). Rates are NA where the length is missing or zero.
 - **Gene IDs** are compared with the HOG table without isoform or `.p` suffixes (a trailing `.p`, then one trailing
@@ -82,6 +92,7 @@ others.
 | `*_all_species_summary.tsv`, one per focal species | stage 3 step 17 |
 | `*_nodes_summary_filtered.tsv` | stage 4 final classification (`stage4_final/nodes_summary_by_species/`) |
 | `*_cdngs_tblastn_*_summary.tsv` | stage 4 step 4 |
+| stage 3 alignment folders (`ALIGNMENTS_DIR`) and the stage 4 method options of the run (`STAGE4_OPTIONS`), with `PRESENCE=orf` only | stage 3 / stage 4 (`WORKDIR/brassicaceae_23species_LINGUA_results/`, `WORKDIR/logs/method_options_used.json`) |
 | HOG table (`N0.tsv`, or the node table that holds every species) | OrthoFinder `Phylogenetic_Hierarchical_Orthogroups/`; its species columns must be species names or aliases in `tree_config.json` |
 | candidate proteins, one FASTA per species | the stage 4 input |
 | branch lengths: TSV `branch`, `length` (or `node`, `age`) | a time-calibrated tree; `data/branch_lengths_brassicaceae.tsv` is the paper's (million years) |
@@ -115,6 +126,11 @@ BLAST+ cannot use such paths.
   other than DNG or PDNG).
 
 ## Validation
+
+Unknown genomes and step 1a (2026-11-13). With the default settings (`PRESENCE=tblastn`, no `UNKNOWN_PRESENCE`) a
+full driver run on the Brassicaceae inputs gives output files byte-identical to the run of commit 710a07a. Step 1a
+and `--unknown` are tested on the toy example (`test_orf_presence`, `test_unknown_genomes`); step 1a has not yet been
+run on the Brassicaceae data.
 
 Run on the Brassicaceae inputs of the published analysis (2026-11-12), each step against the output of the
 script it replaces:

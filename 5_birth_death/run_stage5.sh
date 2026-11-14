@@ -18,10 +18,16 @@
 #     EXCLUDE_OVERLAP same_strand_cds (default: only loci whose CDS overlaps a same-strand gene's CDS are left out;
 #                     antisense and intronic loci are counted) or any (every overlap left out, the paper)
 #     HOG_SPAN        split (default: an orthogroup counts once per lineage) or merge (once per orthogroup, the paper)
-# Steps: 1 coordinates, 2 loci, 3 overlap with annotated genes, 4 unclustered duplicates (BLASTp), 5 rates.
+#     PRESENCE        tblastn (default: the stage 4 tBLASTn summaries in TBLASTN_DIR) or orf (step 1a: presence in every
+#                     extant genome by the stage 4 ORF rule, for stage 4 runs with orf_test = length; needs ALIGNMENTS_DIR,
+#                     the folder of stage 3 alignment folders, and STAGE4_OPTIONS, the stage 4 method options of the run)
+#     UNKNOWN_PRESENCE  optional TSV species,geneID,unknown_in: genomes with no usable call, which never add a death in
+#                     step 5; with PRESENCE=orf it defaults to the table step 1a writes (set it to none to leave it out)
+# Steps: 1 coordinates (1a presence with PRESENCE=orf), 2 loci, 3 overlap with annotated genes, 4 unclustered duplicates
+# (BLASTp), 5 rates.
 set -euo pipefail
 
-[ $# -ge 1 ] || { sed -n '2,21p' "$0"; exit 1; }
+[ $# -ge 1 ] || { sed -n '2,28p' "$0"; exit 1; }
 CONF=$1; FIRST=${2:-1}; LAST=${3:-5}
 [ -f "$CONF" ] || { echo "ERROR: config not found: $CONF" >&2; exit 1; }
 case "$FIRST$LAST" in
@@ -34,10 +40,20 @@ HERE=$(cd "$(dirname "$0")" && pwd)
 S=$HERE/scripts
 PYTHON=${PYTHON:-python3}; BLASTP=${BLASTP:-blastp}; MAKEBLASTDB=${MAKEBLASTDB:-makeblastdb}
 THREADS=${THREADS:-4}; HOG_ID_MATCH=${HOG_ID_MATCH:-normalized}; GFF_TABLE=${GFF_TABLE:-}; NO_GFF_SPECIES=${NO_GFF_SPECIES:-}; HOG_SPAN=${HOG_SPAN:-split}; EXCLUDE_OVERLAP=${EXCLUDE_OVERLAP:-same_strand_cds}
+PRESENCE=${PRESENCE:-tblastn}; UNKNOWN_PRESENCE=${UNKNOWN_PRESENCE:-}
 MAKEBLASTDB=$(command -v "$MAKEBLASTDB" || echo "$MAKEBLASTDB"); BLASTP=$(command -v "$BLASTP" || echo "$BLASTP")
 for v in TREE_CONFIG COORDS_DIR NODES_DIR TBLASTN_DIR HOGS PROTEINS_DIR BRANCH_LENGTHS GFF_TABLE OUTDIR; do
     [ -n "${!v:-}" ] || { echo "ERROR: $v is not set in $CONF" >&2; exit 1; }
 done
+case "$PRESENCE" in
+    tblastn) ;;
+    orf) for v in ALIGNMENTS_DIR STAGE4_OPTIONS; do
+             [ -n "${!v:-}" ] || { echo "ERROR: PRESENCE=orf needs $v in $CONF" >&2; exit 1; }
+         done
+         [ -n "$UNKNOWN_PRESENCE" ] || UNKNOWN_PRESENCE=$OUTDIR/presence/unknown_presence.tsv ;;
+    *) echo "ERROR: PRESENCE must be tblastn or orf (got '$PRESENCE')" >&2; exit 1 ;;
+esac
+[ "$UNKNOWN_PRESENCE" != none ] || UNKNOWN_PRESENCE=
 if [ "$FIRST" -le 1 ] && [ -e "$OUTDIR" ]; then echo "ERROR: $OUTDIR exists; reruns go to a new folder" >&2; exit 1; fi
 run() { [ "$FIRST" -le "$1" ] && [ "$LAST" -ge "$1" ]; }
 case "$OUTDIR" in
@@ -63,9 +79,15 @@ fail() {
 trap fail ERR
 
 STEP=1
+PRESENCE_DIR=$TBLASTN_DIR
+[ "$PRESENCE" = orf ] && PRESENCE_DIR=$OUTDIR/presence
 if run 1; then
+    if [ "$PRESENCE" = orf ]; then
+        "$PYTHON" "$S/step1a_orf_presence.py" --tree-config "$TREE_CONFIG" --tblastn "$TBLASTN_DIR" \
+            --alignments "$ALIGNMENTS_DIR" --stage4-options "$STAGE4_OPTIONS" --outdir "$PRESENCE_DIR" 2> "$OUTDIR/step1a.log"
+    fi
     "$PYTHON" "$S/step1_coordinates.py" --tree-config "$TREE_CONFIG" --coords "$COORDS_DIR" --nodes "$NODES_DIR" \
-        --tblastn "$TBLASTN_DIR" --out "$OUTDIR/coords.tsv" 2> "$OUTDIR/step1.log"
+        --tblastn "$PRESENCE_DIR" --out "$OUTDIR/coords.tsv" 2> "$OUTDIR/step1.log"
 fi
 STEP=2
 if run 2; then
@@ -99,7 +121,7 @@ if run 5; then
         --hogs "$HOGS" --branch-lengths "$BRANCH_LENGTHS" \
         --overlap "$OUTDIR/overlap.tsv" --exclude-overlap "$EXCLUDE_OVERLAP" \
         --families "$OUTDIR/unclustered/unclustered_families.tsv" --hog-id-match "$HOG_ID_MATCH" --hog-span "$HOG_SPAN" \
-        --outdir "$OUTDIR" 2> "$OUTDIR/step5.log"
+        ${UNKNOWN_PRESENCE:+--unknown "$UNKNOWN_PRESENCE"} --outdir "$OUTDIR" 2> "$OUTDIR/step5.log"
 fi
 echo "SUCCEEDED steps $FIRST-$LAST $(date)" > "$OUTDIR/STATUS"
 cat "$OUTDIR/STATUS"
