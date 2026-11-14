@@ -109,7 +109,7 @@ def main():
         if not rows:
             die(f"no step 14 detail rows for {g} at {pos} in {nodes}")
         why = []
-        if terminal_on and any(int(x["IndelStart_RefPos"]) == 1 or int(x["IndelEnd_RefPos"]) == int(x["reference_length"])
+        if terminal_on and any(int(x["IndelStart_RefPos"]) == 1 or int(x["IndelEnd_RefPos"]) == len(focal_cds(g))
                                for x in rows):
             why.append("terminal_gap")
         if homo_on:

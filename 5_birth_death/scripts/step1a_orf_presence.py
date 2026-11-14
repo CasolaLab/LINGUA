@@ -62,9 +62,10 @@ def main():
     os.environ["LINGUA_CONFIG"] = a.tree_config
     os.environ["LINGUA_OPTIONS"] = a.stage4_options
     sys.path.insert(0, a.stage4_scripts)
-    from orf_length_node import longest_orf, in_frame_pct, read_aln  # noqa: E402
+    from orf_length_node import orf_call, read_aln  # noqa: E402
+    measure = opts.get("orf_frame_measure", "orf")
     al = json.load(open(a.tree_config))["aliases"]
-    print(f"ORF rule: >= {min_len:g}% length, >= {min_cov:g}% coverage, >= {min_inf:g}% in frame, stop counted: {count_stop}; "
+    print(f"ORF rule: >= {min_len:g}% length, >= {min_cov:g}% coverage, >= {min_inf:g}% in frame ({measure}), stop counted: {count_stop}; "
           f"unknown below {a.unknown_min_aligned:g}% aligned", file=sys.stderr)
 
     folders = [d for d in sorted(glob.glob(os.path.join(a.alignments, "*"))) if os.path.isdir(d)]
@@ -99,7 +100,6 @@ def main():
                 ref = aln[F]
                 hc = [i for i, ch in enumerate(ref) if ch != "-"]
                 n = len(hc)
-                starts = {"ATG", "".join(ref[hc[k]] for k in range(3))}
             o = {"geneID": g, "Node_tblastn": r["Node_tblastn"]}
             unknown = []
             for sp in spcols:
@@ -110,9 +110,7 @@ def main():
                     call = "unknown"
                 else:
                     row = aln[spc]
-                    L, c0, c1 = longest_orf(row, starts, count_stop)
-                    cov = 100.0 * sum(1 for i in hc if c0 is not None and c0 <= i <= c1) / n
-                    if 100.0 * L / n >= min_len and cov >= min_cov and in_frame_pct(ref, row) >= min_inf:
+                    if orf_call(ref, row, min_len, min_cov, min_inf, count_stop, measure)[0]:
                         call = "1"
                     elif 100.0 * sum(1 for i in hc if row[i] not in "-N") / n < a.unknown_min_aligned:
                         call = "unknown"

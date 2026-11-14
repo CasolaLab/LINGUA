@@ -200,6 +200,7 @@ def main():
             extant = collections.defaultdict(set)
             proxy = collections.defaultdict(dict)  # option_b_outer_side_branch: node -> {older branch node: carriers}
             outer = cfg.opt("option_b_outer_side_branch")
+            skip_root = cfg.opt("option_b_outer_skip_root_branches")
             for kind, pos, ev_nodes in all_events[gk]:
                 nodes_e = ev_nodes | inferred.get((kind, pos), set())
                 if nodes_e & inside_nodes:
@@ -223,6 +224,11 @@ def main():
                         if any(sp in aln and any(ch not in "-N" for ch in aln[sp][lo_c:hi_c]) for sp in side_n):
                             continue
                         for x in lineage[:lineage.index(n)]:
+                            # option_b_outer_skip_root_branches (2026-11-14): the side branches of the excluded
+                            # enabler nodes (Brassicaceae N0, N1: Theobroma, Tarenaya) never stand in, as those
+                            # nodes are never enabler nodes themselves
+                            if skip_root and x in cfg.EXCLUDED_ENABLER_NODES:
+                                continue
                             h = car & side_branch(x) & species
                             if h:
                                 proxy[n].setdefault(x, set()).update(h)

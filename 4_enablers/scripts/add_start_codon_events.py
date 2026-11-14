@@ -10,6 +10,11 @@ lineage ancestors, conditional N0, step 6c, synteny, ORF-clade consistency, opti
 with a non-ATG codon there), step 7g. Any non-ATG codon counts as the same event. A row already present at position 1
 for that taxon (a stop codon there) is not duplicated.
 
+start_codon_extension_max (2026-11-14): a row is not a carrier when it already has an ATG-initiated ORF that reads at
+least this % of the focal CDS in the focal frame. In such a row the start-codon change only extends an existing open
+frame at its 5' end (Brassicaceae locus KAF8101894.1: every ancestor N1-N19 open in frame from a downstream ATG over
+73.7% of the CDS). Rows skipped this way are listed in start_codon_extension_rows_<F>.tsv in STOPS_DIR.
+
 The original table is kept once as <table>.pre_start (no .tsv suffix, so step 6 does not read it) and is the input of
 every later run, which makes the step idempotent.
 
@@ -21,6 +26,10 @@ import glob
 import os
 import shutil
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import lingua_config as cfg  # noqa: E402
+from orf_length_node import all_orfs  # noqa: E402
 
 csv.field_size_limit(10 ** 9)
 
@@ -60,7 +69,8 @@ def main():
     have = {(r["gff_transcriptID"], r["Species"], r["StopCodonStart_RefPos"]) for r in rows}
     genes = [r["geneID"] for r in csv.DictReader(open(a.ancseq), delimiter="\t")]
     added, loci, skipped, noaln = 0, 0, 0, 0
-    new = []
+    new, ext = [], []
+    ext_max = float(cfg.opt("start_codon_extension_max", 0) or 0)
     for g in genes:
         g = g[:-2] if g.endswith(".p") else g  # Phytozome IDs carry ".p" in the protein tables, not in alignments
         paths = glob.glob(os.path.join(a.aln_dir, f"{F}_{g}_*.aln"))
@@ -87,6 +97,13 @@ def main():
                 continue
             if (g, taxon, "1") in have:
                 continue
+            if ext_max:
+                pos = {c: p for p, c in enumerate(cols)}
+                best = max([100.0 * 3 * sum(1 for c in o[3] if c in pos and pos[c] % 3 == 0) / len(cols)
+                            for o in all_orfs(row, {"ATG"}, bool(cfg.opt("orf_count_stop")))] or [0.0])
+                if best >= ext_max:
+                    ext.append({"geneID": g, "taxon": taxon, "codon": cod, "orf_in_frame_pct": f"{best:.1f}"})
+                    continue
             rec = {k: "NA" for k in fields}
             rec.update({"file_name": fname, "gff_transcriptID": g, "Chromosome": chrom, "Start": start, "End": end,
                         "Species": taxon, "StopCodonStart_RefPos": "1", "StopCodonEnd_RefPos": "3",
@@ -99,6 +116,13 @@ def main():
         w = csv.DictWriter(fh, fieldnames=fields, delimiter="\t", lineterminator="\n")
         w.writeheader()
         w.writerows(rows + new)
+    if ext_max:
+        with open(os.path.join(a.stops_dir, f"start_codon_extension_rows_{F}.tsv"), "w", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=["geneID", "taxon", "codon", "orf_in_frame_pct"], delimiter="\t")
+            w.writeheader()
+            w.writerows(ext)
+        print(f"  {F}: {len(ext)} rows in {len({e['geneID'] for e in ext})} loci not counted as start-codon carriers "
+              f"(an ATG ORF already reads >= {ext_max:g}% of the CDS in frame)")
     print(f"  {F}: {added} start-codon rows added in {loci} loci ({skipped} loci without a focal ATG start skipped, {noaln} without an alignment); "
           f"original kept as {os.path.basename(base)}")
 

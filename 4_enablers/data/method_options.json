@@ -21,5 +21,11 @@
  "orf_min_in_frame": 50,
  "start_codon_events": true,
  "event_gap_living_inferred": true,
- "option_b_outer_side_branch": true
+ "option_b_outer_side_branch": true,
+ "orf_frame_measure": "orf",
+ "drop_terminal_stop": true,
+ "stops_focal_frame_only": true,
+ "start_codon_extension_max": 50,
+ "inferred_carrier_needs_no_orf": true,
+ "option_b_outer_skip_root_branches": true
 }

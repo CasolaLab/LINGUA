@@ -161,13 +161,21 @@ if run 6; then
     "$PY" "$SCRIPTS/indel_oldest_shared_node_AncSeq_v2.py" "$WORK/indels_dir"
     "$PY" "$SCRIPTS/stops_oldest_shared_node_AncSeq_v2.py" "$WORK/stops_dir"
     # step 6 just rewrote the event lists; a step 6b backup of an earlier run would otherwise be read instead of them
-    rm -f "$WORK"/indels_dir/all_indels_nodes_*.unfiltered.tsv
+    rm -f "$WORK"/indels_dir/all_indels_nodes_*.unfiltered.tsv "$WORK"/stops_dir/all_stops_nodes_*.unfiltered.tsv
     if [ "$(opt drop_terminal_indels)" = 1 ] || [ "$(opt homopolymer_needs_extant)" = 1 ]; then
         step 6b "remove indel events that are not evidence (terminal gaps; homopolymers without extant support)"
         while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
             [ "$anc" != NA ] || continue
             ok "$alnd" "step 6b: no alignment folder for $focal"; ok "$indt" "step 6b: no indel table for $focal"
             "$PY" "$SCRIPTS/filter_enabler_events.py" "$WORK/indels_dir" "$alnd" --focal-species "$focal" --detail "$indt"
+        done < "$INPUTS"
+    fi
+    if [ "$(opt drop_terminal_stop)" = 1 ] || [ "$(opt stops_focal_frame_only)" = 1 ]; then
+        step 6b "remove stop events that are not premature stops (the focal stop codon; stops outside the focal frame)"
+        while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
+            [ "$anc" != NA ] || continue
+            ok "$alnd" "step 6b: no alignment folder for $focal"
+            "$PY" "$SCRIPTS/filter_stop_events.py" "$WORK/stops_dir" "$alnd" --focal-species "$focal"
         done < "$INPUTS"
     fi
     if [ "$(opt orf_bearing_nodes_filter)" = 1 ]; then

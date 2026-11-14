@@ -13,8 +13,10 @@ identity cutoff, any frame.
 Rewrites ANCSEQ_TSV (same columns: geneID, Node_AncSeq_ORF = oldest focal-lineage ancestor with the
 ORF or <focal>-specific, then one 0/1 column per ancestor), keeping the step 4 table as
 <name>.tblastn.tsv (read from there on reruns), and writes <name>.orf_length_details.tsv with, per
-locus and ancestor, the ORF length %, coverage % and in-frame % (share of the focal CDS in the
-focal frame without a frameshift or stop; protein-conservation proxy, not used for calls).
+locus and ancestor, the ORF length %, coverage %, in-frame % of the row (longest unbroken focal-frame stretch) and
+in-frame % of the ORF (share of the focal CDS that the ORF reads in the focal frame). With orf_min_in_frame the
+call also needs the ORF itself to be mostly in the focal frame (orf_frame_measure "orf", the default since
+2026-11-14), or, with orf_frame_measure "row", the row stretch to reach the cutoff (the 2026-11-13 runs).
 
 Usage: python3 orf_length_node.py ANCSEQ_TSV ALN_DIR --focal-species Homo_sapiens
                                   [--min-len 80] [--min-cov 80]
@@ -69,6 +71,64 @@ def longest_orf(row, starts, count_stop=False):
             else:
                 i += 3
     return best
+
+
+def all_orfs(row, starts, count_stop=False):
+    """Every ORF of the 3 forward frames of the gap-free row, as (length in nt, first column, last column, columns of
+    the first base of each codon); an ORF starts at the first start codon after the previous stop of its frame."""
+    cols = [i for i, c in enumerate(row) if c != "-"]
+    s = "".join(row[i] for i in cols)
+    out = []
+    for f in range(3):
+        i = f
+        while i + 3 <= len(s):
+            if s[i:i + 3] in starts:
+                j = i
+                while j + 3 <= len(s) and s[j:j + 3] not in STOP:
+                    j += 3
+                k = j + 3 if count_stop and j + 3 <= len(s) else j
+                if k > i:
+                    out.append((k - i, cols[i], cols[k - 1], [cols[x] for x in range(i, k - 2, 3)]))
+                i = j + 3
+            else:
+                i += 3
+    return out
+
+
+def orf_call(ref, row, min_len, min_cov, min_in_frame=0.0, count_stop=False, measure="orf"):
+    """Step 4b ORF call of one ancestral row. Returns (has_orf, length %, coverage %, in-frame % of the row,
+    in-frame % of the ORF), the last four for the ORF that decided the call (the longest ORF when none passes).
+    measure "orf" (default; fix 2026-11-14): an ORF counts when it passes the length and coverage tests AND reads at
+    least min_in_frame % of the focal CDS in the focal frame (its codons start on focal codon boundaries); every
+    ORF is tried, so a long ORF in another frame no longer hides a shorter one in the focal frame. measure "row" (the
+    2026-11-13 runs): the longest ORF passes length and coverage and, separately, the longest unbroken focal-frame
+    stretch of the row (in_frame_pct, not tied to that ORF) is >= min_in_frame %."""
+    hcols = [i for i, c in enumerate(ref) if c != "-"]
+    n = len(hcols)
+    pos = {c: p for p, c in enumerate(hcols)}
+    inf = in_frame_pct(ref, row)
+
+    def score(o):
+        L, c0, c1, codons = o
+        cov = 100.0 * sum(1 for i in hcols if c0 <= i <= c1) / n
+        fr = 100.0 * 3 * sum(1 for c in codons if c in pos and pos[c] % 3 == 0) / n
+        return 100.0 * L / n, cov, fr
+
+    starts = {"ATG", "".join(ref[hcols[k]] for k in range(3))}
+    orfs = sorted(all_orfs(row, starts, count_stop), key=lambda o: -o[0])
+    if not orfs:
+        return False, 0.0, 0.0, inf, 0.0
+    if measure == "row":
+        lp, cov, fr = score(orfs[0])
+        return lp >= min_len and cov >= min_cov and inf >= min_in_frame, lp, cov, inf, fr
+    if measure != "orf":
+        die(f"orf_frame_measure must be orf or row, not {measure}")
+    for o in orfs:
+        lp, cov, fr = score(o)
+        if lp >= min_len and cov >= min_cov and fr >= min_in_frame:
+            return True, lp, cov, inf, fr
+    lp, cov, fr = score(orfs[0])
+    return False, lp, cov, inf, fr
 
 
 def in_frame_pct(ref, row):
@@ -131,6 +191,8 @@ def main():
     nodes = [c for c in fields if c not in ("geneID", "Node_AncSeq_ORF")]
     lineage = sorted([n for n, c in cfg.NODE_CLADES.items() if F in c], key=lambda n: -len(cfg.NODE_CLADES[n]))
     spec = f"{F}-specific"
+    min_inf = float(cfg.opt("orf_min_in_frame", 0) or 0)
+    measure = cfg.OPTIONS.get("orf_frame_measure", "orf")  # absent = "orf", the fixed measure
 
     out, det = [], []
     changed, no_aln = 0, []
@@ -148,7 +210,7 @@ def main():
             no_aln.append(g)
             out.append(dict(r))
             det.append({"geneID": g, "node": "NA", "row": "no_alignment", "orf_len_pct": "NA",
-                        "orf_cov_pct": "NA", "in_frame_pct": "NA", "has_orf": "0"})
+                        "orf_cov_pct": "NA", "in_frame_pct": "NA", "orf_in_frame_pct": "NA", "has_orf": "0"})
             continue
         aln = read_aln(p[0])
         ref = aln[F]
@@ -161,19 +223,15 @@ def main():
             if row is None:
                 new[node] = "0"
                 det.append({"geneID": g, "node": node, "row": "absent", "orf_len_pct": "NA",
-                            "orf_cov_pct": "NA", "in_frame_pct": "NA", "has_orf": "0"})
+                            "orf_cov_pct": "NA", "in_frame_pct": "NA", "orf_in_frame_pct": "NA", "has_orf": "0"})
                 continue
-            L, c0, c1 = longest_orf(row, starts, cfg.opt("orf_count_stop"))
-            cov = 100.0 * sum(1 for i in hcols if c0 is not None and c0 <= i <= c1) / n
-            inf = in_frame_pct(ref, row)
-            has = (100.0 * L / n >= a.min_len) and (cov >= a.min_cov)
-            # orf_min_in_frame (T2T 2026-11-13): the ancestral ORF counts only when at least this % of the focal CDS is
-            # an unbroken focal-frame stretch, i.e. the ancestor encodes mostly the same protein; one definition of
-            # "ORF present" for dating, step 6c and step 7c
-            has = has and inf >= float(cfg.opt("orf_min_in_frame", 0) or 0)
+            # orf_min_in_frame (T2T 2026-11-13): the ancestral ORF counts only when it encodes mostly the same protein;
+            # one definition of "ORF present" for dating, step 6c and step 7c. orf_frame_measure (2026-11-14) says how
+            # the in-frame share is measured (see orf_call)
+            has, lp, cov, inf, fr = orf_call(ref, row, a.min_len, a.min_cov, min_inf, cfg.opt("orf_count_stop"), measure)
             new[node] = "1" if has else "0"
-            det.append({"geneID": g, "node": node, "row": "present", "orf_len_pct": f"{100.0 * L / n:.1f}",
-                        "orf_cov_pct": f"{cov:.1f}", "in_frame_pct": f"{inf:.1f}",
+            det.append({"geneID": g, "node": node, "row": "present", "orf_len_pct": f"{lp:.1f}",
+                        "orf_cov_pct": f"{cov:.1f}", "in_frame_pct": f"{inf:.1f}", "orf_in_frame_pct": f"{fr:.1f}",
                         "has_orf": new[node]})
         new["Node_AncSeq_ORF"] = cfg.orf_node_from_cells(lambda x: new.get(x) == "1", lineage, spec)
         changed += new["Node_AncSeq_ORF"] != r["Node_AncSeq_ORF"]

@@ -26,7 +26,7 @@ the method options file decides which classification rules apply; the variables
 
 | Options file | Rules |
 |---|---|
-| `data/method_options.json` (default) | the rules of the T2T mammal analysis (2026-11-13), adopted as the LINGUA default for new runs |
+| `data/method_options.json` (default) | the rules of the T2T mammal analysis (2026-11-13), adopted as the LINGUA default for new runs, with the corrections of 2026-11-14 |
 | `presets/method_options_brassicaceae_published.json` | the rules of the published Brassicaceae catalog (1,811 DNGs) |
 
 ```
@@ -86,7 +86,8 @@ Set `PYTHON`, `TBLASTN` and `MAKEBLASTDB` to use specific executables.
 | 4b | `orf_length_node.py` (`orf_test` = `length`) | Replaces the tBLASTn ORF calls by a length test on every ancestral sequence (the step 4 table is kept as `*_AncSeq.tblastn.tsv`) | rewritten `*_AncSeq.tsv`, `*_AncSeq.orf_length_details.tsv` |
 | 5b | `add_start_codon_events.py` (`start_codon_events`) | Adds start-codon gains (a non-ATG codon at the focal ATG) to the stop tables as events at position 1 | stop tables (originals kept as `*.pre_start`) |
 | 6 | `indel_oldest_shared_node_AncSeq_v2.py`, `stops_oldest_shared_node_AncSeq_v2.py` | Assigns indels and premature stop codons shared by descendant sequences to nodes | `indels_dir/all_indels_nodes_<species>.tsv`, `stops_dir/all_stops_nodes_<species>.tsv` |
-| 6b | `filter_enabler_events.py` (`drop_terminal_indels`, `homopolymer_needs_extant`) | Removes indel events that are not evidence of a mutation (gap runs reaching either end of the focal CDS; homopolymer indels without an extant carrier) | filtered `all_indels_nodes_*`, `indels_dir/removed_enabler_events_<species>.tsv` |
+| 6b | `filter_enabler_events.py` (`drop_terminal_indels`, `homopolymer_needs_extant`) | Removes indel events that are not evidence of a mutation (gap runs reaching either end of the focal CDS, the CDS length read from the alignment; homopolymer indels without an extant carrier) | filtered `all_indels_nodes_*`, `indels_dir/removed_enabler_events_<species>.tsv` |
+| 6b | `filter_stop_events.py` (`drop_terminal_stop`, `stops_focal_frame_only`) | Removes stop events that are not premature stops of the focal ORF (the focal stop codon itself; stops outside the focal frame) | filtered `all_stops_nodes_*`, `stops_dir/removed_stop_events_<species>.tsv` |
 | 6c | `step6b_orf_bearing_nodes_filter.py --drop-whole-event` (`orf_bearing_nodes_filter`) | Drops every disabler event carried by a node whose ancestral sequence still bears the ORF (inputs kept as `*.pre_orf_bearing.tsv`) | filtered `all_indels_nodes_*`, `all_stops_nodes_*` |
 | 7 | `node_summary_tree_v2.py`, then `filter_nodes_summary_by_geneids.py` | Combines ORF, synteny, indel and stop nodes and classifies each locus, renames each summary to the short species prefix that step 9 expects, then (step 7b) removes the loci in `REMOVE_LIST` | `stage4_rules/nodes_summary_by_species/` |
 | 7c | `remove_conserved_orfs.py` (`conserved_orf_filter`, on unless set to false) | Removes candidates, DNG or PDNG, whose ORF is present in an ancestor outside the ingroup (`CONSERVED_NODES`, by default the `excluded_orf_nodes` of the tree config) | `<prefix>_conserved_orf_removed.tsv` |
@@ -107,34 +108,44 @@ steps 4, 4b, 7c, 7d and 7e.
 |---|---|---|---|---|
 | `orf_test` = `length`, `orf_min_len`, `orf_min_cov` | 4b | ancestral ORF presence by length instead of tBLASTn, namely the longest ORF in any forward frame starting at ATG or at the focal gene's own first codon, at least `orf_min_len` % of the focal CDS length and spanning at least `orf_min_cov` % of it, with no identity cutoff | length, 80, 80 | tBLASTn |
 | `orf_count_stop` | 4b | an ancestral ORF ended by a stop codon includes it, as the focal CDS length does | on | off |
-| `orf_min_in_frame` | 4b | an ancestor has the ORF only when, besides the length test, at least this % of the focal CDS is an unbroken focal-frame stretch in it (no stop in focal codon columns, no frameshifting gap run) | 50 | off |
+| `orf_min_in_frame` | 4b | an ancestor has the ORF only when the ORF also reads at least this % of the focal CDS in the focal frame | 50 | off |
+| `orf_frame_measure` | 4b, stage 5 step 1a | how the in-frame share is measured: `orf`, on the codons of each ORF that passes the length test (every such ORF is tried); `row`, the longest unbroken focal-frame stretch of the ancestral row, not tied to the ORF (the runs of 2026-11-13, which passed ORFs mostly in another frame) | orf | (not used) |
 | `orf_node_contiguous` | 4, 4b | the ORF node is the oldest ancestor of the unbroken run of ORF-bearing focal-lineage ancestors above the focal species | on | off |
 | `start_codon_events` | 5b | a start-codon gain is an enabler, entered as a stop-table event at position 1 so that every stop rule applies to it | on | off |
+| `start_codon_extension_max` | 5b | a row is not a start-codon carrier when it already has an ATG-initiated ORF reading at least this % of the focal CDS in the focal frame (the change would only extend an open frame at its 5′ end) | 50 | off |
 | `indel_events_by_length` | 6 | an indel event is a position and a length, so different indels starting at one base are not merged | on | off |
 | `contiguous_event_nodes` | 6 | an event is inherited only along contiguous lineage ancestors; each run of at least two carriers is a separate event | on | off |
 | `event_gap_living_inferred` | 6 | a single lineage ancestor lacking an event between two carriers counts as a carrier when an extant species on its side branch carries the same event | on | off |
 | `drop_terminal_indels` | 6b | indel events whose gap run reaches the first or last focal CDS base are removed (unaligned ends, not deletions) | on | off |
 | `homopolymer_needs_extant`, `homopolymer_support_any_outgroup` | 6b | homopolymer indel events count only when an extant species carries the same indel, on a carrier's side branch or, with the second key, anywhere outside the clade that lacks the event | on, on | off |
+| `drop_terminal_stop` | 6b | a stop at the focal ORF's own stop codon is not an event | on | off |
+| `stops_focal_frame_only` | 6b | only stops in the focal reading frame are events (a stop in a shifted frame is the same triplet read after a frameshift, counted as an indel event) | on | off |
 | `orf_bearing_nodes_filter` | 6c | a disabler event touching any ORF-bearing ancestor is dropped whole | on | on |
 | `record_enabler_events` | 7 | records the CDS positions of the indel and stop events used as enablers | on | on |
 | `skip_events_in_younger_nodes` | 7 | an event is not used when a lineage ancestor younger than the ORF node carries it | on | off |
 | `orf_clade_consistency` | 7 | the ORF node moves younger while the chosen disabler is present inside the ORF clade | on | on |
+| `inferred_carrier_needs_no_orf` | 7 | an ancestor whose own sequence has the ORF is not added as a carrier inferred from extant species (the rule of step 6c for observed carriers) | on | off |
 | `conserved_orf_filter` | 7c | removes candidates with an ORF in an ancestor outside the ingroup | on | off |
 | `annotate_evidence`, `evidence_any_valid_disabler` | 7d | writes the evidence tables; extant support counts any valid disabler at an enabler node | on, on | on, on |
 | `remove_literature_etes`, `ete_proteins` | 7e | removes known exapted TE genes (mammals; needs an ETE protein FASTA) | off | off |
 | `option_b_extant_support` | 7f | a DNG stays DNG only when every enabler node has an extant carrier; otherwise PDNG | on | on |
 | `option_b_outer_side_branch` | 7d, 7f | when an enabler node's own side branch has no aligned sequence near the event, an extant carrier on an older side branch may stand in, each node through a different branch | on | off |
+| `option_b_outer_skip_root_branches` | 7d, 7f | the side branches of the tree config's `excluded_enabler_nodes` (Brassicaceae N0 and N1, namely *Theobroma* and *Tarenaya*) never stand in | on | off |
 | `consecutive_enablers` | 7g | a DNG's enabler nodes must be the parent and grandparent of the ORF node; otherwise PDNG | on | on |
 
-A key that is absent is off, except `conserved_orf_filter`. With the default rules the T2T
+A key that is absent is off, except `conserved_orf_filter` (on) and `orf_frame_measure` (`orf`). With the default rules the T2T
 mammal analysis gave 3,034 DNGs and 2,059 PDNGs in 11 species, against 2,194 and 2,401 without the
 last four rules adopted (`orf_min_in_frame`, `start_codon_events`, `event_gap_living_inferred`,
 `option_b_outer_side_branch`; LINGUA_t2t, `stage4/README.md`). On the Brassicaceae (same stage 3
-inputs, tBLASTn and synteny as the published run; 2026-11-13) the default rules give 2,064 DNGs and
-20,145 PDNGs in the 20 ingroup species, against 1,811 and 20,565 with the published rules. Of the
-published DNGs, 1,557 stay DNGs, 167 become PDNGs, 49 are removed by step 7c and 38 drop out at step
-7 because the length test places their ORF at N0-N3; 493 published PDNGs become DNGs, and 14 loci
-that the published rules dropped at step 7 are now DNGs.
+inputs, tBLASTn and synteny as the published run; 2026-11-14) the default rules give 1,718 DNGs and
+20,518 PDNGs in the 20 ingroup species, against 1,811 and 20,565 with the published rules and
+2,064 and 20,145 with the default rules of 2026-11-13, before the corrections of 2026-11-14
+(`orf_frame_measure`, `drop_terminal_stop`, `stops_focal_frame_only`, `start_codon_extension_max`,
+`inferred_carrier_needs_no_orf`, `option_b_outer_skip_root_branches`, and the 3' terminal-gap fix of step 6b). Of the
+published DNGs, 1,353 stay DNGs, 399 become PDNGs, 37 are removed by step 7c and 22 drop out at
+step 7; 360 published PDNGs become DNGs. With `inferred_carrier_needs_no_orf` no locus whose ORF node
+was moved by `orf_clade_consistency` can be a DNG, because the ancestors between the old and the new ORF node have
+the ORF.
 
 ## Parameters and classification rules
 
@@ -189,6 +200,13 @@ stage 3 step 8c and the missing-data mask) is the stage 4 code at tag `paper-pub
   reproduced it exactly (see Validation).
 
 ## Validation
+
+Corrections of 2026-11-14. Rerun on Dayhoff on the inputs of the 2026-11-13 runs (step 14 indel tables).
+With `presets/method_options_brassicaceae_published.json` all 233 output files hold the same rows as the
+2026-11-09 run of tag `nee-catalog-stages3-4` (1,811 DNGs). With the default rules, the corrections were added
+one at a time; the step 4b tables with `orf_frame_measure` = `row` are byte-identical to the 2026-11-13
+run. One step either side of the cutoffs (in-frame 40% or 60% or 70%, length 70% or 90%) gives
+1,663 to 1,871 DNGs. Toy checks of the new rules: `tests/test_rules.py`.
 
 T2T scripts merged in (2026-11-13). Steps 6-9 were rerun on Dayhoff with
 `presets/method_options_brassicaceae_published.json` on the same inputs as the 2026-11-09 run

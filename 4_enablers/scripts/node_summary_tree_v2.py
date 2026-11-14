@@ -879,6 +879,16 @@ def write_one_summary(
     stops_lookup = read_multi_node_lookup(stops_path, "Nodes_stops", focal, ancestors_young_to_old)
     orf_clade_rule = bool(_cfg.opt("orf_clade_consistency"))
     detail = _nee_load_detail(indels_path.parent, stops_path.parent, focal) if orf_clade_rule else None
+    # inferred_carrier_needs_no_orf (2026-11-14): an ancestor whose own sequence has the ORF (step 4/4b table) is not
+    # added as a living-inferred carrier, the rule step 6c applies to observed carriers (Brassicaceae Sp1g01180.1)
+    orf_cells: Dict[str, Set[str]] = {}
+    if orf_clade_rule and _cfg.opt("inferred_carrier_needs_no_orf"):
+        with tblastn_path.open() as fh:
+            for row in csv.DictReader(fh, delimiter="\t"):
+                gid0 = row.get("geneID") or row.get("gff_transcriptID") or ""
+                orf_cells[normalize_geneid(gid0)] = {k for k, v in row.items()
+                                                     if k in _cfg.NODE_CLADES and (v or "").strip() in ("1", "1.0")}
+    n_inferred_rejected = 0
 
     out_cols = [
         "geneID",
@@ -928,8 +938,12 @@ def write_one_summary(
             orf_node_tblastn = orf_node
             inferred_nodes: List[str] = []
             if orf_clade_rule:
-                orf_node, indels_node, stops_node, inferred_nodes = _nee_orf_clade_consistency(
-                    gid, orf_node, indels_candidates, stops_candidates, detail, focal, ancestors_young_to_old)
+                orf_node, indels_node, stops_node, inferred_nodes, rejected = _nee_orf_clade_consistency(
+                    gid, orf_node, indels_candidates, stops_candidates, detail, focal, ancestors_young_to_old,
+                    orf_cells.get(normalize_geneid(gid), set()))
+                for x in rejected:
+                    n_inferred_rejected += 1
+                    print(f"INFERRED_REJECTED\t{focal}\t{gid}\t{x}", file=sys.stderr)
                 if orf_node != orf_node_tblastn:
                     n_orf_moved += 1
             indel_pos = getattr(indels_node, "pos", "") or "NA"
@@ -1028,6 +1042,7 @@ def write_one_summary(
     print(f"DEBUG: PDNG rows removed because ORF_Node is N0/N1/N2/N3 = {n_pdng_old_orf_removed}", file=sys.stderr)
     if orf_clade_rule:
         print(f"DEBUG: ORF_Node moved younger by the ORF-clade consistency rule = {n_orf_moved} / {total}", file=sys.stderr)
+        print(f"DEBUG: living-inferred carriers refused because the ancestor has the ORF = {n_inferred_rejected}", file=sys.stderr)
 
 
 def species_prefix_for_output(focal_species: str, fallback: str) -> str:
@@ -1342,7 +1357,7 @@ def _nee_present_inside(event: Any, kind: str, gid: str, orf_node: str, detail, 
 
 
 def _nee_orf_clade_consistency(gid, orf_node, indels_candidates, stops_candidates, detail, focal,
-                               ancestors_young_to_old):
+                               ancestors_young_to_old, orf_bearing=frozenset()):
     orf0 = orf_node
     lineage_young_to_old = [get_focal_specific_label(focal)] + list(ancestors_young_to_old)
     while True:
@@ -1356,6 +1371,7 @@ def _nee_orf_clade_consistency(gid, orf_node, indels_candidates, stops_candidate
             break
         orf_node = lineage_young_to_old[orf_idx - 1]
     inferred: List[str] = []
+    rejected: List[str] = []
     if orf_node != orf0:
         new_rows = []
         for ev, kind in ((ind, "indel"), (stp, "stop")):
@@ -1375,14 +1391,17 @@ def _nee_orf_clade_consistency(gid, orf_node, indels_candidates, stops_candidate
                     younger = _nee_clade(lineage_young_to_old[i - 1], focal)
                     side = set(_cfg.NODE_CLADES[x]) - younger
                     if any(sp in side and carriers[sp] & lengths for sp in carriers):
-                        added.append(x)
+                        if x in orf_bearing:
+                            rejected.append(f"{x}:{kind}:{getattr(ev, 'pos', '')}")
+                        else:
+                            added.append(x)
             if added:
                 inferred += [f"{x}:{kind}:{getattr(ev, 'pos', '')}" for x in added]
                 new_rows.append(EventRow("|".join(nodes + added), getattr(ev, "pos", "")))
             else:
                 new_rows.append(ev)
         ind, stp = new_rows
-    return orf_node, ind, stp, inferred
+    return orf_node, ind, stp, inferred, rejected
 
 
 if __name__ == "__main__":
