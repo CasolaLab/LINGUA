@@ -19,7 +19,8 @@
 # `bash run_pipeline.sh work 4 4` reruns only the tBLASTn step. Set ONLY to a space-separated list of query
 # prefixes from data/species.tsv (or SPECIES_TSV) to restrict steps 4, 7c, 7d and 7e. REMOVE_LIST (default
 # data/lsgs_to_remove.txt, the loci of the original Brassicaceae stage 2 screens) is applied in step 7b; set
-# REMOVE_LIST= (empty) to skip it, as with stage 2 of LINGUA v1.1 or later. CONSERVED_NODES (step 7c) defaults to
+# REMOVE_LIST= (empty) to skip it, as with stage 2 of LINGUA v1.1 or later. REUSE_TBLASTN=1 keeps the step 4
+# tBLASTn tables and reruns only step 4b (after a change of the ORF options). CONSERVED_NODES (step 7c) defaults to
 # excluded_orf_nodes of the tree config.
 
 set -euo pipefail
@@ -111,6 +112,9 @@ if run 4; then
         need "$NOGAPS/$nogaps"
         n=$(grep -c '^>' "$faa")
         base="$TBLASTN_OUT/${opref}_cdngs_tblastn_${n}"
+        if [ -n "${REUSE_TBLASTN:-}" ]; then
+            need "${base}_AncSeq.tsv"; echo "  $focal: tBLASTn table reused (REUSE_TBLASTN)"; continue
+        fi
         echo "  $focal: $n proteins"
         rm -f "${base}_AncSeq.tblastn.tsv"   # a fresh step 4 table must not be shadowed by an old step 4b backup
         "$PY" "$SCRIPTS/blast_prts-vs-nogaps_AncSeq_v2.py" \

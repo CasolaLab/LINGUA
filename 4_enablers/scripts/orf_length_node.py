@@ -133,12 +133,23 @@ def main():
     spec = f"{F}-specific"
 
     out, det = [], []
-    changed = 0
+    changed, no_aln = 0, []
     for r in src:
         g = r["geneID"]
-        p = glob.glob(os.path.join(a.aln_dir, f"{F}_{g}_*.aln"))
-        if len(p) != 1:
+        gk = g[:-2] if g.endswith(".p") else g  # Phytozome IDs carry ".p" in the protein tables, not in alignments
+        p = glob.glob(os.path.join(a.aln_dir, f"{F}_{gk}_*.aln"))
+        if len(p) > 1:
             die(f"{len(p)} alignments for {g} in {a.aln_dir}")
+        if not p:
+            # stage 3 wrote no alignment for this locus, so step 4 searched nothing either: its row is kept as it is
+            # (Brassicaceae 2026-11-13: 8 loci, all with an ORF in no ancestor); one with an ORF somewhere is an error
+            if any(r[c] not in ("0", "0.0") for c in nodes):
+                die(f"no alignment for {g} in {a.aln_dir}, but its step 4 row has an ORF in an ancestor")
+            no_aln.append(g)
+            out.append(dict(r))
+            det.append({"geneID": g, "node": "NA", "row": "no_alignment", "orf_len_pct": "NA",
+                        "orf_cov_pct": "NA", "in_frame_pct": "NA", "has_orf": "0"})
+            continue
         aln = read_aln(p[0])
         ref = aln[F]
         hcols = [i for i, c in enumerate(ref) if c != "-"]
@@ -176,7 +187,9 @@ def main():
         w.writeheader()
         w.writerows(det)
     print(f"{os.path.basename(a.ancseq)}: length-based ORF test (>= {a.min_len:g}% length, >= {a.min_cov:g}% "
-          f"coverage, any frame); ORF node changed for {changed} of {len(out)} loci", file=sys.stderr)
+          f"coverage, any frame); ORF node changed for {changed} of {len(out)} loci"
+          + (f"; {len(no_aln)} loci without an alignment kept as in step 4 ({', '.join(no_aln[:5])})" if no_aln else ""),
+          file=sys.stderr)
 
 
 if __name__ == "__main__":

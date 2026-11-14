@@ -69,6 +69,7 @@ Species names, file prefixes and the tree labels they map to are listed in
 bash 4_enablers/run_pipeline.sh WORKDIR            # all steps (from the repository root)
 bash 4_enablers/run_pipeline.sh WORKDIR 4 4        # only step 4
 ONLY=athaliana bash 4_enablers/run_pipeline.sh WORKDIR   # restrict step 4 to one species
+REUSE_TBLASTN=1 bash 4_enablers/run_pipeline.sh WORKDIR 4 4   # rerun only step 4b on the existing tBLASTn tables
 ```
 
 Set `PYTHON`, `TBLASTN` and `MAKEBLASTDB` to use specific executables.
@@ -128,8 +129,12 @@ steps 4, 4b, 7c, 7d and 7e.
 A key that is absent is off, except `conserved_orf_filter`. With the default rules the T2T
 mammal analysis gave 3,034 DNGs and 2,059 PDNGs in 11 species, against 2,194 and 2,401 without the
 last four rules adopted (`orf_min_in_frame`, `start_codon_events`, `event_gap_living_inferred`,
-`option_b_outer_side_branch`; LINGUA_t2t, `stage4/README.md`). The default rules have not been run
-on the Brassicaceae.
+`option_b_outer_side_branch`; LINGUA_t2t, `stage4/README.md`). On the Brassicaceae (same stage 3
+inputs, tBLASTn and synteny as the published run; 2026-11-13) the default rules give 2,064 DNGs and
+20,145 PDNGs in the 20 ingroup species, against 1,811 and 20,565 with the published rules. Of the
+published DNGs, 1,557 stay DNGs, 167 become PDNGs, 49 are removed by step 7c and 38 drop out at step
+7 because the length test places their ORF at N0-N3; 493 published PDNGs become DNGs, and 14 loci
+that the published rules dropped at step 7 are now DNGs.
 
 ## Parameters and classification rules
 
@@ -189,7 +194,11 @@ T2T scripts merged in (2026-11-13). Steps 6-9 were rerun on Dayhoff with
 `presets/method_options_brassicaceae_published.json` on the same inputs as the 2026-11-09 run
 below. All 233 output files hold the same rows as the 2026-11-09 run of tag
 `nee-catalog-stages3-4`, giving 1,811 DNGs and 20,565 PDNGs in the 20 ingroup species. The new
-steps (4b, 5b, 6b, 7c, 7e) and the new options were tested on the T2T mammals only (LINGUA_t2t).
+steps were first used on the T2T mammals (LINGUA_t2t); steps 4-9 under the default rules were then run
+on the Brassicaceae (all 23 species; step 7e off), with every locus of the published run accounted for
+(kept, reclassified, removed by step 7c, or dropped at step 7 with its new ORF node at N0-N3). Loci
+without a stage 3 alignment (8 of the 45,491 loci of the step 4 tables, all without an ORF in any ancestor) keep their step 4 row in
+step 4b.
 
 Final catalog (2026-11-09). Steps 6-9 were rerun with this code on the inputs of the
 published run (tBLASTn, synteny and alignments of all 23 species; indel tables from stage 3

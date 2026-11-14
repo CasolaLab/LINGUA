@@ -93,7 +93,8 @@ def main():
 
     def focal_cds(g):
         if g not in cds_cache:
-            p = glob.glob(os.path.join(a.aln_dir, f"{F}_{g}_*.aln"))
+            gk = g[:-2] if g.endswith(".p") else g  # Phytozome IDs carry ".p" in the protein tables, not in alignments
+            p = glob.glob(os.path.join(a.aln_dir, f"{F}_{gk}_*.aln"))
             if len(p) != 1:
                 die(f"{len(p)} alignments for {g} in {a.aln_dir}")
             cds_cache[g] = read_aln(p[0])[F].replace("-", "")
