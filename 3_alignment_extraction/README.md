@@ -48,11 +48,14 @@ transcript coordinates (BED), the pipeline:
    validates sequence length and identity against the reference nucleotide FASTA
    (and the BED exon lengths against that FASTA).
 8. Analyzes the validated, per-species alignment to locate start codons (ATG) and
-   stop codons (TAA/TAG/TGA), read in each species' own frame and reported in
-   reference coordinates, identify frameshift-length indels (in practice deletions
-   relative to the reference, since the trimmed reference has no gaps; gaps inside
-   the missing-data mask are not reported, and deletions overlapping it are trimmed
-   to their unmasked part), and extract the first/last three bases of each sequence.
+   stop codons (TAA/TAG/TGA) of every species and ancestor in the reference reading
+   frame (the three bases aligned to each reference codon), identify frameshift-length
+   indels (in practice deletions relative to the reference, since the trimmed reference
+   has no gaps; a deletion run that reaches the first or last reference base, an
+   unaligned end, or that overlaps the missing-data mask is not reported), and extract
+   the first/last three bases of each sequence. Before 2026-11-15, stops were read in
+   each species' own frame and deletions overlapping the mask were trimmed to their
+   unmasked part.
    Every reported deletion is then given an evidence label (step 14b): whether the
    gap is the aligner's own, a stretch with no alignment, or a piece removed by step
    3, and whether the species still has its own sequence in that spot.
@@ -82,8 +85,8 @@ lives in [`docs/Genomes2Genes_README.txt`](docs/Genomes2Genes_README.txt).
 | 10 | `step10_second_stage_validation.py` | Confirm final sequences match reference length/content |
 | 11 | `step11_update_stitched_exons_summary.py` | Compare BED, FNA and alignment lengths (`expected_bed`, `expected_fna`, `actual_nt`, `bed_fna_check`) |
 | 12 | `step12_identify_start_codons.sh` | Locate start codons, reported in reference coordinates |
-| 13 | `step13_identify_stop_codons.sh` | Locate stop codons, reported in reference coordinates |
-| 14 | `step14_identify_indels.sh` | Identify frameshift-length indels relative to the reference, skipping or trimming gaps in the step 8c mask |
+| 13 | `step13_identify_stop_codons.sh` | Locate stop codons of every row in the reference reading frame, reported in reference coordinates |
+| 14 | `step14_identify_indels.sh` | Identify frameshift-length indels relative to the reference; deletion runs reaching a CDS end or overlapping the step 8c mask are not reported |
 | 14b | `step14b_deletion_evidence.py` | For each reported deletion: where its gap came from and whether the species has its own sequence in place (evidence table; step 14 unchanged) |
 | 15 | `step15_identify_first_and_last_three_bases.sh` | Extract first/last 3bp per species |
 | 16 | `step16_extract_start_and_stops.py` | Directory-wide start/stop motif extraction and validation |

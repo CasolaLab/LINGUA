@@ -10,12 +10,12 @@
 # sequence there (exon absent from the alignment, or exon piece removed by step 8c), which is missing data, not a
 # deletion. Masked reference ranges (BED genomic coordinates, 0-based half-open) are converted to CDS positions
 # through the exon order of the transcript. Without the argument the behaviour is unchanged.
-# 2026-10-29: a deletion that overlaps the mask is TRIMMED to its part(s) outside the mask: the masked
-# exon is missing data, the bases missing beyond it in a neighbouring exon are a deletion. Each remainder is tested as
-# a frameshift (length not a multiple of 3) on its own; remainders of 1 bp at a mask boundary are dropped (boundary
-# ambiguity, the former 1-bp tolerance). A deletion with no overlap is unchanged.
+# 2026-10-29 to 2026-11-15: a deletion that overlapped the mask was TRIMMED to its part(s) outside the mask and the
+# remainders were reported. Since 2026-11-15 a deletion run that overlaps the mask is not reported at all (the run
+# covers missing data; a trimmed remainder of an unaligned end became an internal deletion at an exon boundary), and
+# neither is a deletion run that reaches the first or last reference CDS base (an unaligned end of the sequence).
 # Alignment files are read in sorted order; optional 7th argument writes every
-# deletion the mask removed or trimmed (with its reported and dropped remainders) to a TSV. Keep that TSV outside
+# deletion not reported for either reason (action unaligned_end or masked_out) to a TSV. Keep that TSV outside
 # <output_dir>: stage 4 reads every .tsv in the step 14 folder as indel calls.
 #
 # Insertions: step 9 output has no column where the reference has a gap (in the Capra hircus test, 2026-11-10, the
@@ -154,9 +154,7 @@ def unmasked_parts(aln, sp, a, b):
         parts.append((cur, b))
     return [(x, y) for x, y in parts if y - x + 1 > 1], [(x, y) for x, y in parts if y - x + 1 <= 1], True
 n_masked_out = 0
-n_trimmed = 0
-n_trimmed_rows = 0
-n_remainder_inframe = 0
+n_terminal = 0
 audit_rows = []
 header = "file_name\tgff_transcriptID\tChromosome\tStart\tEnd\tSpecies\tIndelStart_RefPos\tIndelEnd_RefPos\tIndelLength\tgff_strand_ref\tcds_length\treference_length\n"
 all_rows = []
@@ -185,35 +183,30 @@ for aln_file in sorted(glob.glob(os.path.join(input_dir, "*.aln"))):
     end_coord = parts[-1] if len(parts) > 1 else "0"
 
     def indel_rows(is_insertion, length, indel_seq, sp, a, b):
-        """Rows to report for one indel run: the run itself (insertion, or deletion outside the mask) or the
-        unmasked remainders of a deletion overlapping the mask, each tested as a frameshift."""
-        global n_masked_out, n_trimmed, n_trimmed_rows, n_remainder_inframe
+        """Rows to report for one indel run: an insertion that shifts the frame (or is a 3-bp stop), or a frameshifting
+        deletion that neither reaches the first or last reference CDS base nor overlaps the missing-data mask.
+        2026-11-15: a deletion run reaching a CDS end is an unaligned end of the sequence, and a run overlapping
+        the mask covers missing data; neither is reported, in whole or in part. Until 2026-11-15 a run overlapping
+        the mask was trimmed and its unmasked remainders were reported, so an unaligned end that crossed a missing
+        exon became an internal deletion at the exon boundary (Brassicaceae AT5G03710.1: 14-78 reported for a run
+        over 1-78), and terminal runs were left to stage 4."""
+        global n_masked_out, n_terminal
         def row(x, y, L):
             return [file_name, tid, chrom, start_coord, end_coord, sp, str(x), str(y), str(L), strand, cds_len, str(ref_length_val)]
         if is_insertion:
             if length % 3 != 0 or (length == 3 and indel_seq in STOP_CODONS):
                 return [row(a, b, length)]
             return []
-        parts, boundary_1bp, overlapped = unmasked_parts(file_name, sp, a, b)
-        if not overlapped:
-            return [row(a, b, length)] if length % 3 != 0 else []
-        if not parts:
-            n_masked_out += 1
-            audit_rows.append([file_name, tid, sp, str(a), str(b), str(length), "masked_out", "-", "-",
-                               fmt(boundary_1bp)])
+        if a == 1 or b == ref_pos_map[-1]:
+            n_terminal += 1
+            audit_rows.append([file_name, tid, sp, str(a), str(b), str(length), "unaligned_end", "-", "-", "-"])
             return []
-        out, inframe = [], []
-        for x, y in parts:
-            if (y - x + 1) % 3 != 0:
-                out.append(row(x, y, y - x + 1))
-            else:
-                inframe.append((x, y))
-                n_remainder_inframe += 1
-        n_trimmed += 1
-        n_trimmed_rows += len(out)
-        audit_rows.append([file_name, tid, sp, str(a), str(b), str(length), "trimmed",
-                           fmt([(int(r[6]), int(r[7])) for r in out]), fmt(inframe), fmt(boundary_1bp)])
-        return out
+        parts, boundary_1bp, overlapped = unmasked_parts(file_name, sp, a, b)
+        if overlapped:
+            n_masked_out += 1
+            audit_rows.append([file_name, tid, sp, str(a), str(b), str(length), "masked_out", "-", "-", "-"])
+            return []
+        return [row(a, b, length)] if length % 3 != 0 else []
 
     species_seqs = {}
     with open(aln_file, "r") as f:
@@ -284,15 +277,15 @@ with open(out_master, "w") as f:
     for r in all_rows: f.write("\t".join(r) + "\n")
 
 print(f"Indels done. Master summary at {out_master}")
+print(f"Deletion runs reaching the first or last reference CDS base (unaligned ends) not reported: {n_terminal}")
 if mask_file:
-    print(f"Missing-data mask: {n_mask_rows} masked CDS intervals; {n_masked_out} deletions inside them not reported; "
-          f"{n_trimmed} deletions overlapping them trimmed to {n_trimmed_rows} unmasked frameshift remainder(s) "
-          f"({n_remainder_inframe} in-frame remainders dropped)")
+    print(f"Missing-data mask: {n_mask_rows} masked CDS intervals; {n_masked_out} deletion runs overlapping them not "
+          f"reported")
 if audit_file:
     with open(audit_file, "w") as f:
         f.write("file_name\tgff_transcriptID\tSpecies\tDeletionStart_RefPos\tDeletionEnd_RefPos\tDeletionLength\t"
                 "action\treported_remainders\tinframe_remainders_dropped\tboundary_1bp_remainders_dropped\n")
         for r in audit_rows:
             f.write("\t".join(r) + "\n")
-    print(f"Masked or trimmed deletions ({len(audit_rows)}) listed in {audit_file}")
+    print(f"Deletions not reported ({len(audit_rows)}: unaligned ends and runs over missing data) listed in {audit_file}")
 EOF

@@ -13,9 +13,11 @@
 #            other exon becomes gaps, and every reference range a species has no sequence in (exons it is absent
 #            from, exons gapped here) goes to the missing-data mask step8c/step8c_missing_data.tsv
 #   step 9   per-exon padding removal, which fixes the exon-junction errors; reads step8c/
-#   step 14  masked version: deletions inside the step 8c mask are missing data and not reported; deletions
-#            overlapping it are trimmed to their unmasked parts, each tested as a frameshift; every masked or
-#            trimmed deletion is listed in step14_masked_deletions.tsv (outside step14/, which stage 4 reads)
+#   step 13  stop codons of every row in the reference reading frame (since 2026-11-15)
+#   step 14  masked version: a deletion run that overlaps the step 8c mask (missing data) or reaches the first or
+#            last reference CDS base (an unaligned end) is not reported (since 2026-11-15; before, runs overlapping
+#            the mask were trimmed to their unmasked parts); every deletion not reported is listed in
+#            step14_masked_deletions.tsv (outside step14/, which stage 4 reads)
 #   step 14b step14b_deletion_evidence.py: for every reported deletion, where its gap came from (aligner gap, no
 #            alignment, piece dropped by step 3) and whether the species has its own sequence in place, in
 #            step14_deletion_evidence.tsv; step 14's own files are unchanged

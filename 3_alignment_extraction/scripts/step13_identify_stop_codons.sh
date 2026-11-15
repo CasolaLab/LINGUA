@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # Script: step13_identify_stop_codons.sh
-# Description: Scans the stitched multi-species alignments to locate biological stop codons (TAA, TAG, TGA) in-frame, mapping them to the reference.
+# Description: Scans the stitched multi-species alignments for stop codons (TAA, TAG, TGA) of every species and
+#              ancestor in the reading frame of the reference CDS (the row bases aligned to each reference codon),
+#              reported in reference coordinates (reference-frame reading since 2026-11-15; before, each row was read
+#              in its own frame).
 # Usage: ./step13_identify_stop_codons.sh <step9_trimmed_dir> <output_dir> <bed_file> <reference_species> <step11_summary_tsv>
 # ==============================================================================
 
@@ -88,23 +91,26 @@ for aln_file in sorted(glob.glob(os.path.join(input_dir, "*.aln"))):
         if char != "-": curr_p += 1
         ref_pos_map.append(curr_p)
 
-    # Generate individual file output as requested
+    # Stops in the REFERENCE reading frame (2026-11-15): for every reference codon (reference CDS positions 3k+1..3k+3),
+    # the three bases of the species row aligned to it; a stop when all three are present and form TAA, TAG or TGA,
+    # whatever happens upstream in the row. Bases of the row in reference-gap columns are not part of any reference
+    # codon. Until 2026-11-15 each row was read in frame 0 of its own gap-free sequence, so a row starting off a
+    # reference codon boundary, or shifted by an indel, got stops outside the reference frame and lost those in it
+    # (Brassicaceae ancestral rows: 54,762 of 116,562 reference-frame stops reported). Every reference codon is read,
+    # the reference stop codon included (stage 4 drop_terminal_stop handles it).
+    ref_cols = [i for i, ch in enumerate(ref_seq) if ch != "-"]
     with open(os.path.join(output_dir, f"{file_name}_stops.tsv"), "w") as ind:
         ind.write(header)
         for sp in order:
             if sp == ref_id: continue
             sp_seq = seqs[sp].upper()
-            sp_ungapped, sp_pos_map = "", []
-            for i, char in enumerate(sp_seq):
-                if char != "-":
-                    sp_ungapped += char
-                    sp_pos_map.append(i)
-            
-            for i in range(0, len(sp_ungapped) - 2, 3):
-                codon = sp_ungapped[i:i+3]
-                if codon in ["TAA", "TAG", "TGA"]:
-                    r_start, r_end = ref_pos_map[sp_pos_map[i]], ref_pos_map[sp_pos_map[i+2]]
-                    row_data = [file_name, tid, chrom, start_coord, end_coord, sp, str(r_start), str(r_end), codon, strand, str(len(sp_ungapped)), str(ref_length_val)]
+            if len(sp_seq) != len(ref_seq):
+                sys.exit(f"Error: {aln_file}: row {sp} has {len(sp_seq)} columns, the reference row {len(ref_seq)}")
+            cds_len = str(len(sp_seq.replace("-", "")))
+            for j in range(0, len(ref_cols) - 2, 3):
+                codon = "".join(sp_seq[ref_cols[j + x]] for x in range(3))
+                if codon in ("TAA", "TAG", "TGA"):
+                    row_data = [file_name, tid, chrom, start_coord, end_coord, sp, str(j + 1), str(j + 3), codon, strand, cds_len, str(ref_length_val)]
                     all_rows.append(row_data)
                     ind.write("\t".join(row_data) + "\n")
 
