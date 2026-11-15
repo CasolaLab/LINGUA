@@ -27,5 +27,9 @@
  "stops_focal_frame_only": true,
  "start_codon_extension_max": 50,
  "inferred_carrier_needs_no_orf": true,
- "option_b_outer_skip_root_branches": true
+ "option_b_outer_skip_root_branches": true,
+ "stops_focal_frame_table": true,
+ "indel_unaligned_end_from_alignment": true,
+ "older_orf_makes_pdng": true,
+ "indel_mask_remainder_from_alignment": true
 }

@@ -236,7 +236,9 @@ def main():
             if outer:
                 # each enabler node needs its own observed side branch, or a distinct older one standing in; one
                 # outgroup branch cannot support both nodes (a lone outgroup cannot polarize the root)
-                ens = [n for n in enablers if n in lineage]
+                # lineage order, not set order: the first valid pairing is kept, and set order changes between runs
+                # (string hashing), which swapped the stand-in branches of two nodes from run to run (2026-11-15)
+                ens = sorted((n for n in enablers if n in lineage), key=lineage.index)
                 choices = [[n] if extant[n] else sorted(proxy[n]) for n in ens]
                 best = None
                 import itertools

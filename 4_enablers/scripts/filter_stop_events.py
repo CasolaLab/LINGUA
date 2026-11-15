@@ -7,7 +7,9 @@ Remove stop events that are not premature stops of the focal ORF from the step 6
 column of the stage 3 stop tables is not the CDS length in every dataset (Brassicaceae: values 1-8), which is why the
 tree-config key stops_focal_frame_only could not be used there.
   drop_terminal_stop       a stop at the focal ORF's own stop codon (CDS position L-2) is the stop the focal gene also
-                           has, not a disabler (Brassicaceae locus KAF8101894.1: TGA at 169 of 171 used as an event)
+                           has, not a disabler (Brassicaceae locus KAF8101894.1: TGA at 169 of 171 used as an event).
+                           Only when the focal row ends with a stop codon: where the alignments carry the CDS without
+                           it (Brassicaceae Arabis alpina, 0 of 3,501), L-2 is the last sense codon (2026-11-15)
   stops_focal_frame_only   only stops in the focal reading frame ((position - 1) % 3 == 0) are events; a stop in a
                            shifted frame is usually the same triplet read after a frameshift, which is counted as an
                            indel event already (T2T rule of 2026-10-09)
@@ -61,14 +63,15 @@ def main():
             p = glob.glob(os.path.join(a.aln_dir, f"{F}_{gk}_*.aln"))
             if len(p) != 1:
                 die(f"{len(p)} alignments for {g} in {a.aln_dir}")
-            cds_len[g] = len(read_aln(p[0])[F].replace("-", ""))
+            cds = read_aln(p[0])[F].replace("-", "").upper()
+            cds_len[g] = (len(cds), cds[-3:] in ("TAA", "TAG", "TGA"))
         return cds_len[g]
 
     kept, removed, reasons = [], [], collections.Counter()
     for r in events:
         pos = int(r["StopCodonStart_RefPos"])
         why = []
-        if term_on and pos == L(r["geneID"]) - 2:
+        if term_on and L(r["geneID"])[1] and pos == L(r["geneID"])[0] - 2:
             why.append("focal_terminal_stop")
         if frame_on and (pos - 1) % 3:
             why.append("outside_focal_frame")

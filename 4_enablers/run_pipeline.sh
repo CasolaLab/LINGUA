@@ -146,6 +146,18 @@ fi
 if run 6; then
     need "$WORK/indels_dir"; need "$WORK/stops_dir"; need "$TBLASTN_OUT"
     inputs
+    if [ "$(opt stops_focal_frame_table)" = 1 ]; then
+        step 5a "rebuild the stop tables in the focal reading frame from the alignments"
+        while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
+            [ "$anc" != NA ] || continue
+            ok "$alnd" "step 5a: no alignment folder for $focal"; ok "$stpt" "step 5a: no stop table for $focal"
+            "$PY" "$SCRIPTS/focal_frame_stops.py" "$stpt" "$alnd" "$anc" --focal-species "$focal"
+        done < "$INPUTS"
+    elif ls "$WORK"/stops_dir/*.stage3 >/dev/null 2>&1; then
+        # stops_focal_frame_table off after a run with it on: restore the step 13 tables (step 5b backups were made
+        # from the focal-frame tables, so they go too)
+        for f in "$WORK"/stops_dir/*.stage3; do cp "$f" "${f%.stage3}"; rm -f "${f%.stage3}.pre_start"; done
+    fi
     if [ "$(opt start_codon_events)" = 1 ]; then
         step 5b "add start-codon events (non-ATG at the focal ATG) to the stop tables"
         while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
@@ -156,6 +168,17 @@ if run 6; then
     elif ls "$WORK"/stops_dir/*.pre_start >/dev/null 2>&1; then
         # start_codon_events off after a run with it on: restore the original stop tables
         for f in "$WORK"/stops_dir/*.pre_start; do cp "$f" "${f%.pre_start}"; done
+    fi
+    if [ "$(opt indel_unaligned_end_from_alignment)" = 1 ] || [ "$(opt indel_mask_remainder_from_alignment)" = 1 ]; then
+        step 5c "remove indel rows whose gap is an unaligned end, or the remainder of a gap over missing data, in the alignment"
+        while IFS=$'\t' read -r focal qpref opref npref alnd indt stpt anc; do
+            [ "$anc" != NA ] || continue
+            ok "$alnd" "step 5c: no alignment folder for $focal"; ok "$indt" "step 5c: no indel table for $focal"
+            "$PY" "$SCRIPTS/drop_unaligned_end_indels.py" "$indt" "$alnd" --focal-species "$focal"
+        done < "$INPUTS"
+    elif ls "$WORK"/indels_dir/*.pre_unaligned >/dev/null 2>&1; then
+        # indel_unaligned_end_from_alignment off after a run with it on: restore the stage 3 indel tables
+        for f in "$WORK"/indels_dir/*.pre_unaligned; do cp "$f" "${f%.pre_unaligned}"; done
     fi
     step 6 "assign shared indels and premature stop codons to nodes"
     "$PY" "$SCRIPTS/indel_oldest_shared_node_AncSeq_v2.py" "$WORK/indels_dir"
@@ -289,6 +312,10 @@ for f in sorted(d.glob("*_nodes_summary.tsv")):
         "$PY" "$SCRIPTS/apply_consecutive_enablers.py" "$cur" "$FINAL"
     else
         mkdir -p "$FINAL"; cp -R "$cur/nodes_summary_by_species" "$FINAL/"
+    fi
+    if [ "$(opt older_orf_makes_pdng)" = 1 ]; then
+        step 7h "a DNG with an older lineage ancestor that has the ORF becomes a PDNG"
+        "$PY" "$SCRIPTS/older_orf_pdng.py" "$FINAL" "$INPUTS"
     fi
 fi
 

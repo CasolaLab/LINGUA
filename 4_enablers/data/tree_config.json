@@ -425,9 +425,7 @@
   },
   "excluded_orf_nodes": [
     "N0",
-    "N1",
-    "N2",
-    "N3"
+    "N1"
   ],
   "excluded_enabler_nodes": [
     "N0",
