@@ -1,0 +1,33 @@
+name: stage 3 (3_alignment_extraction)
+
+on:
+  push:
+    paths: ['3_alignment_extraction/**', '.github/workflows/stage3.yml']
+  pull_request:
+    paths: ['3_alignment_extraction/**', '.github/workflows/stage3.yml']
+
+defaults:
+  run:
+    working-directory: 3_alignment_extraction
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Shell scripts parse
+        run: for f in $(find . -name '*.sh'); do bash -n "$f"; done
+      - name: Run every test file (standard library only)
+        run: |
+          status=0
+          for t in tests/test_*.py; do
+            echo "== $t"
+            python3 "$t" || status=1
+          done
+          exit $status

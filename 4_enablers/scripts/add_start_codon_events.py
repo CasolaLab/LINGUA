@@ -29,7 +29,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import lingua_config as cfg  # noqa: E402
-from orf_length_node import all_orfs  # noqa: E402
+from orf_length_node import all_orfs, focal_frame_orf  # noqa: E402
 
 csv.field_size_limit(10 ** 9)
 
@@ -97,7 +97,14 @@ def main():
                 continue
             if (g, taxon, "1") in have:
                 continue
-            if ext_max:
+            if ext_max and cfg.OPTIONS.get("orf_frame_measure") == "contiguous":
+                # T2T 2026-11-15: with the contiguous measure, a row is not a carrier when it has an ATG-started ORF that
+                # passes the step 4b test (focal frame unbroken over >= start_codon_extension_max %, bases >= orf_min_len %)
+                has, best, _ = focal_frame_orf(ref, row, {"ATG"}, ext_max, float(cfg.opt("orf_min_len", 80)))
+                if has:
+                    ext.append({"geneID": g, "taxon": taxon, "codon": cod, "orf_in_frame_pct": f"{best:.1f}"})
+                    continue
+            elif ext_max:
                 pos = {c: p for p, c in enumerate(cols)}
                 best = max([100.0 * 3 * sum(1 for c in o[3] if c in pos and pos[c] % 3 == 0) / len(cols)
                             for o in all_orfs(row, {"ATG"}, bool(cfg.opt("orf_count_stop")))] or [0.0])

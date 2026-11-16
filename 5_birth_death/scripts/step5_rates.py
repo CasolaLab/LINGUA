@@ -56,7 +56,7 @@ from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from s5_common import (Tree, check_hog_ids, die, log, need, read_branch_lengths, read_tsv, strip_isoform,  # noqa: E402
-                        write_tsv)
+                        strip_p, write_tsv)
 
 OVERLAP_REASON = {"same_strand_cds_overlap": "CDS overlaps a same-strand gene",
                   "same_strand_overlap": "overlaps a same-strand gene (intron or UTR)",
@@ -101,8 +101,14 @@ def main():
     if a.unknown:
         need(a.unknown)
         for r in read_tsv(a.unknown):
-            unknown[(tree.canon(r["species"]), r["geneID"])] = {tree.canon(x) for x in r["unknown_in"].split(";") if x}
+            # step 1a writes the stage 4 IDs, which keep the Phytozome ".p"; genes.tsv has them removed (step 1)
+            unknown[(tree.canon(r["species"]), strip_p(r["geneID"]))] = {tree.canon(x) for x in r["unknown_in"].split(";") if x}
         log(f"--unknown: {len(unknown):,} genes with genomes taken as carriers for deaths only")
+        for sp in {k[0] for k in unknown}:
+            n_cls = sum(1 for k in presence if k[0] == sp)
+            if n_cls and not any(k in presence for k in unknown if k[0] == sp):
+                die(f"--unknown: no gene ID of {sp} matches genes.tsv (ID forms differ, e.g. "
+                    f"{next(k[1] for k in unknown if k[0] == sp)!r} vs {next(k[1] for k in presence if k[0] == sp)!r})")
     removed_by_unknown = Counter()
 
     excluded = {}

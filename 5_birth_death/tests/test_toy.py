@@ -284,7 +284,7 @@ def test_overlap_required():
 def test_unknown_genomes():
     """HOG H2 of test_hog_lineage_split: an origin at N1 carried by C (y1) and A (y2), lost on B. With B listed as
     unknown for y1 the death on B is not counted; listing D (outside the origin's clade) or A (a carrier) changes
-    nothing, and no listing adds a death."""
+    nothing, and no listing adds a death. The unknown table may carry the ".p" of the stage 4 IDs (y1.p): same result as B."""
     with tempfile.TemporaryDirectory() as d:
         cf = build(d)
         w(f"{d}/l.tsv", "ClusterID\tNode\tGene_type\tA\tB\tC\tD\n3\tN1\tPDNG\t\t\ty1\t\n4\tA-specific\tPDNG\ty2\t\t\t\n")
@@ -293,7 +293,8 @@ def test_unknown_genomes():
         w(f"{d}/h.tsv", "HOG\tOG\tGene Tree Parent Clade\tA\tB\tC\tD\nH2\tO2\tn\ty2\t\ty1\t\n")
         uh = "species\tgeneID\tunknown_in\n"
         for name, unk, want_b in (("none", None, 1), ("B", uh + "C\ty1\tB\n", 0), ("D", uh + "C\ty1\tD\n", 1),
-                                  ("A", uh + "A\ty2\tA;D\n", 1)):
+                                  ("A", uh + "A\ty2\tA;D\n", 1),
+                                  ("Bp", uh + "C\ty1.p\tB\n", 0)):  # step 1a keeps the Phytozome ".p", genes.tsv not
             extra = []
             if unk:
                 w(f"{d}/u_{name}.tsv", unk)

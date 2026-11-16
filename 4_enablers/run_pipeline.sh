@@ -292,6 +292,8 @@ for f in sorted(d.glob("*_nodes_summary.tsv")):
                 allev=(--all-indel-events "$WORK/indels_dir/all_indels_nodes_${focal}.tsv"
                        --all-stop-events "$WORK/stops_dir/all_stops_nodes_${focal}.tsv")
             fi
+            case "$(optval orf_clade_living_parent_orf '')" in start|all) ok "$anc" "step 7d: no AncSeq table for $focal"
+                allev+=(--ancseq "$anc") ;; esac
             "$PY" "$SCRIPTS/annotate_evidence.py" "$NODES" "$npref" "$alnd" "$indt" \
                 --focal-species "$focal" --stops-detail "$stpt" ${allev[@]+"${allev[@]}"}
         done < "$INPUTS"
@@ -316,6 +318,12 @@ for f in sorted(d.glob("*_nodes_summary.tsv")):
     if [ "$(opt older_orf_makes_pdng)" = 1 ]; then
         step 7h "a DNG with an older lineage ancestor that has the ORF becomes a PDNG"
         "$PY" "$SCRIPTS/older_orf_pdng.py" "$FINAL" "$INPUTS"
+    fi
+    if [ "$(opt orf_clade_parsimony_pdng)" = 1 ]; then
+        # parsimony on the extant species (no reconstructed ancestors) must place the ancestral state at the ORF node
+        # for every chosen enabler event; ties and the derived state give PDNG (scripts/parsimony_pdng.py)
+        step 7i "a DNG whose ORF node is not intact by parsimony on the extant species becomes a PDNG"
+        "$PY" "$SCRIPTS/parsimony_pdng.py" "$FINAL" "$INPUTS"
     fi
 fi
 

@@ -64,7 +64,28 @@ def main():
                     help="step-6 all_indels_nodes table; with --all-stop-events, an enabler node is supported by ANY "
                          "valid disabler, not only the event step 7 chose (NEE rule 5)")
     ap.add_argument("--all-stop-events", default=None)
+    ap.add_argument("--ancseq", default=None, help="step 4/4b AncSeq table (needed by orf_clade_living_parent_orf)")
     a = ap.parse_args()
+    # orf_clade_living_parent_orf (T2T 2026-11-15), the same exception as step 7: a living carrier inside the ORF clade does not
+    # make an event "inside" when its parent ancestor has the ORF ("start": start-codon events only; "all": every event)
+    lp_scope = cfg.opt("orf_clade_living_parent_orf", "") or ""
+    anc_cells = {}
+    if lp_scope and lp_scope != "living_never":
+        if not a.ancseq:
+            sys.exit("ERROR: orf_clade_living_parent_orf needs --ancseq")
+        for x in csv.DictReader(open(a.ancseq), delimiter="\t"):
+            anc_cells[x["geneID"].strip().removesuffix(".p")] = {k for k, v in x.items() if k in cfg.NODE_CLADES and (v or "").strip() in ("1", "1.0")}
+
+    def lp_parent(sp):
+        c = [(len(v), k) for k, v in cfg.NODE_CLADES.items() if sp in v]
+        return min(c)[1] if c else None
+
+    def inside_living(car, oclade, kind, pos, g):
+        if lp_scope == "living_never":
+            return set()
+        applies = lp_scope == "all" or (lp_scope == "start" and kind == "stop" and str(pos) == "1")
+        cells = anc_cells.get(g.removesuffix(".p"), set())  # Phytozome ".p" may differ between tables
+        return {s for s in car & (oclade - {F}) if not (applies and lp_parent(s) in cells)}
     if bool(a.all_indel_events) != bool(a.all_stop_events) or (a.all_indel_events and not a.stops_detail):
         die("--all-indel-events and --all-stop-events go together, and need --stops-detail")
     F = a.focal_species
@@ -210,7 +231,7 @@ def main():
                         continue
                     L = node_lengths(kind, gk, pos, n, nodes_e, inferred.get((kind, pos), set()))
                     car = event_carriers(kind, gk, pos, L)
-                    if car & (oclade - {F}):
+                    if inside_living(car, oclade, kind, pos, r["geneID"].strip()):
                         continue
                     hit = car & side_branch(n) & species
                     if hit:

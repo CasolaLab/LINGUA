@@ -192,9 +192,10 @@ class Tree:
         return s if s in self.species else None
 
     def report_branches(self):
-        """Branches written to the rate table: the ingroup crown, every internal node below it, then every
-        species (outgroups included, as in the published table)."""
-        below = [n for n in self.subtree(self.crown) if n in self.clades]
+        """Branches written to the rate table: the ingroup crown, every internal node below it, every other node at
+        which an ORF may originate (a tree config that allows ORF nodes above the crown, e.g. the Brassicaceae
+        default since 2026-11-15 with N2), then every species (outgroups included, as in the published table)."""
+        below = {n for n in self.subtree(self.crown) if n in self.clades} | set(self.origin_nodes)
         return sorted(below, key=lambda n: self.rank[n]) + list(self.species)
 
 

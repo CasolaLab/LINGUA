@@ -26,7 +26,8 @@ the method options file determines which classification rules apply; the variabl
 
 | Options file | Rules |
 |---|---|
-| `data/method_options.json` (default) | the rules of the T2T mammal analysis (2026-11-13), adopted as the LINGUA default for new runs, with the corrections of 2026-11-14 and 2026-11-15 |
+| `data/method_options.json` (default) | the rules of the T2T mammal analysis, kept the same as the LINGUA_t2t default (2026-11-15: contiguous 80% ORF rule, extant species never move the ORF node, step 7i parsimony), with the corrections of 2026-11-14 and 2026-11-15 |
+| `presets/method_options_default_pre_l12_20261115.json` | the default before 2026-11-15 evening (1,780 Brassicaceae DNGs) |
 | `presets/method_options_brassicaceae_published.json` with `presets/tree_config_brassicaceae_published.json` | the rules of the published Brassicaceae catalog (1,811 DNGs) |
 
 ```
@@ -106,10 +107,11 @@ Set `PYTHON`, `TBLASTN` and `MAKEBLASTDB` to use specific executables.
 | 7f | `apply_option_b_reclassification.py` (`option_b_extant_support`) | Option B: a DNG keeps its class only when each enabler node is corroborated by an extant genome carrying the same event | `stage4_optionB/nodes_summary_by_species/` |
 | 7g | `apply_consecutive_enablers.py` (`consecutive_enablers`) | A DNG's two enabler nodes must be the parent and the grandparent of its ORF node | `stage4_final/nodes_summary_by_species/` (the final classification) |
 | 7h | `older_orf_pdng.py` (`older_orf_makes_pdng`) | A DNG with a lineage ancestor older than its ORF node that also has the ORF becomes a PDNG | `stage4_final/nodes_summary_by_species/` rewritten in place, `<prefix>_older_orf_pdng.log` |
+| 7i | `parsimony_pdng.py` (`orf_clade_parsimony_pdng`) | A DNG stays a DNG only if parsimony on the extant species (no reconstructed ancestors) places the ancestral state at its ORF node for every chosen enabler event; a tie or the derived state gives a PDNG | `stage4_final/nodes_summary_by_species/` rewritten in place, `<prefix>_parsimony_pdng.log` |
 | 8 | `summarize_nodes_by_species_split.py` | Family-wide counts of DNGs by node and of DNGs and PDNGs by species, and one list of all classified loci | `brassicaceae_DNGs_by_age.tsv`, `brassicaceae_species_totals.tsv`, `brassicaceae_all_gene_types.tsv` |
 | 9 | `nodes_by_coordinates.py` | Places DNGs and PDNGs at internal nodes by intersecting alignment coordinates across species | `parsed_coordinates/` |
 
-Steps 4b, 5a, 5b, 5c, 6b, 6c, 7c, 7d, 7e, 7f, 7g and 7h run only when their option is on. In the published
+Steps 4b, 5a, 5b, 5c, 6b, 6c, 7c, 7d, 7e, 7f, 7g, 7h and 7i run only when their option is on. In the published
 catalog the steps now numbered 6c, 7d, 7f and 7g were numbered 6b, 7c, 7d and 7e. `ONLY` restricts
 steps 4, 4b, 7c, 7d and 7e.
 
@@ -119,14 +121,14 @@ steps 4, 4b, 7c, 7d and 7e.
 |---|---|---|---|---|
 | `orf_test` = `length`, `orf_min_len`, `orf_min_cov` | 4b | ancestral ORF presence by length instead of tBLASTn, namely the longest ORF in any forward frame starting at ATG or at the focal gene's own first codon, at least `orf_min_len` % of the focal CDS length and spanning at least `orf_min_cov` % of it, with no identity cutoff | length, 80, 80 | tBLASTn |
 | `orf_count_stop` | 4b | an ancestral ORF ended by a stop codon includes it, as the focal CDS length does | on | off |
-| `orf_min_in_frame` | 4b | an ancestor has the ORF only when the ORF also reads at least this % of the focal CDS in the focal frame | 50 | off |
-| `orf_frame_measure` | 4b, stage 5 step 1a | how the in-frame share is measured: `orf`, on the codons of each ORF that passes the length test (every such ORF is tried); `row`, the longest unbroken focal-frame stretch of the ancestral row, not tied to the ORF (the runs of 2026-11-13, which passed ORFs mostly in another frame) | orf | (not used) |
+| `orf_min_in_frame` | 4b | with `orf`: an ancestor has the ORF only when the ORF also reads at least this % of the focal CDS in the focal frame; with `contiguous`: the minimum unbroken stretch | 80 | off |
+| `orf_frame_measure` | 4b, stage 5 step 1a | how the in-frame share is measured: `orf`, on the codons of each ORF that passes the length test (every such ORF is tried); `row`, the longest unbroken focal-frame stretch of the ancestral row, not tied to the ORF (the runs of 2026-11-13, which passed ORFs mostly in another frame); `contiguous`, from a start codon (ATG or the focal first codon) read in the focal frame, the frame runs unbroken by a focal-frame stop (the focal terminal codon excepted) or a frameshifting gap or insertion over at least `orf_min_in_frame` % of the focal CDS, with row bases at `orf_min_len` % of it; pieces separated by a frameshift are never added together (LINGUA_t2t, 2026-11-15) | contiguous | (not used) |
 | `orf_node_contiguous` | 4, 4b | the ORF node is the oldest ancestor of the unbroken run of ORF-bearing focal-lineage ancestors above the focal species | on | off |
 | `stops_focal_frame_table` | 5a | stop events are the stop codons of the focal frame, read from the alignments: a stop is the triplet of row bases aligned to one focal codon, whatever happens upstream in the row. Stage 3 step 13 reads each row from its first base, so a row that starts off a focal codon boundary or shifts frame at an indel gets stops off the focal frame and loses those in it (Brassicaceae ancestral rows: 54,762 of 116,562 focal-frame stops in the step 13 tables) | on | off |
 | `indel_unaligned_end_from_alignment` | 5c | an indel row is not evidence when its gap is part of a gap run of the alignment row reaching either end of the focal CDS. Stage 3 step 14 trims a deletion that overlaps a missing-data exon to its part outside the exon, so an unaligned end becomes an internal deletion that the step 6b terminal-gap test, which reads the table coordinates, keeps (Brassicaceae AT5G03710.1: table 14-78, ancestral rows unaligned over 1-78) | on | off |
 | `indel_mask_remainder_from_alignment` | 5c | an indel row is not evidence when its gap run in the alignment is internal but longer than the table interval: only the stage 3 missing-data trim reports part of a run, so the row is the remainder of a gap over missing data (Brassicaceae Iin25571.t1: table 391-541, ancestral rows lack about 210 positions around it). Overrides, for stage 4, the stage 3 rule of 2026-10-29 that counts such remainders as deletions | on | off |
 | `start_codon_events` | 5b | a start-codon gain is an enabler, entered as a stop-table event at position 1 so that every stop rule applies to it | on | off |
-| `start_codon_extension_max` | 5b | a row is not a start-codon carrier when it already has an ATG-initiated ORF reading at least this % of the focal CDS in the focal frame (the change would only extend an open frame at its 5′ end) | 50 | off |
+| `start_codon_extension_max` | 5b | a row is not a start-codon carrier when it already has an ATG-initiated ORF reading at least this % of the focal CDS in the focal frame (the change would only extend an open frame at its 5′ end); with `contiguous`, an ATG-started ORF passing the step 4b test with this % as the stretch | 80 | off |
 | `indel_events_by_length` | 6 | an indel event is a position and a length, so different indels starting at one base are not merged | on | off |
 | `contiguous_event_nodes` | 6 | an event is inherited only along contiguous lineage ancestors; each run of at least two carriers is a separate event | on | off |
 | `event_gap_living_inferred` | 6 | a single lineage ancestor lacking an event between two carriers counts as a carrier when an extant species on its side branch carries the same event | on | off |
@@ -138,6 +140,7 @@ steps 4, 4b, 7c, 7d and 7e.
 | `record_enabler_events` | 7 | records the CDS positions of the indel and stop events used as enablers | on | on |
 | `skip_events_in_younger_nodes` | 7 | an event is not used when a lineage ancestor younger than the ORF node carries it | on | off |
 | `orf_clade_consistency` | 7 | the ORF node moves younger while the chosen disabler is present inside the ORF clade | on | on |
+| `orf_clade_living_parent_orf` | 7, 7d | which extant carriers inside the ORF clade count in the step 7 rule and the step 7d inside test: `living_never`, none (only reconstructed ancestors move the ORF node; step 7i judges extant carriers); `start` or `all`, all except those whose parent ancestor has the ORF (start-codon events only, or every event) | living_never | (absent: all count) |
 | `inferred_carrier_needs_no_orf` | 7 | an ancestor whose own sequence has the ORF is not added as a carrier inferred from extant species (the rule of step 6c for observed carriers) | on | off |
 | `conserved_orf_filter` | 7c | removes candidates with an ORF in an ancestor outside the ingroup | on | off |
 | `annotate_evidence`, `evidence_any_valid_disabler` | 7d | writes the evidence tables; extant support counts any valid disabler at an enabler node | on, on | on, on |
@@ -147,13 +150,13 @@ steps 4, 4b, 7c, 7d and 7e.
 | `option_b_outer_skip_root_branches` | 7d, 7f | the side branches of the tree config's `excluded_enabler_nodes` (Brassicaceae N0 and N1, namely *Theobroma* and *Tarenaya*) never stand in | on | off |
 | `consecutive_enablers` | 7g | a DNG's enabler nodes must be the parent and grandparent of the ORF node; otherwise PDNG | on | on |
 | `older_orf_makes_pdng` | 7h | a DNG whose lineage has an ancestor older than the ORF node with the ORF (present, lost and present again) is a PDNG: its disablers disable an ORF that already existed | on | off |
+| `orf_clade_parsimony_pdng` | 7i | per DNG and chosen enabler event, extant tip states (1 carries the event, at the indel length of its nearest lineage carrier older than the ORF node; 0 aligned, without it; unknown when the site is not aligned; focal 0), Sankoff parsimony with unit costs on the tree config; the gene stays DNG only when the ORF node is 0 in every most-parsimonious reconstruction for every event. A species-specific ORF node is the focal tip and never changes | on | off |
 
 A key that is absent is off, except `conserved_orf_filter` (on) and `orf_frame_measure` (`orf`). With the default rules the T2T
-mammal analysis gave 3,034 DNGs and 2,059 PDNGs in 11 species, against 2,194 and 2,401 without the
-last four rules adopted (`orf_min_in_frame`, `start_codon_events`, `event_gap_living_inferred`,
-`option_b_outer_side_branch`; LINGUA_t2t, `stage4/README.md`). On the Brassicaceae (same stage 3
-inputs, tBLASTn and synteny as the published run; 2026-11-15) the default rules give 1,780 DNGs and
-20,969 PDNGs in the 20 ingroup species, against 1,811 and 20,565 with the published rules. The count
+mammal analysis gives 3,608 DNGs and 1,964 PDNGs in 11 species (LINGUA_t2t, `stage4/README.md`, 2026-11-15). On the
+Brassicaceae (same stage 3 inputs, tBLASTn and synteny as the published run) the default rules give 2,071 DNGs and
+20,775 PDNGs in the 20 ingroup species, against 1,811 and 20,565 with the published rules; the rules of
+`presets/method_options_default_pre_l12_20261115.json` gave 1,780 DNGs and 20,969 PDNGs. The count
 was 2,064 DNGs with the default rules of 2026-11-13, 1,718 after the corrections of 2026-11-14
 (`orf_frame_measure`, `drop_terminal_stop`, `stops_focal_frame_only`, `start_codon_extension_max`,
 `inferred_carrier_needs_no_orf`, `option_b_outer_skip_root_branches`, and the 3' terminal-gap fix of step 6b),
@@ -162,7 +165,13 @@ ORF nodes (406 loci with ORF node N2 or N3, 41 of them in *Aethionema arabicum*,
 after step 5c (`indel_unaligned_end_from_alignment`, `indel_mask_remainder_from_alignment`: 170,827 of 963,875 indel
 rows removed, 116,268 of them already terminal in the table, 47,055 unaligned ends hidden by the stage 3 mask and
 7,504 mask remainders) and 1,780 after step 7h (`older_orf_makes_pdng`: 34 DNGs with an older lineage ancestor that
-has the ORF, 22 of them at N2 or N3). Of the published DNGs, 1,356 stay DNGs, 432 become PDNGs, 21 are removed by
+has the ORF, 22 of them at N2 or N3). With the T2T rules of 2026-11-15, the current default, the count is 2,128 with
+the contiguous 80% ORF rule, 2,290 when extant species never move the ORF node and 2,071 after step 7i (20,775 PDNGs);
+of the 219 DNGs that step 7i makes PDNGs, 128 are ties only because of missing data, 31 are ties from a sister lineage
+sharing the ancestral state and 60 have the enabler at a younger node. With the current default, of the 1,811 published
+DNGs 1,450 stay DNGs, 360 become PDNGs and 1 is removed; 568 published PDNGs and 53 loci absent from the published
+tables become DNGs. Before that change (preset
+`method_options_default_pre_l12_20261115.json`), of the published DNGs, 1,356 stay DNGs, 432 become PDNGs, 21 are removed by
 step 7c and 2 drop out at step 7; 419 published PDNGs become DNGs. With `inferred_carrier_needs_no_orf` no locus
 whose ORF node was moved by `orf_clade_consistency` can be a DNG, because the ancestors between the old and the new
 ORF node have the ORF.

@@ -882,7 +882,7 @@ def write_one_summary(
     # inferred_carrier_needs_no_orf (2026-11-14): an ancestor whose own sequence has the ORF (step 4/4b table) is not
     # added as a living-inferred carrier, the rule step 6c applies to observed carriers (Brassicaceae Sp1g01180.1)
     orf_cells: Dict[str, Set[str]] = {}
-    if orf_clade_rule and _cfg.opt("inferred_carrier_needs_no_orf"):
+    if orf_clade_rule and (_cfg.opt("inferred_carrier_needs_no_orf") or _cfg.opt("orf_clade_living_parent_orf")):
         with tblastn_path.open() as fh:
             for row in csv.DictReader(fh, delimiter="\t"):
                 gid0 = row.get("geneID") or row.get("gff_transcriptID") or ""
@@ -1237,7 +1237,12 @@ def main() -> None:
     ap.add_argument("--tree", required=True, help="Newick tree file with labeled internal nodes, e.g. N0, N1...")
     ap.add_argument("--focal-species", default=None, help="Single-species mode: canonical focal species name or supported short alias.")
     ap.add_argument("--out", default=None, help="Single-species mode output TSV. Default: <canonical_focal_species>_nodes_summary.tsv")
+    ap.add_argument("--aln-root", default=None, help="lingua_results folder (needed by orf_clade_inferred_no_contradiction)")
     args = ap.parse_args()
+    global _ALN_ROOT
+    _ALN_ROOT = Path(args.aln_root) if args.aln_root else None
+    if _cfg.opt("orf_clade_inferred_no_contradiction") and (_ALN_ROOT is None or not _ALN_ROOT.is_dir()):
+        die("orf_clade_inferred_no_contradiction needs --aln-root (the lingua_results folder)")
 
     tree_path = Path(args.tree)
 
@@ -1343,8 +1348,14 @@ def _nee_event_lengths(carriers: Dict[str, Set[str]], nodes: List[str], orf_node
     return set(carriers[lin[0][1]]) if lin else set()
 
 
+def _nee_living_parent(sp: str) -> Optional[str]:
+    """The youngest ancestor of a living species (smallest clade containing it)."""
+    cands = [(len(c), n) for n, c in _cfg.NODE_CLADES.items() if sp in c]
+    return min(cands)[1] if cands else None
+
+
 def _nee_present_inside(event: Any, kind: str, gid: str, orf_node: str, detail, focal: str,
-                        ancestors_young_to_old: List[str]) -> bool:
+                        ancestors_young_to_old: List[str], orf_bearing=frozenset()) -> bool:
     if event is None or event == "NA":
         return False
     nodes = split_node_list(event, focal)
@@ -1353,7 +1364,60 @@ def _nee_present_inside(event: Any, kind: str, gid: str, orf_node: str, detail, 
         return True
     carriers = detail.get((normalize_geneid(gid), kind, getattr(event, "pos", "")), {})
     lengths = _nee_event_lengths(carriers, nodes, orf_node, focal, ancestors_young_to_old)
-    return any(sp in clade and sp != focal and carriers[sp] & lengths for sp in carriers)
+    # orf_clade_living_parent_orf (T2T 2026-11-15): "start" or "all". A living carrier inside the ORF clade does not count when
+    # its parent ancestor has the ORF (AncSeq cell 1): the change is on that species' own branch (Hs XP_047303004.1: siamang
+    # ACG start, its parent N7 ATG with the full ORF, moved the ORF node from N4 to N8). "start": start-codon events only
+    # (stop table, position 1); "all": every event.
+    scope = _cfg.opt("orf_clade_living_parent_orf", "") or ""
+    # "living_never" (2026-11-15, his question): living species never count; only reconstructed nodes inside the clade move the ORF node
+    if scope not in ("", "start", "all", "living_never"):
+        die(f"orf_clade_living_parent_orf must be start, all or living_never, not {scope}")
+    if scope == "living_never":
+        return False
+    applies = scope == "all" or (scope == "start" and kind == "stop" and getattr(event, "pos", "") == "1")
+
+    def counts(sp):
+        return not (applies and _nee_living_parent(sp) in orf_bearing)
+    return any(sp in clade and sp != focal and carriers[sp] & lengths and counts(sp) for sp in carriers)
+
+
+_ALN_ROOT: Optional[Path] = None
+_ALN_CACHE: Dict[Tuple[str, str], Dict[str, str]] = {}
+
+
+def _nee_read_aln(gid: str, focal: str) -> Dict[str, str]:
+    key = (focal, gid)
+    if key not in _ALN_CACHE:
+        gk = gid[:-2] if gid.endswith(".p") else gid
+        paths = sorted(_ALN_ROOT.glob(f"*_DNG_stitched/{focal}_{gk}_*.aln"))
+        if len(paths) != 1:
+            die(f"orf_clade_inferred_no_contradiction: {len(paths)} alignments for {focal} {gid} in {_ALN_ROOT}")
+        rows: Dict[str, str] = {}
+        k = None
+        for line in paths[0].open():
+            line = line.strip()
+            if line.startswith(">"):
+                k = line[1:].split(".")[0]
+                rows.setdefault(k, "")
+            elif k:
+                rows[k] += line.upper()
+        _ALN_CACHE[key] = rows
+    return _ALN_CACHE[key]
+
+
+def _nee_side_contradicted(gid, focal, pos, side, carriers, lengths) -> bool:
+    """orf_clade_inferred_no_contradiction (T2T 2026-11-14): a living species of the side branch has aligned bases within
+    10 columns of the event (the data standard of step 7d) but does not carry the event (same position; indels the
+    length of the event's nearest older lineage carrier)."""
+    aln = _nee_read_aln(gid, focal)
+    ref = aln[focal]
+    cols = [i for i, c in enumerate(ref) if c != "-"]
+    c0 = cols[min(int(pos) - 1, len(cols) - 1)]
+    lo, hi = max(0, c0 - 10), c0 + 11
+    for sp in side & set(_cfg.SPECIES):
+        if sp in aln and any(ch not in "-N" for ch in aln[sp][lo:hi]) and not (carriers.get(sp, set()) & lengths):
+            return True
+    return False
 
 
 def _nee_orf_clade_consistency(gid, orf_node, indels_candidates, stops_candidates, detail, focal,
@@ -1366,11 +1430,12 @@ def _nee_orf_clade_consistency(gid, orf_node, indels_candidates, stops_candidate
         orf_idx = node_age_index(orf_node, focal, ancestors_young_to_old)
         if orf_idx is None or orf_idx == 0:
             break
-        if not (_nee_present_inside(ind, "indel", gid, orf_node, detail, focal, ancestors_young_to_old) or
-                _nee_present_inside(stp, "stop", gid, orf_node, detail, focal, ancestors_young_to_old)):
+        if not (_nee_present_inside(ind, "indel", gid, orf_node, detail, focal, ancestors_young_to_old, orf_bearing) or
+                _nee_present_inside(stp, "stop", gid, orf_node, detail, focal, ancestors_young_to_old, orf_bearing)):
             break
         orf_node = lineage_young_to_old[orf_idx - 1]
     inferred: List[str] = []
+    strict = bool(_cfg.opt("orf_clade_inferred_no_contradiction"))
     rejected: List[str] = []
     if orf_node != orf0:
         new_rows = []
@@ -1391,8 +1456,10 @@ def _nee_orf_clade_consistency(gid, orf_node, indels_candidates, stops_candidate
                     younger = _nee_clade(lineage_young_to_old[i - 1], focal)
                     side = set(_cfg.NODE_CLADES[x]) - younger
                     if any(sp in side and carriers[sp] & lengths for sp in carriers):
-                        if x in orf_bearing:
+                        if x in orf_bearing and _cfg.opt("inferred_carrier_needs_no_orf"):
                             rejected.append(f"{x}:{kind}:{getattr(ev, 'pos', '')}")
+                        elif strict and _nee_side_contradicted(gid, focal, getattr(ev, "pos", ""), side, carriers, lengths):
+                            continue
                         else:
                             added.append(x)
             if added:

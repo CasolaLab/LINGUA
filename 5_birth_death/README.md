@@ -46,10 +46,12 @@ others.
 - **Unknown genomes** (`UNKNOWN_PRESENCE`, step 5 `--unknown`, a TSV `species`, `geneID`, `unknown_in`; with
   `PRESENCE=orf` the table of step 1a by default). A genome with no usable call for a gene takes whichever state gives
   the fewest deaths for the origin, so missing data never adds a death; ties put the death on the higher branch, as
-  plain Dollo does. Without unknown genomes the result is plain Dollo, which step 5 checks on every origin. Both rules
+  plain Dollo does. The table's gene IDs are matched without a trailing `.p` (step 1a writes the stage 4 IDs, which
+  keep it), and the run stops when no ID of a species matches. Without unknown genomes the result is plain Dollo, which step 5 checks on every origin. Both rules
   come from the T2T mammal analysis (2026-11-13).
-- **Rates** are counts divided by branch length, written for the ingroup crown, every node below it and every
-  species (outgroups included). Rates are NA where the length is missing or zero.
+- **Rates** are counts divided by branch length, written for the ingroup crown, every node below it, every other
+  node at which an ORF may originate (a tree config may allow ORF nodes above the crown) and every species
+  (outgroups included). Rates are NA where the length is missing or zero.
 - **Gene IDs** are compared with the HOG table without isoform or `.p` suffixes (a trailing `.p`, then one trailing
   `.<number>`), within each species (`--hog-id-match normalized`). The Brassicaceae paper compared raw IDs (`exact`);
   see Validation. Step 4 always uses the normalized form to decide which loci are in no orthogroup, also when step 5
