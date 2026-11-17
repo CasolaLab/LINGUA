@@ -24,17 +24,23 @@ reference data, and the output of each stage is the input of the next.
 | 4 | [`4_enablers/`](4_enablers/) | Scores intact ORFs, synteny and disablers on every species and on the Progressive Cactus ancestral sequences of every internal node, places enablers and classifies DNGs and PDNGs | Per-species node summaries and family-wide DNG and PDNG catalogs |
 | 5 | [`5_birth_death/`](5_birth_death/) | Groups the classified genes of different species into ancestral loci, removes loci whose coding exons overlap those of another gene on the same strand, collapses duplicated loci into one origin (shared orthogroup, unclustered duplicates, PDNG paralogs of a DNG), and counts births and Dollo-parsimony deaths on every branch | Births, deaths and their rates per branch, with the fate of every gene |
 
-In the published run, the loci removed by the domain and transposable-element screens are listed
-in `4_enablers/data/lsgs_to_remove.txt`.
+Stage 2 removes the loci with domain or transposable-element evidence, so stage 4 runs on its output with an empty
+`REMOVE_LIST` (`REMOVE_LIST=`). The stage 4 default, `4_enablers/data/lsgs_to_remove.txt`, lists the loci removed
+in the earlier run tagged `paper-published`, whose stage 2 did not yet screen every candidate.
 
 Each stage has its own software requirements, listed in its README. `environment.yml` at the top level is the
 conda environment for stage 4.
 
 ## Reproducing the published analysis
 
-The tag `paper-published` marks the stage 4 code exactly as used for the paper (commit
-`f2e5a02`). `4_enablers/README.md` describes how that run was validated and the one later
-change to synteny-node assignment.
+Release v1.2.0 is the code of the paper's catalog, 32,210 lineage-specific genes in 23 genomes, of which 2,375
+DNGs and 24,581 PDNGs in the 20 core Brassicaceae. Stage 2 followed `2_homolog_exclusion/STAGE2_PROTOCOL.md`;
+stages 3 and 4 ran with their default settings (stage 3 `STEP3=dominant`, `JUMP=50000`, `MAXSPAN=50000`; stage 4
+default method options and tree configuration, empty `REMOVE_LIST`); stage 5 ran with `PRESENCE=orf`, leaving out
+loci whose ORF node is N2 or N3. The catalog and the alignments it was called from are in the data record below.
+
+The tag `paper-published` (commit `f2e5a02`) marks the stage 4 code of an earlier version of the catalog (1,811
+DNGs), whose rules are kept as `4_enablers/presets/method_options_brassicaceae_published.json`.
 
 ## Workflow figures
 
@@ -45,8 +51,10 @@ six as slides in `LINGUA_workflows.pptx`; `docs/figures/make_workflows.py` redra
 
 - Progressive Cactus alignment of 21 Brassicaceae and two outgroups,
   https://doi.org/10.5281/zenodo.22137464
-- Proteomes and OrthoFinder results, https://doi.org/10.5281/zenodo.22926478
-- De novo gene catalog and gap-free alignments, https://doi.org/10.5281/zenodo.22926717
+- Proteomes, OrthoFinder results and the stage 2 screen of every candidate, https://doi.org/10.5281/zenodo.22926477
+- De novo gene catalog and gap-free alignments, https://doi.org/10.5281/zenodo.22926716
+
+The two DOIs above resolve to the latest version of each record.
 
 ## Related tools
 

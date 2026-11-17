@@ -1,6 +1,9 @@
 cff-version: 1.2.0
 message: "If you use LINGUA, please cite the software and the paper below."
 title: "LINGUA: LINeage-specific Gene Uniform Annotator"
+version: 1.2.0
+date-released: 2026-11-16
+doi: 10.5281/zenodo.23268998
 abstract: >-
   A five-stage pipeline that identifies candidate de novo genes across a clade,
   extracts their syntenic regions from a reference-free Progressive Cactus
