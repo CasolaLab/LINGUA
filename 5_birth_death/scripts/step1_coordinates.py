@@ -1,7 +1,7 @@
 """
 step1_coordinates.py
 
-Stage 5 step 1. One table of where every classified locus lies in every genome in which its ORF is found.
+Summary stage, step 1. One table of where every classified locus lies in every genome in which its ORF is found.
 For each focal species it joins three stage 3-4 outputs:
   - the stage 3 step 17 coordinate table (<prefix>_*_all_species_summary.tsv: file_name, species_name,
     chromosome, start, end), one row per genome in which the locus alignment has a block;

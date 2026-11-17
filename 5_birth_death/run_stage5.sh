@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# run_stage5.sh - LINGUA stage 5: births, deaths and their rates on every branch.
+# run_stage5.sh - LINGUA summary stage: births, deaths and their rates on every branch.
 #
 # Usage: bash 5_birth_death/run_stage5.sh stage5.conf [first_step] [last_step]
 #   stage5.conf is a bash file of variables (see config/stage5.conf.example):

@@ -1,4 +1,4 @@
-name: stage 5 (5_birth_death)
+name: summary stage (5_birth_death)
 
 on:
   push:

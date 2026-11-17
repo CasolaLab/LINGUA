@@ -1,7 +1,7 @@
 """
 step4_unclustered_families.py
 
-Stage 5 step 4. Duplicates among the loci that OrthoFinder left out of every orthogroup.
+Summary stage, step 4. Duplicates among the loci that OrthoFinder left out of every orthogroup.
 
 Step 5 collapses loci that share a hierarchical orthogroup (HOG) into one origin. Loci absent from the HOG table
 ("unclustered") have no orthogroup, so duplicates among them would each count as an origin. This step finds them:

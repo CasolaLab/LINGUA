@@ -1,7 +1,7 @@
 """
 step5_rates.py
 
-Stage 5 step 5. Births and deaths of DNGs and PDNGs on every branch of the species tree, and their rates per unit of
+Summary stage, step 5. Births and deaths of DNGs and PDNGs on every branch of the species tree, and their rates per unit of
 branch length.
 
 1. Filters. A gene is left out when a coding exon of its locus overlaps a coding exon of another annotated gene on

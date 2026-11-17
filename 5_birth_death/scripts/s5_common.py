@@ -1,7 +1,7 @@
 """
 s5_common.py
 
-Shared helpers for LINGUA stage 5: the species tree read from the stage 4 tree configuration
+Shared helpers for the LINGUA summary stage: the species tree read from the stage 4 tree configuration
 (tree_config.json, written by 4_enablers/scripts/make_tree_config.py), branch lengths, species-name
 aliases, gene-ID normalization and small TSV helpers. Not run directly.
 """
@@ -108,7 +108,7 @@ def check_hog_ids(tree, genes_by_species, hog_ids_by_species, key):
         elif near:
             bad.append(f"{sp}: {len(near)} genes match a HOG-table ID only after reformatting (e.g. {near[:3]})")
     if bad:
-        die("gene IDs and HOG-table IDs differ in form; make them consistent before stage 5:\n  " + "\n  ".join(bad))
+        die("gene IDs and HOG-table IDs differ in form; make them consistent before the summary stage:\n  " + "\n  ".join(bad))
 
 
 class Tree:

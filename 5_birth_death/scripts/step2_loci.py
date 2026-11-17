@@ -1,7 +1,7 @@
 """
 step2_loci.py
 
-Stage 5 step 2. Groups the classified genes of different species that are the same ancestral locus, and records in
+Summary stage, step 2. Groups the classified genes of different species that are the same ancestral locus, and records in
 which genomes each gene's ORF is found.
 
 The same ancestral ORF is often annotated, and classified, separately in several descendant species. For every gene G

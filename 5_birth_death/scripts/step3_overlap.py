@@ -1,7 +1,7 @@
 """
 step3_overlap.py
 
-Stage 5 step 3 (optional; needs the genome annotations). Classifies each classified locus by its position relative
+Summary stage, step 3 (optional; needs the genome annotations). Classifies each classified locus by its position relative
 to the protein-coding genes of the species' GFF3 that are not themselves classified loci.
 Overlap classes (by priority):
   same_strand_cds_overlap  a coding exon of the locus overlaps a coding exon of a gene on the same strand. The locus

@@ -11,8 +11,9 @@ It was developed for, and used in,
 
 ## Stages
 
-LINGUA runs in six stages, numbered 0 to 5. Stage 0 is a preparatory step that standardizes
-the input proteomes, and stage 5 turns the classified loci into birth and death rates. Each folder is self-contained, with its own README, scripts and example or
+LINGUA runs in four stages, numbered 1 to 4, preceded by a preparatory stage 0 that standardizes the input
+proteomes and followed by a summary stage (folder `5_birth_death/`) that turns the classified loci into birth and
+death rates. Each folder is self-contained, with its own README, scripts and example or
 reference data, and the output of each stage is the input of the next.
 
 | Stage | Folder | What it does | Main output |
@@ -22,7 +23,7 @@ reference data, and the output of each stage is the input of the next.
 | 2 | [`2_homolog_exclusion/`](2_homolog_exclusion/) | Removes candidates with a known protein domain (InterProScan, RPS-BLAST against CDD), a homolog outside the clade (BLAST+, jackhmmer), an organelle-derived origin, or similarity to transposable-element proteins over at least half of their length (BLASTp against a TE protein library), then candidates homologous to the hit region of a removed gene in their OrthoFinder HOG (`hog-rule`) and candidates with a similar established gene in their own proteome (`paralog-rule`); `2_homolog_exclusion/scripts/run_stage2.sh` runs all of them. The study's exact protocol is `2_homolog_exclusion/STAGE2_PROTOCOL.md` | Candidates with no evidence of homology outside the clade |
 | 3 | [`3_alignment_extraction/`](3_alignment_extraction/) | Extracts each candidate locus, in every species and in the ancestral genomes reconstructed by Progressive Cactus, from the HAL alignment with mafExtractor, removes alignment and extraction artifacts, stitches exons and tabulates start, stop and frameshift changes per species | Per-species, exon-stitched alignments with indel and stop-codon tables |
 | 4 | [`4_enablers/`](4_enablers/) | Scores intact ORFs, synteny and disablers on every species and on the Progressive Cactus ancestral sequences of every internal node, places enablers and classifies DNGs and PDNGs | Per-species node summaries and family-wide DNG and PDNG catalogs |
-| 5 | [`5_birth_death/`](5_birth_death/) | Groups the classified genes of different species into ancestral loci, removes loci whose coding exons overlap those of another gene on the same strand, collapses duplicated loci into one origin (shared orthogroup, unclustered duplicates, PDNG paralogs of a DNG), and counts births and Dollo-parsimony deaths on every branch | Births, deaths and their rates per branch, with the fate of every gene |
+| Summary | [`5_birth_death/`](5_birth_death/) | Groups the classified genes of different species into ancestral loci, removes loci whose coding exons overlap those of another gene on the same strand, collapses duplicated loci into one origin (shared orthogroup, unclustered duplicates, PDNG paralogs of a DNG), and counts births and Dollo-parsimony deaths on every branch | Births, deaths and their rates per branch, with the fate of every gene |
 
 Stage 2 removes the loci with domain or transposable-element evidence, so stage 4 runs on its output with an empty
 `REMOVE_LIST` (`REMOVE_LIST=`). The stage 4 default, `4_enablers/data/lsgs_to_remove.txt`, lists the loci removed
@@ -33,10 +34,10 @@ conda environment for stage 4.
 
 ## Reproducing the published analysis
 
-Release v1.2.0 is the code of the paper's catalog, 32,210 lineage-specific genes in 23 genomes, of which 2,375
+Release v1.2.0 is the code of the paper's catalog (v1.2.1 changes only the documentation), 32,210 lineage-specific genes in 23 genomes, of which 2,375
 DNGs and 24,581 PDNGs in the 20 core Brassicaceae. Stage 2 followed `2_homolog_exclusion/STAGE2_PROTOCOL.md`;
 stages 3 and 4 ran with their default settings (stage 3 `STEP3=dominant`, `JUMP=50000`, `MAXSPAN=50000`; stage 4
-default method options and tree configuration, empty `REMOVE_LIST`); stage 5 ran with `PRESENCE=orf`, leaving out
+default method options and tree configuration, empty `REMOVE_LIST`); the summary stage ran with `PRESENCE=orf`, leaving out
 loci whose ORF node is N2 or N3. The catalog and the alignments it was called from are in the data record below.
 
 The tag `paper-published` (commit `f2e5a02`) marks the stage 4 code of an earlier version of the catalog (1,811

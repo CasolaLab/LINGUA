@@ -1,4 +1,4 @@
-# Stage 5. Births, deaths and rates
+# Summary stage. Births, deaths and rates
 
 Stage 4 classifies each candidate locus of each species as a DNG or a PDNG and gives the node at which its ORF
 arose. The same ancestral locus is often classified separately in several descendant species, and duplication
@@ -7,7 +7,7 @@ the branches of the species tree, and divides them by branch length to give rate
 
 It reads the tree from the stage 4 configuration (`4_enablers/data/tree_config.json` or the one you made with
 `4_enablers/scripts/make_tree_config.py`), so it runs on any tree that stage 4 ran on. When stage 4 was run
-separately for several clades of one tree (each with its own crown and ORF window), run stage 5 once per clade with
+separately for several clades of one tree (each with its own crown and ORF window), run the summary stage once per clade with
 that clade's `tree_config.json`; a single run with one clade's configuration would leave out the origins of the
 others.
 
