@@ -24,9 +24,9 @@ question.
 Starting from a Progressive Cactus HAL file and a reference species' exon/
 transcript coordinates (BED), the pipeline:
 
-1. Converts the HAL alignment to MAF and per-species FASTA (reference-free bias
-   is preserved — the reference species is only used to pull from the overall
-   alignment, not to constrain it).
+1. Reads a MAF that you convert from the HAL alignment with `hal2maf`, anchored on
+   the reference species (reference-free bias is preserved — the reference
+   species is only used to pull from the overall alignment, not to constrain it).
 2. Extracts localized MAF blocks at the coordinates of interest, and stops if an
    extraction fails or comes back empty instead of passing empty files on.
 3. Audits species presence and missing base pairs between alignment blocks
@@ -105,6 +105,7 @@ reference nucleotide FASTA before running step 9 (see that step's README);
 - HAL tools, as bundled with Progressive Cactus (`hal2maf`), to convert the HAL alignment to MAF
 - mafTools (`mafExtractor`), unless existing step 1 files are reused (`STEP1_SRC`)
 - GNU parallel (step 4)
+- bash 4.3 or later and GNU coreutils (`readlink -m`, `df`, `stat`, `md5sum`); on macOS use the tutorial environment
 - Python 3 with Biopython and pandas
 - samtools only for `scripts/build_cds_from_genome.py` (building the reference CDS FASTA from a genome)
 

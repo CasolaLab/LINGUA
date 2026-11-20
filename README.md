@@ -44,10 +44,12 @@ Release v1.2.0 is the code of the paper's catalog (v1.2.1 and v1.2.2 change only
 DNGs and 24,581 PDNGs in the 20 core Brassicaceae. Stage 2 followed `2_homolog_exclusion/STAGE2_PROTOCOL.md`;
 stages 3 and 4 ran with their default settings (stage 3 `STEP3=dominant`, `JUMP=50000`, `MAXSPAN=50000`; stage 4
 default method options and tree configuration, empty `REMOVE_LIST`); the summary stage ran with `PRESENCE=orf`, leaving out
-loci whose ORF node is N2 or N3. The catalog and the alignments it was called from are in the data record below.
+loci whose ORF node is N2 or N3 (their rows were removed from the stage 4 tables given to it as `NODES_DIR`; no
+summary-stage setting does this). The catalog and the alignments it was called from are in the data record below.
 
-The tag `paper-published` (commit `f2e5a02`) marks the stage 4 code of an earlier version of the catalog (1,811
-DNGs), whose rules are kept as `4_enablers/presets/method_options_brassicaceae_published.json`.
+Two earlier versions of the catalog are tagged. `nee-catalog-stages3-4` is the stages 3-4 code of the 1,811-DNG
+catalog, whose rules are kept as `4_enablers/presets/method_options_brassicaceae_published.json`, and
+`paper-published` (commit `f2e5a02`) is the stage 4 code of the first submission (2,611 DNGs).
 
 ## Workflow figures
 

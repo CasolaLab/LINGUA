@@ -45,9 +45,15 @@ python3 4_enablers/scripts/make_tree_config.py my_tree.nwk --ingroup-crown <crow
 - `--conditional-enabler-node NODE=REQ` lets an otherwise excluded node count as an enabler node only for a disabler that
   the required node also carries (used for the root of the T2T mammal tree).
 
-Then point stage 4 at the new files, `LINGUA_CONFIG=my_config/tree_config.json`, and write a `species.tsv` for your
-species with the same four columns as `4_enablers/data/species.tsv` (short query prefix, gap-free folder name, output
-prefix, full species name as in the alignment).
+Then write a `species.tsv` for your species with the same four columns as `4_enablers/data/species.tsv` (short query
+prefix, gap-free folder name, output prefix, full species name as in the alignment), and point stage 4 at the three new
+files. Steps 4, 5, 7 and 8 also read the Newick tree itself, and its default is the Brassicaceae tree, so all three
+settings are needed.
+
+```bash
+LINGUA_CONFIG=my_config/tree_config.json TREE=my_config/species_tree_N.nwk SPECIES_TSV=my_species.tsv \
+  bash 4_enablers/run_pipeline.sh WORKDIR 2 9
+```
 
 ## Lessons from the bryophyte and mammal runs
 

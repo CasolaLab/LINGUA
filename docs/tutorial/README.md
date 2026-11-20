@@ -16,9 +16,9 @@ of its README and of its tutorial page.*
 |---|---|---|---|
 | [00 Setup](00_setup.md) | all | install one conda environment, get the code | 5 to 10 min |
 | [01 Proteins](01_stage0_proteins.md) | 0, protein preprocessing | three species (*A. thaliana*, *A. lyrata*, *B. oleracea*), real proteomes | under a minute |
-| [02 Gene stratigraphy](02_stage1_stratigraphy.md) | 1, candidates from OrthoFinder | two synthetic species with a precomputed OrthoFinder run | seconds |
-| [03 Homolog exclusion](03_stage2_homolog_exclusion.md) | 2, homology screens | eight hand-built candidates, each removed for a known reason | seconds |
-| [04 Alignment extraction](04_stage3_alignment_extraction.md) | 3, loci from the Cactus alignment | seven *A. thaliana* candidates from the paper | about a minute |
+| [02 Gene stratigraphy](02_stage1_stratigraphy.md) | 1, candidates from OrthoFinder | three synthetic species with a precomputed OrthoFinder run | seconds |
+| [03 Homolog exclusion](03_stage2_homolog_exclusion.md) | 2, homology screens | seven hand-built candidates, each removed or kept for a known reason | seconds |
+| [04 Alignment extraction](04_stage3_alignment_extraction.md) | 3, loci from the Cactus alignment | seven *A. thaliana* candidates from the paper | seconds |
 | [05 Enablers](05_stage4_enablers.md) | 4, DNG or PDNG | the same seven candidates | seconds |
 | [06 Births and deaths](06_stage5_birth_death.md) | summary stage, rates per branch | the stage 4 result of the seven candidates | seconds |
 | [07 Your own clade](07_your_own_clade.md) | all | what to change for another group of species | |
@@ -46,9 +46,11 @@ Node labels (N0 to N21) are those of `4_enablers/data/SpeciesTree_rooted_node_la
 
 - Every command is run from the top folder of the repository (`LINGUA/`), unless a page says otherwise.
 - Every example writes into `tutorial_runs/`, which git ignores. Delete that folder to start again.
-- Each stage refuses to overwrite its own output. To rerun a stage, move or delete its folder in `tutorial_runs/` first.
-- Expected results are stored next to each example (`example_data/expected/` or `example_data/test_run/`), and each page
-  gives the command that compares your output with them.
+- Stages 2 and 3 and the summary stage refuse to overwrite their output, and stages 0, 1 and 4 write into an existing
+  folder. To rerun any stage, move or delete its folder in `tutorial_runs/` first.
+- Expected results are stored next to each example (`expected/`, `expected_output/` or `test_run/` in `example_data/`),
+  and each page gives the command that compares your output with them. For stage 2 the page lists the expected fate of
+  every candidate instead.
 
 ## Where the example data came from
 

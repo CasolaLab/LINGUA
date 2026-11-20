@@ -146,11 +146,11 @@ bash scripts/homolog_exclusion_pipeline.sh combine --runs out/blast -o out/combi
 ## Testing
 
 ```bash
-for t in tests/test_*.py; do python3 "$t" | tail -1; done      # every file must say ALL PASSED
+for t in tests/test_*.py; do python3 "$t" | tail -1; done      # every file must say ALL PASSED (test_run_stage2.py says SKIP without BLAST+ and HMMER)
 bash tests/run_offline.sh                                       # the same, with the network cut off (Linux/WSL)
 ```
 
-The tests need no external program: they use example output in each tool's exact format and stand-in programs. Each module was
+Except `test_run_stage2.py`, which runs BLAST+ and HMMER on the toy data, the tests need no external program. They use example output in each tool's exact format and stand-in programs. Each module was
 also run for real (InterProScan 5.78, CDD 3.21, BLAST+ 2.17.0, HMMER 3.4) with the network cut off; `docs/setup.md` says what has
 and has not been tested, and `REVIEW.md` lists what is still open.
 

@@ -47,7 +47,8 @@ precomputed output.
 |---|---|---|
 | OrthoFinder | stage 1, to build the orthogroups | `1_gene_stratigraphy/README.md` |
 | Progressive Cactus (with HAL tools) | before stage 3, to build the whole-genome alignment | the Cactus documentation; run it on a cluster or a large workstation |
-| mafTools (`mafExtractor`) | stage 3 step 1 | `3_alignment_extraction/README.md` |
+| mafTools (`mafExtractor`) | stage 3 step 1 | the mafTools documentation (ComparativeGenomicsToolkit on GitHub) |
+| samtools | stage 3, `build_cds_from_genome.py` | conda (`samtools`, bioconda) |
 | InterProScan and the CDD database | stage 2 domain screens | `2_homolog_exclusion/docs/setup.md` |
 
 ## Folder for the runs

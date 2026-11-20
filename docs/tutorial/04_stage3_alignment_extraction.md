@@ -84,7 +84,9 @@ with a short script that is not yet part of LINGUA, so for now the stage 4 examp
 2. Write the BED of your stage 2 candidates. `bash 2_homolog_exclusion/scripts/homolog_exclusion_pipeline.sh make-bed`
    turns an ID list and a GFF3 into CDS coordinates. Stage 3 needs seven columns, the last one the transcript ID, and
    0-based starts; the run stops before step 14 if it detects a 1-based BED.
-3. Write the CDS FASTA (`3_alignment_extraction/scripts/build_cds_from_genome.py` builds it from the genome and the BED).
+3. Write the CDS FASTA (`3_alignment_extraction/scripts/build_cds_from_genome.py genome.fa candidates.bed proteins.faa out.fna report.tsv`
+   builds it from the genome, which needs a samtools index, and the BED, and checks each translation against the
+   proteins; it needs samtools).
 4. Run `run_stage3.sh` with the MAF in place of `-` and no `STEP1_SRC`. With thousands of candidates, run it detached
    (`nohup`, see `3_alignment_extraction/docs/run_stage3_README.txt`), and repeat it for every reference species.
 

@@ -43,7 +43,7 @@ others.
 - **Deaths.** For an origin at internal node N, a species of clade(N) carries it when tBLASTn finds the ORF of any of
   its genes in that genome, an internal node when any descendant does, and N always. A death is placed on every
   branch whose parent carries the origin and which does not. Origins on a species branch have no deaths.
-- **Presence.** With `PRESENCE=tblastn` (default; the published analysis) a genome carries a gene when stage 4
+- **Presence.** With `PRESENCE=tblastn` (default) a genome carries a gene when stage 4
   tBLASTn finds its ORF there. With `PRESENCE=orf` (step 1a, for stage 4 runs with the default rules, whose ORF test
   is by length) it carries the gene when its aligned row holds an ORF passing the stage 4 ORF rule, the definition
   stage 4 uses for ancestors. Step 1a refuses a stage 4 options file without `orf_test` = `length`.
@@ -135,8 +135,8 @@ BLAST+ cannot use such paths.
 
 Unknown genomes and step 1a (2026-11-13). With the default settings (`PRESENCE=tblastn`, no `UNKNOWN_PRESENCE`) a
 full driver run on the Brassicaceae inputs gives output files byte-identical to the run of commit 710a07a. Step 1a
-and `--unknown` are tested on the toy example (`test_orf_presence`, `test_unknown_genomes`); step 1a has not yet been
-run on the Brassicaceae data.
+and `--unknown` are tested on the toy example (`test_orf_presence`, `test_unknown_genomes`); step 1a was first run on the
+Brassicaceae data on 2026-11-15, for the paper's final catalog (`PRESENCE=orf`).
 
 Run on the Brassicaceae inputs of the published analysis (2026-11-12), each step against the output of the
 script it replaces:

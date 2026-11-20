@@ -14,5 +14,5 @@ dependencies:
   - blast           # stages 2, 4 and 5 (blastp, tblastn, makeblastdb)
   - hmmer           # stage 2 (jackhmmer)
   - parallel        # stage 3 step 4 (GNU parallel)
-  - bash>=5         # stage 0 needs bash 4.3 or later; macOS ships bash 3.2
-  - coreutils       # stage 0 (GNU readlink and mktemp)
+  - bash>=5         # stages 0 and 3 need bash 4.3 or later; macOS ships bash 3.2
+  - coreutils       # stages 0 and 3 (GNU readlink, mktemp, df, stat, md5sum)

@@ -41,12 +41,14 @@ The paper's run started from this layout at step 2, and so does the example.
 ## Run
 
 ```bash
+mkdir -p tutorial_runs
 cp -r 4_enablers/example_data/workdir tutorial_runs/stage4
 ONLY=athaliana REMOVE_LIST= bash 4_enablers/run_pipeline.sh tutorial_runs/stage4 2 9
 ```
 
 - `2 9` runs steps 2 to 9 (step 1 unpacks the older zip archives of stage 3 and is not needed here).
-- `ONLY=athaliana` restricts the per-species steps to *A. thaliana*, the only species in the example. Without it step 4
+- `ONLY=athaliana` restricts the steps that need each species' proteins (4, 4b, 7c, 7d and 7e) to *A. thaliana*, the
+  only species in the example. Without it step 4
   stops at the first species with no input.
 - `REMOVE_LIST=` (empty) keeps every locus, because stage 2 already removed the ones with domain or TE evidence.
 
@@ -89,7 +91,8 @@ followed through the run.
 
 Step 7i asks whether parsimony on the extant species alone, without the reconstructed ancestors, puts the intact state
 at the ORF node for every enabler event. Its log, `athaliana_parsimony_pdng.log`, lists each event with the extant
-species that carry it and those that do not. For *POLARIS*, the indel at position 2 gives `not_intact`, so the gene
+species that carry it and those whose state is unknown (missing data); the other extant species are aligned there and
+lack the event. For *POLARIS*, the indel at position 2 gives `not_intact`, so the gene
 becomes a PDNG; for *PLDRP1* both events give `intact` and it stays a DNG.
 
 ## Output
@@ -106,16 +109,17 @@ becomes a PDNG; for *PLDRP1* both events give `intact` and it stays a DNG.
 | `brassicaceae_species_totals.tsv`, `brassicaceae_DNGs_by_age.tsv`, `brassicaceae_all_gene_types.tsv` | step 8, counts by species and by node |
 | `logs/method_options_used.json` | the rules of this run |
 
-Main columns of the final table: `ORF_Node`, `Synteny_Node`, `Indels_Node` and `Stops_Node` (nodes carrying disablers),
-`Enablers_Nodes` (the two enabler nodes, older first), `Gene_type` and `ORF-Enablers_Node_dist` (the number of nodes
-between the ORF node and the younger enabler node along the lineage; a DNG needs 1 or less).
+The main columns of the final table are `ORF_Node`, `Synteny_Node`, `Indels_Node` and `Stops_Node` (nodes carrying disablers),
+`Enablers_Nodes` (the two enabler nodes, older first), `Gene_type` and `ORF-Enablers_Node_dist` (the number of steps
+along the lineage from the ORF node to the younger enabler node, 1 when that node is the parent of the ORF node, as in
+every DNG).
 
 ## On your own data
 
 - One stage 3 run per reference species, assembled into the layout above (one folder per species, named as in
   `data/species.tsv`).
 - For another clade, write a new tree configuration with `scripts/make_tree_config.py` and a new `species.tsv`, and point
-  `LINGUA_CONFIG` at the configuration (see [07 Your own clade](07_your_own_clade.md)).
+  `LINGUA_CONFIG`, `TREE` and `SPECIES_TSV` at them (see [07 Your own clade](07_your_own_clade.md)).
 - The default rules are those of the paper's final run. Other rule sets are in `4_enablers/presets/` and are chosen with
   `LINGUA_OPTIONS`; every option is described in the stage README.
 

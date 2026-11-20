@@ -59,8 +59,9 @@ a species, the isoform step read a different file than the cleaning step wrote, 
   `.fa` or `.fasta` for proteins and `.gff` or `.gff3` for annotations.
 - When the species names differ from the file names, give a species map with `-m` (see the stage README).
 - `--format-headers --add-species` adds the species name to every FASTA header, which makes later stages easier to read.
-- A species with a missing file is skipped with a warning in `pipeline.log`, not an error. Always check that every
-  species appears in `master_summary_report.tsv`.
+- A species whose GFF is missing is skipped with a warning in `pipeline.log`, not an error. Without `-m`, species are
+  found from the protein files, so a species with no protein file is not seen at all. Always check that every species
+  appears in `master_summary_report.tsv`.
 
 Stage README with every option, [`0_protein_preprocessing/README.md`](../../0_protein_preprocessing/README.md).
 Next, [02 Gene stratigraphy](02_stage1_stratigraphy.md).

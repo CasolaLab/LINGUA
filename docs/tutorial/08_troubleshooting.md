@@ -49,7 +49,7 @@ so read the last lines of the log before anything else.
 
 | Message or symptom | Cause | Fix |
 |---|---|---|
-| `no query FASTA for <species>` at step 4 | the run covers all species in `species.tsv`, and one has no protein file | restrict the run with `ONLY="<prefix> <prefix>"` or add the missing species |
+| `no query FASTA for <prefix> in <folder>` at step 4 | the run covers all species in `species.tsv`, and one has no protein file | restrict the run with `ONLY="<prefix> <prefix>"` or add the missing species |
 | loci that should be there are missing from the summaries | `REMOVE_LIST` still points at the published removal list | set `REMOVE_LIST=` (empty) after a LINGUA stage 2 |
 
 ## Summary stage
@@ -58,5 +58,5 @@ so read the last lines of the log before anything else.
 |---|---|---|
 | `input not found: .../<path>/<path>/annotation.gff3` | GFF paths in the GFF table are read relative to the table | give paths relative to the table's folder, or absolute paths |
 | a stop on gene ID forms or on an ID collision | the same gene appears under two forms (`.p` suffix, isoform number) or two species share an ID | make the IDs agree across the inputs; the message names the IDs |
-| the driver refuses to start because `OUTDIR` contains a space | BLAST+ at step 4 cannot use such paths | use an output path without spaces |
+| the driver refuses to start because `OUTDIR` contains a space | BLAST+ at step 4 cannot use such paths (checked only when step 4 is part of the run) | use an output path without spaces |
 | `FAILED at step N` | see the end of `OUTDIR/stepN.log`, which the driver also prints | |

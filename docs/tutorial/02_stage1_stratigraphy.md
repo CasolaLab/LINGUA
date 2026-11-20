@@ -67,7 +67,7 @@ In the example, *SpeciesA* goes from 75% candidates before the cross-check (thre
 
 ## On your own data
 
-1. Run OrthoFinder on the stage 0 proteins, ideally with your rooted species tree:
+1. Run OrthoFinder on the stage 0 proteins, ideally with your rooted species tree.
    `bash scripts/run_orthofinder.sh -i <stage0 final proteins> -o <out> -t 16 [-s rooted_tree.nwk]`.
 2. Open `Species_Tree/SpeciesTree_rooted_node_labels.txt` and choose the HOG file of the node that holds every species of
    your ingroup (`N0.tsv` when there is no outgroup, often `N1.tsv` with one).

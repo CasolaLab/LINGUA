@@ -167,7 +167,7 @@ Accepted input extensions:
 - GFF (`--gff-dir`): `.gff`, falling back to `.gff3` if the former isn't found.
 - CDS (`--cds-dir`) and cDNA (`--cdna-dir`): each tries `.fna`, `.fa`, `.fasta`, in that order, and uses the first match.
 
-If none of a species' required files (GFF and protein FASTA) can be found under any accepted extension, that species is skipped with a `[WARNING] Missing input files for <name> ...` line in `pipeline.log` naming the extensions that were tried — this applies whether you're running with `-m/--map-file` or discovering species directly from `--fasta-dir`.
+If none of a species' required files (GFF and protein FASTA) can be found under any accepted extension, that species is skipped with a `[WARNING] Missing input files for <name> ...` line in `pipeline.log` naming the extensions that were tried when species come from `-m/--map-file`. Without a map, species are discovered from the protein files in `--fasta-dir`, so a species whose protein FASTA is missing is never seen and no warning is written; one whose GFF is missing gets the warning.
 
 Output naming is fixed regardless of the input extension: CDS output is always written as `<basename>.fna` under `6_longest_cds/`, and cDNA output is always `<basename>.cdna.fasta` under `7_longest_cdna/`.
 
@@ -208,7 +208,7 @@ head example_data/test_run/final_proteins/Athaliana_final.faa
 
 This file contains the final filtered protein set, where each gene is represented by one protein that passed the QC filters.
 
-This check is also run automatically in CI on every push and pull request (see `.github/workflows/ci.yml`).
+This check is also run automatically in CI on every push and pull request (see `.github/workflows/stage0.yml` at the top of the repository).
 
 ## Notes on the example dataset
 
@@ -235,7 +235,6 @@ The example dataset is simplified for demonstration: genome FASTA files are trun
 - `bin/` — Python utilities
 - `scripts/` — pipeline execution scripts
 - `example_data/` — test dataset and expected outputs
-- `docs/` — figures and diagrams
 - `README.md` — project documentation
 
 Pipeline output directories follow a numbered convention reflecting the order of processing steps: `1_cleaned_proteins`, `2_qc_details`, `3_isoform_details`, `4_longest_proteins`, `5_final_proteins`, and, when `--with-transcripts` is used, `6_longest_cds` and `7_longest_cdna`.
@@ -250,13 +249,8 @@ Pipeline output directories follow a numbered convention reflecting the order of
 
 ## Scope
 
-Stage 0: dataset curation and proteome standardization.
-
-Planned extensions:
-
-- Orthology analysis (OrthoFinder-based clustering)
-- Homolog filtering (false-positive removal)
-- Synteny validation (genome alignment framework)
+Stage 0: dataset curation and proteome standardization. Orthology, homolog exclusion and the alignment analyses are
+stages 1 to 4 of LINGUA (see the top-level README).
 
 ## Contributing
 
