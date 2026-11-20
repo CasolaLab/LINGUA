@@ -1,0 +1,7 @@
+HOG	Gene_type	birth_branch	death_branches	loci
+SINGLETON_C1	DNG	N6	Boechera_stricta;N17	1
+N0.HOG0018191	PDNG	N9	N12	1
+SINGLETON_C3	PDNG	N9	N12	1
+SINGLETON_C4	PDNG	N9	Arabidopsis_halleri	1
+N0.HOG0019379	DNG	Arabidopsis_thaliana		1
+SINGLETON_C6	PDNG	Arabidopsis_thaliana		1

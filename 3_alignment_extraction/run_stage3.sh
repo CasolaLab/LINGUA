@@ -55,6 +55,7 @@ CDS_SRC=$(readlink -m "${4:?cds fasta}")
 MAF="${5:?maf (or - when STEP1_SRC is set or START_STEP > 1)}"
 [ "$MAF" = - ] || MAF=$(readlink -m "$MAF")
 export TREE_FILE=$(readlink -m "${6:?tree}")
+[ -z "${STEP1_SRC:-}" ] || STEP1_SRC=$(readlink -m "$STEP1_SRC")
 REPO=$(cd "$(dirname "$0")" && pwd)
 export PATH=${ENV_BIN:-/opt/miniconda3/envs/busco_env/bin}:${MAFEXTRACTOR_BIN:-/opt/cactus/cactus/bin}:$PATH
 S=$REPO/scripts

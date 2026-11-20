@@ -1,5 +1,9 @@
 # Gene Stratigraphy Pipeline
 
+![Stage 1 workflow](../docs/figures/stage1_workflow.png)
+
+A worked example that runs in seconds is in the tutorial, [`docs/tutorial/02_stage1_stratigraphy.md`](../docs/tutorial/02_stage1_stratigraphy.md).
+
 A pipeline for stratifying genes by phylogenetic depth of origin, using OrthoFinder's Hierarchical Orthogroups (HOG) output across a rooted species tree. For each focal species, every gene is assigned to the tree node at which its orthogroup first appears — from deeply conserved (shared with distant relatives) down to apparently private to that species alone (a candidate lineage-specific gene, or cLSG).
 
 This is not an orthology inference tool. OrthoFinder does that. This tool consumes OrthoFinder's output and organizes it into a phylogenetically resolved layering — a stratigraphy — of a species' gene content.

@@ -1,5 +1,9 @@
 # Stage 4. Enabler detection and node assignment
 
+![Stage 4 workflow](../docs/figures/stage4_workflow.png)
+
+A worked example that runs in seconds is in the tutorial, [`docs/tutorial/05_stage4_enablers.md`](../docs/tutorial/05_stage4_enablers.md).
+
 This folder holds the last stage of LINGUA (see the top-level `README.md`). It detects
 enabler mutations in whole-genome alignments and classifies candidate de novo genes as DNGs
 or PDNGs across the Brassicaceae.

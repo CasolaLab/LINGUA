@@ -1,5 +1,9 @@
 # Summary stage. Births, deaths and rates
 
+![Summary stage workflow](../docs/figures/stage5_workflow.png)
+
+A worked example that runs in seconds is in the tutorial, [`docs/tutorial/06_stage5_birth_death.md`](../docs/tutorial/06_stage5_birth_death.md).
+
 Stage 4 classifies each candidate locus of each species as a DNG or a PDNG and gives the node at which its ORF
 arose. The same ancestral locus is often classified separately in several descendant species, and duplication
 makes one origin look like several. This stage turns the per-species classifications into origins and losses on

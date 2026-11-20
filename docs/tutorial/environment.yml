@@ -1,0 +1,18 @@
+# environment.yml - one conda environment for every worked example of the LINGUA tutorial (stages 0 to 5).
+# Create with:  conda env create -f docs/tutorial/environment.yml && conda activate lingua-tutorial
+# Channels are conda-forge and bioconda only (Miniforge uses conda-forge by default).
+# OrthoFinder, Progressive Cactus, mafTools, InterProScan and the CDD database are NOT included. The worked examples
+# start from their precomputed outputs; real runs need them (see each stage README).
+name: lingua-tutorial
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.12
+  - pandas          # stages 3 and 4
+  - biopython       # stage 3
+  - blast           # stages 2, 4 and 5 (blastp, tblastn, makeblastdb)
+  - hmmer           # stage 2 (jackhmmer)
+  - parallel        # stage 3 step 4 (GNU parallel)
+  - bash>=5         # stage 0 needs bash 4.3 or later; macOS ships bash 3.2
+  - coreutils       # stage 0 (GNU readlink and mktemp)

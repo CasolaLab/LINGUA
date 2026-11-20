@@ -1,5 +1,9 @@
 # Protein Preprocessing & Isoform Selection Pipeline
 
+![Stage 0 workflow](../docs/figures/stage0_workflow.png)
+
+A worked example that runs in seconds is in the tutorial, [`docs/tutorial/01_stage0_proteins.md`](../docs/tutorial/01_stage0_proteins.md).
+
 A reproducible pipeline for turning per-species GFF and protein FASTA files into standardized, non-redundant proteomes through biologically informed filtering and isoform normalization, for use in multi-species comparative genomics.
 
 ## Rationale

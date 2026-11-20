@@ -1,0 +1,7 @@
+geneID	ORF_Node	Synteny_Node	Indels_Node	Stops_Node	Enablers_Nodes	Gene_type	ORF-Enablers_Node_dist	Indels_event_RefPos	Stops_event_RefPos	ORF_Node_tblastn	Enablers_living_inferred
+AT1G31835.2	Arabidopsis_thaliana-specific	N1	N2|N3|N4|N6|N9	N2|N3|N4|N6	N6|N9	DNG	1	104	142	Arabidopsis_thaliana-specific	NA
+AT2G32275.1	N9	N3	N3|N4|N6	NA	N4|N6	PDNG	1	71	NA	N9	NA
+AT3G30720.1	Arabidopsis_thaliana-specific	N9	NA	NA	NA	PDNG	NA	NA	NA	Arabidopsis_thaliana-specific	NA
+AT4G24920.2	N9	N3	N3|N4|N6	N3|N4|N6	N4|N6	PDNG	1	18	1	N9	NA
+AT4G39403.1	N9	N0	N2|N3|N4|N6	NA	N4|N6	PDNG	1	2	NA	N9	NA
+AT5G39570.2	N6	N0	N3|N4	N3|N4	N3|N4	DNG	1	263	547	N6	NA

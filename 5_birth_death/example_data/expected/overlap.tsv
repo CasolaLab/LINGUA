@@ -1,0 +1,7 @@
+species	geneID	orientation	other_gene	chrom	start	end
+Arabidopsis_thaliana	AT1G31835.2	divergent	AT1G31840.Araport11.447	Chr1	11423186	11423562
+Arabidopsis_thaliana	AT2G32275.1	intergenic		Chr2	13709689	13709967
+Arabidopsis_thaliana	AT3G30720.1	intergenic		Chr3	12349461	12349726
+Arabidopsis_thaliana	AT4G24920.2	down_same	AT4G24930.Araport11.447	Chr4	12820331	12820906
+Arabidopsis_thaliana	AT4G39403.1	convergent	AT4G39400.Araport11.447	Chr4	18329189	18329299
+Arabidopsis_thaliana	AT5G39570.2	divergent	AT5G39560.Araport11.447	Chr5	15844139	15845960

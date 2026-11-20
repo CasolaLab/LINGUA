@@ -1,0 +1,5 @@
+file_name	gff_transcriptID	Chromosome	Start	End	Species	StartCodonStart_RefPos	StartCodonEnd_RefPos	StartCodon	gff_strand_ref	cds_length	reference_length
+Arabidopsis_thaliana_AT3G30720.1_chr3_12349460_12349726	AT3G30720.1	chr3	12349460	12349726	N9	1	3	ATG	+	78	180
+Arabidopsis_thaliana_AT3G30720.1_chr3_12349460_12349726	AT3G30720.1	chr3	12349460	12349726	N12	1	3	ATG	+	78	180
+Arabidopsis_thaliana_AT3G30720.1_chr3_12349460_12349726	AT3G30720.1	chr3	12349460	12349726	Arabidopsis_halleri	1	3	ATG	+	78	180
+Arabidopsis_thaliana_AT3G30720.1_chr3_12349460_12349726	AT3G30720.1	chr3	12349460	12349726	Arabidopsis_lyrata	1	3	ATG	+	78	180

@@ -1,0 +1,9 @@
+##maf version=1
+
+a score=0 mafExtractor_splicedBlock=true splice_id=661610_0
+s Arabidopsis_thaliana.Chr3        12349460  19 +  23459830 atGAAGACCAATAGAGAGG
+s N9.N9refChr110                     104295  19 +    180071 atGGACACAACTTGAAAGG
+s N12.N12refChr318                     9957  19 +     12436 ATGGACACAACTTGAAAGG
+s Arabidopsis_halleri.chr5         14824209  19 -  19580307 ATGGACACAACTTGAAAGG
+s Arabidopsis_lyrata.scaffold_8     5643033  19 +  22951293 ATGGACACAACTTGAAAGG
+

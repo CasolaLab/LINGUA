@@ -1,5 +1,9 @@
 # Homolog Exclusion Pipeline
 
+![Stage 2 workflow](../docs/figures/stage2_workflow.png)
+
+A worked example that runs in seconds is in the tutorial, [`docs/tutorial/03_stage2_homolog_exclusion.md`](../docs/tutorial/03_stage2_homolog_exclusion.md).
+
 Stage 2 of the LINGUA comparative genomics framework. It takes candidate lineage-specific genes (from Stage 1) and removes those
 that show evidence of not being specific to your lineage: a known protein domain, or a homolog in species outside your clade. The
 genes that remain have no such evidence in the searches you ran.

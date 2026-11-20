@@ -9,6 +9,12 @@ It was developed for, and used in,
 > reconstruction across the Brassicaceae reveals the tempo, genomic determinants, and
 > functional emergence of de novo genes. (manuscript; citation to be added on publication)
 
+## Tutorial
+
+New to LINGUA? Start with the tutorial in [`docs/tutorial/`](docs/tutorial/README.md). It installs one conda environment
+and runs every stage on a small worked example in seconds, including seven *Arabidopsis thaliana* genes from the paper
+followed from their alignment to the branch where they were born.
+
 ## Stages
 
 LINGUA runs in four stages, numbered 1 to 4, preceded by a preparatory stage 0 that standardizes the input
@@ -45,8 +51,26 @@ DNGs), whose rules are kept as `4_enablers/presets/method_options_brassicaceae_p
 
 ## Workflow figures
 
-`docs/figures/` holds one workflow figure per stage (`stage<N>_workflow.png` and `.svg`, no counts from any dataset) and all
-six as slides in `LINGUA_workflows.pptx`; `docs/figures/make_workflows.py` redraws them.
+One figure per stage, with the default thresholds and no counts from any dataset. `docs/figures/` holds them as PNG and
+SVG and all six as slides in `LINGUA_workflows.pptx`; `docs/figures/make_workflows.py` redraws them.
+
+**Stage 0, protein preprocessing**
+![Stage 0 workflow](docs/figures/stage0_workflow.png)
+
+**Stage 1, gene stratigraphy**
+![Stage 1 workflow](docs/figures/stage1_workflow.png)
+
+**Stage 2, homolog exclusion**
+![Stage 2 workflow](docs/figures/stage2_workflow.png)
+
+**Stage 3, alignment extraction**
+![Stage 3 workflow](docs/figures/stage3_workflow.png)
+
+**Stage 4, enablers**
+![Stage 4 workflow](docs/figures/stage4_workflow.png)
+
+**Summary stage, births, deaths and rates**
+![Summary stage workflow](docs/figures/stage5_workflow.png)
 
 ## Data
 

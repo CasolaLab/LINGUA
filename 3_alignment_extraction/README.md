@@ -1,5 +1,9 @@
 # Genomes2Genes
 
+![Stage 3 workflow](../docs/figures/stage3_workflow.png)
+
+A worked example that runs in seconds is in the tutorial, [`docs/tutorial/04_stage3_alignment_extraction.md`](../docs/tutorial/04_stage3_alignment_extraction.md).
+
 Extends Progressive Cactus's HAL alignments into gene- and exon-level comparative
 analysis — extraction, multi-exon stitching, frame validation, and codon-level
 detection of start/stop loss and frameshift indels across species. Built and

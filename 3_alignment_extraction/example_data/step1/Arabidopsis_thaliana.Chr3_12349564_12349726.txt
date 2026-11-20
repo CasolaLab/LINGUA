@@ -1,0 +1,16 @@
+##maf version=1
+
+a score=0 mafExtractor_splicedBlock=true splice_id=661610_0
+s Arabidopsis_thaliana.Chr3        12349564  125 +  23459830 CAGGAAATTTACGTTGAAAGAAGCTTCAAACCAAACAATTCAACAATTCAGAATTTGATGGACATTGAAAGGTTCATTTTGCCTCACACTTCTACATCAGGTGTCGCAAGGCTCAAAATGAGGGT
+s N9.N9refChr110                     104390   25 +    180071 caGGAA----------------------------------------------------------------------------------------------------TAGGgctaatgatatGGGC
+s N12.N12refChr318                    10053   25 +     12436 caGGAA----------------------------------------------------------------------------------------------------TAGGgctaatgatatGGGC
+s Arabidopsis_halleri.chr5         14824305   25 -  19580307 caggaa----------------------------------------------------------------------------------------------------tagggctaatgatatgggc
+s Arabidopsis_lyrata.scaffold_8     5643129   25 +  22951293 CAGGAA----------------------------------------------------------------------------------------------------TAGGGCTAATGATATGGGC
+
+a score=0 mafExtractor_splicedBlock=true splice_id=661610_1
+s Arabidopsis_thaliana.Chr3        12349689  38 +  23459830 CATATCATGGGTCGGGCTTCAGTTCTACAACTACTGAT
+s N9.N9refChr110                     104415  36 +    180071 CAAATCATCGA--AGTCTTGGACGTTAGGGCTAATGAT
+s N12.N12refChr318                    10085  36 +     12436 CAAATCATCGA--AGTCTTGGACGTTAGGGCTAATGAT
+s Arabidopsis_halleri.chr5         14824337  36 -  19580307 caaatcatcga--agtcttggacgttagggctaatgat
+s Arabidopsis_lyrata.scaffold_8     5643161  36 +  22951293 CAAATCATCGA--AGTCTTGGACGTTAGGGCTAATGAT
+

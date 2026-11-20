@@ -1,0 +1,7 @@
+species	geneID	ClusterID	Cluster_node	Gene_type	HOG_unit	status
+Arabidopsis_thaliana	AT1G31835.2	C5	Arabidopsis_thaliana-specific	DNG	N0.HOG0019379	counted: DNG unit of its HOG
+Arabidopsis_thaliana	AT2G32275.1	C2	N9	PDNG	N0.HOG0018191	counted: PDNG unit of its HOG
+Arabidopsis_thaliana	AT3G30720.1	C6	Arabidopsis_thaliana-specific	PDNG	SINGLETON_C6	counted: PDNG unit of its HOG
+Arabidopsis_thaliana	AT4G24920.2	C3	N9	PDNG	SINGLETON_C3	counted: PDNG unit of its HOG
+Arabidopsis_thaliana	AT4G39403.1	C4	N9	PDNG	SINGLETON_C4	counted: PDNG unit of its HOG
+Arabidopsis_thaliana	AT5G39570.2	C1	N6	DNG	SINGLETON_C1	counted: DNG unit of its HOG
