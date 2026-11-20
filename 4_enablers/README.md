@@ -249,14 +249,14 @@ With step 5a off, the new code gives the 2026-11-14 default exactly (1,718 DNGs,
 published preset with `presets/tree_config_brassicaceae_published.json` still gives all 233 files of tag
 `nee-catalog-stages3-4`. Toy checks: `tests/test_rules.py` (tests 4 and 5).
 
-Corrections of 2026-11-14. Rerun on Dayhoff on the inputs of the 2026-11-13 runs (step 14 indel tables).
+Corrections of 2026-11-14. Rerun on the lab workstation on the inputs of the 2026-11-13 runs (step 14 indel tables).
 With `presets/method_options_brassicaceae_published.json` all 233 output files hold the same rows as the
 2026-11-09 run of tag `nee-catalog-stages3-4` (1,811 DNGs). With the default rules, the corrections were added
 one at a time; the step 4b tables with `orf_frame_measure` = `row` are byte-identical to the 2026-11-13
 run. One step either side of the cutoffs (in-frame 40% or 60% or 70%, length 70% or 90%) gives
 1,663 to 1,871 DNGs. Toy checks of the new rules: `tests/test_rules.py`.
 
-T2T scripts merged in (2026-11-13). Steps 6-9 were rerun on Dayhoff with
+T2T scripts merged in (2026-11-13). Steps 6-9 were rerun on the lab workstation with
 `presets/method_options_brassicaceae_published.json` on the same inputs as the 2026-11-09 run
 below. All 233 output files hold the same rows as the 2026-11-09 run of tag
 `nee-catalog-stages3-4`, giving 1,811 DNGs and 20,565 PDNGs in the 20 ingroup species. The new

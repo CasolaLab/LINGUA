@@ -2,7 +2,7 @@
 """
 run_monitor.py
 
-Watches a long run on Dayhoff and the machine's health, pausing the run (SIGSTOP to its process group, nothing is
+Watches a long run on a workstation and the machine's health, pausing the run (SIGSTOP to its process group, nothing is
 lost) when something looks unsafe and resuming it (SIGCONT) when it is safe again. Emails on every pause, resume,
 unreadable sensor and at the end of the run. Logs one line per interval to <log>.
 
@@ -29,6 +29,7 @@ import os
 import shutil
 import signal
 import smtplib
+import socket
 import time
 from email.message import EmailMessage
 
@@ -39,7 +40,7 @@ def mail(subject, body):
     try:
         m = EmailMessage()
         m["From"] = m["To"] = RECIPIENT
-        m["Subject"] = "Dayhoff: " + subject
+        m["Subject"] = socket.gethostname() + ": " + subject
         m.set_content(body)
         with smtplib.SMTP("smtp-relay.tamu.edu", 25, timeout=60) as s:
             s.send_message(m)
