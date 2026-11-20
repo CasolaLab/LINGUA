@@ -40,7 +40,7 @@ conda environment for stage 4.
 
 ## Reproducing the published analysis
 
-Release v1.2.0 is the code of the paper's catalog (v1.2.1 changes only the documentation), 32,210 lineage-specific genes in 23 genomes, of which 2,375
+Release v1.2.0 is the code of the paper's catalog (v1.2.1 and v1.2.2 change only the documentation, the tutorial and the worked examples, plus a path fix in the stage 3 driver that does not change any output), 32,210 lineage-specific genes in 23 genomes, of which 2,375
 DNGs and 24,581 PDNGs in the 20 core Brassicaceae. Stage 2 followed `2_homolog_exclusion/STAGE2_PROTOCOL.md`;
 stages 3 and 4 ran with their default settings (stage 3 `STEP3=dominant`, `JUMP=50000`, `MAXSPAN=50000`; stage 4
 default method options and tree configuration, empty `REMOVE_LIST`); the summary stage ran with `PRESENCE=orf`, leaving out
