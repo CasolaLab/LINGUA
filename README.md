@@ -5,9 +5,8 @@ from a reference-free whole-genome alignment, and classifies each locus as a de 
 with an enabler mutation placed on the phylogeny (DNG) or a putative de novo gene (PDNG).
 It was developed for, and used in,
 
-> Owoyemi A. O., Sanders S. C., Chaison C. A., Marano M. A. & Casola C. Phylogenomic
-> reconstruction across the Brassicaceae reveals the tempo, genomic determinants, and
-> functional emergence of de novo genes. (manuscript; citation to be added on publication)
+> Owoyemi A. O., Sanders S. C., Chaison C. A., Marano M. A. & Casola C. The tempo and
+> genomic determinants of de novo gene birth across Brassicaceae. (manuscript; citation to be added on publication)
 
 ## Tutorial
 
