@@ -36,7 +36,8 @@ with the species name, here `Arabidopsis_thaliana_`), so what matters in the nam
 the alignment folder name and the protein file name (`Athaliana`). Step 2 turns that prefix into the gap-free folder
 `athaliana_stitched_nogaps`, the name `4_enablers/data/species.tsv` lists for the species. `logs/stage4_inputs.tsv` shows
 what stage 4 found for every species.
-The paper's run started from this layout at step 2, and so does the example.
+The paper's run started from this layout at step 2, and so does the example. `stage3_to_stage4.py` writes the same
+layout from a stage 3 run (see [04](04_stage3_alignment_extraction.md)), with its own folder and file names.
 
 ## Run
 
@@ -65,6 +66,15 @@ cut -f1,2,6,7 $D/athaliana_nodes_summary_filtered.tsv
 ```
 
 The rows are identical to those of the paper's final run for these genes.
+
+If you ran stage 3 and `stage3_to_stage4.py` on page 04, run stage 4 on that folder as well. The four final tables are
+the same.
+
+```bash
+ONLY=athaliana REMOVE_LIST= bash 4_enablers/run_pipeline.sh tutorial_runs/stage4_from_stage3 2 9
+D=tutorial_runs/stage4_from_stage3/stage4_final/nodes_summary_by_species
+cmp $D/athaliana_nodes_summary_filtered.tsv 4_enablers/example_data/expected/athaliana_nodes_summary_filtered.tsv && echo OK
+```
 
 ```
 geneID        ORF_Node                       Enablers_Nodes  Gene_type
@@ -116,8 +126,8 @@ every DNG).
 
 ## On your own data
 
-- One stage 3 run per reference species, assembled into the layout above (one folder per species, named as in
-  `data/species.tsv`).
+- One stage 3 run per reference species, each copied into the same work folder with `scripts/stage3_to_stage4.py`, then
+  stage 4 from step 2 with `ONLY` listing those species.
 - For another clade, write a new tree configuration with `scripts/make_tree_config.py` and a new `species.tsv`, and point
   `LINGUA_CONFIG`, `TREE` and `SPECIES_TSV` at them (see [07 Your own clade](07_your_own_clade.md)).
 - The default rules are those of the paper's final run. Other rule sets are in `4_enablers/presets/` and are chosen with

@@ -16,7 +16,8 @@ the branch immediately ancestral to the ORF, and a PDNG otherwise.
 
 ## Inputs from the earlier stages
 
-This stage starts from the stage 3 results, packed as one archive per species
+This stage starts from the stage 3 results, copied into the work folder with `scripts/stage3_to_stage4.py` (one run per
+species; stage 4 then starts at step 2, with `ONLY` listing the species copied in) or packed as one archive per species for step 1
 (`../3_alignment_extraction/`), and the candidate proteins from stage 1
 (`../1_gene_stratigraphy/`) screened in stage 2 (`../2_homolog_exclusion/`). Step 7b removes
 the loci in `REMOVE_LIST` (default `data/lsgs_to_remove.txt`, the loci removed by the original
@@ -64,6 +65,21 @@ conda activate lingua
 ```
 
 ## Input layout
+
+Written by `scripts/stage3_to_stage4.py WORKDIR STAGE3_DIR QUERY_PREFIX PROTEINS`, once per species (then run from
+step 2). `<dir>` is the species' `nogaps_dir` in `species.tsv` without `_stitched_nogaps`, and `<Abbr>` its alias in the
+tree configuration spelled like the `query_prefix` (for example `BrapaFPsc` for `brapafpsc`); the script derives both.
+
+```
+WORKDIR/
+  brassicaceae_23species_LINGUA_results/<dir>_stage3_alignments/       stage 3 step 9 alignments
+  stops_dir/<Abbr>_DNG_45k_cds_stop_codon_summary.tsv                  stage 3 step 13 table
+  indels_dir/<Abbr>_DNG_45k_cds_indels_summary.tsv                     stage 3 step 14 table
+  coordinates_alignments_all_species/<Abbr>_DNG_45k_cds_all_species_summary.tsv   step 17, first five columns
+  clsgs_45k_1line/<Abbr>.faa                                           candidate proteins, headers <ID>__<Abbr>
+```
+
+For step 1, the work folder holds stage 3 result archives instead.
 
 ```
 WORKDIR/

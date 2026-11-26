@@ -72,10 +72,22 @@ came from; gaps are deletions relative to *A. thaliana*.
 
 ## From stage 3 to stage 4
 
-Stage 4 does not read the stage 3 work folder directly. It expects one folder per species holding the `step9`
-alignments, plus the `step13` stop table, the `step14` indel table and the first five columns of `step17` for those
-alignments, under fixed names (the layout is in [05 Enablers](05_stage4_enablers.md)). The paper's runs built this layout
-with a short script that is not yet part of LINGUA, so for now the stage 4 example ships it ready-made.
+Stage 4 does not read the stage 3 work folder directly. It expects the `step9` alignments, the `step13` stop table, the
+`step14` indel table, the first five columns of `step17` and the candidate proteins in a layout of its own (shown in
+[05 Enablers](05_stage4_enablers.md)). `4_enablers/scripts/stage3_to_stage4.py` copies one stage 3 run into that layout.
+It refuses a run whose `STATUS` is not `SUCCEEDED`, a species that does not match the alignments, and tables or
+alignments that do not match each other, and it gives every protein the transcript ID of its alignment.
+
+```bash
+python3 4_enablers/scripts/stage3_to_stage4.py tutorial_runs/stage4_from_stage3 tutorial_runs/stage3 athaliana \
+  4_enablers/example_data/workdir/clsgs_45k_1line/Athaliana.longest_per_gene_header_extracted.oneline.faa
+```
+
+The arguments are the stage 4 work folder, the stage 3 work folder, the species as its `query_prefix` in
+`4_enablers/data/species.tsv` (or the table in `SPECIES_TSV`) and the candidate proteins. The script derives every file
+and folder name stage 4 needs from that table and the tree configuration. With several reference species, run it once
+per stage 3 run into the same stage 4 work folder, then list them all in `ONLY` when you run stage 4. [05 Enablers](05_stage4_enablers.md) runs stage 4 on the
+result.
 
 ## On your own data
 
@@ -89,6 +101,8 @@ with a short script that is not yet part of LINGUA, so for now the stage 4 examp
    proteins; it needs samtools).
 4. Run `run_stage3.sh` with the MAF in place of `-` and no `STEP1_SRC`. With thousands of candidates, run it detached
    (`nohup`, see `3_alignment_extraction/docs/run_stage3_README.txt`), and repeat it for every reference species.
+5. Copy every run into one stage 4 work folder with `stage3_to_stage4.py`, as above, and run stage 4 from step 2 with
+   `ONLY` listing those species (`ONLY` can be left out only when every species of `species.tsv` is there).
 
 Stage README, [`3_alignment_extraction/README.md`](../../3_alignment_extraction/README.md).
 Next, [05 Enablers](05_stage4_enablers.md).
