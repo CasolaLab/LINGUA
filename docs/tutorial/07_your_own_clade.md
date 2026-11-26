@@ -4,6 +4,25 @@ LINGUA was built on 21 Brassicaceae and two outgroups and has since been run on 
 Most of the code is clade-independent, but a few inputs encode the tree and the species, and they must be rebuilt for
 any other group. This page lists them in the order the stages need them.
 
+## Checklist before a new clade
+
+1. **Genomes.** An assembly, a GFF3 annotation and a protein file for every ingroup and outgroup species, checked for
+   completeness (for example with BUSCO).
+2. **Sampling.** Several genomes per lineage and at least two outgroups at increasing distance (see the next section).
+   With few or scattered genomes LINGUA runs, but few genes can be validated by enablers.
+3. **Runs that LINGUA does not do.** An [OrthoFinder](https://github.com/davidemms/OrthoFinder) run with your rooted
+   species tree, a [Progressive Cactus](https://github.com/ComparativeGenomicsToolkit/cactus) alignment of all the
+   genomes, and a time-calibrated tree for the summary stage. The Cactus alignment is by far the largest job; plan it
+   on a cluster. For scale, the HAL file of the 23 Brassicaceae and outgroup genomes is 5.2 GB.
+4. **Clade-specific inputs.** Stage 2 databases built without your own species, a TE library and organelle genomes
+   for your clade, and the stage 4 tree configuration and species table (sections below).
+5. **Stage 4 rules.** The default rules (`4_enablers/data/method_options.json`) differ from those of the published
+   Brassicaceae catalog (`4_enablers/presets/`), and they give different counts on the same data. Report which rules
+   and which LINGUA release or commit you used; every run copies its options to `WORKDIR/logs/method_options_used.json`.
+6. **Start small.** Run one reference species through every stage before running them all.
+7. **Check by hand.** Before trusting the totals, open the alignments of 10 to 20 DNGs and PDNGs, chosen at random
+   plus those closest to the thresholds, and confirm that the ORF node and the enablers make sense.
+
 ## Before you start, choose the species
 
 - **Ingroup and outgroups.** De novo genes are sought inside a densely sampled ingroup. Outgroups outside it are needed
